@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 
 #import plotly.plotly as py
 
-
+#effdfd
 
 # fixed parameters
 N=int(sys.argv[1]) # number of nodes
