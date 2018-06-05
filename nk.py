@@ -46,13 +46,15 @@ print(newEdges)
 print(newGraph.isDirected())
 
 
-NumSP = []
+NumSPFinal = []
 
 #newGraph.addEdge(j,i)
 
 lengthOfNodes = len(listOfNodes)
 
 for source in range(lengthOfNodes-1):
+
+	NumSP = []
 
 	for target in range(source + 1, lengthOfNodes):
 
@@ -61,6 +63,7 @@ for source in range(lengthOfNodes-1):
 		try:
 			sp.run()
 		except:
+			NumSP.append(0)
 			continue
 
 		#print(sp)
@@ -101,6 +104,8 @@ for source in range(lengthOfNodes-1):
 		NumSP.append(counter)
 
 	print(source)
+
+	NumSPFinal.append(NumSP)
 
 
 print(NumSP)
