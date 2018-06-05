@@ -36,6 +36,9 @@ sp = nk.distance.APSP(Gnk)
 
 print(type(listOfNodes[0]))
 
+a = sp.getDistances()
+
+print(a)
 #for i in range(10):
 #print(Gnk.nk.distance.getDistances())
 	
