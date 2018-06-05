@@ -38,11 +38,11 @@ print(sp)
 
 a = sp.getAllSimplePaths()
 
-b = sp.numberOfSimplePaths()
+#b = sp.numberOfSimplePaths()
 
 print(a)
 
-print(b)
+#print(b)
 
 #print(a)
 #for i in range(10):
