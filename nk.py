@@ -45,19 +45,20 @@ print(newEdges)
 
 print(newGraph.isDirected())
 
+
 #newGraph.addEdge(j,i)
 
-#sp = nk.distance.AllSimplePaths(Gnk, 0, 5)
+sp = nk.distance.AllSimplePaths(newGraph, 0, 5)
 
-#sp.run()
+sp.run()
 
 #print(sp)
 
-#a = sp.getAllSimplePaths()
+a = sp.getAllSimplePaths()
 
 #b = sp.numberOfSimplePaths()
 
-#print(a)
+print(a)
 
 #print(b)
 
