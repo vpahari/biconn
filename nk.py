@@ -10,7 +10,7 @@ import networkit as nk
 
 #import matplotlib.pyplot as plt
 
-N = 100
+N = 10
 
 k = 4.0
 
@@ -30,17 +30,23 @@ print("Nodes")
 
 listOfNodes = Gnk.nodes()
 
-sp = nk.distance.AllSimplePaths(Gnk, 0, 5)
+newGraph = networkit.graph.Graph(n = N, weighted = False, directed = True)
 
-sp.run()
+lastEdges = Gnk.edges()
 
-print(sp)
+print(lastEdges)
 
-a = sp.getAllSimplePaths()
+#sp = nk.distance.AllSimplePaths(Gnk, 0, 5)
+
+#sp.run()
+
+#print(sp)
+
+#a = sp.getAllSimplePaths()
 
 #b = sp.numberOfSimplePaths()
 
-print(a)
+#print(a)
 
 #print(b)
 
