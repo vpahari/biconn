@@ -73,7 +73,7 @@ if len(allSP) != 0:
 for i in range(1, len(allSP)):
 	currSP = allSP[i]
 	found = True
-	for j in range(newNodes):
+	for j in range(len(newNodes)):
 		if newNodes[j] in currSP:
 			found = False
 			break
