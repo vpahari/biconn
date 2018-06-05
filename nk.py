@@ -48,17 +48,18 @@ print(newGraph.isDirected())
 
 #newGraph.addEdge(j,i)
 
-sp = nk.distance.AllSimplePaths(newGraph, 0, 5)
+sp = nk.distance.Dijkstra(newGraph, 0, True, True ,5)
 
 sp.run()
 
+print(sp)
 #print(sp)
 
-a = sp.getAllSimplePaths()
+#a = sp.getAllSimplePaths()
 
 #b = sp.numberOfSimplePaths()
 
-print(a)
+#print(a)
 
 #print(b)
 
