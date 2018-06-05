@@ -58,7 +58,10 @@ for source in range(lengthOfNodes-1):
 
 		sp = nk.distance.AllSimplePaths(newGraph, source, target, cutoff = lengthOfNodes)
 
-		sp.run()
+		try:
+			sp.run()
+		except:
+			continue
 
 		#print(sp)
 
