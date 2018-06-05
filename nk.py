@@ -30,11 +30,13 @@ print("Nodes")
 
 listOfNodes = Gnk.nodes()
 
-print(nk.distance.getDistance)
+print(nk.distance.APSP(Gnk))
+
+sp = nk.distance.APSP(Gnk)
 
 print(type(listOfNodes[0]))
 
 #for i in range(10):
-print(Gnk.nk.distance.getDistances())
+#print(Gnk.nk.distance.getDistances())
 	
 
