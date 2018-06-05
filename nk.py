@@ -36,7 +36,7 @@ lastEdges = Gnk.edges()
 
 print(lastEdges)
 
-for (i,j) in range(len(lastEdges)):
+for (i,j) in lastEdges:
 	newGraph.addEdge(i,j)
 
 newEdges = newGraph.edges()
