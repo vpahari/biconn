@@ -10,7 +10,7 @@ import networkit as nk
 
 #import matplotlib.pyplot as plt
 
-N = 30
+N = 20
 
 k = 4.0
 
@@ -108,8 +108,8 @@ for source in range(lengthOfNodes-1):
 	NumSPFinal.append(NumSP)
 
 
-print(NumSP)
-print(len(NumSP))
+print(NumSPFinal)
+print(len(NumSPFinal))
 
 #b = sp.numberOfSimplePaths()
 
