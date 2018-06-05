@@ -50,7 +50,7 @@ print(newGraph.isDirected())
 
 sp = nk.distance.Dijkstra(newGraph, 0, True, True ,5)
 
-sp.run()
+#sp.run()
 
 print(sp)
 #print(sp)
