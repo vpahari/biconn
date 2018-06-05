@@ -38,9 +38,12 @@ print(lastEdges)
 
 for (i,j) in lastEdges:
 	newGraph.addEdge(i,j)
+	newGraph.addEdge(j,i)
 
 newEdges = newGraph.edges()
 print(newEdges)
+
+print(newGraph.isDirected())
 
 #newGraph.addEdge(j,i)
 
