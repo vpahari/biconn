@@ -30,7 +30,7 @@ print("Nodes")
 
 listOfNodes = Gnk.nodes()
 
-#print(nk.distance.getDistance)
+print(nk.distance.getDistance)
 
 print(type(listOfNodes[0]))
 
