@@ -36,6 +36,14 @@ lastEdges = Gnk.edges()
 
 print(lastEdges)
 
+for (i,j) in range(len(lastEdges)):
+	newGraph.addEdge(i,j)
+
+newEdges = newGraph.edges()
+print(newEdges)
+
+#newGraph.addEdge(j,i)
+
 #sp = nk.distance.AllSimplePaths(Gnk, 0, 5)
 
 #sp.run()
