@@ -60,26 +60,31 @@ counter = 0
 
 firstSP = []
 
+newNodes = []
+
 listOfAllPaths = []
 
 if len(allSP) != 0:	
 	firstSP = allSP[0]
 	counter = counter + 1
 	listOfAllPaths.append(firstSP)
+	newNodes = newNodes + firstSP[1:len(firstSP) - 1]
 
 for i in range(1, len(allSP)):
 	currSP = allSP[i]
 	found = True
-	for j in range(1, len(firstSP) - 1):
-		if firstSP[j] in currSP:
+	for j in range(newNodes):
+		if newNodes[j] in currSP:
 			found = False
 			break
 	if found:
 		counter = counter + 1
 		listOfAllPaths.append(currSP)
+		newNodes = newNodes + currSP[1:len(currSP) - 1]
 
 
 print(counter)
+print(newNodes)
 print(listOfAllPaths)
 
 
