@@ -10,11 +10,11 @@ import networkit as nk
 
 #import matplotlib.pyplot as plt
 
-N = 10
+N = 100
 
 k = 4.0
 
-p = k / float(N)
+p = k / float(N-1)
 
 S = 1099 
 
@@ -46,47 +46,58 @@ print(newEdges)
 print(newGraph.isDirected())
 
 
+NumSP = []
+
 #newGraph.addEdge(j,i)
 
-sp = nk.distance.AllSimplePaths(newGraph, 0, 5)
+lengthOfNodes = len(listOfNodes)
 
-sp.run()
+for source in range(lengthOfNodes-1):
+	for target in range(source + 1, lengthOfNodes):
 
-#print(sp)
+		sp = nk.distance.AllSimplePaths(newGraph, source, target, cutoff = lengthOfNodes)
 
-allSP = sp.getAllSimplePaths()
+		sp.run()
 
-counter = 0
+		#print(sp)
 
-firstSP = []
+		allSP = sp.getAllSimplePaths()
 
-newNodes = []
+		counter = 0
 
-listOfAllPaths = []
+		firstSP = []
 
-if len(allSP) != 0:	
-	firstSP = allSP[0]
-	counter = counter + 1
-	listOfAllPaths.append(firstSP)
-	newNodes = newNodes + firstSP[1:len(firstSP) - 1]
+		newNodes = []
 
-for i in range(1, len(allSP)):
-	currSP = allSP[i]
-	found = True
-	for j in range(len(newNodes)):
-		if newNodes[j] in currSP:
-			found = False
-			break
-	if found:
-		counter = counter + 1
-		listOfAllPaths.append(currSP)
-		newNodes = newNodes + currSP[1:len(currSP) - 1]
+		listOfAllPaths = []
 
-print(allSP)
-print(counter)
-print(newNodes)
-print(listOfAllPaths)
+		if len(allSP) != 0:	
+			firstSP = allSP[0]
+			counter = counter + 1
+			listOfAllPaths.append(firstSP)
+			newNodes = newNodes + firstSP[1:len(firstSP) - 1]
 
+		for i in range(1, len(allSP)):
+			currSP = allSP[i]
+			found = True
+			for j in range(len(newNodes)):
+				if newNodes[j] in currSP:
+					found = False
+					break
+			if found:
+				counter = counter + 1
+				listOfAllPaths.append(currSP)
+				newNodes = newNodes + currSP[1:len(currSP) - 1]
+
+		#print(allSP)
+		#print(counter)
+		#print(newNodes)
+		#print(listOfAllPaths)
+
+		NumSP.append(counter)
+
+
+print(NumSP)
 
 #b = sp.numberOfSimplePaths()
 
