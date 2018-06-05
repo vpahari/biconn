@@ -10,7 +10,7 @@ import networkit as nk
 
 #import matplotlib.pyplot as plt
 
-N = 10000
+N = 100
 
 k = 4.0
 
@@ -30,11 +30,11 @@ print("Nodes")
 
 listOfNodes = Gnk.nodes()
 
-print(networkit.distance.getDistances())
+print(nk.distance.getDistances())
 
 print(type(listOfNodes[0]))
 
 #for i in range(10):
-#print(Gnk.networkit.distance.getDistances())
+print(Gnk.nk.distance.getDistances())
 	
 
