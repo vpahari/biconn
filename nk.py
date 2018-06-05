@@ -28,4 +28,4 @@ print(Gnk)
 
 print("Nodes")
 
-print(Gnk.nodes)
+print(Gnk.nodes())
