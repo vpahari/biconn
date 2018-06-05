@@ -10,7 +10,7 @@ import networkit as nk
 
 #import matplotlib.pyplot as plt
 
-N = 20
+N = 30
 
 k = 4.0
 
