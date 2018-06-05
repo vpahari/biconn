@@ -30,15 +30,19 @@ print("Nodes")
 
 listOfNodes = Gnk.nodes()
 
-sp = nk.distance.APSP(Gnk)
+sp = nk.distance.AllSimplePaths(Gnk, 0, 5)
 
 sp.run()
 
 print(sp)
 
-a = sp.getDistances()
+a = sp.getAllSimplePaths()
+
+b = sp.numberOfSimplePaths()
 
 print(a)
+
+print(b)
 
 #print(a)
 #for i in range(10):
