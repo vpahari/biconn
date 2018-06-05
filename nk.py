@@ -48,14 +48,40 @@ print(newGraph.isDirected())
 
 #newGraph.addEdge(j,i)
 
-sp = nk.distance.Dijkstra(newGraph, 0, True, True ,5)
+sp = nk.distance.AllSimplePaths(newGraph, 0, 5)
 
-#sp.run()
+sp.run()
 
-print(sp)
 #print(sp)
 
-#a = sp.getAllSimplePaths()
+allSP = sp.getAllSimplePaths()
+
+counter = 0
+
+firstSP = []
+
+listOfAllPaths = []
+
+if len(allSP) != 0:	
+	firstSP = allSP[0]
+	counter = counter + 1
+	listOfAllPaths.append(firstSP)
+
+for i in range(1, len(allSP)):
+	currSP = allSP[i]
+	found = True
+	for j in range(1, len(firstSP) - 1):
+		if firstSP[j] in currSP:
+			found = False
+			break
+	if found:
+		counter = counter + 1
+		listOfAllPaths.append(currSP)
+
+
+print(counter)
+print(listOfAllPaths)
+
 
 #b = sp.numberOfSimplePaths()
 
