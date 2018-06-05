@@ -28,4 +28,9 @@ print(Gnk)
 
 print("Nodes")
 
-print(Gnk.nodes())
+listOfNodes = Gnk.nodes()
+
+print(type(listOfNodes[0]))
+
+for i in range(listOfNodes):
+	print(i)
