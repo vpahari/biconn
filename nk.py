@@ -82,7 +82,7 @@ for i in range(1, len(allSP)):
 		listOfAllPaths.append(currSP)
 		newNodes = newNodes + currSP[1:len(currSP) - 1]
 
-
+print(allSP)
 print(counter)
 print(newNodes)
 print(listOfAllPaths)
