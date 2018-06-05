@@ -30,7 +30,7 @@ print("Nodes")
 
 listOfNodes = Gnk.nodes()
 
-newGraph = networkit.graph.Graph(n = N, weighted = False, directed = True)
+newGraph = nk.graph.Graph(n = N, weighted = False, directed = True)
 
 lastEdges = Gnk.edges()
 
