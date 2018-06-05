@@ -30,9 +30,11 @@ print("Nodes")
 
 listOfNodes = Gnk.nodes()
 
+print(networkit.distance.getDistances())
+
 print(type(listOfNodes[0]))
 
 #for i in range(10):
-print(Gnk.networkit.distance.getDistances())
+#print(Gnk.networkit.distance.getDistances())
 	
 
