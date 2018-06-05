@@ -53,6 +53,7 @@ NumSP = []
 lengthOfNodes = len(listOfNodes)
 
 for source in range(lengthOfNodes-1):
+
 	for target in range(source + 1, lengthOfNodes):
 
 		sp = nk.distance.AllSimplePaths(newGraph, source, target, cutoff = lengthOfNodes)
@@ -96,8 +97,11 @@ for source in range(lengthOfNodes-1):
 
 		NumSP.append(counter)
 
+	print(source)
+
 
 print(NumSP)
+print(len(NumSP))
 
 #b = sp.numberOfSimplePaths()
 
