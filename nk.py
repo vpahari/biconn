@@ -32,5 +32,7 @@ listOfNodes = Gnk.nodes()
 
 print(type(listOfNodes[0]))
 
-for i in range(listOfNodes):
-	print(i)
+for i in range((len(listOfNodes) / 2) - 1):
+	print(Gnk.getDistance(i, i+1))
+	
+
