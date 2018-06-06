@@ -23,8 +23,6 @@ newGraph = nk.graph.Graph(n = N, weighted = False, directed = True)
 
 lastEdges = Gnk.edges()
 
-print(lastEdges)
-
 for (i,j) in lastEdges:
 	newGraph.addEdge(i,j)
 	newGraph.addEdge(j,i)
