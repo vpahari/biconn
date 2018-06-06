@@ -44,10 +44,7 @@ target = 5
 
 sp = nk.distance.Dijkstra(newGraph, source, True, True, target)
 
-try:
-	sp.run()
-except:
-	continue
+sp.run()
 
 sp.getPath(target)
 
