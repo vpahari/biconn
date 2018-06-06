@@ -30,7 +30,6 @@ for (i,j) in lastEdges:
 	newGraph.addEdge(j,i)
 
 newEdges = newGraph.edges()
-print(newEdges)
 
 print(newGraph.isDirected())
 
@@ -46,7 +45,7 @@ sp = nk.distance.Dijkstra(newGraph, source, True, True, target)
 
 sp.run()
 
-sp.getPath(target)
+print(sp.getPath(target))
 
 """
 lengthOfNodes = len(listOfNodes)
