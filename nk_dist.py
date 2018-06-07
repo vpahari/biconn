@@ -64,9 +64,9 @@ s = 0
 
 t = 5
 
-sp = nk.distance.Dijkstra(newGraph, s, True, False, t)
+dijk = nk.distance.Dijkstra(newGraph, s, True, False, t)
 
-sp.run()
+dijk.run()
 
 shortestPath0 = dijk.getPath(5)
 shortestPath1 = dijk.getPath(4)
