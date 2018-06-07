@@ -6,7 +6,7 @@ from operator import itemgetter
 
 def findLargestNodes(uniqueNodes):
 	keysValues = uniqueNodes.items()
-	sortedKeysValues = sorted(keysValues, key = itemgetter(1))
+	sortedKeysValues = sorted(keysValues, key = itemgetter(1), reverse = True)
 	return sortedKeysValues
 
 
@@ -136,7 +136,7 @@ for s in range(N - 1):
 
 	listOfAllSP.append(allSPforS)
 
-
+print(len(listOfAllSP))
 print(findLargestNodes(uniqueNodesDict))
 
 
