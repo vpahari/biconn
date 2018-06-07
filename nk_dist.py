@@ -96,8 +96,6 @@ for s in range(N - 1):
 			shortestPath = dijk.getPath(t)
 			allSPforS.append(shortestPath)
 
-			print(shortestPath)
-
 			if len(shortestPath) == 2:
 				tempG.removeEdge(s,t)
 				tempG.removeEdge(t,s)
