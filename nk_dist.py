@@ -101,7 +101,7 @@ for s in range(N - 1):
 					uniqueNodesDict[node] = 1
 			print(8)
 			(DPST, uniqueNodes) = findAllDisjointPaths(tempG,s,t)
-			
+			print(9)
 			for distSP in DPST:
 				allSPforS.append(distSP)
 			
