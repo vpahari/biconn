@@ -64,7 +64,7 @@ s = 0
 
 t = 5
 
-sp = nk.distance.Dijkstra(G, s, True, False, t)
+sp = nk.distance.Dijkstra(newGraph, s, True, False, t)
 
 sp.run()
 
