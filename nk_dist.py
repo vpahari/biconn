@@ -135,8 +135,8 @@ for isss in (listOfAllSP):
 print(len(listOfAllSP))
 
 print(uniqueNodesDict)
-print(uniqueNodesDict.keys())
-print(uniqueNodesDict.values())
+print(list(uniqueNodesDict.keys()))
+print(list(uniqueNodesDict.values()))
 
 
 """
