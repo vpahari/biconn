@@ -36,7 +36,7 @@ def findAllDisjointPaths(G,s,t):
 	
 
 
-N = 30
+N = 1000
 
 k = 2.0
 
