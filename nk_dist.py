@@ -64,8 +64,6 @@ s = 0
 
 t = 5
 
-dijk.run()
-
 for source in range(N-1):
 	print(source)
 	dijk = nk.distance.Dijkstra(newGraph, s, True, False, t)
