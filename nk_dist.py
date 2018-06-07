@@ -98,8 +98,8 @@ for s in range(N - 1):
 			allSPforS.append(shortestPath)
 
 			if len(shortestPath) == 2:
-				tempG.removeNode(s,t)
-				tempG.removeNode(t,s)
+				tempG.removeEdge(s,t)
+				tempG.removeEdge(t,s)
 
 			else:
 				nodesToRemove = shortestPath[1:len(shortestPath)-1]
