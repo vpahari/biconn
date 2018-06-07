@@ -138,7 +138,7 @@ print(listOfAllSP)
 print(len(listOfAllSP))
 
 for isss in (listOfAllSP):
-	print isss
+	print(isss)
 
 """
 
