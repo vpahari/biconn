@@ -29,6 +29,8 @@ def findAllDisjointPaths(G,s,t):
 		hasPath = newDist.numberOfPaths(t)
 		print(5)
 
+		print(hasPath)
+
 	return (distPaths, uniqueNodes)
 	
 
