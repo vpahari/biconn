@@ -85,25 +85,26 @@ for s in range(N - 1):
 		print(4)
 		for (e1,e2) in newGraph.edges():
 			tempG.addEdge(e1,e2)
-		
+
 		if isPath != 0:
+			print(5)
 			shortestPath = dijk.getPath(t)
 			allSPforS.append(shortestPath)
-
+			print(6)
 			nodesToRemove = shortestPath[1:len(shortestPath)-1]
-
+			print(7)
 			for node in nodesToRemove:
 				tempG.removeNode(node)
 				if node in uniqueNodesDict:
 					uniqueNodesDict[node] = uniqueNodesDict[node] + 1
 				else:
 					uniqueNodesDict[node] = 1
-
+			print(8)
 			(DPST, uniqueNodes) = findAllDisjointPaths(tempG,s,t)
-
+			
 			for distSP in DPST:
 				allSPforS.append(distSP)
-
+			
 			for node in uniqueNodes:
 				if node in uniqueNodesDict:
 					uniqueNodesDict[node] = uniqueNodesDict[node] + 1
