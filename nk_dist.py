@@ -28,7 +28,7 @@ def findAllDisjointPaths(G,s,t):
 
 N = 10000
 
-k = 1.0
+k = 2.0
 
 p = k / float(N-1)
 
