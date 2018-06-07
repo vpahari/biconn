@@ -4,6 +4,14 @@ from operator import itemgetter
 
 #import matplotlib.pyplot as plt
 
+#N=int(sys.argv[1]) # number of nodes
+#k=int(sys.argv[2])
+#SEED=int(sys.argv[3])
+
+step_size = 0.01
+
+random.seed(SEED)
+
 def findLargestNodes(uniqueNodes):
 	keysValues = uniqueNodes.items()
 	sortedKeysValues = sorted(keysValues, key = itemgetter(1), reverse = True)
@@ -43,18 +51,17 @@ def findAllDisjointPaths(G,s,t):
 	print(uniqueNodes)
 
 	return (distPaths, uniqueNodes)
-	
 
 
-N = 40
+N = 10000
 
 k = 4.0
 
-p = k / float(N-1)
-
 S = 1099 
 
-G = nx.erdos_renyi_graph(N, p, seed = S)
+p = k / float(N-1)
+
+G = nx.erdos_renyi_graph(N, p, seed = SEED)
 
 Gnk = nk.nxadapter.nx2nk(G)
 
@@ -81,6 +88,9 @@ listOfAllSP = []
 uniqueNodesDict = {}
 
 for s in range(N - 1):
+
+	if s != 0:
+		break
 
 	allSPforS = []
 
@@ -160,29 +170,4 @@ print(v)
 print(newGraph.edges())
 """
 
-"""
-
-for source in range(lengthOfNodes-1):
-
-	for target in range(source + 1, lengthOfNodes):
-
-		newG = newGraph.copy()
-
-		(DPST, uniqueNodes) = findAllDisjointPaths(newG,source,target)
-
-		allDP.append(DPST)
-
-		print(DPST)
-		print(uniqueNodes)
-
-		for node in uniqueNodes:
-			if node in nodesDict:
-				nodesDict[node] = nodesDict[node] + 1
-
-			else:
-				nodesDict[node] = 1
-
-
-		
-"""
 
