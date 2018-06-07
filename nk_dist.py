@@ -31,7 +31,8 @@ def findAllDisjointPaths(G,s,t):
 		
 		hasPath = newDist.numberOfPaths(t)
 		
-
+	print(uniqueNodes)
+	
 	return (distPaths, uniqueNodes)
 	
 
@@ -128,7 +129,7 @@ for s in range(N - 1):
 	listOfAllSP.append(allSPforS)
 
 
-
+"""
 for isss in (listOfAllSP):
 	print(isss)
 
@@ -145,7 +146,7 @@ print(k)
 print(v)
 
 print(newGraph.edges())
-
+"""
 
 """
 
