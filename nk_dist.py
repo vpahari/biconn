@@ -64,6 +64,8 @@ s = 0
 
 t = 5
 
+print(newGraph.edges())
+
 for source in range(N-1):
 	print(source)
 	dijk = nk.distance.Dijkstra(newGraph, source, True)
