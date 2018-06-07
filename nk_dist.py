@@ -137,8 +137,9 @@ for s in range(N - 1):
 	listOfAllSP.append(allSPforS)
 
 print(len(listOfAllSP))
-print(findLargestNodes(uniqueNodesDict))
-
+a = findLargestNodes(uniqueNodesDict)
+print(len(a))
+print(a)
 
 """
 for isss in (listOfAllSP):
