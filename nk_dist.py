@@ -78,7 +78,11 @@ for s in range(N - 1):
 	for t in range(s+1,N):
 
 		isPath = dijk.numberOfPaths(t)
-		tempG = newGraph.copy()
+
+		tempG = newGraph.copyNodes()
+
+		for (e1,e2) in newGraph.edges():
+			tempG.addEdge(e1,e2)
 
 		if isPath != 0:
 			shortestPath = dijk.getPath(t)
