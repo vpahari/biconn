@@ -1,7 +1,14 @@
 import networkx as nx
 import networkit as nk
+from operator import itemgetter
 
 #import matplotlib.pyplot as plt
+
+def findLargestNodes(uniqueNodes):
+	keysValues = uniqueNodes.items()
+	sortedKeysValues = sorted(keysValues, key = itemgetter(1))
+	return sortedKeysValues
+
 
 def findAllDisjointPaths(G,s,t):
 	distPaths = []
@@ -94,6 +101,7 @@ for s in range(N - 1):
 		if isPath != 0:
 			
 			shortestPath = dijk.getPath(t)
+			
 			allSPforS.append(shortestPath)
 
 			if len(shortestPath) == 2:
@@ -127,6 +135,9 @@ for s in range(N - 1):
 			allSPforS.append([])
 
 	listOfAllSP.append(allSPforS)
+
+
+print(sortedKeysValues(uniqueNodesDict))
 
 
 """
