@@ -14,22 +14,13 @@ def findAllDisjointPaths(G,s,t):
 
 	hasPath = newDist.numberOfPaths(t)
 
-	print(hasPath)
-
 	while hasPath != 0:
 		
 		shortestPath = newDist.getPath(t)
 
-		print(shortestPath)
-
-		if len(shortestPath) == 2:
-			G.removeEdge(s,t)
-			G.removeEdge(t,s)
-
-		else:
-			for i in shortestPath[1:len(shortestPath) - 1]:
-				G.removeNode(i)
-				uniqueNodes.append(i)
+		for i in shortestPath[1:len(shortestPath) - 1]:
+			G.removeNode(i)
+			uniqueNodes.append(i)
 
 		
 		distPaths.append(shortestPath)
@@ -105,18 +96,25 @@ for s in range(N - 1):
 			
 			shortestPath = dijk.getPath(t)
 			allSPforS.append(shortestPath)
+
+			if len(shortestPath) == 2:
+				tempG.removeNode(s,t)
+				tempG.removeNode(t,s)
+
+			else:
+				nodesToRemove = shortestPath[1:len(shortestPath)-1]
+				
+				for node in nodesToRemove:
+
+					tempG.removeNode(node)
+
+					if node in uniqueNodesDict:
+						uniqueNodesDict[node] = uniqueNodesDict[node] + 1
+					else:
+						uniqueNodesDict[node] = 1
 			
-			nodesToRemove = shortestPath[1:len(shortestPath)-1]
-			
-			for node in nodesToRemove:
-				tempG.removeNode(node)
-				if node in uniqueNodesDict:
-					uniqueNodesDict[node] = uniqueNodesDict[node] + 1
-				else:
-					uniqueNodesDict[node] = 1
-			print(8)
 			(DPST, uniqueNodes) = findAllDisjointPaths(tempG,s,t)
-			print(9)
+
 			for distSP in DPST:
 				allSPforS.append(distSP)
 			
