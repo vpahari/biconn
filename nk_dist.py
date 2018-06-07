@@ -128,13 +128,15 @@ for s in range(N - 1):
 	listOfAllSP.append(allSPforS)
 
 
-print(listOfAllSP)
-print(len(listOfAllSP))
 
 for isss in (listOfAllSP):
 	print(isss)
 
+print(len(listOfAllSP))
+
 print(uniqueNodesDict)
+print(uniqueNodesDict.keys())
+print(uniqueNodesDict.values())
 
 
 """
