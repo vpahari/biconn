@@ -28,7 +28,7 @@ def findAllDisjointPaths(G,s,t):
 
 N = 10000
 
-k = 4.0
+k = 1.0
 
 p = k / float(N-1)
 
@@ -64,14 +64,15 @@ s = 0
 
 t = 5
 
-print(newGraph.edges())
+#print(newGraph.edges())
 
 dijk = nk.distance.Dijkstra(newGraph, 0, True, True)
 dijk.run()
 
 for i in range(1,N):
 	v = dijk.numberOfPaths(i)
-	print(v)
+	if v == 0:
+		print(v)
 
 """
 
