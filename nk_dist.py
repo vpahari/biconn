@@ -135,6 +135,10 @@ for s in range(N - 1):
 
 
 print(listOfAllSP)
+print(len(listOfAllSP))
+
+for isss in (listOfAllSP):
+	print isss
 
 """
 
