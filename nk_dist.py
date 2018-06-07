@@ -73,19 +73,19 @@ for s in range(N - 1):
 	allSPforS = []
 
 	dijk = nk.distance.Dijkstra(newGraph, 0, True, True)
-	print(s)
+	print(0)
 	dijk.run()
-	print(s)
+	print(1)
 
 	for t in range(s+1,N):
-
+		print(2)
 		isPath = dijk.numberOfPaths(t)
-
+		print(3)
 		tempG = newGraph.copyNodes()
-
+		print(4)
 		for (e1,e2) in newGraph.edges():
 			tempG.addEdge(e1,e2)
-
+		
 		if isPath != 0:
 			shortestPath = dijk.getPath(t)
 			allSPforS.append(shortestPath)
