@@ -1,6 +1,7 @@
 import networkx as nx
 import networkit as nk
 from operator import itemgetter
+import random
 
 #import matplotlib.pyplot as plt
 
@@ -10,7 +11,7 @@ from operator import itemgetter
 
 step_size = 0.01
 
-random.seed(SEED)
+#random.seed(SEED)
 
 def findLargestNodes(uniqueNodes):
 	keysValues = uniqueNodes.items()
