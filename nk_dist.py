@@ -60,9 +60,9 @@ nodesDict = {}
 
 lengthOfNodes = len(listOfNodes)
 
-source = 0
+s = 0
 
-target = 5
+t = 5
 
 sp = nk.distance.Dijkstra(G, s, True, False, t)
 
