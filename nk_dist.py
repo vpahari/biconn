@@ -28,7 +28,7 @@ def findAllDisjointPaths(G,s,t):
 		print(4)
 		hasPath = newDist.numberOfPaths(t)
 		print(5)
-		
+
 	return (distPaths, uniqueNodes)
 	
 
@@ -79,6 +79,8 @@ for s in range(N - 1):
 
 
 	for t in range(s+1,N):
+		print("currNode")
+		print(t)
 		
 		isPath = dijk.numberOfPaths(t)
 		
