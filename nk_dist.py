@@ -15,19 +15,20 @@ def findAllDisjointPaths(G,s,t):
 	hasPath = newDist.numberOfPaths(t)
 
 	while hasPath != 0:
-
+		print(1)
 		shortestPath = newDist.getPath(t)
 
 		for i in shortestPath[1:len(shortestPath) - 1]:
 			G.removeNode(i)
 			uniqueNodes.append(i)
-
+		print(2)
 		distPaths.append(shortestPath)
-
+		print(3)
 		newDist = nk.distance.Dijkstra(G, s, True, True)
-
+		print(4)
 		hasPath = newDist.numberOfPaths(t)
-
+		print(5)
+		
 	return (distPaths, uniqueNodes)
 	
 
@@ -73,26 +74,26 @@ for s in range(N - 1):
 	allSPforS = []
 
 	dijk = nk.distance.Dijkstra(newGraph, 0, True, True)
-	print(0)
+	
 	dijk.run()
-	print(1)
+
 
 	for t in range(s+1,N):
-		print(2)
+		
 		isPath = dijk.numberOfPaths(t)
-		print(3)
+		
 		tempG = newGraph.copyNodes()
-		print(4)
+		
 		for (e1,e2) in newGraph.edges():
 			tempG.addEdge(e1,e2)
 
 		if isPath != 0:
-			print(5)
+			
 			shortestPath = dijk.getPath(t)
 			allSPforS.append(shortestPath)
-			print(6)
+			
 			nodesToRemove = shortestPath[1:len(shortestPath)-1]
-			print(7)
+			
 			for node in nodesToRemove:
 				tempG.removeNode(node)
 				if node in uniqueNodesDict:
