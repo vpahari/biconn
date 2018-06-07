@@ -20,9 +20,14 @@ def findAllDisjointPaths(G,s,t):
 		print(1)
 		shortestPath = newDist.getPath(t)
 
+		print(shortestPath)
+
 		for i in shortestPath[1:len(shortestPath) - 1]:
 			G.removeNode(i)
 			uniqueNodes.append(i)
+
+		print(G.nodes())
+
 		print(2)
 		distPaths.append(shortestPath)
 		print(3)
