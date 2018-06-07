@@ -14,6 +14,8 @@ def findAllDisjointPaths(G,s,t):
 
 	hasPath = newDist.numberOfPaths(t)
 
+	print(hasPath)
+
 	while hasPath != 0:
 		print(1)
 		shortestPath = newDist.getPath(t)
@@ -28,8 +30,6 @@ def findAllDisjointPaths(G,s,t):
 		print(4)
 		hasPath = newDist.numberOfPaths(t)
 		print(5)
-
-		print(hasPath)
 
 	return (distPaths, uniqueNodes)
 	
