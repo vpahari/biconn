@@ -33,8 +33,10 @@ def findAllDisjointPaths(G,s,t):
 		print(3)
 		newDist = nk.distance.Dijkstra(G, s, True, True)
 		print(4)
-		hasPath = newDist.numberOfPaths(t)
+		newDist.run()
 		print(5)
+		hasPath = newDist.numberOfPaths(t)
+		print(6)
 
 	return (distPaths, uniqueNodes)
 	
