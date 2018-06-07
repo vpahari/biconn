@@ -28,7 +28,7 @@ def findAllDisjointPaths(G,s,t):
 
 N = 10000
 
-k = 2.0
+k = 3.0
 
 p = k / float(N-1)
 
@@ -72,6 +72,7 @@ dijk.run()
 for i in range(1,N):
 	v = dijk.numberOfPaths(i)
 	if v == 0:
+		print(i)
 		print(v)
 
 """
