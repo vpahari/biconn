@@ -73,7 +73,7 @@ for i in range(1,N):
 	v = dijk.numberOfPaths(i)
 	print(v)
 
-
+"""
 
 for source in range(lengthOfNodes-1):
 
