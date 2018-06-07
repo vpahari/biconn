@@ -70,8 +70,11 @@ for source in range(N-1):
 	print(source)
 	#dijk.run()
 	for i in range(source+1,N):
-		shortestPath = dijk.getPath(i)
-		print(shortestPath)
+		try:
+			shortestPath = dijk.getPath(i)
+			print(shortestPath)
+		except:
+			print([])
 
 """
 
