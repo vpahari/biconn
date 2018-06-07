@@ -68,7 +68,7 @@ for source in range(N-1):
 	print(source)
 	dijk = nk.distance.Dijkstra(newGraph, source, True)
 	print(source)
-	#dijk.run()
+	dijk.run()
 	for i in range(source+1,N):
 		try:
 			print("this")
