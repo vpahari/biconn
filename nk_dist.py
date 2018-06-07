@@ -144,6 +144,8 @@ v.sort()
 print(k)
 print(v)
 
+print(newGraph.edges())
+
 
 """
 
