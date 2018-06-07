@@ -3,7 +3,30 @@ import networkit as nk
 
 #import matplotlib.pyplot as plt
 
-N = 30
+def findAllDisjointPaths(G,s,t):
+	distPaths = []
+
+	uniqueNodes = [] 
+
+	while True:
+
+		dijk = nk.distance.Dijkstra(G, s, True, False, t)
+
+		try:
+			dijk.run()
+		except:
+			return (distPaths, uniqueNodes)
+
+		shortestPath = dijk.getPath(t)
+
+		for i in range(1,len(shortestPath) - 1):
+			G.removeNode(shortestPath[i])
+			uniqueNodes.append(shortestPath[i])
+
+		distPaths.append(shortestPath)
+
+
+N = 20
 
 k = 4.0
 
@@ -31,81 +54,53 @@ newEdges = newGraph.edges()
 
 print(newGraph.isDirected())
 
-NumSPFinal = []
+allDP = []
 
-#newGraph.addEdge(j,i)
+nodesDict = {}
+
+lengthOfNodes = len(listOfNodes)
 
 source = 0
 
-target = 29
+target = 5
 
-sp = nk.distance.Dijkstra(newGraph, source, True, True, target)
+sp = nk.distance.Dijkstra(G, s, True, False, t)
 
 sp.run()
 
-print(sp.getPath(target))
+shortestPath0 = dijk.getPath(5)
+shortestPath1 = dijk.getPath(4)
+shortestPath2 = dijk.getPath(3)
+shortestPath3 = dijk.getPath(2)
+
+print(shortestPath0)
+print(shortestPath1)
+print(shortestPath2)
+print(shortestPath3)
 
 """
-lengthOfNodes = len(listOfNodes)
 
 for source in range(lengthOfNodes-1):
 
-	NumSP = []
-
 	for target in range(source + 1, lengthOfNodes):
 
-		sp = nk.distance.AllSimplePaths(newGraph, source, target, cutoff = lengthOfNodes)
+		newG = newGraph.copy()
 
-		try:
-			sp.run()
-		except:
-			NumSP.append(0)
-			continue
+		(DPST, uniqueNodes) = findAllDisjointPaths(newG,source,target)
 
-		#print(sp)
+		allDP.append(DPST)
 
-		allSP = sp.getAllSimplePaths()
+		print(DPST)
+		print(uniqueNodes)
 
-		counter = 0
+		for node in uniqueNodes:
+			if node in nodesDict:
+				nodesDict[node] = nodesDict[node] + 1
 
-		firstSP = []
-
-		newNodes = []
-
-		listOfAllPaths = []
-
-		if len(allSP) != 0:	
-			firstSP = allSP[0]
-			counter = counter + 1
-			listOfAllPaths.append(firstSP)
-			newNodes = newNodes + firstSP[1:len(firstSP) - 1]
-
-		for i in range(1, len(allSP)):
-			currSP = allSP[i]
-			found = True
-			for j in range(len(newNodes)):
-				if newNodes[j] in currSP:
-					found = False
-					break
-			if found:
-				counter = counter + 1
-				listOfAllPaths.append(currSP)
-				newNodes = newNodes + currSP[1:len(currSP) - 1]
-
-		#print(allSP)
-		#print(counter)
-		#print(newNodes)
-		#print(listOfAllPaths)
-
-		NumSP.append(counter)
-
-	print(source)
-
-	NumSPFinal.append(NumSP)
+			else:
+				nodesDict[node] = 1
 
 
-print(NumSPFinal)
-print(len(NumSPFinal))
-
+		
 """
 
