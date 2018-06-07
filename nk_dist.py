@@ -68,16 +68,21 @@ print(newGraph.edges())
 
 for source in range(N-1):
 	print(source)
-	dijk = nk.distance.Dijkstra(newGraph, source, True)
+	dijk = nk.distance.Dijkstra(newGraph, source, True, True)
 	print(source)
 	dijk.run()
 	for i in range(source+1,N):
+		v = dijk.getNodesSortedByDistance()
+		print(v)
+		
+		"""
 		try:
 			print("this")
 			shortestPath = dijk.getPath(i)
 			print(shortestPath)
 		except:
 			print([])
+		"""
 
 """
 
