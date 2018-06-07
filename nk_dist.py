@@ -26,9 +26,9 @@ def findAllDisjointPaths(G,s,t):
 		distPaths.append(shortestPath)
 
 
-N = 20
+N = 40
 
-k = 1.0
+k = 4.0
 
 p = k / float(N-1)
 
