@@ -73,7 +73,9 @@ for s in range(N - 1):
 	allSPforS = []
 
 	dijk = nk.distance.Dijkstra(newGraph, 0, True, True)
+	print(s)
 	dijk.run()
+	print(s)
 
 	for t in range(s+1,N):
 
