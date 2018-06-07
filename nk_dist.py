@@ -68,9 +68,12 @@ dijk = nk.distance.Dijkstra(newGraph, s, True, False, t)
 
 dijk.run()
 
-for i in range(1,N):
-	shortestPath = dijk.getPath(i)
-	print(shortestPath)
+for source in range(N-1):
+	print(source)
+	dijk = nk.distance.Dijkstra(newGraph, s, True, False, t)
+	for i in range(source+1,N):
+		shortestPath = dijk.getPath(i)
+		print(shortestPath)
 
 """
 
