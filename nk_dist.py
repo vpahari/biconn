@@ -16,7 +16,7 @@ def findAllDisjointPaths(G,s,t):
 
 	while hasPath != 0:
 
-		shortestPath = dijk.getPath(t)
+		shortestPath = newDist.getPath(t)
 
 		for i in shortestPath[1:len(shortestPath) - 1]:
 			G.removeNode(i)
