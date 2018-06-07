@@ -117,6 +117,8 @@ for s in range(N - 1):
 		else:
 			allSPforS.append([])
 
+		print(allSPforS)
+
 	listOfAllSP.append(allSPforS)
 
 
