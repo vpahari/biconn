@@ -8,27 +8,33 @@ def findAllDisjointPaths(G,s,t):
 
 	uniqueNodes = [] 
 
-	while True:
+	newDist = nk.distance.Dijkstra(G, s, True, True)
 
-		dijk = nk.distance.Dijkstra(G, s, True, False, t)
+	newDist.run()
 
-		try:
-			dijk.run()
-		except:
-			return (distPaths, uniqueNodes)
+	hasPath = newDist.numberOfPaths(t)
+
+	while hasPath != 0:
 
 		shortestPath = dijk.getPath(t)
 
-		for i in range(1,len(shortestPath) - 1):
-			G.removeNode(shortestPath[i])
-			uniqueNodes.append(shortestPath[i])
+		for i in shortestPath[1:len(shortestPath) - 1]:
+			G.removeNode(i)
+			uniqueNodes.append(i)
 
 		distPaths.append(shortestPath)
 
+		newDist = nk.distance.Dijkstra(G, s, True, True)
 
-N = 10000
+		hasPath = newDist.numberOfPaths(t)
 
-k = 3.0
+	return (distPaths, uniqueNodes)
+	
+
+
+N = 30
+
+k = 2.0
 
 p = k / float(N-1)
 
@@ -54,26 +60,57 @@ newEdges = newGraph.edges()
 
 print(newGraph.isDirected())
 
-allDP = []
-
-nodesDict = {}
 
 lengthOfNodes = len(listOfNodes)
 
-s = 0
-
-t = 5
-
 #print(newGraph.edges())
 
-dijk = nk.distance.Dijkstra(newGraph, 0, True, True)
-dijk.run()
+listOfAllSP = []
+uniqueNodesDict = {}
 
-for i in range(1,N):
-	v = dijk.numberOfPaths(i)
-	if v == 0:
-		print(i)
-		print(v)
+for s in range(N - 1):
+
+	allSPforS = []
+
+	dijk = nk.distance.Dijkstra(newGraph, 0, True, True)
+	dijk.run()
+
+	for t in range(s+1,N):
+
+		isPath = dijk.numberOfPaths(t)
+		tempG = newGraph.copy()
+
+		if isPath != 0:
+			shortestPath = dijk.getPath(t)
+			allSPforS.append(shortestPath)
+
+			nodesToRemove = shortestPath[1:len(shortestPath)-1]
+
+			for node in nodesToRemove:
+				tempG.removeNode(node)
+				if node in uniqueNodesDict:
+					uniqueNodesDict[node] = uniqueNodesDict[node] + 1
+				else:
+					uniqueNodesDict[node] = 1
+
+			(DPST, uniqueNodes) = findAllDisjointPaths(tempG,s,t)
+
+			for distSP in DPST:
+				allSPforS.append(distSP)
+
+			for node in uniqueNodes:
+				if node in uniqueNodesDict:
+					uniqueNodesDict[node] = uniqueNodesDict[node] + 1
+				else:
+					uniqueNodesDict[node] = 1
+
+		else:
+			allSPforS.append([])
+
+	listOfAllSP.append(allSPforS)
+
+
+print(listOfAllSP)
 
 """
 
