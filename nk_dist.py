@@ -64,13 +64,12 @@ s = 0
 
 t = 5
 
-dijk = nk.distance.Dijkstra(newGraph, s, True, False, t)
-
 dijk.run()
 
 for source in range(N-1):
 	print(source)
 	dijk = nk.distance.Dijkstra(newGraph, s, True, False, t)
+	dijk.run()
 	for i in range(source+1,N):
 		shortestPath = dijk.getPath(i)
 		print(shortestPath)
