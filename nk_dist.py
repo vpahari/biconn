@@ -17,26 +17,29 @@ def findAllDisjointPaths(G,s,t):
 	print(hasPath)
 
 	while hasPath != 0:
-		print(1)
+		
 		shortestPath = newDist.getPath(t)
 
 		print(shortestPath)
 
-		for i in shortestPath[1:len(shortestPath) - 1]:
-			G.removeNode(i)
-			uniqueNodes.append(i)
+		if len(shortestPath) == 2:
+			G.removeEdge(s,t)
+			G.removeEdge(t,s)
 
-		print(G.nodes())
+		else:
+			for i in shortestPath[1:len(shortestPath) - 1]:
+				G.removeNode(i)
+				uniqueNodes.append(i)
 
-		print(2)
+		
 		distPaths.append(shortestPath)
-		print(3)
+		
 		newDist = nk.distance.Dijkstra(G, s, True, True)
-		print(4)
+		
 		newDist.run()
-		print(5)
+		
 		hasPath = newDist.numberOfPaths(t)
-		print(6)
+		
 
 	return (distPaths, uniqueNodes)
 	
