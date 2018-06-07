@@ -73,8 +73,7 @@ for i in range(1,N):
 	v = dijk.numberOfPaths(i)
 	print(v)
 
-
-"""
+"""	
 for source in range(N-1):
 	print(source)
 	dijk = nk.distance.Dijkstra(newGraph, source, True, True)
