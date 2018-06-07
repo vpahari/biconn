@@ -36,7 +36,7 @@ def findAllDisjointPaths(G,s,t):
 	
 
 
-N = 1000
+N = 40
 
 k = 2.0
 
@@ -47,8 +47,6 @@ S = 1099
 G = nx.erdos_renyi_graph(N, p, seed = S)
 
 Gnk = nk.nxadapter.nx2nk(G)
-
-print("Nodes")
 
 listOfNodes = Gnk.nodes()
 
@@ -82,8 +80,6 @@ for s in range(N - 1):
 
 
 	for t in range(s+1,N):
-		print("currNode")
-		print(t)
 		
 		isPath = dijk.numberOfPaths(t)
 		
@@ -129,8 +125,6 @@ for s in range(N - 1):
 		else:
 			allSPforS.append([])
 
-		print(allSPforS)
-
 	listOfAllSP.append(allSPforS)
 
 
@@ -139,6 +133,9 @@ print(len(listOfAllSP))
 
 for isss in (listOfAllSP):
 	print(isss)
+
+print(uniqueNodesDict)
+
 
 """
 
