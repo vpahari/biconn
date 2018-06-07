@@ -71,6 +71,7 @@ for source in range(N-1):
 	#dijk.run()
 	for i in range(source+1,N):
 		try:
+			print("this")
 			shortestPath = dijk.getPath(i)
 			print(shortestPath)
 		except:
