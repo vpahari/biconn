@@ -9,14 +9,17 @@ import random
 #k=int(sys.argv[2])
 #SEED=int(sys.argv[3])
 
+N = 1000
+
+k = 4.0
+
+SEED = 1099 
+
+p = k / float(N-1)
+
 step_size = 0.01
 
 #random.seed(SEED)
-
-def findLargestNodes(uniqueNodes):
-	keysValues = uniqueNodes.items()
-	sortedKeysValues = sorted(keysValues, key = itemgetter(1), reverse = True)
-	return sortedKeysValues
 
 
 def findAllDisjointPaths(G,s,t):
@@ -54,21 +57,31 @@ def findAllDisjointPaths(G,s,t):
 	return (distPaths, uniqueNodes)
 
 
-N = 10000
+def takeOutNodes(G,sortedList):
+	numNodesToRemove = step_size * N
+	listToRemove = sortedList[:numNodesToRemove]
+	for (node, num) in listToRemove:
+		G.removeNode(node)
 
-k = 4.0
 
-SEED = 1099 
+def findLargestNodes(uniqueNodes):
+	keysValues = uniqueNodes.items()
+	sortedKeysValues = sorted(keysValues, key = itemgetter(1), reverse = True)
+	return sortedKeysValues
 
-p = k / float(N-1)
 
-G = nx.erdos_renyi_graph(N, p, seed = SEED)
+
+GER = nx.erdos_renyi_graph(N, p, seed = SEED)
+
+biconn = list(nx.biconnected_component_subgraphs(GER))
+
+G = max(biconn, key=len)
+
+sizeOfNewList = G.number_of_nodes()
 
 Gnk = nk.nxadapter.nx2nk(G)
 
-listOfNodes = Gnk.nodes()
-
-newGraph = nk.graph.Graph(n = N, weighted = False, directed = True)
+newGraph = nk.graph.Graph(n = sizeOfNewList, weighted = False, directed = True)
 
 lastEdges = Gnk.edges()
 
@@ -76,7 +89,9 @@ for (i,j) in lastEdges:
 	newGraph.addEdge(i,j)
 	newGraph.addEdge(j,i)
 
-newEdges = newGraph.edges()
+#newEdges = newGraph.edges()
+
+listOfNodes = newGraph.nodes()
 
 print(newGraph.isDirected())
 
@@ -88,9 +103,13 @@ lengthOfNodes = len(listOfNodes)
 listOfAllSP = []
 uniqueNodesDict = {}
 
-for s in range(N - 1):
+lenBiconnList = []
 
-	if s != 0:
+lenBiconnList.append(lengthOfNodes)
+
+for s in listOfNodes:
+
+	if s != listOfNodes[0]:
 		break
 
 	allSPforS = []
@@ -100,7 +119,10 @@ for s in range(N - 1):
 	dijk.run()
 
 
-	for t in range(s+1,N):
+	for t in listOfNodes:
+
+		if t == listOfNodes[0]:
+			continue
 		
 		isPath = dijk.numberOfPaths(t)
 		
@@ -147,10 +169,42 @@ for s in range(N - 1):
 
 	listOfAllSP.append(allSPforS)
 
-print(len(listOfAllSP))
-a = findLargestNodes(uniqueNodesDict)
-print(len(a))
-print(a)
+	sortedList = findLargestNodes(uniqueNodesDict)
+
+	takeOutNodes(newGraph,sortedList)
+
+	nxGraph = nk.nxadapter.nk2nx(newGraph)
+
+	biconn = list(nx.biconnected_component_subgraphs(nxGraph))
+
+	G = max(biconn, key=len)
+
+	Gnk = nk.nxadapter.nx2nk(G)
+
+	sizeOfNewList = G.number_of_nodes()
+
+	newGraph = nk.graph.Graph(n = sizeOfNewList, weighted = False, directed = True)
+
+	lastEdges = Gnk.edges()
+
+	for (i,j) in lastEdges:
+		newGraph.addEdge(i,j)
+		newGraph.addEdge(j,i)
+
+	listOfNodes = newGraph.nodes()
+
+	lengthOfNodes = len(listOfNodes)
+
+	lenBiconnList.append(lengthOfNodes)
+
+
+
+print(lenBiconnList)
+
+#print(len(listOfAllSP))
+#a = findLargestNodes(uniqueNodesDict)
+#print(len(a))
+#print(a)
 
 """
 for isss in (listOfAllSP):
