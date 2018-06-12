@@ -110,6 +110,12 @@ lenBiconnList.append(lengthOfNodes)
 
 for s in listOfNodes:
 
+	print("0")
+
+	print(s)
+
+	print(listOfNodes)
+	
 	if s != listOfNodes[0]:
 		break
 
