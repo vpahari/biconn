@@ -9,7 +9,7 @@ import random
 #k=int(sys.argv[2])
 #SEED=int(sys.argv[3])
 
-N = 1000
+N = 500
 
 k = 4.0
 
@@ -182,6 +182,9 @@ for s in listOfNodes:
 	Gnk = nk.nxadapter.nx2nk(G)
 
 	sizeOfNewList = G.number_of_nodes()
+
+	if sizeOfNewList == 0:
+		break
 
 	newGraph = nk.graph.Graph(n = sizeOfNewList, weighted = False, directed = True)
 
