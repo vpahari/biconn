@@ -108,16 +108,18 @@ lenBiconnList = []
 
 lenBiconnList.append(lengthOfNodes)
 
-for s in listOfNodes:
+while True:
 
-	print("0")
+	s = listOfNodes[0]
 
-	print(s)
+	#print("0")
 
-	print(listOfNodes)
-	
-	if s != listOfNodes[0]:
-		break
+	#print(s)
+
+	#print(listOfNodes)
+
+	#if s != listOfNodes[0]:
+	#break
 
 	allSPforS = []
 
