@@ -204,7 +204,7 @@ for s in listOfNodes:
 	lenBiconnList.append(lengthOfNodes)
 
 
-
+print("lenBiconnList")
 print(lenBiconnList)
 
 #print(len(listOfAllSP))
