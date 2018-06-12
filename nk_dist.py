@@ -101,14 +101,17 @@ lengthOfNodes = len(listOfNodes)
 
 #print(newGraph.edges())
 
-listOfAllSP = []
-uniqueNodesDict = {}
+
 
 lenBiconnList = []
 
 lenBiconnList.append(lengthOfNodes)
 
 while True:
+
+	listOfAllSP = []
+	
+	uniqueNodesDict = {}
 
 	s = listOfNodes[0]
 
