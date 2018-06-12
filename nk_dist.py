@@ -59,6 +59,7 @@ def findAllDisjointPaths(G,s,t):
 
 def takeOutNodes(G,sortedList):
 	numNodesToRemove = step_size * N
+	print(numNodesToRemove)
 	listToRemove = sortedList[:numNodesToRemove]
 	for (node, num) in listToRemove:
 		G.removeNode(node)
