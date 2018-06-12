@@ -176,7 +176,9 @@ for s in listOfNodes:
 
 	nxGraph = nk.nxadapter.nk2nx(newGraph)
 
-	biconn = list(nx.biconnected_component_subgraphs(nxGraph))
+	nxGraphUndirected = nx.to_undirected(nxGraph)
+
+	biconn = list(nx.biconnected_component_subgraphs(nxGraphUndirected))
 
 	G = max(biconn, key=len)
 
