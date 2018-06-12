@@ -110,7 +110,7 @@ lenBiconnList.append(lengthOfNodes)
 while True:
 
 	listOfAllSP = []
-	
+
 	uniqueNodesDict = {}
 
 	s = listOfNodes[0]
@@ -182,6 +182,9 @@ while True:
 	listOfAllSP.append(allSPforS)
 
 	sortedList = findLargestNodes(uniqueNodesDict)
+
+	if sortedList == []:
+		break
 
 	takeOutNodes(newGraph,sortedList)
 
