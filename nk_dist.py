@@ -50,17 +50,17 @@ def findAllDisjointPaths(G,s,t):
 		
 		hasPath = newDist.numberOfPaths(t)
 
-	print(distPaths)
+	#print(distPaths)
 		
-	print(uniqueNodes)
+	#print(uniqueNodes)
 
 	return (distPaths, uniqueNodes)
 
 
 def takeOutNodes(G,sortedList):
 	numNodesToRemove = int(step_size * N)
-	print(numNodesToRemove)
 	listToRemove = sortedList[:numNodesToRemove]
+	print(listToRemove)
 	for (node, num) in listToRemove:
 		G.removeNode(node)
 
@@ -227,24 +227,5 @@ print(lenBiconnList)
 #a = findLargestNodes(uniqueNodesDict)
 #print(len(a))
 #print(a)
-
-"""
-for isss in (listOfAllSP):
-	print(isss)
-
-print(len(listOfAllSP))
-
-print(uniqueNodesDict)
-k = list(uniqueNodesDict.keys())
-v = list(uniqueNodesDict.values())
-
-k.sort()
-v.sort()
-
-print(k)
-print(v)
-
-print(newGraph.edges())
-"""
 
 
