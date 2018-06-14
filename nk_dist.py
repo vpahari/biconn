@@ -115,6 +115,8 @@ while True:
 
 	s = listOfNodes[0]
 
+	print(s)
+
 	#print("0")
 
 	#print(s)
