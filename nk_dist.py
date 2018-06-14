@@ -115,8 +115,6 @@ while True:
 
 	s = listOfNodes[0]
 
-	print(s)
-
 	#print("0")
 
 	#print(s)
@@ -218,6 +216,8 @@ while True:
 	lengthOfNodes = len(listOfNodes)
 
 	lenBiconnList.append(lengthOfNodes)
+
+	print(lengthOfNodes)
 
 
 print("lenBiconnList")
