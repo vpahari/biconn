@@ -9,7 +9,7 @@ import random
 #k=int(sys.argv[2])
 #SEED=int(sys.argv[3])
 
-N = 1000
+N = 30
 
 k = 4.0
 
@@ -50,7 +50,6 @@ def findAllDisjointPaths(G,s,t,shortestPath):
 
 		for i in shortestPath[1:len(shortestPath) - 1]:
 			G.removeNode(i)
-			uniqueNodes.append(i)
 
 		
 		distPaths.append(shortestPath)
