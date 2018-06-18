@@ -78,8 +78,8 @@ GER = nx.erdos_renyi_graph(N,p,SEED)
 
 print(type(GER))
 
-print(GER.edges())
-print(GER.nodes())
+#print(GER.edges())
+#print(GER.nodes())
 
 biconn = list(nx.biconnected_component_subgraphs(GER))
 
