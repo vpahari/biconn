@@ -50,9 +50,9 @@ def findAllDisjointPaths(G,s,t):
 		
 		hasPath = newDist.numberOfPaths(t)
 
-	#print(distPaths)
+	print(distPaths)
 		
-	#print(uniqueNodes)
+	print(uniqueNodes)
 
 	return (distPaths, uniqueNodes)
 
@@ -72,11 +72,13 @@ def findLargestNodes(uniqueNodes):
 
 
 
-GER = nx.erdos_renyi_graph(N, p, seed = SEED)
+GER = nx.read_gpickle("sageGraph.gpickle")
 
 biconn = list(nx.biconnected_component_subgraphs(GER))
 
 G = max(biconn, key=len)
+
+print(len(G))
 
 sizeOfNewList = G.number_of_nodes()
 
