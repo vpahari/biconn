@@ -74,6 +74,8 @@ def findLargestNodes(uniqueNodes):
 
 GER = nx.read_gpickle("sageGraph.gpickle")
 
+print(type(GER))
+
 print(GER.edges())
 print(GER.nodes())
 
