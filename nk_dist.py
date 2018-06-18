@@ -72,7 +72,9 @@ def findLargestNodes(uniqueNodes):
 
 
 
-GER = nx.read_gpickle("sageGraph.gpickle")
+#GER = nx.read_gpickle("sageGraph.gpickle")
+
+GER = nx.erdos_renyi_graph(N,p,SEED)
 
 print(type(GER))
 
