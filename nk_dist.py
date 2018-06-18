@@ -172,9 +172,11 @@ for s in node_Sample:
 	DP_List.append(DP_List_s)
 	number_of_DP_List.append(number_of_DP_List_s)
 
+print("DP")
+print(DP_List)
 
-print("lenBiconnList")
-print(lenBiconnList)
+print("number_of_DP")
+print(number_of_DP_List)
 
 #print(len(listOfAllSP))
 #a = findLargestNodes(uniqueNodesDict)
