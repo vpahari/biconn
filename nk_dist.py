@@ -161,6 +161,8 @@ for s in node_Sample:
 			tempG.addEdge(e1,e2)
 
 		if isPath != 0:
+
+			shortestPath = dijk.getPath(t)
 			
 			DP = findAllDisjointPaths(tempG,s,t, shortestPath)
 			number_of_DP = len(DP)
