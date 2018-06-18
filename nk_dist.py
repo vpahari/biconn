@@ -151,7 +151,7 @@ for s in node_Sample:
 
 		if t == s:
 			DP_List_s.append([])
-			number_of_DP_List_s(0)
+			number_of_DP_List_s.append(0)
 			continue
 		
 		isPath = dijk.numberOfPaths(t)
