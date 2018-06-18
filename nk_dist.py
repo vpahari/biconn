@@ -74,6 +74,9 @@ def findLargestNodes(uniqueNodes):
 
 GER = nx.read_gpickle("sageGraph.gpickle")
 
+print(GER.edges())
+print(GER.nodes())
+
 biconn = list(nx.biconnected_component_subgraphs(GER))
 
 G = max(biconn, key=len)
