@@ -9,7 +9,7 @@ import random
 #k=int(sys.argv[2])
 #SEED=int(sys.argv[3])
 
-N = 120
+N = 1000
 
 k = 4.0
 
