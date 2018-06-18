@@ -9,7 +9,7 @@ import random
 #k=int(sys.argv[2])
 #SEED=int(sys.argv[3])
 
-N = 10000
+N = 1000
 
 k = 4.0
 
@@ -22,12 +22,23 @@ step_size = 0.01
 #random.seed(SEED)
 
 
-def findAllDisjointPaths(G,s,t):
+def findAllDisjointPaths(G,s,t,shortestPath):
 	distPaths = []
 
-	uniqueNodes = [] 
+	distPaths.append(shortestPath)
 
-	newDist = nk.distance.Dijkstra(G, s, True, True)
+	if len(shortestPath) == 2:
+		G.removeEdge(s,t)
+		G.removeEdge(t,s)
+
+	else:
+		nodesToRemove = shortestPath[1:len(shortestPath)-1]
+
+		for node in nodesToRemove:
+			tempG.removeNode(node)
+
+
+	newDist = nk.distance.Dijkstra(G, s, True, False)
 
 	newDist.run()
 
@@ -52,9 +63,7 @@ def findAllDisjointPaths(G,s,t):
 
 	print(distPaths)
 		
-	print(uniqueNodes)
-
-	return (distPaths, uniqueNodes)
+	return distPaths
 
 
 def takeOutNodes(G,sortedList):
@@ -111,38 +120,37 @@ lengthOfNodes = len(listOfNodes)
 #print(newGraph.edges())
 
 
-
 lenBiconnList = []
 
 lenBiconnList.append(lengthOfNodes)
 
-while True:
+percentageSample = 0.01
 
-	listOfAllSP = []
+num_Node_Sample = int(percentageSample * lengthOfNodes)
 
-	uniqueNodesDict = {}
+print(num_Node_Sample)
 
-	s = listOfNodes[0]
+node_Sample = random.sample(listOfNodes, num_Node_Sample)
 
-	#print("0")
+print(node_Sample)
 
-	#print(s)
+number_of_DP_List = []
 
-	#print(listOfNodes)
+DP_List = []
 
-	#if s != listOfNodes[0]:
-	#break
+for s in node_Sample:
 
-	allSPforS = []
+	number_of_DP_List_s = []
 
-	dijk = nk.distance.Dijkstra(newGraph, s, True, True)
+	DP_List_s = []
+
+	dijk = nk.distance.Dijkstra(newGraph, s, True, False)
 	
 	dijk.run()
 
-
 	for t in listOfNodes:
 
-		if t == listOfNodes[0]:
+		if t == s:
 			continue
 		
 		isPath = dijk.numberOfPaths(t)
@@ -154,79 +162,14 @@ while True:
 
 		if isPath != 0:
 			
-			shortestPath = dijk.getPath(t)
-			
-			allSPforS.append(shortestPath)
+			DP = findAllDisjointPaths(tempG,s,t, shortestPath)
+			number_of_DP = len(DP)
 
-			if len(shortestPath) == 2:
-				tempG.removeEdge(s,t)
-				tempG.removeEdge(t,s)
+			DP_List_s.append(DP)
+			number_of_DP_List_s.append(number_of_DP)
 
-			else:
-				nodesToRemove = shortestPath[1:len(shortestPath)-1]
-				
-				for node in nodesToRemove:
-
-					tempG.removeNode(node)
-
-					if node in uniqueNodesDict:
-						uniqueNodesDict[node] = uniqueNodesDict[node] + 1
-					else:
-						uniqueNodesDict[node] = 1
-			
-			(DPST, uniqueNodes) = findAllDisjointPaths(tempG,s,t)
-
-			for distSP in DPST:
-				allSPforS.append(distSP)
-			
-			for node in uniqueNodes:
-				if node in uniqueNodesDict:
-					uniqueNodesDict[node] = uniqueNodesDict[node] + 1
-				else:
-					uniqueNodesDict[node] = 1
-
-		else:
-			allSPforS.append([])
-
-	listOfAllSP.append(allSPforS)
-
-	sortedList = findLargestNodes(uniqueNodesDict)
-
-	if sortedList == []:
-		break
-
-	takeOutNodes(newGraph,sortedList)
-
-	nxGraph = nk.nxadapter.nk2nx(newGraph)
-
-	nxGraphUndirected = nx.to_undirected(nxGraph)
-
-	biconn = list(nx.biconnected_component_subgraphs(nxGraphUndirected))
-
-	G = max(biconn, key=len)
-
-	Gnk = nk.nxadapter.nx2nk(G)
-
-	sizeOfNewList = G.number_of_nodes()
-
-	if sizeOfNewList == 0:
-		break
-
-	newGraph = nk.graph.Graph(n = sizeOfNewList, weighted = False, directed = True)
-
-	lastEdges = Gnk.edges()
-
-	for (i,j) in lastEdges:
-		newGraph.addEdge(i,j)
-		newGraph.addEdge(j,i)
-
-	listOfNodes = newGraph.nodes()
-
-	lengthOfNodes = len(listOfNodes)
-
-	lenBiconnList.append(lengthOfNodes)
-
-	print(lengthOfNodes)
+	DP_List.append(DP_List_s)
+	number_of_DP_List.append(number_of_DP_List_s)
 
 
 print("lenBiconnList")
