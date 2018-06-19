@@ -66,7 +66,7 @@ def findAllDisjointPaths(G,s,t,shortestPath):
 		
 		hasPath = newDist.numberOfPaths(t)
 
-	print(distPaths)
+	#print(distPaths)
 		
 	return distPaths
 
@@ -90,7 +90,7 @@ def findLargestNodes(uniqueNodes):
 
 GER = nx.erdos_renyi_graph(N,p,SEED)
 
-print(type(GER))
+#print(type(GER))
 
 #print(GER.edges())
 #print(GER.nodes())
@@ -99,7 +99,7 @@ biconn = list(nx.biconnected_component_subgraphs(GER))
 
 G = max(biconn, key=len)
 
-print(len(G))
+#print(len(G))
 
 sizeOfNewList = G.number_of_nodes()
 
@@ -117,25 +117,20 @@ for (i,j) in lastEdges:
 
 listOfNodes = newGraph.nodes()
 
-print(newGraph.isDirected())
+#print(newGraph.isDirected())
 
 
 lengthOfNodes = len(listOfNodes)
 
 #print(newGraph.edges())
 
+num_Node_Sample = int(percentageSample * N)
 
-lenBiconnList = []
-
-lenBiconnList.append(lengthOfNodes)
-
-num_Node_Sample = int(percentageSample * lengthOfNodes)
-
-print(num_Node_Sample)
+#print(num_Node_Sample)
 
 node_Sample = random.sample(listOfNodes, num_Node_Sample)
 
-print(node_Sample)
+#print(node_Sample)
 
 number_of_DP_List = []
 
