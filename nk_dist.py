@@ -2,18 +2,21 @@ import networkx as nx
 import networkit as nk
 from operator import itemgetter
 import random
+import pickle
 
 #import matplotlib.pyplot as plt
 
-#N=int(sys.argv[1]) # number of nodes
-#k=int(sys.argv[2])
-#SEED=int(sys.argv[3])
+N=int(sys.argv[1]) # number of nodes
+k=int(sys.argv[2])
+SEED=int(sys.argv[3])
+percentageSample = float(sys.argv[3])
 
-N = 1000
 
-k = 4.0
+#N = 1000
 
-SEED = 1099 
+#k = 4.0
+
+#SEED = 1099 
 
 p = k / float(N-1)
 
@@ -123,8 +126,6 @@ lenBiconnList = []
 
 lenBiconnList.append(lengthOfNodes)
 
-percentageSample = 0.01
-
 num_Node_Sample = int(percentageSample * lengthOfNodes)
 
 print(num_Node_Sample)
@@ -174,11 +175,15 @@ for s in node_Sample:
 	DP_List.append(DP_List_s)
 	number_of_DP_List.append(number_of_DP_List_s)
 
-print("DP")
-print(DP_List)
+DP_List_string = "DPList_N_%d_k_%d_SEED_%d_percentage_%g.pkl"%(N,k,SEED,percentageSample)
+number_of_DP_List_string = "numberofDP_N_%d_k_%d_SEED_%d_percentage_%g.pkl"%(N,k,SEED,percentageSample)
 
-print("number_of_DP")
-print(number_of_DP_List)
+with open(DP_List_string, 'wb') as f:
+	pickle.dump(DP_List, f)
+
+with open(number_of_DP_List_string, 'wb') as f:
+	pickle.dump(number_of_DP_List, f)
+
 
 #print(len(listOfAllSP))
 #a = findLargestNodes(uniqueNodesDict)
