@@ -12,7 +12,7 @@ import sys
 N=int(sys.argv[1]) # number of nodes
 k=int(sys.argv[2])
 SEED=int(sys.argv[3])
-percentageSample = float(sys.argv[3])
+percentageSample = float(sys.argv[4])
 
 
 #N = 1000
