@@ -173,7 +173,7 @@ for s in node_Sample:
 	DP_List.append(DP_List_s)
 	number_of_DP_List.append(number_of_DP_List_s)
 
-DP_List_string = "DPList_BA_N_%d_k_%d_SEED_%d_percentage_%g.pkl"%(N,k,SEED,percentageSample)
+DP_List_string = "DPList_BA_N_%d_m_%d_SEED_%d_percentage_%g.pkl"%(N,m,SEED,percentageSample)
 number_of_DP_List_string = "numberofDP_BA_N_%d_k_%d_SEED_%d_percentage_%g.pkl"%(N,k,SEED,percentageSample)
 
 with open(DP_List_string, 'wb') as f:
