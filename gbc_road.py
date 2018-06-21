@@ -1,5 +1,6 @@
 import pickle
 import networkx as nx
+import osmnx as ox
 
 BGU = nx.read_gpickle("BelgradeDriveU.gpickle")
 BJU = nx.read_gpickle("BeijingU.gpickle")
