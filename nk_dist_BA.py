@@ -21,7 +21,7 @@ percentageSample = float(sys.argv[4])
 
 #SEED = 1099 
 
-p = k / float(N-1)
+#p = k / float(N-1)
 
 step_size = 0.01
 
