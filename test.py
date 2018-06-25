@@ -1,11 +1,11 @@
 import networkx as nx
 import networkit as nk
 
+GER = nx.erdos_renyi_graph(1000,2/999,232)
+
 biconn = list(nx.biconnected_component_subgraphs(GER))
 
 print(len(max(biconn, key=len)))
-
-GER = nx.erdos_renyi_graph(1000,2/999,232)
 
 Gnk = nk.nxadapter.nx2nk(GER)
 
