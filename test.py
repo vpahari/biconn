@@ -1,8 +1,6 @@
 import networkx as nx
 import networkit as nk
 
-newDist = nk.distance.Dijkstra(G, s, True, True)
-
 biconn = list(nx.biconnected_component_subgraphs(GER))
 
 print(len(max(biconn, key=len)))
