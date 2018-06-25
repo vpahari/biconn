@@ -86,7 +86,7 @@ def findLargestNodes(uniqueNodes):
 
 number_of_sims = 10
 
-for sim in range(number_of_sims)
+for sim in range(number_of_sims):
 	#GER = nx.read_gpickle("sageGraph.gpickle")
 
 	newSEED = SEED*(sim+1)
