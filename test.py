@@ -30,4 +30,4 @@ stack = dijk.getStack()
 
 print(wt)
 
-print(stack)
+print(len(stack))
