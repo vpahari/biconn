@@ -147,7 +147,8 @@ for s in listOfNodes:
 		tempG = newGraph.copyNodes()
 
 		for (e1,e2) in newGraph.edges():
-			tempG.addEdge(e1,e2)
+			wtE = newGraph.weight(e1,e2)
+			tempG.addEdge(e1,e2, w = wtE)
 
 		
 		shortestPath = dijk.getPath(t)
