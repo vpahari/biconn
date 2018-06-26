@@ -102,6 +102,8 @@ for sim in range(number_of_sims):
 
 	G = max(conn, key=len)
 
+	print(len(G))
+
 	#print(len(G))
 
 	sizeOfNewList = G.number_of_nodes()
