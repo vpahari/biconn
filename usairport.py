@@ -17,7 +17,7 @@ def findAllDisjointPaths(G,s,t,shortestPath, wt):
 		nodesToRemove = shortestPath[1:len(shortestPath)-1]
 
 		for node in nodesToRemove:
-			tempG.removeNode(node)
+			G.removeNode(node)
 
 
 	newDist = nk.distance.Dijkstra(G, s, True, False)
@@ -30,9 +30,9 @@ def findAllDisjointPaths(G,s,t,shortestPath, wt):
 		
 		shortestPath = newDist.getPath(t)
 
-		spWt = newDist.distance(t)
+		print(shortestPath)
 
-		print(spWt)
+		spWt = newDist.distance(t)
 
 		for i in shortestPath[1:len(shortestPath) - 1]:
 			G.removeNode(i)
