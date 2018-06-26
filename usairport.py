@@ -92,6 +92,8 @@ listOfDegree = []
 
 print(listOfNodes)
 
+print(len(newGraph.edges()))
+
 for s in listOfNodes:
 
 	print(s)
@@ -107,6 +109,8 @@ for s in listOfNodes:
 	dijk.run()
 
 	for t in listOfNodes:
+
+		print(t)
 
 		if s == t:
 
