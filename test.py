@@ -24,7 +24,7 @@ dijk.run()
 
 dijk.numberOfPaths(1)
 
-wt = dijk.distance(1)
+wt = dijk.distance(657)
 
 stack = dijk.getStack()
 
