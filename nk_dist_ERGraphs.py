@@ -180,7 +180,7 @@ for sim in range(number_of_sims):
 
 	DP_List_string = "DPListER_N_%d_k_%d_SEED_%d_percentage_%g.pkl"%(N,k,newSEED,percentageSample)
 	number_of_DP_List_string = "numberofDPER_N_%d_k_%d_SEED_%d_percentage_%g.pkl"%(N,k,newSEED,percentageSample)
-	degree_string = "Degree_N_%d_k_%d_SEED_%d_percentage_%g.pkl"%(N,k,newSEED,percentageSample)
+	degree_string = "DegreeER_N_%d_k_%d_SEED_%d_percentage_%g.pkl"%(N,k,newSEED,percentageSample)
 
 	with open(DP_List_string, 'wb') as f:
 		pickle.dump(DP_List, f)
