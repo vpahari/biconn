@@ -18,7 +18,7 @@ for (i,j) in lastEdges:
 	newGraph.addEdge(j,i)
 
 
-dijk = nk.distance.Dijkstra(newGraph, 0, True, False)
+dijk = nk.distance.Dijkstra(newGraph, 0, True, True)
 
 dijk.run()
 
