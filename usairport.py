@@ -32,6 +32,8 @@ def findAllDisjointPaths(G,s,t,shortestPath, wt):
 
 		spWt = newDist.distance(t)
 
+		print(spWt)
+
 		for i in shortestPath[1:len(shortestPath) - 1]:
 			G.removeNode(i)
 
@@ -45,7 +47,7 @@ def findAllDisjointPaths(G,s,t,shortestPath, wt):
 		
 		hasPath = newDist.numberOfPaths(t)
 
-		print(weights)
+		#print(weights)
 
 	#print(distPaths)
 		
