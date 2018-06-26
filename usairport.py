@@ -67,6 +67,8 @@ for line in lines:
 
 	print(data)
 
+	print(len(data))
+
 	assert len(data) == 2
 
 	source = int(data[0]) - 1
