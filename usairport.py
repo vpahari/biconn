@@ -90,7 +90,11 @@ listNumberOfPaths = []
 
 listOfDegree = []
 
+print(listOfNodes)
+
 for s in listOfNodes:
+
+	print(s)
 
 	weights = []
 
