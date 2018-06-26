@@ -41,7 +41,7 @@ def findAllDisjointPaths(G,s,t,shortestPath):
 		nodesToRemove = shortestPath[1:len(shortestPath)-1]
 
 		for node in nodesToRemove:
-			tempG.removeNode(node)
+			G.removeNode(node)
 
 
 	newDist = nk.distance.Dijkstra(G, s, True, False)
@@ -133,6 +133,8 @@ for sim in range(number_of_sims):
 
 	node_Sample = random.sample(listOfNodes, num_Node_Sample)
 
+	degree = list(map(lambda x : newGraph.degree(x), node_Sample))
+
 	#print(node_Sample)
 
 	number_of_DP_List = []
@@ -178,12 +180,16 @@ for sim in range(number_of_sims):
 
 	DP_List_string = "DPListER_N_%d_k_%d_SEED_%d_percentage_%g.pkl"%(N,k,newSEED,percentageSample)
 	number_of_DP_List_string = "numberofDPER_N_%d_k_%d_SEED_%d_percentage_%g.pkl"%(N,k,newSEED,percentageSample)
+	degree_string = "Degree_N_%d_k_%d_SEED_%d_percentage_%g.pkl"%(N,k,newSEED,percentageSample)
 
 	with open(DP_List_string, 'wb') as f:
 		pickle.dump(DP_List, f)
 
 	with open(number_of_DP_List_string, 'wb') as f:
 		pickle.dump(number_of_DP_List, f)
+
+	with open(degree_string, 'wb') as f:
+		pickle.dump(degree, f)
 
 
 #print(len(listOfAllSP))
