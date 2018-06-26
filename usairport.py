@@ -62,7 +62,10 @@ lines = [line.rstrip('\n') for line in open(file_name)]
 newGraph = nk.graph.Graph(n = 500, weighted = True, directed = True)
 
 for line in lines:
+
 	data = line.split(" ")
+
+	print(data)
 
 	assert len(data) == 2
 
