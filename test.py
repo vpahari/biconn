@@ -3,7 +3,7 @@ import networkit as nk
 
 GER = nx.erdos_renyi_graph(1000,2/999,232)
 
-biconn = list(nx.biconnected_component_subgraphs(GER))
+biconn = list(nx.connected_component_subgraphs(GER))
 
 print(len(max(biconn, key=len)))
 
