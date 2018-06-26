@@ -65,11 +65,11 @@ for line in lines:
 
 	data = line.split(" ")
 
-	print(data)
+	#print(data)
 
-	print(len(data))
+	#print(len(data))
 
-	assert len(data) == 2
+	assert len(data) == 3
 
 	source = int(data[0]) - 1
 	target = int(data[1]) - 1
