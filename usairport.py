@@ -45,6 +45,8 @@ def findAllDisjointPaths(G,s,t,shortestPath, wt):
 		
 		hasPath = newDist.numberOfPaths(t)
 
+		print(weights)
+
 	#print(distPaths)
 		
 	return (distPaths, weights)
