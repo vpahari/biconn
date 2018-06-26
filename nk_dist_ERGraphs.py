@@ -133,6 +133,9 @@ for sim in range(number_of_sims):
 
 	#print(num_Node_Sample)
 
+	print(num_Node_Sample)
+	print(len(listOfNodes))
+
 	node_Sample = random.sample(listOfNodes, num_Node_Sample)
 
 	degree = list(map(lambda x : newGraph.degree(x), node_Sample))
