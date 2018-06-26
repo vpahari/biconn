@@ -6,6 +6,9 @@ def findAllDisjointPaths(G,s,t,shortestPath, wt):
 	distPaths = []
 	weights = []
 
+	print(shortestPath)
+	print(wt)
+
 	distPaths.append(shortestPath)
 	weights.append(wt)
 
@@ -30,7 +33,7 @@ def findAllDisjointPaths(G,s,t,shortestPath, wt):
 		
 		shortestPath = newDist.getPath(t)
 
-		print(shortestPath)
+		#print(shortestPath)
 
 		spWt = newDist.distance(t)
 
