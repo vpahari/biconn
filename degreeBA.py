@@ -147,7 +147,7 @@ def getSecondMax(conn):
 
     newConn = conn.copy()
 
-    sortedConn = sorted(newConn, key = len)
+    sortedConn = sorted(newConn, key = len, reverse = True)
 
     return len(sortedConn[1])
 
