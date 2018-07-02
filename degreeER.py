@@ -172,126 +172,126 @@ SECOND_GCL = []
 SECOND_GBCL = []
 
 
-numDifferentGraphs = 10
+numDifferentGraphs = 25
+
 numSimsOfGraphs = 25
 
 for net_rep in range(numDifferentGraphs):
-    fixed_G = nx.erdos_renyi_graph(N, p, seed=SEED * net_rep)
+    fixed_G = nx.erdos_renyi_graph(N, p, seed=SEED * (net_rep+1))
     assert fixed_G.number_of_nodes() == N
 
-    for sim_rep in range(numSimsOfGraphs):
 
-        f=0
-        counter = 0
+    f=0
+    counter = 0
 
-        bcList = []
-        bc2List = []
-        cList = []
+    bcList = []
+    bc2List = []
+    cList = []
 
-        lbcList = []
-        lcList = []
+    lbcList = []
+    lcList = []
 
-        N_0List = []
-        N_1List = []
+    N_0List = []
+    N_1List = []
 
-        NB_1List = []
-        NB_2List = []
+    NB_1List = []
+    NB_2List = []
 
-        AVG_SIZE_CONNList = []
-        AVG_SIZE_BICONNList = []
+    AVG_SIZE_CONNList = []
+    AVG_SIZE_BICONNList = []
 
-        SECOND_GCList = []
-        SECOND_GBCList = []
+    SECOND_GCList = []
+    SECOND_GBCList = []
 
-        G = fixed_G.copy()
-
-
-        while G.number_of_nodes() > 0:
+    G = fixed_G.copy()
 
 
-            assert G.number_of_nodes() == (N - counter*int(step_size*N))
-
-            conn = list(nx.connected_component_subgraphs(G))
-
-            if len(conn) == 0:
-                GC = nx.empty_graph(0)
-                GCLen = 0
-                avgConn = 0
-            else:
-                GC = max(conn, key=len)
-                GCLen = len(GC)
-                avgConn = getAvg(conn)
-
-            biConn = list(nx.biconnected_component_subgraphs(G))
-
-            N_0 = getNO(conn)
-            N_1 = getN1(conn)
-
-            NB_1 = getBN_1(biConn)
-            NB_2 = getBN_2(biConn)
+    while G.number_of_nodes() > 0:
 
 
-            #NB_0 = getNOBiconn(biConn)
+        assert G.number_of_nodes() == (N - counter*int(step_size*N))
 
-            if len(biConn) == 0:
-                GBCLen = 0
-                avgBiconn = 0
-            else:
-                GBCLen =  len(max(biConn, key=len))
-                avgBiconn = getAvg(biConn)
+        conn = list(nx.connected_component_subgraphs(G))
 
+        if len(conn) == 0:
+            GC = nx.empty_graph(0)
+            GCLen = 0
+            avgConn = 0
+        else:
+            GC = max(conn, key=len)
+            GCLen = len(GC)
+            avgConn = getAvg(conn)
 
-            secondGC = getSecondMax(conn)
-            secondGBC = getSecondMax(biConn)
+        biConn = list(nx.biconnected_component_subgraphs(G))
 
-            cList.append(len(conn))
-            bcList.append(len(biConn))
-            lbcList.append(GBCLen)
-            lcList.append(GCLen)
+        N_0 = getNO(conn)
+        N_1 = getN1(conn)
 
-            N_0List.append(N_0)
-            N_1List.append(N_1)
-
-            NB_1List.append(NB_1)
-            NB_2List.append(NB_2)
+        NB_1 = getBN_1(biConn)
+        NB_2 = getBN_2(biConn)
 
 
-            AVG_SIZE_CONNList.append(avgConn)
-            AVG_SIZE_BICONNList.append(avgBiconn)
+        #NB_0 = getNOBiconn(biConn)
 
-            SECOND_GCList.append(secondGC)
-            SECOND_GBCList.append(secondGBC)
+        if len(biConn) == 0:
+            GBCLen = 0
+            avgBiconn = 0
+        else:
+            GBCLen =  len(max(biConn, key=len))
+            avgBiconn = getAvg(biConn)
+
+
+        secondGC = getSecondMax(conn)
+        secondGBC = getSecondMax(biConn)
+
+        cList.append(len(conn))
+        bcList.append(len(biConn))
+        lbcList.append(GBCLen)
+        lcList.append(GCLen)
+
+        N_0List.append(N_0)
+        N_1List.append(N_1)
+
+        NB_1List.append(NB_1)
+        NB_2List.append(NB_2)
+
+
+        AVG_SIZE_CONNList.append(avgConn)
+        AVG_SIZE_BICONNList.append(avgBiconn)
+
+        SECOND_GCList.append(secondGC)
+        SECOND_GBCList.append(secondGBC)
 
 
 
-            #f1.append(f)
+        #f1.append(f)
 
-            #print(str(counter) + "\t" + str(len(biConn)) + "\t" + str(len(biConnInConn)))
+        #print(str(counter) + "\t" + str(len(biConn)) + "\t" + str(len(biConnInConn)))
 
-            #print(len(biConnInConn))
+        #print(len(biConnInConn))
 
-            takeNodesOut(G,int(step_size*N))
+        takeNodesOut(G,int(step_size*N))
 
-            counter += 1
-            f = f + step_size
+        counter += 1
+        f = f + step_size
 
-        bc.append(bcList)
-        c.append(cList)
+    bc.append(bcList)
+    c.append(cList)
 
-        lbc.append(lbcList)
-        lc.append(lcList)
+    lbc.append(lbcList)
+    lc.append(lcList)
 
-        N_0L.append(N_0List)
-        N_1L.append(N_1List)
+    N_0L.append(N_0List)
+    N_1L.append(N_1List)
 
-        NB_1L.append(NB_1List)
-        NB_2L.append(NB_2List)
+    NB_1L.append(NB_1List)
+    NB_2L.append(NB_2List)
 
-        AVG_SIZE_CONNL.append(AVG_SIZE_CONNList)
-        AVG_SIZE_BICONNL.append(AVG_SIZE_BICONNList)
+    AVG_SIZE_CONNL.append(AVG_SIZE_CONNList)
+    AVG_SIZE_BICONNL.append(AVG_SIZE_BICONNList)
 
-        SECOND_GCL.append(SECOND_GCList)
-        SECOND_GBCL.append(SECOND_GBCList)
+    SECOND_GCL.append(SECOND_GCList)
+    SECOND_GBCL.append(SECOND_GBCList)
 
 
 
