@@ -323,7 +323,7 @@ while (fractions <= 1.0):
     counter = counter + 1
 
 
-output_file_name = "resultDegreeER_N_%d_k_%d_SEED_%d.csv"%(N,k,SEED)
+output_file_name = "resultDegreeBA_N_%d_k_%d_SEED_%d.csv"%(N,k,SEED)
 
 fh = open(output_file_name, 'w')
 writer = csv.writer(fh)
