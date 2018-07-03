@@ -50,8 +50,6 @@ def takeNodesOut(G, numNodesToRemove):
 
     nodesToRemoveTemp = nodesToRemoveTemp + randomNodes
 
-    print(nodesToRemoveTemp)
-
     nodesToRemove = list(set(nodesToRemoveTemp))
 
     #print(len(nodesToRemove))
@@ -169,12 +167,12 @@ SECOND_GBCL = []
 REM_NODESL = []
 
 
-numDifferentGraphs = 2
+numDifferentGraphs = 25
 
-numSimsOfGraphs = 25
+numSimsOfGraphs = 1
 
 for net_rep in range(numDifferentGraphs):
-    print(net_rep)
+    
     fixed_G = nx.erdos_renyi_graph(N, p, seed=SEED * (net_rep+1))
     assert fixed_G.number_of_nodes() == N
 
@@ -268,13 +266,6 @@ for net_rep in range(numDifferentGraphs):
 
         REM_NODESList.append(G.number_of_nodes())
 
-
-
-        #f1.append(f)
-
-        #print(str(counter) + "\t" + str(len(biConn)) + "\t" + str(len(biConnInConn)))
-
-        #print(len(biConnInConn))
 
         """
 
