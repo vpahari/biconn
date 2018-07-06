@@ -175,7 +175,7 @@ SECOND_GBCL = []
 numDifferentGraphs = 25
 
 for net_rep in range(numDifferentGraphs):
-    fixed_G = nx.nx.barabasi_albert_graph(N, k, seed=SEED * net_rep)
+    fixed_G = nx.barabasi_albert_graph(N, k, seed=SEED * net_rep)
     assert fixed_G.number_of_nodes() == N
 
     f=0
