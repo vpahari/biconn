@@ -42,17 +42,13 @@ def getLargestSize(l):
     
 
 def takeNodesOut(G, numNodesToRemove):
-    randomNodes = random.sample(list(G.nodes()),10)
-    nodesToRemoveTemp = []
-    for i in randomNodes:
-        neighbors = list(G.neighbors(i))
-        nodesToRemoveTemp = nodesToRemoveTemp + neighbors
-
-    nodesToRemoveTemp = nodesToRemoveTemp + randomNodes
-
-    nodesToRemove = list(set(nodesToRemoveTemp))
-
-    #print(len(nodesToRemove))
+    nodesToRemove = set([])
+    nodes = list(G.nodes())
+    while len(nodesToRemove) < numNodesToRemove:
+        newNode = random.choice(nodes)
+        neighbors = list(G.neighbors(newNode))
+        nodesToRemove = set(list(nodesToRemove) + neighbors + [newNode])
+        nodes = [x for x in nodes if x not in nodesToRemove]
 
     G.remove_nodes_from(nodesToRemove)
 
@@ -377,7 +373,7 @@ while (counter < lenForAvg):
     counter = counter + 1
 
 
-output_file_name = "resultNewUrinal_N_%d_k_%d_SEED_%d.csv"%(N,k,SEED)
+output_file_name = "resultNewUrinalER_N_%d_k_%d_SEED_%d.csv"%(N,k,SEED)
 
 fh = open(output_file_name, 'w')
 writer = csv.writer(fh)
