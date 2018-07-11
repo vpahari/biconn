@@ -42,13 +42,15 @@ def getLargestSize(l):
     
 
 def takeNodesOut(G, numNodesToRemove):
-    nodesToRemove = set([])
+    nodesToRemove = []
     nodes = list(G.nodes())
     while len(nodesToRemove) < numNodesToRemove:
         newNode = random.choice(nodes)
         neighbors = list(G.neighbors(newNode))
-        nodesToRemove = list(set((nodesToRemove) + neighbors + [newNode]))
+        nodesToRemove = list(set(nodesToRemove + neighbors + [newNode]))
         nodes = [x for x in nodes if x not in nodesToRemove]
+        if len(nodes) == 0:
+            break
 
     G.remove_nodes_from(nodesToRemove)
 
