@@ -47,7 +47,7 @@ def takeNodesOut(G, numNodesToRemove):
     while len(nodesToRemove) < numNodesToRemove:
         newNode = random.choice(nodes)
         neighbors = list(G.neighbors(newNode))
-        nodesToRemove = set(list(nodesToRemove) + neighbors + [newNode])
+        nodesToRemove = list(set((nodesToRemove) + neighbors + [newNode]))
         nodes = [x for x in nodes if x not in nodesToRemove]
 
     G.remove_nodes_from(nodesToRemove)
