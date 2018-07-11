@@ -68,11 +68,6 @@ def indexToTake(graphList,index):
 
     return (gAvg,gStdDev)
 
-
-
-numDifferentGraphs = 10
-numSimsOfGraphs = 25
-
 def getNO(G):
     counter = 0
     for item in G:
@@ -165,13 +160,11 @@ SECOND_GBCL = []
 REM_NODESL = []
 
 
-numDifferentGraphs = 25
+numDifferentGraphs = 10
 
-numSimsOfGraphs = 10
+numSimsOfGraphs = 25
 
 for net_rep in range(numDifferentGraphs):
-
-    print(net_rep)
 
     fixed_G = nx.erdos_renyi_graph(N, p, seed=SEED * (net_rep+1))
 
@@ -266,21 +259,6 @@ for net_rep in range(numDifferentGraphs):
             stepsList.append(f)
 
             REM_NODESList.append(G.number_of_nodes())
-
-
-            """
-
-            nodesTakeOut = int(step_size * N)
-
-            if nodesTakeOut <= G.number_of_nodes():
-
-                takeNodesOut(G,G.number_of_nodes())
-
-            else:
-
-                takeNodesOut(G,nodesTakeOut)
-
-            """
 
             if G.number_of_nodes() < 10:
                 break
