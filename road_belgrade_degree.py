@@ -91,9 +91,24 @@ def getSecondMax(conn):
 
     return len(sortedConn[1])
 
+def createOrder(G):
+    allNodes = list(G.nodes())
+    degreeDict = dict(G.degree(allNodes))
+    degreeDictItems = list(degreeDict.items())
+    degreeDictItemsSorted = sorted(degreeDictItems, key = itemgetter(1),reverse = True)
 
-def takeNodesOut(G, numNodesToRemove):
-    G.remove_nodes_from(random.sample(list(G.nodes()),numNodesToRemove))
+    return degreeDictItemsSorted
+
+
+def degree_removal(G, numNodesToRemove, remove_order, counter):
+    startIndex = numNodesToRemove * counter
+    endIndex = startIndex + numNodesToRemove
+    if endIndex > len(remove_order):
+        nodesToRemove = remove_order[startIndex:]
+    else:
+        nodesToRemove = remove_order[startIndex:endIndex]
+    
+    G.remove_nodes_from(nodesToRemove)
     
 
 NY = nx.read_gpickle("BelgradeDriveU.gpickle")
@@ -124,12 +139,7 @@ k = float(2*(NY.number_of_nodes()/NY.number_of_edges()))
 
 step_size = 0.01
 
-numSimsOfGraphs = 1
-
-ox.plot_graph(NY)
-figName = "Belgrade_Full.png"
-plt.savefig(figName)
-plt.clf()
+numSimsOfGraphs = 10
 
 
 for net_rep in range(numSimsOfGraphs):
@@ -157,6 +167,8 @@ for net_rep in range(numSimsOfGraphs):
     SECOND_GBCList = []
 
     G = NY.copy()
+
+    order = createOrder(G)
 
     while G.number_of_nodes() > 0:
 
@@ -227,14 +239,14 @@ for net_rep in range(numSimsOfGraphs):
         	break
 
 
-        takeNodesOut(G,int(step_size*N))
+        degree_removal(G,int(step_size*N), order, counter)
 
         counter += 1
         f = f + step_size
 
         if counter % 10 == 0:
         	ox.plot_graph(G)
-        	figName = "BelgradeRoad_sim_%d_perc_%g.png"%(net_rep, f)
+        	figName = "BelgradeRoadDegree_sim_%d_perc_%g.png"%(net_rep, f)
         	plt.savefig(figName)
         	plt.clf()
 
@@ -291,7 +303,7 @@ while (fractions <= 1.0):
     counter = counter + 1
 
 
-output_file_name = "BelgradeRoad_N_%d_k_%d.csv"%(N,k)
+output_file_name = "BelgradeRoadDegree_N_%d_k_%g.csv"%(N,k)
 
 fh = open(output_file_name, 'w')
 writer = csv.writer(fh)
