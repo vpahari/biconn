@@ -96,7 +96,7 @@ def takeNodesOut(G, numNodesToRemove):
     G.remove_nodes_from(random.sample(list(G.nodes()),numNodesToRemove))
     
 
-NY = nx.read_gpickle("NYU.gpickle")
+NY = nx.read_gpickle("BelgradeDriveU.gpickle")
 #NY_GBC = nx.read_gpickle("GBC_NY.gpickle")
 
 bc = []
@@ -125,6 +125,11 @@ k = float(2*(NY.number_of_nodes()/NY.number_of_edges()))
 step_size = 0.01
 
 numSimsOfGraphs = 1
+
+ox.plot_graph(NY)
+figName = "Belgrade_Full.png"
+plt.savefig(figName)
+plt.clf()
 
 
 for net_rep in range(numSimsOfGraphs):
@@ -226,7 +231,7 @@ for net_rep in range(numSimsOfGraphs):
 
         if counter % 10 == 0:
         	ox.plot_graph(G)
-        	figName = "NYRoad_sim_%d_perc_%g.png"%(net_rep, f)
+        	figName = "BelgradeRoad_sim_%d_perc_%g.png"%(net_rep, f)
         	plt.savefig(figName)
         	plt.clf()
 
@@ -283,7 +288,7 @@ while (fractions <= 1.0):
     counter = counter + 1
 
 
-output_file_name = "NYRoad_N_%d_k_%d.csv"%(N,k)
+output_file_name = "BelgradeRoad_N_%d_k_%d.csv"%(N,k)
 
 fh = open(output_file_name, 'w')
 writer = csv.writer(fh)
