@@ -129,7 +129,7 @@ numSimsOfGraphs = 1
 
 for net_rep in range(numSimsOfGraphs):
 
-	f=0
+    f=0
     counter = 0
 
     bcList = []
@@ -151,11 +151,11 @@ for net_rep in range(numSimsOfGraphs):
     SECOND_GCList = []
     SECOND_GBCList = []
 
-	G = NY.copy()
+    G = NY.copy()
 
-	while G.number_of_nodes() > 0:
+    while G.number_of_nodes() > 0:
 
-		assert G.number_of_nodes() == (N - counter*int(step_size*N))
+        assert G.number_of_nodes() == (N - counter*int(step_size*N))
 
         conn = list(nx.connected_component_subgraphs(G))
 
