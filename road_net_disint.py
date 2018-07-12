@@ -224,7 +224,8 @@ for net_rep in range(numSimsOfGraphs):
         #print(len(biConnInConn))
 
         if G.number_of_nodes() < int(step_size*N):
-        	takeNodesOut(G,G.number_of_nodes())
+        	break
+
 
         takeNodesOut(G,int(step_size*N))
 
