@@ -164,7 +164,7 @@ for net_rep in range(numSimsOfGraphs):
 
         print(counter)
 
-        assert G.number_of_nodes() == (N - counter*int(step_size*N))
+        #assert G.number_of_nodes() == (N - counter*int(step_size*N))
 
         conn = list(nx.connected_component_subgraphs(G))
 
