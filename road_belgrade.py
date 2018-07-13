@@ -266,7 +266,7 @@ counter = 0
 
 finalList = []
 
-lenList = len(avgCList[0])
+lenList = len(c[0])
 
 while (counter < lenList):
     (avgCList,stdCList) = indexToTake(c, counter)
