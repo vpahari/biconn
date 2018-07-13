@@ -131,6 +131,8 @@ figName = "Belgrade_Full.png"
 plt.savefig(figName)
 plt.clf()
 
+takeNodesOut(NY,25000)
+
 
 for net_rep in range(numSimsOfGraphs):
 
