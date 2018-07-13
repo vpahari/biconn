@@ -124,7 +124,7 @@ k = float(2*(NY.number_of_nodes()/NY.number_of_edges()))
 
 step_size = 0.01
 
-numSimsOfGraphs = 5
+numSimsOfGraphs = 10
 
 ox.plot_graph(NY)
 figName = "Belgrade_Full.png"
