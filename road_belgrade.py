@@ -162,8 +162,6 @@ for net_rep in range(numSimsOfGraphs):
 
     while G.number_of_nodes() > 0:
 
-        print(counter)
-
         #assert G.number_of_nodes() == (N - counter*int(step_size*N))
 
         conn = list(nx.connected_component_subgraphs(G))
@@ -268,7 +266,9 @@ counter = 0
 
 finalList = []
 
-while (fractions <= 1.0):
+lenList = len(avgCList[0])
+
+while (counter < lenList):
     (avgCList,stdCList) = indexToTake(c, counter)
     (avgBCList,stdBCList) = indexToTake(bc, counter)
 
