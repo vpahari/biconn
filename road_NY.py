@@ -266,7 +266,9 @@ counter = 0
 
 finalList = []
 
-while (fractions <= 1.0):
+lenList = len(c[0])
+
+while (counter < lenList):
     (avgCList,stdCList) = indexToTake(c, counter)
     (avgBCList,stdBCList) = indexToTake(bc, counter)
 
