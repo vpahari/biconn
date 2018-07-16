@@ -140,7 +140,7 @@ k = float(2*(NY.number_of_nodes()/NY.number_of_edges()))
 
 step_size = 0.01
 
-numSimsOfGraphs = 10
+numSimsOfGraphs = 5
 
 
 for net_rep in range(numSimsOfGraphs):
