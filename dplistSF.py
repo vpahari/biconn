@@ -205,7 +205,7 @@ for sim in range(number_of_sims):
 		number_of_DP_List.append(number_of_DP_List_s)
 
 	DP_List_string = "DPListSF_N_%d_k_%d_SEED_%d_alpha_%g_percentage_%g.pkl"%(N,k,newSEED,alpha,percentageSample)
-	number_of_DP_List_string = "numberofDPSF_N_%d_k_%d_SEED_%d)alpha_%g_percentage_%g.pkl"%(N,k,newSEED,alpha,percentageSample)
+	number_of_DP_List_string = "numberofDPSF_N_%d_k_%d_SEED_%d_alpha_%g_percentage_%g.pkl"%(N,k,newSEED,alpha,percentageSample)
 	degree_string = "DegreeSF_N_%d_k_%d_SEED_%d_alpha_%g_percentage_%g.pkl"%(N,k,newSEED,alpha,percentageSample)
 
 	with open(DP_List_string, 'wb') as f:
