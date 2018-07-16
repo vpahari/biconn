@@ -126,11 +126,6 @@ step_size = 0.01
 
 numSimsOfGraphs = 10
 
-ox.plot_graph(NY)
-figName = "Belgrade_Full.png"
-plt.savefig(figName)
-plt.clf()
-
 #takeNodesOut(NY,25000)
 
 
@@ -232,12 +227,13 @@ for net_rep in range(numSimsOfGraphs):
         counter += 1
         f = f + step_size
 
+        """
         if counter % 10 == 0:
         	ox.plot_graph(G)
         	figName = "BelgradeRoad_sim_%d_perc_%g.png"%(net_rep, f)
         	plt.savefig(figName)
         	plt.clf()
-
+        """
 
 
 
@@ -293,7 +289,7 @@ while (counter < lenList):
     counter = counter + 1
 
 
-output_file_name = "BelgradeRoad_N_%d_k_%g.csv"%(N,k)
+output_file_name = "BelgradeRoadRandom_N_%d_k_%g.csv"%(N,k)
 
 fh = open(output_file_name, 'w')
 writer = csv.writer(fh)
