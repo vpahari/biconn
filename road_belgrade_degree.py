@@ -96,8 +96,9 @@ def createOrder(G):
     degreeDict = dict(G.degree(allNodes))
     degreeDictItems = list(degreeDict.items())
     degreeDictItemsSorted = sorted(degreeDictItems, key = itemgetter(1),reverse = True)
+    onlyNodes = list(map(lambda x:x[0],degreeDictItemsSorted))
 
-    return degreeDictItemsSorted
+    return onlyNodes
 
 
 def degree_removal(G, numNodesToRemove, remove_order, counter):
@@ -244,7 +245,7 @@ for net_rep in range(numSimsOfGraphs):
         counter += 1
         f = f + step_size
 
-        if counter % 10 == 0:
+        if counter % 10 == 0 and counter < 92:
         	ox.plot_graph(G)
         	figName = "BelgradeRoadDegree_sim_%d_perc_%g.png"%(net_rep, f)
         	plt.savefig(figName)
