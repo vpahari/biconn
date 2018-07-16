@@ -245,11 +245,15 @@ for net_rep in range(numSimsOfGraphs):
         counter += 1
         f = f + step_size
 
-        if counter % 10 == 0 and counter < 92:
-        	ox.plot_graph(G)
-        	figName = "NYRoadDegree_sim_%d_perc_%g.png"%(net_rep, f)
-        	plt.savefig(figName)
-        	plt.clf()
+        if counter % 10 == 0:
+            try:
+        	   ox.plot_graph(G)
+        	   figName = "NYRoadDegree_sim_%d_perc_%g.png"%(net_rep, f)
+        	   plt.savefig(figName)
+        	   plt.clf()
+
+            except:
+                continue
 
 
 
@@ -279,7 +283,9 @@ counter = 0
 
 finalList = []
 
-while (fractions <= 1.0):
+lenList = len(c[0])
+
+while (counter < lenList):
     (avgCList,stdCList) = indexToTake(c, counter)
     (avgBCList,stdBCList) = indexToTake(bc, counter)
 
