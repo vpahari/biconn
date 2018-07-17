@@ -24,8 +24,8 @@ def getGraphs(G, fileToSave):
 		GC = max(conn, key=len)
 		GBC = max(biconn, key=len)
 
-		GCnodes = list(G.nodes())
-		GBCnodes = list(G.nodes())
+		GCnodes = list(GC.nodes())
+		GBCnodes = list(GBC.nodes())
 
 		try:
 			fig, ax = ox.plot_graph(G)
