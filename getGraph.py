@@ -13,7 +13,9 @@ def getGraphs(G, fileToSave):
 	N = G.number_of_nodes()
 	numToRemove = int(N * 0.1)
 
-	for i in range(9):
+	for i in range(10):
+		print(i)
+
 		nodesList = list(G.nodes())
 
 		conn = list(nx.connected_component_subgraphs(G))
