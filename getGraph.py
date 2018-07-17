@@ -59,9 +59,9 @@ def getGraphs(G, fileToSave):
 		G.remove_nodes_from(nodesToRemove)
 
 
-G = nx.read_gpickle("BelgradeDriveU.gpickle")
+G = nx.read_gpickle("NYU.gpickle")
 
-getGraphs(G,"Belgrade")
+getGraphs(G,"NY")
 
 
 
