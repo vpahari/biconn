@@ -78,9 +78,9 @@ def getGraphs(G, fileToSave):
 		counter = counter + 1
 
 
-G = nx.read_gpickle("BeijingU.gpickle")
+G = nx.read_gpickle("NYU.gpickle")
 
-getGraphs(G,"Beijing")
+getGraphs(G,"NY")
 
 
 
