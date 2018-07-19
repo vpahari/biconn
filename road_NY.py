@@ -37,9 +37,9 @@ N = NY.number_of_nodes()
 
 k = float(2*(NY.number_of_nodes()/NY.number_of_edges()))
 
-step_size = 0.2
+step_size = 0.02
 
-numSimsOfGraphs = 2
+numSimsOfGraphs = 5
 
 for net_rep in range(numSimsOfGraphs):
     print(net_rep)
