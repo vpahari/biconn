@@ -28,7 +28,7 @@ def getGraphs(G, fileToSave):
 		GBCnodes = list(GBC.nodes())
 
 		try:
-			fig, ax = ox.plot_graph(G)
+			fig, ax = ox.plot_graph(G,fig_height=30, fig_width=30)
 		except:
 			break
 
@@ -43,7 +43,7 @@ def getGraphs(G, fileToSave):
 		plt.clf()
 
 		try:
-			fig, ax = ox.plot_graph(G)
+			fig, ax = ox.plot_graph(G,fig_height=30, fig_width=30)
 		except:
 			break
 
