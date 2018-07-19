@@ -42,6 +42,7 @@ step_size = 0.2
 numSimsOfGraphs = 2
 
 for net_rep in range(numSimsOfGraphs):
+    print(net_rep)
 
     f=0
     counter = 0
