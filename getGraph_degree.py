@@ -16,7 +16,6 @@ def createOrder(G):
     degreeDictItems = list(degreeDict.items())
     degreeDictItemsSorted = sorted(degreeDictItems, key = itemgetter(1),reverse = True)
     onlyNodes = list(map(lambda x:x[0],degreeDictItemsSorted))
-
     return onlyNodes
 
 def getGraphs(G, fileToSave):
