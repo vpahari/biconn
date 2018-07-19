@@ -79,7 +79,7 @@ def getGraphs(G, fileToSave):
 
 G = nx.read_gpickle("BeijingU.gpickle")
 
-getGraphs(G,"NY")
+getGraphs(G,"Beijing")
 
 
 
