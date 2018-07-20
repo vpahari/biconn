@@ -9,17 +9,25 @@ import matplotlib.pyplot as plt
 
 plt.switch_backend('agg')
 
+
+def createOrder(G):
+    allNodes = list(G.nodes())
+    degreeDict = dict(G.degree(allNodes))
+    degreeDictItems = list(degreeDict.items())
+    degreeDictItemsSorted = sorted(degreeDictItems, key = itemgetter(1),reverse = True)
+    onlyNodes = list(map(lambda x:x[0],degreeDictItemsSorted))
+    return onlyNodes
+
 def getGraphs(G, fileToSave):
-
 	N = G.number_of_nodes()
-
 	numToRemove = int(N * 0.01)
 
-	initial_remove = int(N * 0.3)
+	order = createOrder(G)
 
-	init_removal = random.sample(list(G.nodes()),initial_remove)
+	counter = 30
 
-	G.remove_nodes_from(init_removal)
+	nodesToRemove = order[: (numToRemove * counter)]
+
 
 	for i in range(10):
 		print(i)
@@ -36,7 +44,7 @@ def getGraphs(G, fileToSave):
 		GBCnodes = list(GBC.nodes())
 
 		try:
-			fig, ax = ox.plot_graph(G,fig_height=30, fig_width=30)
+			fig, ax = ox.plot_graph(G, fig_height=30, fig_width=30)
 		except:
 			break
 
@@ -44,14 +52,14 @@ def getGraphs(G, fileToSave):
 			dictInfo = G.node[n]
 			ax.scatter(dictInfo['x'], dictInfo['y'], c='green')
 
-		GCName = fileToSave + "_GCPlot_%d.png" % (i) 
-		GBCName = fileToSave + "_GBCPlot_%d.png" % (i) 
+		GCName = fileToSave + "_Deg_GCPlot_%d.png" % (i) 
+		GBCName = fileToSave + "_Deg_GBCPlot_%d.png" % (i) 
 
 		plt.savefig(GCName)
 		plt.clf()
 
 		try:
-			fig, ax = ox.plot_graph(G,fig_height=30, fig_width=30)
+			fig, ax = ox.plot_graph(G, fig_height=30, fig_width=30)
 		except:
 			break
 
@@ -62,14 +70,19 @@ def getGraphs(G, fileToSave):
 		plt.savefig(GBCName)
 		plt.clf()
 
-		nodesToRemove = random.sample(nodesList,numToRemove)
+		startIndex = counter * numToRemove
+		endIndex = startIndex + numToRemove
+
+		nodesToRemove = order[startIndex : endIndex]
 
 		G.remove_nodes_from(nodesToRemove)
+
+		counter = counter + 1
 
 
 G = nx.read_gpickle("NYU.gpickle")
 
-getGraphs(G,"NYU_New")
+getGraphs(G,"NYU_Degree_New")
 
 
 
