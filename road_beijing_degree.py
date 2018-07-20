@@ -56,9 +56,14 @@ k = float(2*(NY.number_of_nodes()/NY.number_of_edges()))
 
 step_size = 0.01
 
-numSimsOfGraphs = 2
+numSimsOfGraphs = 5
+
+SEED = 4323
 
 for net_rep in range(numSimsOfGraphs):
+
+    s = SEED * (net_rep + 1)
+
     print(net_rep)
 
     f=0
@@ -68,6 +73,8 @@ for net_rep in range(numSimsOfGraphs):
     lcList = []
 
     G = NY.copy()
+
+    random.seed(s)
 
     order = createOrder(G)
 
