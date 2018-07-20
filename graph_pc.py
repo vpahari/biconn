@@ -28,6 +28,7 @@ def getGraphs(G, fileToSave):
 
 	nodesToRemove = order[: (numToRemove * counter)]
 
+	G.remove_nodes_from(nodesToRemove)
 
 	for i in range(10):
 		print(i)
