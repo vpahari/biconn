@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 plt.switch_backend('agg')
 
 def getGraphs(G, fileToSave):
-	
+
 	N = G.number_of_nodes()
 
 	numToRemove = int(N * 0.01)
@@ -21,7 +21,7 @@ def getGraphs(G, fileToSave):
 
 	G.remove_nodes_from(init_removal)
 
-	for i in range(11):
+	for i in range(10):
 		print(i)
 
 		nodesList = list(G.nodes())
