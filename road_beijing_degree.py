@@ -27,9 +27,9 @@ def createOrder(G):
     allNodes = list(G.nodes())
     degreeDict = dict(G.degree(allNodes))
     degreeDictItems = list(degreeDict.items())
+    random.shuffle(degreeDictItems)
     degreeDictItemsSorted = sorted(degreeDictItems, key = itemgetter(1),reverse = True)
     onlyNodes = list(map(lambda x:x[0],degreeDictItemsSorted))
-
     return onlyNodes
 
 
@@ -58,13 +58,12 @@ step_size = 0.01
 
 numSimsOfGraphs = 5
 
-SEED = 4323
+SEED = 3231
 
 for net_rep in range(numSimsOfGraphs):
+    print(net_rep)
 
     s = SEED * (net_rep + 1)
-
-    print(net_rep)
 
     f=0
     counter = 0
@@ -131,7 +130,7 @@ while (counter < lenList):
     counter = counter + 1
 
 
-output_file_name = "BeijingDegree_N_%d_k_%g.csv"%(N,k)
+output_file_name = "BeijingDegreeNew_N_%d_k_%g.csv"%(N,k)
 
 fh = open(output_file_name, 'w')
 writer = csv.writer(fh)
