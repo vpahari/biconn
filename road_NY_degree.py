@@ -56,7 +56,7 @@ k = float(2*(NY.number_of_nodes()/NY.number_of_edges()))
 
 step_size = 0.01
 
-numSimsOfGraphs = 3
+numSimsOfGraphs = 5
 
 SEED = 3231
 
