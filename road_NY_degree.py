@@ -130,7 +130,7 @@ while (counter < lenList):
     counter = counter + 1
 
 
-output_file_name = "NYDegree_N_%d_k_%g.csv"%(N,k)
+output_file_name = "NYDegreeComplete5_N_%d_k_%g.csv"%(N,k)
 
 fh = open(output_file_name, 'w')
 writer = csv.writer(fh)
