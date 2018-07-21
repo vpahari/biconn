@@ -47,7 +47,6 @@ def degree_removal(G, numNodesToRemove, remove_order, counter):
 NY = nx.read_gpickle("NYU.gpickle")
 #NY_GBC = nx.read_gpickle("GBC_NY.gpickle")
 
-lbc = []
 lc = []
 
 N = NY.number_of_nodes()
@@ -68,7 +67,6 @@ for net_rep in range(numSimsOfGraphs):
     f=0
     counter = 0
 
-    lbcList = []
     lcList = []
 
     G = NY.copy()
@@ -90,14 +88,7 @@ for net_rep in range(numSimsOfGraphs):
             GC = max(conn, key=len)
             GCLen = len(GC)
 
-        biConn = list(nx.biconnected_component_subgraphs(G))
-
-        if len(biConn) == 0:
-            GBCLen = 0
-        else:
-            GBCLen =  len(max(biConn, key=len))
-
-        lbcList.append(GBCLen)
+        
         lcList.append(GCLen)
 
         if G.number_of_nodes() < int(step_size*N):
@@ -108,7 +99,6 @@ for net_rep in range(numSimsOfGraphs):
         counter += 1
         f = f + step_size
 
-    lbc.append(lbcList)
     lc.append(lcList)
 
 
@@ -118,27 +108,26 @@ counter = 0
 
 finalList = []
 
-lenList = len(lbc[0])
+lenList = len(lc[0])
 
 while (counter < lenList):
     (avgGC, stdGC) = indexToTake(lc, counter)
-    (avgGBC, stdGBC) = indexToTake(lbc,counter)
 
-    finalList.append((fractions,avgGC, stdGC, avgGBC, stdGBC))
+    finalList.append((fractions,avgGC, stdGC))
 
     fractions = fractions + step_size
     counter = counter + 1
 
 
-output_file_name = "NYDegree_N_%d_k_%g.csv"%(N,k)
+output_file_name = "NYDegree3_N_%d_k_%g.csv"%(N,k)
 
 fh = open(output_file_name, 'w')
 writer = csv.writer(fh)
 
-writer.writerow(["f","GC avg","GC std","GBC avg", "GBC std"])
+writer.writerow(["f","GC avg","GC std"])
 
-for (fractions,avgGC, stdGC, avgGBC, stdGBC) in finalList:
-    writer.writerow([fractions,avgGC, stdGC, avgGBC, stdGBC])
+for (fractions,avgGC, stdGC) in finalList:
+    writer.writerow([fractions,avgGC, stdGC])
 
 
 
