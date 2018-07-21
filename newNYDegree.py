@@ -55,7 +55,7 @@ k = float(2*(NY.number_of_nodes()/NY.number_of_edges()))
 
 step_size = 0.01
 
-numSimsOfGraphs = 3
+numSimsOfGraphs = 4
 
 SEED = 3231
 
@@ -119,7 +119,7 @@ while (counter < lenList):
     counter = counter + 1
 
 
-output_file_name = "NYDegree3_N_%d_k_%g.csv"%(N,k)
+output_file_name = "NYDegree4_N_%d_k_%g.csv"%(N,k)
 
 fh = open(output_file_name, 'w')
 writer = csv.writer(fh)
