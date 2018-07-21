@@ -27,9 +27,9 @@ def createOrder(G):
     allNodes = list(G.nodes())
     degreeDict = dict(G.degree(allNodes))
     degreeDictItems = list(degreeDict.items())
+    random.shuffle(degreeDictItems)
     degreeDictItemsSorted = sorted(degreeDictItems, key = itemgetter(1),reverse = True)
     onlyNodes = list(map(lambda x:x[0],degreeDictItemsSorted))
-
     return onlyNodes
 
 
