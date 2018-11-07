@@ -26,7 +26,11 @@ for i in range(1000,2000):
 
 print(list(G1.nodes()))
 
-print(list(G2.edges()))
+for i,j in list(G2.edges()):
+	G1.addEdge(1000 + i, 1000 + j)
+
+print(list(G1.edges()))
+
 
 
 
