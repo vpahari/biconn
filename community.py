@@ -48,7 +48,7 @@ for i,j in list(G2.edges()):
 
 #print(list(G2.edges()))
 
-r = 10 ** (-4)
+r = 10 ** (-2)
 
 numNodesToConnect = int(r * N)
 
@@ -62,6 +62,7 @@ print(N1)
 
 print(N2)
 
+print(numNodesToConnect)
 #nodes to connect
 nTC1 = random.sample(N1, numNodesToConnect)
 nTC2 = random.sample(N2, numNodesToConnect)
