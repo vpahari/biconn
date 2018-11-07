@@ -2,9 +2,17 @@ import networkx as nx
 import networkit as nk
 import random
 
-def connect(G,nTC1,nTC2):
-
-
+def connect(G,nTC1,nTC2,M_out):
+	newSet = set([])
+	counter = 0
+	while counter < M_out:
+		i = random.choice(nTC1)
+		j = random.choice(nTC2)
+		if (i,j) not in newSet:
+			G.addEdge(i,j)
+			newSet.add((i,j))
+			counter += 1
+		
 
 
 
@@ -57,9 +65,7 @@ nTC2 = random.sample(N2, numNodesToConnect)
 M_out = int(N / 10)
 
 
-
-
-
+connect(G1,nTC1,nTC2,M_out)
 
 
 
