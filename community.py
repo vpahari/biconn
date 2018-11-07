@@ -70,7 +70,7 @@ nTC2 = random.sample(N2, numNodesToConnect)
 print(nTC1)
 print(nTC2)
 
-M_out = int(N / 10)
+M_out = int(N / 2)
 
 print(len(list(G1.edges())))
 
