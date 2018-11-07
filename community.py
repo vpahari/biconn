@@ -58,6 +58,10 @@ N1 = nodesInGraph[:N]
 
 N2 = nodesInGraph[N:]
 
+print(N1)
+
+print(N2)
+
 #nodes to connect
 nTC1 = random.sample(N1, numNodesToConnect)
 nTC2 = random.sample(N2, numNodesToConnect)
