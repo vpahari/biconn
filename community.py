@@ -72,9 +72,11 @@ print(nTC2)
 
 M_out = int(N / 10)
 
+print(len(list(G1.edges())))
 
 connect(G1,nTC1,nTC2,M_out)
 
+print(len(list(G1.edges())))
 
 
 
