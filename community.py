@@ -32,21 +32,21 @@ G1 = nk.nxadapter.nx2nk(Graph1)
 
 G2 = nk.nxadapter.nx2nk(Graph2)
 
-print(list(G1.nodes()))
+#print(list(G1.nodes()))
 
-print(list(G2.nodes()))
+#print(list(G2.nodes()))
 
 for i in range(N,2*N):
 	G1.addNode()
 
-print(list(G1.nodes()))
+#print(list(G1.nodes()))
 
 for i,j in list(G2.edges()):
 	G1.addEdge(N + i, N + j)
 
-print(list(G1.edges()))
+#print(list(G1.edges()))
 
-print(list(G2.edges()))
+#print(list(G2.edges()))
 
 r = 10 ** (-4)
 
@@ -61,6 +61,9 @@ N2 = nodesInGraph[N:]
 #nodes to connect
 nTC1 = random.sample(N1, numNodesToConnect)
 nTC2 = random.sample(N2, numNodesToConnect)
+
+print(nTC1)
+print(nTC2)
 
 M_out = int(N / 10)
 
