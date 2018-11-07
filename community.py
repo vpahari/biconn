@@ -48,7 +48,7 @@ for i,j in list(G2.edges()):
 
 #print(list(G2.edges()))
 
-r = 10 ** (-2)
+r = 10 ** (-1)
 
 numNodesToConnect = int(r * N)
 
