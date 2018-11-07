@@ -21,3 +21,8 @@ print(list(G1.nodes()))
 
 print(list(G2.nodes()))
 
+for i in range(1000,2000):
+	G1.addNode()
+
+print(list(G1.nodes()))
+
