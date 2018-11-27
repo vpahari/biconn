@@ -39,15 +39,17 @@ r = 0.1
 
 numModules = 2
 
-M = N * k
+M = int(N * k)
 
-M_out = M * alpha
+M_out = int(M * alpha)
 
-M_in = M * (1 - alpha)
+M_in = int(M * (1 - alpha))
 
 k_in = (M_in * 2) / (numModules * N)
 
 p_in = k_in / (N-1)
+
+numNodesToConnect = int(r * N)
 
 
 print(M_in)
@@ -245,9 +247,6 @@ for net_rep in range(numDifferentGraphs):
 
 	nodes1 = allNodes[:N]
 	nodes2 = allNodes[N:]
-
-
-	numNodesToConnect = int(r * N)
 
 
 	#nodes to connect
