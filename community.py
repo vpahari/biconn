@@ -313,7 +313,7 @@ for net_rep in range(numDifferentGraphs):
 			GC = max(conn, key=len)
 
 		if len(biConn) == 0:
-			GBC = 0
+			GBC = nx.empty_graph(0)
 		else:
 			GBC =  max(biConn, key=len)
 
