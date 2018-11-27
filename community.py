@@ -210,7 +210,7 @@ sgc = []
 sgbc = []
 
 
-numDifferentGraphs = 5
+numDifferentGraphs = 20
 
 numSimsOfGraphs = 1
 
