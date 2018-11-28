@@ -39,7 +39,7 @@ r = 0.1
 
 numModules = 2
 
-M = int(N * k)
+M = int((numModules * N * k) / 2)
 
 M_out = int(M * alpha)
 
