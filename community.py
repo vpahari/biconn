@@ -243,7 +243,7 @@ sgbc = []
 numNTC = []
 
 
-numDifferentGraphs = 2
+numDifferentGraphs = 20
 
 numSimsOfGraphs = 1
 
