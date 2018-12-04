@@ -137,9 +137,10 @@ def degree_removal(G, numNodesToRemove, remove_order, counter):
 
 	G.remove_nodes_from(nodesToRemove)
 
-def coreHD(G, numNodesToRemove, found):
+def coreHD(G, numNodesToRemove, found, nTC, numNTCList):
 	if found:
 		G.remove_nodes_from(random.sample(list(G.nodes()),int(numNodesToRemove)))
+		numNTCList.append(0)
 		return True
 
 	G_2core = nx.k_core(G,2)
@@ -153,11 +154,28 @@ def coreHD(G, numNodesToRemove, found):
 	if len(onlyNodes) >= numNodesToRemove:
 		print("core")
 		nodesToRemove = onlyNodes[:numNodesToRemove]
+
+		if len(numNTCList) == 0:
+			ntcCounter = 0
+
+		else:
+			ntcCounter = numNTCList[len(numNTCList) - 1]
+
+		print(ntcCounter)
+
+		for n in nodesToRemove:
+			if n in nTC:
+				ntcCounter += 1
+
+		numNTCList.append(ntcCounter)
+
+
 		G.remove_nodes_from(nodesToRemove)
 		return False
 
 	else:
 		G.remove_nodes_from(random.sample(list(G.nodes()),int(numNodesToRemove)))
+		numNTCList.append(0)
 		return True
 
 
@@ -190,6 +208,17 @@ def getSize(GC_nodes,GBC_nodes):
 	return (counterGC1,counterGC2,counterGBC1,counterGBC2)
 
 
+def combine(nTC1, nTC2):
+	nTC = set([])
+
+	for i in nTC1:
+		nTC.add(i)
+
+	for j in nTC2:
+		nTC.add(j)
+
+	return nTC
+
 
 step_size = 0.01
 
@@ -211,8 +240,10 @@ sgbc2 = []
 sgc = []
 sgbc = []
 
+numNTC = []
 
-numDifferentGraphs = 20
+
+numDifferentGraphs = 2
 
 numSimsOfGraphs = 1
 
@@ -253,6 +284,10 @@ for net_rep in range(numDifferentGraphs):
 	nTC1 = random.sample(nodes1, numNodesToConnect)
 	nTC2 = random.sample(nodes2, numNodesToConnect)
 
+	nTC = combine(nTC1,nTC2)
+
+	assert len(nTC) == len(nTC1) + len(nTC1)
+
 
 	connect(G,nTC1,nTC2,M_out)
 
@@ -283,6 +318,8 @@ for net_rep in range(numDifferentGraphs):
 
 	sgcList = []
 	sgbcList = []
+
+	numNTCList = []
 
 	
 	#G = G_2core.copy()
@@ -338,7 +375,7 @@ for net_rep in range(numDifferentGraphs):
 		gc2List.append(counterGC2)
 		gbc2List.append(counterGBC2)
 
-		found = coreHD(G, numNodesToRemove, found)
+		found = coreHD(G, numNodesToRemove, found, nTC, numNTCList)
 
 		counter += 1
 		f = f + step_size
@@ -356,6 +393,10 @@ for net_rep in range(numDifferentGraphs):
 	gc2.append(gc2List)
 	gbc2.append(gbc2List)
 
+	numNTC.append(numNTCList)
+
+
+print(numNTC)
 
 
 fractions = 0
@@ -367,7 +408,6 @@ finalList = []
 
 
 while (fractions < 0.99):
-	print(counter)
 	(avgGc,stdGc) = indexToTake(gc, counter)
 	(avgGBc,stdGBc) = indexToTake(gbc, counter)
 
@@ -380,7 +420,9 @@ while (fractions < 0.99):
 	(avgSgc,stdSgc) = indexToTake(sgc, counter)
 	(avgSgbc,stdSgbc) = indexToTake(sgbc, counter)
 
-	finalList.append((fractions,avgGc,stdGc,avgGBc,stdGBc,avgGc1,stdGc1,avgGc2,stdGc2,avgGBc1,stdGBc1,avgGBc2,stdGBc2,avgSgc,stdSgc,avgSgbc,stdSgbc))
+	(avgNumNTC,stdNumNTC) = indexToTake(numNTC, counter)
+
+	finalList.append((fractions,avgGc,stdGc,avgGBc,stdGBc,avgGc1,stdGc1,avgGc2,stdGc2,avgGBc1,stdGBc1,avgGBc2,stdGBc2,avgSgc,stdSgc,avgSgbc,stdSgbc,avgNumNTC,stdNumNTC))
 
 	fractions = fractions + step_size
 	counter = counter + 1
@@ -391,10 +433,10 @@ output_file_name = "community_N_%d_k_%d_alpha_%g_r_%g_SEED_%d.csv"%(N,k,alpha,r,
 fh = open(output_file_name, 'w')
 writer = csv.writer(fh)
 
-writer.writerow(["f","GC avg", "GC std","GBC avg","GBC std","GC1 avg","GC1 std","GC2 avg", "GC2 std","GBC1 avg","GBC1 std","GBC2 avg", "GBC2 std", "SGC avg", "SGC std", "SGBC avg", "SGBC std" ])
+writer.writerow(["f","GC avg", "GC std","GBC avg","GBC std","GC1 avg","GC1 std","GC2 avg", "GC2 std","GBC1 avg","GBC1 std","GBC2 avg", "GBC2 std", "SGC avg", "SGC std", "SGBC avg", "SGBC std", "numNTC avg", "numNTC std"])
 
-for (fractions,avgGc,stdGc,avgGBc,stdGBc,avgGc1,stdGc1,avgGc2,stdGc2,avgGBc1,stdGBc1,avgGBc2,stdGBc2,avgSgc,stdSgc,avgSgbc,stdSgbc) in finalList:
-	writer.writerow([fractions,avgGc,stdGc,avgGBc,stdGBc,avgGc1,stdGc1,avgGc2,stdGc2,avgGBc1,stdGBc1,avgGBc2,stdGBc2,avgSgc,stdSgc,avgSgbc,stdSgbc])
+for (fractions,avgGc,stdGc,avgGBc,stdGBc,avgGc1,stdGc1,avgGc2,stdGc2,avgGBc1,stdGBc1,avgGBc2,stdGBc2,avgSgc,stdSgc,avgSgbc,stdSgbc, avgNumNTC,stdNumNTC) in finalList:
+	writer.writerow([fractions,avgGc,stdGc,avgGBc,stdGBc,avgGc1,stdGc1,avgGc2,stdGc2,avgGBc1,stdGBc1,avgGBc2,stdGBc2,avgSgc,stdSgc,avgSgbc,stdSgbc,avgNumNTC,stdNumNTC])
 
 
 
