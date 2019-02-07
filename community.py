@@ -419,5 +419,5 @@ print(intersect)
 print(gc_List1)
 print(gc_List2)
 
-check_GC(G,intersect)
+check_GC(Gnk_1,intersect)
 
