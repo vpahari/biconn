@@ -379,7 +379,7 @@ def check_GC(G_copy,nodesToRemove):
 
 
 
-N = 2000
+N = 5000
 k = 3
 
 edgesPercentage = 0.2
