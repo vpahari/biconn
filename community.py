@@ -1,5 +1,5 @@
 import networkx as nx
-#import networkit as nk
+import networkit as nk
 import random
 import sys
 import math
@@ -24,6 +24,7 @@ k=int(sys.argv[2]) # average degree
 SEED=int(sys.argv[3])
 alpha = float(sys.argv[4])
 r = float(sys.argv[5])
+#gType = str(sys.argv[6])
 
 """
 N = 10000
@@ -57,7 +58,7 @@ print(k_in)
 print(p_in)
 
 
-def connect(G,nTC1,nTC2,M_out):
+def connectRandom(G,nTC1,nTC2,M_out):
 	newSet = set([])
 	counter = 0
 	while counter < M_out:
@@ -86,31 +87,6 @@ def indexToTake(graphList,index):
 	return (gAvg,gStdDev)
 
 
-def getSecondMax(conn):
-	if len(conn) < 2:
-		return 0
-
-	newConn = conn.copy()
-
-	sortedConn = sorted(newConn, key = len,reverse = True)
-
-	secondBiggest = sortedConn[1]
-
-	"""
-	counter1 = 0
-	counter2 = 0
-
-	for node in list(secondBiggest.nodes()):
-		if node < N:
-			counter1 += 1
-		else:
-			counter2 += 1
-
-
-	"""
-
-
-	return len(sortedConn[1])
 
 def createOrder(G):
 	allNodes = list(G.nodes())
@@ -121,72 +97,40 @@ def createOrder(G):
 	onlyNodes = list(map(lambda x:x[0],degreeDictItemsSorted))
 	return onlyNodes
 
-
-def degree_removal(G, numNodesToRemove, remove_order, counter):
-	startIndex = int(numNodesToRemove * counter)
-	endIndex = int(startIndex + numNodesToRemove)
-
-	if endIndex > len(remove_order):
-		G.remove_nodes_from(random.sample(list(G.nodes()),int(numNodesToRemove)))
-		return
-
-	#if endIndex > len(remove_order):
-	#	nodesToRemove = remove_order[startIndex:]
-	#else:
-	nodesToRemove = remove_order[startIndex:endIndex]
-
-	G.remove_nodes_from(nodesToRemove)
-
-def coreHD(G, numNodesToRemove, found, nTC, numNTCList):
-	if found:
-		G.remove_nodes_from(random.sample(list(G.nodes()),int(numNodesToRemove)))
-		numNTCList.append(0)
-		return True
-
-	G_2core = nx.k_core(G,2)
-	allNodes = list(G_2core.nodes())
-	degreeDict = dict(G_2core.degree(allNodes))
-	degreeDictItems = list(degreeDict.items())
-	random.shuffle(degreeDictItems)
-	degreeDictItemsSorted = sorted(degreeDictItems, key = itemgetter(1),reverse = True)
-	onlyNodes = list(map(lambda x:x[0],degreeDictItemsSorted))
-
-	if len(onlyNodes) >= numNodesToRemove:
-		print("core")
-		nodesToRemove = onlyNodes[:numNodesToRemove]
-
-		if len(numNTCList) == 0:
-			ntcCounter = 0
-
-		else:
-			ntcCounter = numNTCList[len(numNTCList) - 1]
-
-		print(ntcCounter)
-
-		for n in nodesToRemove:
-			if n in nTC:
-				ntcCounter += 1
-
-		numNTCList.append(ntcCounter)
-
-
-		G.remove_nodes_from(nodesToRemove)
-		return False
-
-	else:
-		G.remove_nodes_from(random.sample(list(G.nodes()),int(numNodesToRemove)))
-		numNTCList.append(0)
-		return True
+def createOrder_BI(G):
+	BI_dict = dict(nx.betweenness_centrality(G,None,True))
+	BI_DictItems = list(BI_dict.items())
+	random.shuffle(BI_DictItems)
+	BI_DictItemsSorted = sorted(BI_DictItems, key = itemgetter(1),reverse = True)
+	onlyNodes = list(map(lambda x:x[0],BI_DictItemsSorted))
+	return onlyNodes
 
 
 
 
-def getSize(GC_nodes,GBC_nodes):
+def adaptive_degree(G,numNodesToRemove):
+	degree = nk.centrality.DegreeCentrality(G)
+	degree.run()
+	listToRemove = between.ranking()[:nodesToRemove]
+
+	for n in listToRemove:
+		G.removeNode(n)
+
+
+def adaptive_betweenness(G,numNodesToRemove):
+	between = nk.centrality.DynBetweenness(G)
+	between.run()
+	listToRemove = between.ranking()[:nodesToRemove]
+
+	for n in listToRemove:
+		G.removeNode(n)
+
+	
+
+
+def getSize(GC_nodes):
 	counterGC1 = 0
 	counterGC2 = 0
-
-	counterGBC1 = 0
-	counterGBC2 = 0
 
 	for node in GC_nodes:
 
@@ -197,213 +141,248 @@ def getSize(GC_nodes,GBC_nodes):
 			counterGC2 += 1
 
 
-	for node in GBC_nodes:
-
-		if node < N:
-			counterGBC1 += 1
-
-		else:
-			counterGBC2 += 1
-
-	return (counterGC1,counterGC2,counterGBC1,counterGBC2)
-
-
-def combine(nTC1, nTC2):
-	nTC = set([])
-
-	for i in nTC1:
-		nTC.add(i)
-
-	for j in nTC2:
-		nTC.add(j)
-
-	return nTC
-
-
-step_size = 0.01
-
-gc1 = []
-gbc1 = []
-
-gc2 = []
-gbc2 = []
-
-gc = []
-gbc = []
-
-sgc1 = []
-sgbc1 = []
-
-sgc2 = []
-sgbc2 = []
-
-sgc = []
-sgbc = []
-
-numNTC = []
-
-
-numDifferentGraphs = 20
-
-numSimsOfGraphs = 1
+	return (counterGC1,counterGC2)
 
 
 
-for net_rep in range(numDifferentGraphs):
+def get_percolation_threshold(sgc_List):
+	return index(max(sgcList))
 
-	found = False
 
-	G = nx.erdos_renyi_graph(N, p_in, seed = (SEED*2*net_rep)+2)
+def percolation(G, step_size, typeOfAttack, percentage_to_attack):
+	counter = 0
 
-	G2 = nx.erdos_renyi_graph(N, p_in, seed = (SEED*net_rep)+1)
+	gc1_List = []
+	gc2_List = []
 
-	print(G.number_of_edges())
-	print(G2.number_of_edges())
+	gc_List = []
 
-	print(G.number_of_edges() + G2.number_of_edges())
+	sgc_List = []
 
-	l = [i for i in range(N, 2*N)]
+	GC_nodes_List = []
 
-	G.add_nodes_from(l)
+	originalSize = G.numberOfNodes()
+
+	numNodesToRemove = originalSize * step_size
+
+	while counter < percentage_to_attack:
+
+		comp = nk.components.DynConnectedComponents(G)
+		comp.run()
+		
+		connected_comps_sizes = comp.getComponentSizes()
+
+		connected_comps = comp.getComponents()
+
+		GC_size = connected_comps_sizes[0]
+		SGC_size = connected_comps_sizes[1]
+
+		GC_nodes = connected_comps[0]
+
+		(GC1_size, GC2_size) = getSize(GC_nodes)
+
+		gc1_List.append(GC1_size)
+		gc2_List.append(GC2_size)
+
+		gc_List.append(GC_size)
+		sgc_List.append(SGC_size)
+
+		GC_nodes_List += GC_nodes
+
+		if typeOfAttack == "ABA":
+			adaptive_betweenness(G,numNodesToRemove)
+
+		elif typeOfAttack == "ADA":
+			adaptive_degree(G,numNodesToRemove)
+
+
+		counter += step_size
+
+	return (gc_List,gc1_List,gc2_List,GC_nodes_List, sgc_List)
+
+
+
+#takes two graphs and then makes it into one modular networks of size 2
+def change_nodes(G1,G2):
+	for i in range(N):
+		G1.addNode()
 
 	allEdges = list(G2.edges())
 
 	allEdges = map(lambda x : (N + x[0], N + x[1]) ,allEdges)
 
-	G.add_edges_from(allEdges)
-
-	allNodes = list(G.nodes())
-
-	G.edges()
-
-	nodes1 = allNodes[:N]
-	nodes2 = allNodes[N:]
+	for (i,j) in allEdges:
+		G1.addEdge(i,j)
 
 
-	#nodes to connect
-	nTC1 = random.sample(nodes1, numNodesToConnect)
-	nTC2 = random.sample(nodes2, numNodesToConnect)
 
-	nTC = combine(nTC1,nTC2)
-
-	assert len(nTC) == len(nTC1) + len(nTC1)
+def connecting_graphs(G,nodes_to_connect_1,nodes_to_connect_2):
+	for i in range(len(nodes_to_connect1)):
+		G.addEdge(nodes_to_connect1[i], nodes_to_connect2[i])
 
 
-	connect(G,nTC1,nTC2,M_out)
 
-	#G_2core = nx.k_core(G,2)
+def all_possible_connections(G,number_of_edges):
+
+	all_nodes = G.nodes()
+
+	comp = nk.components.DynConnectedComponents(G)
+	comp.run()
+
+	connected_comps = comp.getComponents()
+	
+	GC1_nodes = connected_comps[0]
+	GC2_nodes = connected_comps[1]
+
+	all_combinations_1 = list(itertools.combinations(GC1_nodes, number_of_edges))
+	all_combinations_2 = list(itertools.combinations(GC2_nodes, number_of_edges))
+
+	return (all_combinations_1, all_combinations_2)
 
 
-	#print(G.number_of_nodes())
-	#print(G_2core.number_of_nodes())
+def do_percolation(G,number_of_edges,percentage_to_attack):
 
+	(all_combinations_1, all_combinations_2) = all_possible_connections(G,number_of_edges)
 
-	f=0
-	counter = 0
+	gc_List = []
+	gc1_List = []
+	gc2_List = []
+	GC_nodes_List = []
+	sgc_List = []
 
-	gc1List = []
-	gbc1List = []
+	gc_min = G.numberOfNodes()
 
-	gc2List = []
-	gbc2List = []
+	best_combinations_1 = []
+	best_combinations_2 = []
 
-	gcList = []
-	gbcList = []
+	for i in range(len(all_combinations_1)):
 
-	sgc1List = []
-	sgbc1List = []
+		G_copy = G.copy()
 
-	sgc2List = []
-	sgbc2List = []
+		connecting_graphs(G_copy,all_combinations_1[i],all_combinations_2[i])
 
-	sgcList = []
-	sgbcList = []
+		(gc_List_ABA,gc1_List_ABA,gc2_List_ABA,GC_nodes_List_ABA, sgc_List_ABA) = percolation(G_copy, 0.01, "ABA",percentage_to_attack)
+		(gc_List_ADA,gc1_List_ADA,gc2_List_ADA,GC_nodes_List_ADA, sgc_List_ADA) = percolation(G_copy, 0.01, "ADA",percentage_to_attack)
 
-	numNTCList = []
+		if gc_List_ABA[-1] < gc_min and gc_List_ABA[-1] <= gc_List_ADA[-1]:
+
+			gc_min = gc_List_ABA[-1]
+			(gc_List,gc1_List,gc2_List,GC_nodes_List, sgc_List) = (gc_List_ABA,gc1_List_ABA,gc2_List_ABA,GC_nodes_List_ABA, sgc_List_ABA)
+
+			best_combinations_1 = all_combinations_1
+			best_combinations_2 = all_combinations_2
+
+		if gc_List_ADA[-1] < gc_min and gc_List_ADA[-1] <= gc_List_ABA[-1]:
+
+			gc_min = gc_List_ADA[-1]
+			(gc_List,gc1_List,gc2_List,GC_nodes_List, sgc_List) = (gc_List_ADA,gc1_List_ADA,gc2_List_ADA,GC_nodes_List_ADA, sgc_List_ADA)
+
+			best_combinations_1 = all_combinations_1
+			best_combinations_2 = all_combinations_2
+
 
 	
-	#G = G_2core.copy()
-
-	numNodesToRemove = int(2 * N * step_size)
-
-	print(numNodesToRemove)
-
-	#removeOrder = createOrder(G_2core)
-
-	while counter <= 100:
 
 
-		print(G.number_of_nodes())
-
-		if G.number_of_nodes() <= numNodesToRemove:
-			break
-
-		#assert G.number_of_nodes() == (N - counter*int(step_size*N))
-
-		conn = list(nx.connected_component_subgraphs(G))
-		biConn = list(nx.biconnected_component_subgraphs(G))
-
-		if len(conn) == 0:
-			GC = nx.empty_graph(0)
-		else:
-			GC = max(conn, key=len)
-
-		if len(biConn) == 0:
-			GBC = nx.empty_graph(0)
-		else:
-			GBC =  max(biConn, key=len)
 
 
-		GC_nodes = list(GC.nodes())
-		GBC_nodes = list(GBC.nodes())
 
-		(counterGC1,counterGC2,counterGBC1,counterGBC2) = getSize(GC_nodes,GBC_nodes)
+def intersection(l1,l2):
+	set_l1 = set(l1)
 
-		secondGC = getSecondMax(conn)
-		secondGBC = getSecondMax(biConn)
+	l3 = []
 
+	for n in l2:
+		if n in set_l1:
+			l3.append(n)
 
-		gcList.append(GC.number_of_nodes())
-		gbcList.append(GBC.number_of_nodes())
-
-		sgcList.append(secondGC)
-		sgbcList.append(secondGBC)
-
-		gc1List.append(counterGC1)
-		gbc1List.append(counterGBC1)
-
-		gc2List.append(counterGC2)
-		gbc2List.append(counterGBC2)
-
-		found = coreHD(G, numNodesToRemove, found, nTC, numNTCList)
-
-		counter += 1
-		f = f + step_size
+	return l3
 
 
-	gbc.append(gbcList)
-	gc.append(gcList)
 
-	sgc.append(sgcList)
-	sgbc.append(sgbcList)
+def find_best_nodes(G,step_size,percentage_to_attack):
+	G_copy = G.copy()
 
-	gc1.append(gc1List)
-	gbc1.append(gbc1List)
+	(gc_List_ABA,gc1_List_ABA,gc2_List_ABA,GC_nodes_List_ABA, sgc_List_ABA) = percolation(G_copy,step_size,"ABA",percentage_to_attack)
+	(gc_List_ADA,gc1_List_ADA,gc2_List_ADA,GC_nodes_List_ADA, sgc_List_ADA) = percolation(G_copy,step_size,"ADA",percentage_to_attack)
 
-	gc2.append(gc2List)
-	gbc2.append(gbc2List)
-
-	numNTC.append(numNTCList)
+	intersection_nodes = intersection(GC_nodes_List_ABA,GC_nodes_List_ADA)
 
 
-print(numNTC)
+
+	return intersection_nodes
 
 
-fractions = 0
 
+
+
+
+
+
+
+
+numDifferentGraphs = 10
+
+Gnx_1 = nx.erdos_renyi_graph(N, p_in, seed = (SEED*2*net_rep)+2)
+
+Gnx_2 = nx.erdos_renyi_graph(N, p_in, seed = (SEED*net_rep)+1)
+
+Gnk_1 = nk.nxadapter.nx2nk(Gnx_1)
+
+Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
+
+change_nodes(Gnk_1, Gnk_2)
+
+
+nodes1 = allNodes[:N]
+nodes2 = allNodes[N:]
+
+
+#nodes to connect
+nTC1 = random.sample(nodes1, numNodesToConnect)
+nTC2 = random.sample(nodes2, numNodesToConnect)
+
+nTC = combine(nTC1,nTC2)
+
+assert len(nTC) == len(nTC1) + len(nTC1)
+
+
+connect(G,nTC1,nTC2,M_out)
+
+#G_2core = nx.k_core(G,2)
+
+
+#print(G.number_of_nodes())
+#print(G_2core.number_of_nodes())
+
+
+f=0
 counter = 0
 
-finalList = []
+gc1List = []
+gbc1List = []
+
+gc2List = []
+gbc2List = []
+
+gcList = []
+gbcList = []
+
+sgc1List = []
+sgbc1List = []
+
+sgc2List = []
+sgbc2List = []
+
+sgcList = []
+sgbcList = []
+
+numNTCList = []
+
+
+#G = G_2core.copy()
+
+numNodesToRemove = int(2 * N * step_size)
 
 
 
@@ -428,7 +407,7 @@ while (fractions < 0.99):
 	counter = counter + 1
 
 
-output_file_name = "community_N_%d_k_%d_alpha_%g_r_%g_SEED_%d.csv"%(N,k,alpha,r,SEED)
+output_file_name = "communityBI_N_%d_k_%d_alpha_%g_r_%g_SEED_%d.csv"%(N,k,alpha,r,SEED)
 
 fh = open(output_file_name, 'w')
 writer = csv.writer(fh)
