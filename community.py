@@ -172,6 +172,8 @@ def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
 
 	while counter < percentage_to_attack:
 
+		print("conn")
+
 		comp = nk.components.DynConnectedComponents(G)
 		comp.run()
 		
@@ -404,7 +406,7 @@ step_size = 0.01
 
 percentage_to_attack = 0.25
 
-
+print("start")
 (gc_List1,gc1_List1,gc2_List1,GC_nodes_List1, sgc_List1) = percolation(Gnk_1, step_size, "ABA", percentage_to_attack)
 (gc_List2,gc1_List2,gc2_List2,GC_nodes_List2, sgc_List2) = percolation(Gnk_1, step_size, "ADA", percentage_to_attack)
 
