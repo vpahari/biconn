@@ -100,7 +100,7 @@ def createOrder_BI(G):
 def adaptive_degree(G,numNodesToRemove):
 	degree = nk.centrality.DegreeCentrality(G)
 	degree.run()
-	listToRemove = between.ranking()[:nodesToRemove]
+	listToRemove = between.ranking()[:numNodesToRemove]
 
 	for n in listToRemove:
 		G.removeNode(n)
@@ -109,7 +109,7 @@ def adaptive_degree(G,numNodesToRemove):
 def adaptive_betweenness(G,numNodesToRemove):
 	between = nk.centrality.DynBetweenness(G)
 	between.run()
-	listToRemove = between.ranking()[:nodesToRemove]
+	listToRemove = between.ranking()[:numNodesToRemove]
 
 	for n in listToRemove:
 		G.removeNode(n)
