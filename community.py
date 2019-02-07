@@ -357,8 +357,6 @@ def get_GC(G):
 	comp = nk.components.DynConnectedComponents(G)
 	comp.run()
 
-	print(comp.getComponentSizes())
-
 	return comp.getComponentSizes()[0]
 
 
@@ -416,6 +414,9 @@ print(gc_List1)
 print(gc_List2)
 
 (GC_init,GC_final) = check_GC(Gnk_1,intersect)
+
+print(GC_init)
+print(GC_final)
 
 
 
