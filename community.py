@@ -310,9 +310,9 @@ def find_best_nodes(G,step_size,percentage_to_attack):
 
 
 
-Gnx_1 = nx.erdos_renyi_graph(N, p_in, seed = (SEED*2*net_rep)+2)
+Gnx_1 = nx.erdos_renyi_graph(1000, 3/999, seed = 4123)
 
-Gnx_2 = nx.erdos_renyi_graph(N, p_in, seed = (SEED*net_rep)+1)
+Gnx_2 = nx.erdos_renyi_graph(1000, 3/999, seed = 41232)
 
 Gnk_1 = nk.nxadapter.nx2nk(Gnx_1)
 
