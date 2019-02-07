@@ -361,6 +361,19 @@ def copy_graph(G):
 
 
 
+def get_GC(G):
+	comp = nk.components.DynConnectedComponents(G)
+	comp.run()
+
+	return comp.getComponentSizes()[0]
+
+
+
+def check_GC(G,nodesToRemove):
+	print(get_GC(G))
+
+
+
 Gnx_1 = nx.erdos_renyi_graph(1000, 3/999, seed = 4123)
 
 Gnx_2 = nx.erdos_renyi_graph(1000, 3/999, seed = 41232)
@@ -411,4 +424,6 @@ print(intersect)
 
 print(gc_List1)
 print(gc_List2)
+
+check_GC(G,intersect)
 
