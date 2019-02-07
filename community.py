@@ -117,13 +117,13 @@ def adaptive_betweenness(G,numNodesToRemove):
 	
 
 
-def getSize(GC_nodes):
+def getSize(GC_nodes, size):
 	counterGC1 = 0
 	counterGC2 = 0
 
 	for node in GC_nodes:
 
-		if node < N:
+		if node < size:
 			counterGC1 += 1
 
 		else:
@@ -172,7 +172,7 @@ def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
 
 		GC_nodes = connected_comps[0]
 
-		(GC1_size, GC2_size) = getSize(GC_nodes)
+		(GC1_size, GC2_size) = getSize(GC_nodes,int(originalSize / 2))
 
 		gc1_List.append(GC1_size)
 		gc2_List.append(GC2_size)
