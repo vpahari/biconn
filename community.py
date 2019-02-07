@@ -336,7 +336,7 @@ def connect_random_nodes(G,numEdges):
 def copy_graph(G):
 	G_copy = G.copyNodes()
 
-	G_copy.edges()
+	print(G_copy.edges())
 
 
 
@@ -369,7 +369,7 @@ copy_graph(Gnk_1)
 
 
 
-
+"""
 
 step_size = 0.01
 
@@ -382,4 +382,4 @@ percentage_to_attack = 0.05
 intersect = intersection(GC_nodes_List1,GC_nodes_List2)
 
 print(intersect)
-
+"""
