@@ -366,12 +366,14 @@ def get_GC(G):
 def check_GC(G_copy,nodesToRemove):
 	G = copy_graph(G_copy)
 
-	print(get_GC(G))
+	GC_init = get_GC(G))
 
 	for n in nodesToRemove:
 		G.removeNode(n)
 
-	print(get_GC(G))
+	GC_final = get_GC(G))
+
+	return (GC_init,GC_final)
 
 
 
@@ -413,7 +415,7 @@ print(intersect)
 print(gc_List1)
 print(gc_List2)
 
-check_GC(Gnk_1,intersect)
+(GC_init,GC_final) = check_GC(Gnk_1,intersect)
 
 
 
