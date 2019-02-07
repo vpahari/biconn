@@ -117,7 +117,7 @@ def adaptive_betweenness(G,numNodesToRemove):
 
 	listToRemove = list(map(lambda x : x[0], listToRemove))
 
-	print(listToRemove)
+	#print(listToRemove)
 
 	for n in listToRemove:
 		G.removeNode(n)
