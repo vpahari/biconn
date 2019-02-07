@@ -382,8 +382,10 @@ def check_GC(G_copy,nodesToRemove):
 N = 2000
 k = 3
 
+edgesPercentage = 0.2
 
-edgesToAdd = int(N/10)
+
+edgesToAdd = int(N * edgesPercentage)
 
 Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = 123)
 
@@ -404,7 +406,7 @@ connect_random_nodes(Gnk_1,edgesToAdd)
 
 step_size = 0.01
 
-percentage_to_attack = 0.25
+percentage_to_attack = 0.20
 
 print("start")
 (gc_List1,gc1_List1,gc2_List1,GC_nodes_List1, sgc_List1) = percolation(Gnk_1, step_size, "ABA", percentage_to_attack)
