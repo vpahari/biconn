@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 #M_out = int(sys.argv[4])
 #r = float(sys.argv[5])
 
+"""
 N=int(sys.argv[1]) # number of nodes
 k=int(sys.argv[2]) # average degree
 SEED=int(sys.argv[3])
@@ -26,7 +27,6 @@ alpha = float(sys.argv[4])
 r = float(sys.argv[5])
 #gType = str(sys.argv[6])
 
-"""
 N = 10000
 
 k = 4
@@ -36,7 +36,7 @@ SEED = 312
 alpha = 0.01
 
 r = 0.1
-"""
+
 
 numModules = 2
 
@@ -56,7 +56,7 @@ numNodesToConnect = int(r * N)
 print(M_in)
 print(k_in)
 print(p_in)
-
+"""
 
 def connectRandom(G,nTC1,nTC2,M_out):
 	newSet = set([])
