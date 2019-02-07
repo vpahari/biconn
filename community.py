@@ -311,7 +311,7 @@ def connect_random_nodes(G,numEdges):
 
 	connected_comps = comp.getComponents()
 
-	connected_comps.sort(key = len, rev = True)
+	connected_comps.sort(key = len, reverse = True)
 
 	print(connected_comps)
 
