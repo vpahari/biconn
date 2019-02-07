@@ -156,7 +156,7 @@ def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
 
 	originalSize = G.numberOfNodes()
 
-	numNodesToRemove = originalSize * step_size
+	numNodesToRemove = int(originalSize * step_size)
 
 	print(numNodesToRemove)
 
