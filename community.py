@@ -102,6 +102,8 @@ def adaptive_degree(G,numNodesToRemove):
 	degree.run()
 	listToRemove = degree.ranking()[:numNodesToRemove]
 
+	print(listToRemove)
+
 	for n in listToRemove:
 		G.removeNode(n)
 
