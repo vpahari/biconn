@@ -102,7 +102,7 @@ def adaptive_degree(G,numNodesToRemove):
 	degree.run()
 	listToRemove = degree.ranking()[:numNodesToRemove]
 
-	print(listToRemove)
+	listToRemove = list(map(lambda x : x[0], listToRemove))
 
 	for n in listToRemove:
 		G.removeNode(n)
@@ -118,7 +118,6 @@ def adaptive_betweenness(G,numNodesToRemove):
 	print(listToRemove)
 
 	for n in listToRemove:
-		print(n)
 		G.removeNode(n)
 
 	
