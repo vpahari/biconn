@@ -158,6 +158,8 @@ def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
 
 	numNodesToRemove = originalSize * step_size
 
+	print(numNodesToRemove)
+
 	while counter < percentage_to_attack:
 
 		comp = nk.components.DynConnectedComponents(G)
