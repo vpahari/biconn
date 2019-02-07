@@ -369,8 +369,16 @@ def get_GC(G):
 
 
 
-def check_GC(G,nodesToRemove):
+def check_GC(G_copy,nodesToRemove):
+	G = copy_graph(G_copy)
+
 	print(get_GC(G))
+
+	for n in nodesToRemove:
+		G.removeNode(n)
+
+	print(get_GC(G))
+
 
 
 
@@ -382,25 +390,11 @@ Gnk_1 = nk.nxadapter.nx2nk(Gnx_1)
 
 Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
-print(Gnk_1.numberOfNodes())
-print(Gnk_2.numberOfNodes())
-
-print(Gnk_1.numberOfEdges())
-print(Gnk_2.numberOfEdges())
 
 change_nodes(Gnk_1, Gnk_2)
 
-print(Gnk_1.numberOfNodes())
-print(Gnk_1.numberOfEdges())
 
 connect_random_nodes(Gnk_1,100)
-
-print(Gnk_1.numberOfEdges())
-
-copy_graph(Gnk_1)
-
-
-
 
 
 
