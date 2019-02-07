@@ -100,7 +100,7 @@ def createOrder_BI(G):
 def adaptive_degree(G,numNodesToRemove):
 	degree = nk.centrality.DegreeCentrality(G)
 	degree.run()
-	listToRemove = between.ranking()[:numNodesToRemove]
+	listToRemove = degree.ranking()[:numNodesToRemove]
 
 	for n in listToRemove:
 		G.removeNode(n)
