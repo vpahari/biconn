@@ -206,7 +206,7 @@ def percolation(G, step_size, typeOfAttack, percentage_to_attack):
 def change_nodes(G1,G2):
 	G1_num_nodes = G1.numberOfNodes()
 	G2_num_nodes = G2.numberOfNodes()
-	
+
 	for i in range(G2_num_nodes):
 		G1.addNode()
 
@@ -324,9 +324,13 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 print(Gnk_1.numberOfNodes())
 print(Gnk_2.numberOfNodes())
 
+print(Gnk_1.numberOfEdges())
+print(Gnk_2.numberOfEdges())
+
 change_nodes(Gnk_1, Gnk_2)
 
 print(Gnk_1.numberOfNodes())
+print(Gnk_1.numberOfEdges())
 
 
 
