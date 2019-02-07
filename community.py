@@ -349,5 +349,7 @@ print(Gnk_1.numberOfEdges())
 
 connect_random_nodes(Gnk_1,100)
 
+print(Gnk_1.numberOfEdges())
+
 
 
