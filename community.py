@@ -336,7 +336,14 @@ def connect_random_nodes(G,numEdges):
 def copy_graph(G):
 	G_copy = G.copyNodes()
 
+	edges = G.edges()
+
+	for (i,j) in edges:
+		G_copy.addEdge(i,j)
+
 	print(G_copy.edges())
+
+	
 
 
 
