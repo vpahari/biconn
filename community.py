@@ -204,13 +204,15 @@ def percolation(G, step_size, typeOfAttack, percentage_to_attack):
 
 #takes two graphs and then makes it into one modular networks of size 2
 def change_nodes(G1,G2):
+	G1_num_nodes = G1.numberOfNodes()
 	G2_num_nodes = G2.numberOfNodes()
+	
 	for i in range(G2_num_nodes):
 		G1.addNode()
 
 	allEdges = list(G2.edges())
 
-	allEdges = map(lambda x : (N + x[0], N + x[1]) ,allEdges)
+	allEdges = map(lambda x : (G1_num_nodes + x[0], G1_num_nodes + x[1]) ,allEdges)
 
 	for (i,j) in allEdges:
 		G1.addEdge(i,j)
