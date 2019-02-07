@@ -333,6 +333,12 @@ def connect_random_nodes(G,numEdges):
 		G.addEdge(nTC1[i], nTC2[i])
 
 
+def copy_graph(G):
+	G_copy = G.copyNodes()
+
+	G_copy.edges()
+
+
 
 Gnx_1 = nx.erdos_renyi_graph(1000, 3/999, seed = 4123)
 
@@ -356,6 +362,14 @@ print(Gnk_1.numberOfEdges())
 connect_random_nodes(Gnk_1,100)
 
 print(Gnk_1.numberOfEdges())
+
+copy_graph(Gnk_1)
+
+
+
+
+
+
 
 step_size = 0.01
 
