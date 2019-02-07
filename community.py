@@ -409,3 +409,6 @@ print(len(intersect))
 
 print(intersect)
 
+print(gc_List1)
+print(gc_List2)
+
