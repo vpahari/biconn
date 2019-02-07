@@ -375,10 +375,15 @@ def check_GC(G_copy,nodesToRemove):
 
 
 
+N = 10000
+k = 3
 
-Gnx_1 = nx.erdos_renyi_graph(10000, 3/9999, seed = 4123)
 
-Gnx_2 = nx.erdos_renyi_graph(10000, 3/9999, seed = 41232)
+edgesToAdd = int(N/10)
+
+Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = 4123)
+
+Gnx_2 = nx.erdos_renyi_graph(N, k/(N-1), seed = 41232)
 
 Gnk_1 = nk.nxadapter.nx2nk(Gnx_1)
 
@@ -388,7 +393,7 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 change_nodes(Gnk_1, Gnk_2)
 
 
-connect_random_nodes(Gnk_1,1000)
+connect_random_nodes(Gnk_1,edgesToAdd)
 
 
 
