@@ -331,12 +331,8 @@ def connect_random_nodes(G,numEdges):
 
 	connected_comps.sort(key = len, reverse = True)
 
-	print(connected_comps)
-
 	GC1_nodes = connected_comps[0]
 	GC2_nodes = connected_comps[1]
-
-
 
 	nTC1 = random.sample(GC1_nodes, numEdges)
 	nTC2 = random.sample(GC2_nodes, numEdges)
@@ -352,10 +348,6 @@ def copy_graph(G):
 
 	for (i,j) in edges:
 		G_copy.addEdge(i,j)
-
-	print(G_copy.edges())
-
-	print(G_copy.numberOfEdges())
 
 	return G_copy
 
@@ -411,8 +403,8 @@ percentage_to_attack = 0.1
 
 intersect = intersection(GC_nodes_List1,GC_nodes_List2)
 
-print(len(GC_nodes_List1))
-print(len(GC_nodes_List2))
+#print(len(GC_nodes_List1))
+#print(len(GC_nodes_List2))
 
 print(len(intersect))
 
@@ -421,5 +413,10 @@ print(intersect)
 print(gc_List1)
 print(gc_List2)
 
-#check_GC(Gnk_1,intersect)
+check_GC(Gnk_1,intersect)
+
+
+
+
+
 
