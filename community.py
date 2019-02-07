@@ -406,3 +406,6 @@ print(len(GC_nodes_List1))
 print(len(GC_nodes_List2))
 
 print(len(intersect))
+
+print(intersect)
+
