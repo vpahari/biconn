@@ -400,4 +400,4 @@ intersect = intersection(GC_nodes_List1,GC_nodes_List2)
 
 
 
-print(intersect)
+print(len(intersect))
