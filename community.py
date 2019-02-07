@@ -388,7 +388,7 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 change_nodes(Gnk_1, Gnk_2)
 
 
-connect_random_nodes(Gnk_1,100)
+connect_random_nodes(Gnk_1,200)
 
 
 
