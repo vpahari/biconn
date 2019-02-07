@@ -112,6 +112,7 @@ def adaptive_betweenness(G,numNodesToRemove):
 	listToRemove = between.ranking()[:numNodesToRemove]
 
 	for n in listToRemove:
+		print(n)
 		G.removeNode(n)
 
 	
