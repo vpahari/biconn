@@ -117,7 +117,7 @@ def adaptive_betweenness(G,numNodesToRemove):
 
 	listToRemove = list(map(lambda x : x[0], listToRemove))
 
-	print("between")
+	#print("between")
 
 	#print(listToRemove)
 
@@ -172,7 +172,7 @@ def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
 
 	while counter < percentage_to_attack:
 
-		print("conn")
+		#print("conn")
 
 		comp = nk.components.DynConnectedComponents(G)
 		comp.run()
@@ -379,15 +379,15 @@ def check_GC(G_copy,nodesToRemove):
 
 
 
-N = 1000
+N = 2000
 k = 3
 
 
 edgesToAdd = int(N/10)
 
-Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = 411223)
+Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = 123)
 
-Gnx_2 = nx.erdos_renyi_graph(N, k/(N-1), seed = 412432)
+Gnx_2 = nx.erdos_renyi_graph(N, k/(N-1), seed = 532)
 
 Gnk_1 = nk.nxadapter.nx2nk(Gnx_1)
 
