@@ -107,6 +107,8 @@ def adaptive_degree(G,numNodesToRemove):
 	for n in listToRemove:
 		G.removeNode(n)
 
+	return listToRemove
+
 
 def adaptive_betweenness(G,numNodesToRemove):
 	between = nk.centrality.DynBetweenness(G)
@@ -120,7 +122,7 @@ def adaptive_betweenness(G,numNodesToRemove):
 	for n in listToRemove:
 		G.removeNode(n)
 
-	
+	return listToRemove
 
 
 def getSize(GC_nodes, size):
@@ -188,14 +190,16 @@ def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
 		gc_List.append(GC_size)
 		sgc_List.append(SGC_size)
 
-		GC_nodes_List += GC_nodes
+		
 
 		if typeOfAttack == "ABA":
-			adaptive_betweenness(G,numNodesToRemove)
+			listToRemove = adaptive_betweenness(G,numNodesToRemove)
 
 		elif typeOfAttack == "ADA":
-			adaptive_degree(G,numNodesToRemove)
+			listToRemove = adaptive_degree(G,numNodesToRemove)
 
+
+		GC_nodes_List += listToRemove
 
 		counter += step_size
 
@@ -398,6 +402,7 @@ percentage_to_attack = 0.05
 
 intersect = intersection(GC_nodes_List1,GC_nodes_List2)
 
-
+print(len(GC_nodes_List1))
+print(len(GC_nodes_List2))
 
 print(len(intersect))
