@@ -140,7 +140,7 @@ def get_percolation_threshold(sgc_List):
 
 def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
 
-	G = G_copy.copy()
+	G = copy_graph(G_copy)
 
 
 	counter = 0
@@ -344,6 +344,8 @@ def copy_graph(G):
 	print(G_copy.edges())
 
 	print(G_copy.numberOfEdges())
+
+	return G_copy
 
 
 
