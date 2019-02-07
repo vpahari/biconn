@@ -311,8 +311,12 @@ def connect_random_nodes(G,numEdges):
 
 	connected_comps = comp.getComponents()
 
+	print(connected_comps)
+
 	GC1_nodes = connected_comps[0]
 	GC2_nodes = connected_comps[1]
+
+
 
 	nTC1 = random.sample(GC1_nodes, numEdges)
 	nTC2 = random.sample(GC2_nodes, numEdges)
