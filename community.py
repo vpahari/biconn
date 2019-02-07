@@ -58,17 +58,6 @@ print(k_in)
 print(p_in)
 """
 
-def connectRandom(G,nTC1,nTC2,M_out):
-	newSet = set([])
-	counter = 0
-	while counter < M_out:
-		i = random.choice(nTC1)
-		j = random.choice(nTC2)
-		if (i,j) not in newSet:
-			G.add_edge(i,j)
-			newSet.add((i,j))
-			counter += 1
-			#print(i,j)
 
 
 def indexToTake(graphList,index):
@@ -312,6 +301,26 @@ def find_best_nodes(G,step_size,percentage_to_attack):
 	return intersection_nodes
 
 
+def connect_random_nodes(G,numEdges):
+	single_module_size = int(G.numberOfNodes() / 2)
+
+	nodes1 = G.nodes()
+
+	comp = nk.components.DynConnectedComponents(G)
+	comp.run()
+
+	connected_comps = comp.getComponents()
+
+	GC1_nodes = connected_comps[0]
+	GC2_nodes = connected_comps[1]
+
+	nTC1 = random.sample(GC1_nodes, numEdges)
+	nTC2 = random.sample(GC2_nodes, numEdges)
+
+	for i in range(len(nTC1)):
+		G.addEdge(nTC1[i], nTC2[i])
+
+
 
 Gnx_1 = nx.erdos_renyi_graph(1000, 3/999, seed = 4123)
 
@@ -332,7 +341,7 @@ change_nodes(Gnk_1, Gnk_2)
 print(Gnk_1.numberOfNodes())
 print(Gnk_1.numberOfEdges())
 
-
+connect_random_nodes(Gnk_1,100)
 
 
 
