@@ -343,7 +343,7 @@ def copy_graph(G):
 
 	print(G_copy.edges())
 
-	
+	print(G_copy.numberOfEdges())
 
 
 
