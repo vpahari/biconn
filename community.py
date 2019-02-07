@@ -281,10 +281,6 @@ def do_percolation(G,number_of_edges,percentage_to_attack):
 			best_combinations_2 = all_combinations_2
 
 
-	
-
-
-
 
 
 def intersection(l1,l2):
@@ -314,15 +310,6 @@ def find_best_nodes(G,step_size,percentage_to_attack):
 
 
 
-
-
-
-
-
-
-
-numDifferentGraphs = 10
-
 Gnx_1 = nx.erdos_renyi_graph(N, p_in, seed = (SEED*2*net_rep)+2)
 
 Gnx_2 = nx.erdos_renyi_graph(N, p_in, seed = (SEED*net_rep)+1)
@@ -331,95 +318,14 @@ Gnk_1 = nk.nxadapter.nx2nk(Gnx_1)
 
 Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
+print(Gnk_1.numberOfNodes())
+print(Gnk_2.numberOfNodes())
+
 change_nodes(Gnk_1, Gnk_2)
 
-
-nodes1 = allNodes[:N]
-nodes2 = allNodes[N:]
+print(Gnk_1.numberOfNodes())
 
 
-#nodes to connect
-nTC1 = random.sample(nodes1, numNodesToConnect)
-nTC2 = random.sample(nodes2, numNodesToConnect)
-
-nTC = combine(nTC1,nTC2)
-
-assert len(nTC) == len(nTC1) + len(nTC1)
-
-
-connect(G,nTC1,nTC2,M_out)
-
-#G_2core = nx.k_core(G,2)
-
-
-#print(G.number_of_nodes())
-#print(G_2core.number_of_nodes())
-
-
-f=0
-counter = 0
-
-gc1List = []
-gbc1List = []
-
-gc2List = []
-gbc2List = []
-
-gcList = []
-gbcList = []
-
-sgc1List = []
-sgbc1List = []
-
-sgc2List = []
-sgbc2List = []
-
-sgcList = []
-sgbcList = []
-
-numNTCList = []
-
-
-#G = G_2core.copy()
-
-numNodesToRemove = int(2 * N * step_size)
-
-
-
-while (fractions < 0.99):
-	(avgGc,stdGc) = indexToTake(gc, counter)
-	(avgGBc,stdGBc) = indexToTake(gbc, counter)
-
-	(avgGc1,stdGc1) = indexToTake(gc1, counter)
-	(avgGBc1,stdGBc1) = indexToTake(gbc1, counter)
-
-	(avgGc2,stdGc2) = indexToTake(gc2, counter)
-	(avgGBc2,stdGBc2) = indexToTake(gbc2, counter)
-
-	(avgSgc,stdSgc) = indexToTake(sgc, counter)
-	(avgSgbc,stdSgbc) = indexToTake(sgbc, counter)
-
-	(avgNumNTC,stdNumNTC) = indexToTake(numNTC, counter)
-
-	finalList.append((fractions,avgGc,stdGc,avgGBc,stdGBc,avgGc1,stdGc1,avgGc2,stdGc2,avgGBc1,stdGBc1,avgGBc2,stdGBc2,avgSgc,stdSgc,avgSgbc,stdSgbc,avgNumNTC,stdNumNTC))
-
-	fractions = fractions + step_size
-	counter = counter + 1
-
-
-output_file_name = "communityBI_N_%d_k_%d_alpha_%g_r_%g_SEED_%d.csv"%(N,k,alpha,r,SEED)
-
-fh = open(output_file_name, 'w')
-writer = csv.writer(fh)
-
-writer.writerow(["f","GC avg", "GC std","GBC avg","GBC std","GC1 avg","GC1 std","GC2 avg", "GC2 std","GBC1 avg","GBC1 std","GBC2 avg", "GBC2 std", "SGC avg", "SGC std", "SGBC avg", "SGBC std", "numNTC avg", "numNTC std"])
-
-for (fractions,avgGc,stdGc,avgGBc,stdGBc,avgGc1,stdGc1,avgGc2,stdGc2,avgGBc1,stdGBc1,avgGBc2,stdGBc2,avgSgc,stdSgc,avgSgbc,stdSgbc, avgNumNTC,stdNumNTC) in finalList:
-	writer.writerow([fractions,avgGc,stdGc,avgGBc,stdGBc,avgGc1,stdGc1,avgGc2,stdGc2,avgGBc1,stdGBc1,avgGBc2,stdGBc2,avgSgc,stdSgc,avgSgbc,stdSgbc,avgNumNTC,stdNumNTC])
-
-
-
-fh.close()
 
 
 
