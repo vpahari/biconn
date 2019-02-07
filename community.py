@@ -394,7 +394,7 @@ copy_graph(Gnk_1)
 
 step_size = 0.01
 
-percentage_to_attack = 0.05
+percentage_to_attack = 0.1
 
 
 (gc_List1,gc1_List1,gc2_List1,GC_nodes_List1, sgc_List1) = percolation(Gnk_1, step_size, "ABA", percentage_to_attack)
