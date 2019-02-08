@@ -184,7 +184,7 @@ def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
 		GC_size = connected_comps_sizes[0]
 		SGC_size = connected_comps_sizes[1]
 
-		GC_nodes = connected_comps[0]
+		GC_nodes = max(connected_comps, key = len)
 
 		(GC1_size, GC2_size) = getSize(GC_nodes,int(originalSize / 2))
 
