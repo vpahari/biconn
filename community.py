@@ -401,8 +401,9 @@ def check_GC(G_copy,nodesToRemove):
 
 
 def changing_edge_percentages(G):
+	
 	edges_percentage = 0.05
-	percentage_to_add = 0.1
+	percentage_to_add = 0.05
 	num_nodes = G.numberOfNodes()
 	intersection_list = []
 	percolation_threshold_list = []
