@@ -443,10 +443,10 @@ def changing_edge_percentages(G):
 N = 1000
 k = 3
 
-edgesPercentage = 0.15
+#edgesPercentage = 0.15
 
 
-edgesToAdd = int(N * edgesPercentage)
+#edgesToAdd = int(N * edgesPercentage)
 
 Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = 123)
 
