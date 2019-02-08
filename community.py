@@ -429,7 +429,7 @@ print(GC_init)
 print(GC_final)
 
 
-
-
+print(get_percolation_threshold(sgc_List1))
+print(get_percolation_threshold(sgc_List2))
 
 
