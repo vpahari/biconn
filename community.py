@@ -177,16 +177,16 @@ def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
 		comp = nk.components.DynConnectedComponents(G)
 		comp.run()
 		
-		connected_comps_sizes = comp.getComponentSizes()
+		#connected_comps_sizes = comp.getComponentSizes()
 
 		connected_comps = comp.getComponents()
 
 		connected_comps.sort(key = len, reverse = True)
 
-		print(connected_comps_sizes)
+		#print(connected_comps_sizes)
 
-		GC_size = connected_comps_sizes[0]
-		SGC_size = connected_comps_sizes[1]
+		GC_size = len(connected_comps[0])
+		SGC_size = len(connected_comps[1])
 
 		GC_nodes = max(connected_comps, key = len)
 
