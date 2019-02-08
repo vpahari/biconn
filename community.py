@@ -416,7 +416,7 @@ def changing_edge_percentages(G):
 
 		connect_random_nodes(G_copy,edges_to_add)
 
-		print(G_copy.numEdges())
+		print(G_copy.numberOfEdges())
 
 		step_size = 0.01
 		percentage_to_attack = 0.25
