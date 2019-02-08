@@ -401,7 +401,7 @@ def check_GC(G_copy,nodesToRemove):
 
 
 def changing_edge_percentages(G):
-	
+
 	edges_percentage = 0.05
 	percentage_to_add = 0.05
 	num_nodes = G.numberOfNodes()
@@ -417,7 +417,7 @@ def changing_edge_percentages(G):
 		connect_random_nodes(G_copy,edges_to_add)
 
 		step_size = 0.01
-		percentage_to_attack = 0.7
+		percentage_to_attack = 0.25
 
 		(gc_List1,gc1_List1,gc2_List1,GC_nodes_List1, sgc_List1) = percolation(G_copy, step_size, "ABA", percentage_to_attack)
 		(gc_List2,gc1_List2,gc2_List2,GC_nodes_List2, sgc_List2) = percolation(G_copy, step_size, "ADA", percentage_to_attack)
