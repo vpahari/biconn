@@ -413,7 +413,7 @@ def changing_edge_percentages(G):
 
 		G_copy = copy_graph(G) 
 
-		connect_random_nodes(G_copy)
+		connect_random_nodes(G_copy,edges_to_add)
 
 		step_size = 0.01
 		percentage_to_attack = 0.7
