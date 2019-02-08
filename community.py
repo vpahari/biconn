@@ -461,6 +461,9 @@ change_nodes(Gnk_1, Gnk_2)
 
 print(percolation_threshold_list,intersection_list)
 
+for i in intersection_list:
+	print(len(i))
+
 #connect_random_nodes(Gnk_1,edgesToAdd)
 
 #def get_
