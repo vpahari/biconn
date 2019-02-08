@@ -410,7 +410,7 @@ def changing_edge_percentages(G):
 
 	while edges_percentage < 0.7:
 
-		edges_to_add = int(num_nodes * edgesPercentage)
+		edges_to_add = int(num_nodes * edges_percentage)
 
 		G_copy = copy_graph(G) 
 
