@@ -419,7 +419,7 @@ def changing_edge_percentages(G):
 		print(G_copy.numberOfEdges())
 
 		step_size = 0.01
-		percentage_to_attack = 0.25
+		percentage_to_attack = 0.5
 
 		(gc_List1,gc1_List1,gc2_List1,GC_nodes_List1, sgc_List1) = percolation(G_copy, step_size, "ABA", percentage_to_attack)
 		(gc_List2,gc1_List2,gc2_List2,GC_nodes_List2, sgc_List2) = percolation(G_copy, step_size, "ADA", percentage_to_attack)
