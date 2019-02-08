@@ -459,7 +459,7 @@ change_nodes(Gnk_1, Gnk_2)
 
 (percolation_threshold_list, intersection_list) = changing_edge_percentages(Gnk_1)
 
-print(percolation_threshold_list,intersection_list)
+print(percolation_threshold_list)
 
 for i in intersection_list:
 	print(len(i))
