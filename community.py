@@ -382,7 +382,7 @@ def check_GC(G_copy,nodesToRemove):
 N = 1000
 k = 3
 
-edgesPercentage = 0.2
+edgesPercentage = 0.1
 
 
 edgesToAdd = int(N * edgesPercentage)
