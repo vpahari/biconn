@@ -424,7 +424,9 @@ def changing_edge_percentages(G):
 		(gc_List1,gc1_List1,gc2_List1,GC_nodes_List1, sgc_List1) = percolation(G_copy, step_size, "ABA", percentage_to_attack)
 		(gc_List2,gc1_List2,gc2_List2,GC_nodes_List2, sgc_List2) = percolation(G_copy, step_size, "ADA", percentage_to_attack)
 
-		intersect = intersection(GC_nodes_List1,GC_nodes_List2)
+		toCheck = int(len(GC_nodes_List1) / 2)
+
+		intersect = intersection(GC_nodes_List1[:toCheck],GC_nodes_List2[:toCheck])
 
 		p_c1 = get_percolation_threshold(sgc_List1)
 		p_c2 = get_percolation_threshold(sgc_List2)
