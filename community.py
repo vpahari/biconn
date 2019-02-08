@@ -145,7 +145,7 @@ def getSize(GC_nodes, size):
 
 
 def get_percolation_threshold(sgc_List):
-	return values.index(max(sgcList))
+	return sgcList.index(max(sgcList))
 
 
 def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
