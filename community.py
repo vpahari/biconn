@@ -183,7 +183,7 @@ def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
 
 		connected_comps.sort(key = len, reverse = True)
 
-		print(connected_comps)
+		print(connected_comps_sizes)
 
 		GC_size = connected_comps_sizes[0]
 		SGC_size = connected_comps_sizes[1]
