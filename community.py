@@ -407,7 +407,7 @@ change_nodes(Gnk_1, Gnk_2)
 
 connect_random_nodes(Gnk_1,edgesToAdd)
 
-def get_
+#def get_
 
 
 
