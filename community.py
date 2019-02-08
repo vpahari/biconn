@@ -181,6 +181,8 @@ def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
 
 		connected_comps = comp.getComponents()
 
+		connected_comps.sort(key = len, reverse = True)
+
 		GC_size = connected_comps_sizes[0]
 		SGC_size = connected_comps_sizes[1]
 
@@ -242,6 +244,8 @@ def all_possible_connections(G,number_of_edges):
 	comp.run()
 
 	connected_comps = comp.getComponents()
+
+	connected_comps.sort(key = len, reverse = True)
 	
 	GC1_nodes = connected_comps[0]
 	GC2_nodes = connected_comps[1]
