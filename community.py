@@ -127,6 +127,16 @@ def adaptive_betweenness(G,numNodesToRemove):
 	return listToRemove
 
 
+def get_degree_sequence(G):
+	degree = nk.centrality.DegreeCentrality(G)
+	degree.run()
+
+	degree_sequence = degree.ranking()
+	degree_sequence = list(map(lambda x : x[1], listToRemove))
+
+	return degree_sequence
+
+
 def getSize(GC_nodes, size):
 	counterGC1 = 0
 	counterGC2 = 0
@@ -151,7 +161,6 @@ def get_percolation_threshold(sgc_List):
 def percolation(G_copy, step_size, typeOfAttack, percentage_to_attack):
 
 	G = copy_graph(G_copy)
-
 
 	counter = 0
 
@@ -344,11 +353,16 @@ def connect_random_nodes(G,numEdges):
 	GC1_nodes = connected_comps[0]
 	GC2_nodes = connected_comps[1]
 
-	nTC1 = random.sample(GC1_nodes, numEdges)
-	nTC2 = random.sample(GC2_nodes, numEdges)
+	connections = set([])
 
-	for i in range(len(nTC1)):
-		G.addEdge(nTC1[i], nTC2[i])
+	for i in range(numEdges):
+		i = random.choice(GC1_nodes)
+		j = random.choice(GC2_nodes)
+
+		if (i,j) not in connections:
+			G.addEdge(i,j)
+			connections.add((i,j))
+
 
 
 def copy_graph(G):
@@ -385,6 +399,44 @@ def check_GC(G_copy,nodesToRemove):
 
 
 
+
+def changing_edge_percentages(G):
+	edges_percentage = 0.05
+	percentage_to_add = 0.1
+	num_nodes = G.numberOfNodes()
+	intersection_list = []
+	percolation_threshold_list = []
+
+	while counter < 0.7
+
+		edges_to_add = int(num_nodes * edgesPercentage)
+
+		G_copy = copy_graph(G) 
+
+		connect_random_nodes(G_copy)
+
+		step_size = 0.01
+		percentage_to_attack = 0.7
+
+		(gc_List1,gc1_List1,gc2_List1,GC_nodes_List1, sgc_List1) = percolation(G_copy, step_size, "ABA", percentage_to_attack)
+		(gc_List2,gc1_List2,gc2_List2,GC_nodes_List2, sgc_List2) = percolation(G_copy, step_size, "ADA", percentage_to_attack)
+
+		intersect = intersection(GC_nodes_List1,GC_nodes_List2)
+
+		p_c1 = get_percolation_threshold(sgc_List1)
+		p_c2 = get_percolation_threshold(sgc_List2)
+
+		edges_percentage += percentage_to_add
+
+		percolation_threshold_list.append((p_c1,p_c2))
+
+		intersection_list.append(intersect)
+
+	return (percolation_threshold_list, intersection_list)
+
+
+
+
 N = 1000
 k = 3
 
@@ -405,17 +457,20 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 change_nodes(Gnk_1, Gnk_2)
 
 
-connect_random_nodes(Gnk_1,edgesToAdd)
+(percolation_threshold_list, intersection_list) = changing_edge_percentages(Gnk_1)
+
+print(percolation_threshold_list,intersection_list)
+
+#connect_random_nodes(Gnk_1,edgesToAdd)
 
 #def get_
 
 
-
+"""
 step_size = 0.01
 
 percentage_to_attack = 0.3
 
-print("start")
 (gc_List1,gc1_List1,gc2_List1,GC_nodes_List1, sgc_List1) = percolation(Gnk_1, step_size, "ABA", percentage_to_attack)
 (gc_List2,gc1_List2,gc2_List2,GC_nodes_List2, sgc_List2) = percolation(Gnk_1, step_size, "ADA", percentage_to_attack)
 
@@ -442,5 +497,5 @@ print(get_percolation_threshold(sgc_List2))
 
 #print(sgc_List1)
 #print(sgc_List2)
-
+"""
 
