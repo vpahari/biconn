@@ -408,7 +408,7 @@ def changing_edge_percentages(G):
 	intersection_list = []
 	percolation_threshold_list = []
 
-	while edges_percentage < 0.7:
+	while edges_percentage < 0.9:
 
 		edges_to_add = int(num_nodes * edges_percentage)
 
