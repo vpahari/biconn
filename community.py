@@ -467,6 +467,8 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 	edges_to_add = int(edge_percentage * G_size / 2)
 
+	print(edges_to_add)
+
 	connections = list(connect_random_nodes(G_init,edges_to_add))
 
 	nodes_1 = set(list(map(lambda x : x[0],connections)) + list(map(lambda x : x[1],connections)))
@@ -534,7 +536,7 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 
 
-N = 1000
+N = 100
 k = 3
 
 #edgesPercentage = 0.15
