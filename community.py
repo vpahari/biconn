@@ -472,7 +472,7 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 		G = copy_graph(G_init)
 
-		num_nodes_to_remove = percentage_to_attack * G_size
+		num_nodes_to_remove = int(percentage_to_attack * G_size)
 
 		if typeOfAttack == "ABA":
 
