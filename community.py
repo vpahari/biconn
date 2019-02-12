@@ -555,7 +555,7 @@ edge_perc_to_connect = 0.1
 
 percentage_to_attack = 0.05
 
-edges_to_add = int(edge_perc_to_connect * G_size / 2)
+edges_to_add = int(edge_perc_to_connect * Gnk_1.numberOfNodes() / 2)
 
 connections = list(connect_random_nodes(Gnk_1,edges_to_add))
 
