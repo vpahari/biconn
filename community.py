@@ -553,9 +553,9 @@ k = 3
 
 #edgesToAdd = int(N * edgesPercentage)
 
-Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = 1223)
+Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = 1245623)
 
-Gnx_2 = nx.erdos_renyi_graph(N, k/(N-1), seed = 3445)
+Gnx_2 = nx.erdos_renyi_graph(N, k/(N-1), seed = 341235)
 
 Gnk_1 = nk.nxadapter.nx2nk(Gnx_1)
 
