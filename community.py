@@ -499,6 +499,8 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
  
 		new_nodes_to_remove = nodes_removed.copy().append(random_node_2)
 
+		print(new_nodes_to_remove)
+
 		new_nodes_to_remove.remove(random_node_1)
 
 		new_GC = check_GC(G,new_nodes_to_remove)
