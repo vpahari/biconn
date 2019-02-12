@@ -533,7 +533,7 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 
 
-N = 1000
+N = 100
 k = 3
 
 #edgesPercentage = 0.15
