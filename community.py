@@ -534,7 +534,7 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 
 
-N = 100
+N = 1000
 k = 3
 
 #edgesPercentage = 0.15
@@ -560,6 +560,8 @@ percentage_to_attack = 0.05
 #(new_GC_ADA,percentage_in_modular_ADA,actual_nodes_removed_ADA) = get_optimal_set(Gnk_1,edge_perc_to_connect,percentage_to_attack,"ADA")
 
 print(new_GC_ABA,percentage_in_modular_ABA,actual_nodes_removed_ABA)
+
+print(get_GC(Gnk_1))
 
 
 
