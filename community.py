@@ -470,6 +470,8 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 	for i in range(G_size):
 
+		print(i)
+
 		G = copy_graph(G_init)
 
 		num_nodes_to_remove = int(percentage_to_attack * G_size)
