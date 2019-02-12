@@ -487,6 +487,8 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 	actual_nodes_removed = nodes_removed.copy()
 
+	print(actual_nodes_removed)
+
 	G_nodes_removed = remove_nodes_from_list(G_all_nodes,nodes_removed)
 
 	for i in range(G_size):
