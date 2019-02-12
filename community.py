@@ -454,11 +454,13 @@ def get_percentage(nodes_removed,nodes_in_modular):
 
 def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
-	connections = list(connect_random_nodes(G_init,edge_percentage))
+	G_size = G_init.numberOfNodes() 
+
+	edges_to_add = int(edge_percentage * G_size / 2)
+
+	connections = list(connect_random_nodes(G_init,edges_to_add))
 
 	nodes_1 = set(list(map(lambda x : x[0],connections)) + list(map(lambda x : x[1],connections)))
-
-	G_size = G_init.numberOfNodes()
 
 	curr_GC = G_size
 
