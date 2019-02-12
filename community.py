@@ -386,14 +386,12 @@ def get_GC(G):
 def check_GC(G_copy,nodesToRemove):
 	G = copy_graph(G_copy)
 
-	GC_init = get_GC(G)
-
 	for n in nodesToRemove:
 		G.removeNode(n)
 
 	GC_final = get_GC(G)
 
-	return (GC_init,GC_final)
+	return GC_final
 
 
 
@@ -450,11 +448,22 @@ def get_percentage(nodes_removed,nodes_in_modular):
 
 
 
+def remove_nodes_from_list(G_nodes,nodes_removed):
+	new_nodes_removed = set(nodes_removed)
+	final_list = []
+
+	for i in G_nodes:
+		if i not in new_nodes_removed:
+			final_list.append(i)
+
+	return final_list
 
 
 def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 	G_size = G_init.numberOfNodes() 
+
+	G_all_nodes = G_init.nodes()
 
 	edges_to_add = int(edge_percentage * G_size / 2)
 
@@ -462,54 +471,53 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 	nodes_1 = set(list(map(lambda x : x[0],connections)) + list(map(lambda x : x[1],connections)))
 
-	curr_GC = G_size
+	G = copy_graph(G_init)
 
-	percentage_in_modular = 0
+	num_nodes_to_remove = int(percentage_to_attack * G_size)
 
-	actual_nodes_removed = []
+	if typeOfAttack == "ABA":
+		nodes_removed = adaptive_betweenness(G,num_nodes_to_remove)
+
+	elif typeOfAttack == "ADA":
+		nodes_removed = adaptive_degree(G,num_nodes_to_remove)
+
+	curr_GC = get_GC(G)
+
+	percentage_in_modular = get_percentage(nodes_removed,nodes_1)
+
+	actual_nodes_removed = nodes_removed.copy()
+
+	G_nodes_removed = remove_nodes_from_list(G_all_nodes,nodes_removed)
 
 	for i in range(G_size):
 
-		print(i)
-
 		G = copy_graph(G_init)
 
-		num_nodes_to_remove = int(percentage_to_attack * G_size)
+		random_node_1 = random.choice(nodes_removed)
 
-		if typeOfAttack == "ABA":
+		random_node_2 = random.choice(G_nodes_removed)
+ 
+		new_nodes_to_remove = nodes_removed.copy().append(random_node_2)
 
-			nodes_removed = adaptive_betweenness(G,num_nodes_to_remove)
+		new_nodes_to_remove.remove(random_node_1)
 
-		elif typeOfAttack == "ADA":
-
-			nodes_removed = adaptive_degree(G,num_nodes_to_remove)
-
-		new_GC = get_GC(G)
+		new_GC = check_GC(G,new_nodes_to_remove)
 
 		if new_GC < curr_GC:
 
 			new_GC = curr_GC
 
-			percentage_in_modular = get_percentage(nodes_removed,nodes_1)
+			percentage_in_modular = get_percentage(new_nodes_to_remove,nodes_1)
 
-			actual_nodes_removed = nodes_removed.copy()
+			actual_nodes_removed = new_nodes_to_remove.copy()
+
+			nodes_removed = new_nodes_to_remove.copy()
+
+			G_nodes_removed.remove(random_node_2)
+
+			G_nodes_removed.append(random_node_1)
 
 	return (new_GC,percentage_in_modular,actual_nodes_removed)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
