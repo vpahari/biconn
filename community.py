@@ -452,7 +452,7 @@ def get_percentage(nodes_removed,nodes_in_modular):
 
 
 
-def get_optimal_set(G_init, edge_percentage,percentage_to_attack):
+def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 	connections = list(connect_random_nodes(G_init,edge_percentage))
 
@@ -472,7 +472,13 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack):
 
 		num_nodes_to_remove = percentage_to_attack * G_size
 
-		nodes_removed = adaptive_betweenness(G,num_nodes_to_remove)
+		if typeOfAttack = "ABA":
+
+			nodes_removed = adaptive_betweenness(G,num_nodes_to_remove)
+
+		elif typeOfAttack = "ADA":
+
+			nodes_removed = adaptive_degree(G,num_nodes_to_remove)
 
 		new_GC = get_GC(G)
 
@@ -524,8 +530,21 @@ Gnk_1 = nk.nxadapter.nx2nk(Gnx_1)
 
 Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
-
 change_nodes(Gnk_1, Gnk_2)
+
+edge_perc_to_connect = 0.1
+
+percentage_to_attack = 0.05
+
+(new_GC_ABA,percentage_in_modular_ABA,actual_nodes_removed_ABA) = get_optimal_set(Gnk_1,edge_perc_to_connect,percentage_to_attack,"ABA")
+#(new_GC_ADA,percentage_in_modular_ADA,actual_nodes_removed_ADA) = get_optimal_set(Gnk_1,edge_perc_to_connect,percentage_to_attack,"ADA")
+
+
+
+
+
+"""
+
 
 
 (percolation_threshold_list, intersection_list) = changing_edge_percentages(Gnk_1)
@@ -535,10 +554,8 @@ print(percolation_threshold_list)
 for i in intersection_list:
 	print(len(i))
 
-#connect_random_nodes(Gnk_1,edgesToAdd)
 
-#def get_
-
+"""
 
 """
 step_size = 0.01
