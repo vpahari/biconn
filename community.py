@@ -472,11 +472,11 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 		num_nodes_to_remove = percentage_to_attack * G_size
 
-		if typeOfAttack = "ABA":
+		if typeOfAttack == "ABA":
 
 			nodes_removed = adaptive_betweenness(G,num_nodes_to_remove)
 
-		elif typeOfAttack = "ADA":
+		elif typeOfAttack == "ADA":
 
 			nodes_removed = adaptive_degree(G,num_nodes_to_remove)
 
