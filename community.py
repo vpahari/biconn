@@ -512,9 +512,9 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 		new_nodes_to_remove.append(random_node_2)
 
-		print(new_nodes_to_remove)
+		#print(new_nodes_to_remove)
 
-		print(nodes_removed)
+		#print(nodes_removed)
 
 		new_nodes_to_remove.remove(random_node_1)
 
@@ -551,7 +551,7 @@ k = 3
 
 #edgesToAdd = int(N * edgesPercentage)
 
-Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = 123)
+Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = 1223)
 
 Gnx_2 = nx.erdos_renyi_graph(N, k/(N-1), seed = 532)
 
