@@ -117,10 +117,6 @@ def adaptive_betweenness(G,numNodesToRemove):
 
 	listToRemove = list(map(lambda x : x[0], listToRemove))
 
-	#print("between")
-
-	#print(listToRemove)
-
 	for n in listToRemove:
 		G.removeNode(n)
 
@@ -363,6 +359,8 @@ def connect_random_nodes(G,numEdges):
 			G.addEdge(i,j)
 			connections.add((i,j))
 
+	return connections
+
 
 
 def copy_graph(G):
@@ -438,6 +436,74 @@ def changing_edge_percentages(G):
 		edges_percentage += percentage_to_add
 
 	return (percolation_threshold_list, intersection_list)
+
+
+def get_percentage(nodes_removed,nodes_in_modular):
+
+	counter = 0
+
+	for i in nodes_removed:
+		if i in nodes_in_modular:
+			counter += 1
+
+	return float(counter / len(nodes_in_modular))
+
+
+
+
+
+def get_optimal_set(G_init, edge_percentage,percentage_to_attack):
+
+	connections = list(connect_random_nodes(G_init,edge_percentage))
+
+	nodes_1 = set(list(map(lambda x : x[0],connections)) + list(map(lambda x : x[1],connections)))
+
+	G_size = G_init.numberOfNodes()
+
+	curr_GC = G_size
+
+	percentage_in_modular = 0
+
+	actual_nodes_removed = []
+
+	for i in range(G_size):
+
+		G = copy_graph(G_init)
+
+		num_nodes_to_remove = percentage_to_attack * G_size
+
+		nodes_removed = adaptive_betweenness(G,num_nodes_to_remove)
+
+		new_GC = get_GC(G)
+
+		if new_GC < curr_GC:
+
+			new_GC = curr_GC
+
+			percentage_in_modular = get_percentage(nodes_removed,nodes_1)
+
+			actual_nodes_removed = nodes_removed.copy()
+
+	return (new_GC,percentage_in_modular,actual_nodes_removed)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
