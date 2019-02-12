@@ -351,13 +351,18 @@ def connect_random_nodes(G,numEdges):
 
 	connections = set([])
 
-	for i in range(numEdges):
+	counter = 0
+
+	while counter < numEdges:
+
 		i = random.choice(GC1_nodes)
 		j = random.choice(GC2_nodes)
 
 		if (i,j) not in connections:
 			G.addEdge(i,j)
 			connections.add((i,j))
+
+			counter += 1
 
 	return connections
 
