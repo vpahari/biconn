@@ -473,6 +473,8 @@ def get_optimal_set(G_init, edge_percentage,percentage_to_attack,typeOfAttack):
 
 	nodes_1 = set(list(map(lambda x : x[0],connections)) + list(map(lambda x : x[1],connections)))
 
+	print(len(nodes_1))
+
 	G = copy_graph(G_init)
 
 	num_nodes_to_remove = int(percentage_to_attack * G_size)
