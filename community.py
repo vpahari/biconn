@@ -603,7 +603,7 @@ def create_new_List(l):
 
 def changing_percentages_edges(G,max_edge_percentage,step_size):
 
-	max_to_attack = 0.04
+	max_to_attack = 0.05
 
 	counter = 0.05
 
