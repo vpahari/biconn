@@ -490,7 +490,7 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 	G_nodes_removed = remove_nodes_from_list(G_all_nodes,nodes_removed)
 
-	for i in range(G_size * 5):
+	for i in range(G_size):
 
 		G = copy_graph(G_init)
 
@@ -530,7 +530,7 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 
 
-def changing_percentages(G,edge_percentage,step_size,max_to_attack):
+def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack):
 
 	counter = 0.05
 
@@ -579,6 +579,37 @@ def changing_percentages(G,edge_percentage,step_size,max_to_attack):
 
 
 
+
+def changing_percentages_edges(G,max_edge_percentage,step_size):
+
+	max_to_attack = 0.1
+
+	counter = 0.05
+
+	step_size_for_attack = 0.05
+
+	GC_ABA_dict = {}
+
+	GC_ADA_dict = {}
+
+	percentage_in_modular_ADA_Dict = {}
+	percentage_in_modular_ABA_Dict = {}
+
+	while counter < max_edge_percentage:
+
+		(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(G,counter,step_size_for_attack,max_to_attack)
+
+		GC_ABA_dict[counter] = GC_ABA_List
+		GC_ADA_dict[counter] = GC_ADA_List
+
+		percentage_in_modular_ABA_Dict[counter] = percentage_in_modular_ABA_List
+		percentage_in_modular_ADA_Dict[counter] = percentage_in_modular_ADA_List
+
+		counter += step_size
+
+
+	return (GC_ABA_dict, GC_ADA_dict,  percentage_in_modular_ABA_Dict, percentage_in_modular_ADA_Dict)
+
 N = 1000
 k = 3
 
@@ -603,16 +634,18 @@ step_size = 0.05
 
 max_to_attack = 0.2
 
-(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages(Gnk_1,edge_perc_to_connect,step_size,max_to_attack)
+max_edge_percentage = 0.2
 
-print(GC_ABA_List)
-print(GC_ADA_List)
+#(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(Gnk_1,edge_perc_to_connect,step_size,max_to_attack)
 
-print(percentage_in_modular_ABA_List)
-print(percentage_in_modular_ADA_List)
+#print(GC_ABA_List)
+#print(GC_ADA_List)
+
+#print(percentage_in_modular_ABA_List)
+#print(percentage_in_modular_ADA_List)
 
 
-
+(GC_ABA_dict, GC_ADA_dict,  percentage_in_modular_ABA_Dict, percentage_in_modular_ADA_Dict) = changing_percentages_edges(Gnk_1,max_edge_percentage,step_size)
 
 """
 
