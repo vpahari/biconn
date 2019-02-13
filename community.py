@@ -647,6 +647,12 @@ max_edge_percentage = 0.2
 
 (GC_ABA_dict, GC_ADA_dict,  percentage_in_modular_ABA_Dict, percentage_in_modular_ADA_Dict) = changing_percentages_edges(Gnk_1,max_edge_percentage,step_size)
 
+
+print(GC_ABA_dict)
+print(GC_ADA_dict)
+print(percentage_in_modular_ABA_Dict)
+print(percentage_in_modular_ADA_Dict)
+
 """
 
 edges_to_add = int(edge_perc_to_connect * Gnk_1.numberOfNodes() / 2)
