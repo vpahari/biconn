@@ -464,7 +464,7 @@ def remove_nodes_from_list(G_nodes,nodes_removed):
 	return final_list
 
 
-def get_optimal_set(G_init, nodes_1, edge_percentage,percentage_to_attack,typeOfAttack):
+def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 	G_size = G_init.numberOfNodes() 
 
@@ -530,6 +530,52 @@ def get_optimal_set(G_init, nodes_1, edge_percentage,percentage_to_attack,typeOf
 
 
 
+def changing_percentages(G,edge_percentage,step_size,max_to_attack):
+
+	counter = 0.05
+
+	copy_G = copy_graph(G)
+
+	G_size = copy_G.numberOfNodes() 
+
+	edges_to_add = int(edge_percentage * G_size / 2)
+
+	connections = list(connect_random_nodes(copy_G,edges_to_add))
+
+	nodes_1 = set(list(map(lambda x : x[0],connections)) + list(map(lambda x : x[1],connections)))
+
+	GC_ABA_List = []
+
+	GC_ADA_List = []
+
+	percentage_in_modular_ABA_List = []
+
+	percentage_in_modular_ADA_List = []
+
+	actual_nodes_removed_ABA_List = []
+
+	actual_nodes_removed_ADA_List = []
+
+
+	while counter < max_to_attack:
+
+		num_nodes_to_remove = int(counter * G_size)
+
+		(new_GC_ABA,percentage_in_modular_ABA,actual_nodes_removed_ABA) = get_optimal_set(Gnk_1,nodes_1,percentage_to_attack,"ABA")
+		(new_GC_ADA,percentage_in_modular_ADA,actual_nodes_removed_ADA) = get_optimal_set(Gnk_1,nodes_1,percentage_to_attack,"ADA")
+
+		GC_ABA_List.append(new_GC_ABA)
+		GC_ADA_List.append(new_GC_ADA)
+
+		percentage_in_modular_ABA_List.append(percentage_in_modular_ABA)
+		percentage_in_modular_ADA_List.append(percentage_in_modular_ADA)
+
+		actual_nodes_removed_ABA_List.append(actual_nodes_removed_ABA)
+		actual_nodes_removed_ADA_List.append(actual_nodes_removed_ADA)
+
+		counter += step_size
+
+	return (GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List)
 
 
 
@@ -553,7 +599,22 @@ change_nodes(Gnk_1, Gnk_2)
 
 edge_perc_to_connect = 0.1
 
-percentage_to_attack = 0.05
+step_size = 0.05
+
+max_to_attack = 0.2
+
+(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages(Gnk_1,edge_perc_to_connect,step_size,max_to_attack)
+
+print(GC_ABA_List)
+print(GC_ADA_List)
+
+print(percentage_in_modular_ABA_List)
+print(percentage_in_modular_ADA_List)
+
+
+
+
+"""
 
 edges_to_add = int(edge_perc_to_connect * Gnk_1.numberOfNodes() / 2)
 
@@ -573,6 +634,8 @@ copy_gnk = copy_graph(Gnk_1)
 
 print(check_GC(Gnk_1,actual_nodes_removed_ADA))
 print(check_GC(copy_gnk,actual_nodes_removed_ABA))
+
+"""
 
 
 
