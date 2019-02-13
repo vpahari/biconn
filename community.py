@@ -494,7 +494,7 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 	while counter < G_size:
 
-		print(counter)
+		#print(counter)
 
 		G = copy_graph(G_init)
 
@@ -515,6 +515,8 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 		new_GC = check_GC(G,new_nodes_to_remove)
 
 		if new_GC < curr_GC:
+
+			print(curr_GC,new_GC)
 
 			counter = 0
 
