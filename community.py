@@ -520,7 +520,7 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 			counter = 0
 
-			new_GC = curr_GC
+			curr_GC = new_GC
 
 			percentage_in_modular = get_percentage(new_nodes_to_remove,nodes_1)
 
