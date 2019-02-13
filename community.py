@@ -628,11 +628,10 @@ def changing_percentages_edges(G,max_edge_percentage,step_size):
 		percentage_in_modular_ABA_Dict[counter] = create_new_List(percentage_in_modular_ABA_List)
 		percentage_in_modular_ADA_Dict[counter] = create_new_List(percentage_in_modular_ADA_List)
 
-		intersection_dict[counter] = getIntersectionList(actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List)
-
 		print(actual_nodes_removed_ABA_List)
 		print(actual_nodes_removed_ADA_List)
 
+		intersection_dict[counter] = getIntersectionList(actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List)
 
 		counter += step_size
 
