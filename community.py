@@ -578,6 +578,12 @@ def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack):
 	return (GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List)
 
 
+def create_new_List(l):
+	new_list = []
+	for i in l:
+		new_list.append(i)
+
+	return new_list
 
 
 def changing_percentages_edges(G,max_edge_percentage,step_size):
@@ -599,11 +605,11 @@ def changing_percentages_edges(G,max_edge_percentage,step_size):
 
 		(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(G,counter,step_size_for_attack,max_to_attack)
 
-		GC_ABA_dict[counter] = GC_ABA_List
-		GC_ADA_dict[counter] = GC_ADA_List
+		GC_ABA_dict[counter] = create_new_List(GC_ABA_List)
+		GC_ADA_dict[counter] = create_new_List(GC_ADA_List)
 
-		percentage_in_modular_ABA_Dict[counter] = percentage_in_modular_ABA_List
-		percentage_in_modular_ADA_Dict[counter] = percentage_in_modular_ADA_List
+		percentage_in_modular_ABA_Dict[counter] = create_new_List(percentage_in_modular_ABA_List)
+		percentage_in_modular_ADA_Dict[counter] = create_new_List(percentage_in_modular_ADA_List)
 
 		counter += step_size
 
