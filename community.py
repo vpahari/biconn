@@ -603,7 +603,7 @@ def create_new_List(l):
 
 def changing_percentages_edges(G,max_edge_percentage,step_size):
 
-	max_to_attack = 0.05
+	max_to_attack = 0.02
 
 	counter = 0.05
 
@@ -616,6 +616,8 @@ def changing_percentages_edges(G,max_edge_percentage,step_size):
 	percentage_in_modular_ADA_Dict = {}
 	percentage_in_modular_ABA_Dict = {}
 
+	intersection_dict = {}
+
 	while counter < max_edge_percentage:
 
 		(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(G,counter,step_size_for_attack,max_to_attack)
@@ -626,10 +628,27 @@ def changing_percentages_edges(G,max_edge_percentage,step_size):
 		percentage_in_modular_ABA_Dict[counter] = create_new_List(percentage_in_modular_ABA_List)
 		percentage_in_modular_ADA_Dict[counter] = create_new_List(percentage_in_modular_ADA_List)
 
+		intersection_dict[counter] = getIntersectionList(actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List)
+
+
 		counter += step_size
 
 
-	return (GC_ABA_dict, GC_ADA_dict,  percentage_in_modular_ABA_Dict, percentage_in_modular_ADA_Dict)
+
+
+	return (GC_ABA_dict, GC_ADA_dict,  percentage_in_modular_ABA_Dict, percentage_in_modular_ADA_Dict, intersection_dict)
+
+
+
+def getIntersectionList(l1,l2):
+
+	intersection_list = []
+
+	for (i,j) in (l1,l2):
+		new_list = intersection(i,j)
+		intersection_list.append(len(new_list) / len(i))
+
+	return intersection_list
 
 N = 1000
 k = 3
@@ -666,13 +685,14 @@ max_edge_percentage = 0.2
 #print(percentage_in_modular_ADA_List)
 
 
-(GC_ABA_dict, GC_ADA_dict,  percentage_in_modular_ABA_Dict, percentage_in_modular_ADA_Dict) = changing_percentages_edges(Gnk_1,max_edge_percentage,step_size)
+(GC_ABA_dict, GC_ADA_dict,  percentage_in_modular_ABA_Dict, percentage_in_modular_ADA_Dict,intersection_dict) = changing_percentages_edges(Gnk_1,max_edge_percentage,step_size)
 
 
 print(GC_ABA_dict)
 print(GC_ADA_dict)
 print(percentage_in_modular_ABA_Dict)
 print(percentage_in_modular_ADA_Dict)
+print(intersection_dict)
 
 """
 
