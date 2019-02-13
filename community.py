@@ -547,7 +547,7 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack):
 
-	counter = 0.05
+	counter = 0.01
 
 	copy_G = copy_graph(G)
 
@@ -603,11 +603,11 @@ def create_new_List(l):
 
 def changing_percentages_edges(G,max_edge_percentage,step_size):
 
-	max_to_attack = 0.1
+	max_to_attack = 0.05
 
 	counter = 0.05
 
-	step_size_for_attack = 0.05
+	step_size_for_attack = 0.01
 
 	GC_ABA_dict = {}
 
