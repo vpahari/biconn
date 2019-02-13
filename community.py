@@ -490,7 +490,11 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 	G_nodes_removed = remove_nodes_from_list(G_all_nodes,nodes_removed)
 
-	for i in range(G_size):
+	counter = 0
+
+	while counter < G_size:
+
+		print(counter)
 
 		G = copy_graph(G_init)
 
@@ -512,6 +516,8 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 		if new_GC < curr_GC:
 
+			counter = 0
+
 			new_GC = curr_GC
 
 			percentage_in_modular = get_percentage(new_nodes_to_remove,nodes_1)
@@ -523,6 +529,10 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 			G_nodes_removed.remove(random_node_2)
 
 			G_nodes_removed.append(random_node_1)
+
+		else:
+
+			counter += 1
 
 	return (new_GC,percentage_in_modular,actual_nodes_removed)
 
