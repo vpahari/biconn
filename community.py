@@ -630,6 +630,9 @@ def changing_percentages_edges(G,max_edge_percentage,step_size):
 
 		intersection_dict[counter] = getIntersectionList(actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List)
 
+		print(actual_nodes_removed_ABA_List)
+		print(actual_nodes_removed_ADA_List)
+
 
 		counter += step_size
 
