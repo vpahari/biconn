@@ -561,8 +561,8 @@ def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack):
 
 		num_nodes_to_remove = int(counter * G_size)
 
-		(new_GC_ABA,percentage_in_modular_ABA,actual_nodes_removed_ABA) = get_optimal_set(Gnk_1,nodes_1,counter,"ABA")
-		(new_GC_ADA,percentage_in_modular_ADA,actual_nodes_removed_ADA) = get_optimal_set(Gnk_1,nodes_1,counter,"ADA")
+		(new_GC_ABA,percentage_in_modular_ABA,actual_nodes_removed_ABA) = get_optimal_set(copy_G,nodes_1,counter,"ABA")
+		(new_GC_ADA,percentage_in_modular_ADA,actual_nodes_removed_ADA) = get_optimal_set(copy_G,nodes_1,counter,"ADA")
 
 		GC_ABA_List.append(new_GC_ABA)
 		GC_ADA_List.append(new_GC_ADA)
