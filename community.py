@@ -646,7 +646,10 @@ def getIntersectionList(l1,l2):
 
 	intersection_list = []
 
-	for (i,j) in (l1,l2):
+
+	for c in range(len(l1)):
+		i = l1[c]
+		j = l2[c]
 		new_list = intersection(i,j)
 		intersection_list.append(len(new_list) / len(i))
 
