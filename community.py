@@ -498,8 +498,8 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 		G = copy_graph(G_init)
 
-		print(G.numberOfNodes())
-		print(G.numberOfEdges())
+		#print(G.numberOfNodes())
+		#print(G.numberOfEdges())
 
 		random_node_1 = random.choice(nodes_removed)
 
