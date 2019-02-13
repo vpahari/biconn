@@ -490,7 +490,7 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 	G_nodes_removed = remove_nodes_from_list(G_all_nodes,nodes_removed)
 
-	for i in range(G_size):
+	for i in range(G_size * 10):
 
 		G = copy_graph(G_init)
 
@@ -557,7 +557,7 @@ def changing_percentages(G,edge_percentage,step_size,max_to_attack):
 	actual_nodes_removed_ADA_List = []
 
 
-	while counter < max_to_attack:
+	while counter <= max_to_attack:
 
 		num_nodes_to_remove = int(counter * G_size)
 
