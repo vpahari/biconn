@@ -752,14 +752,13 @@ max_edge_percentage = 0.1
 #print(percentage_in_modular_ADA_List)
 
 
-(GC_ABA_dict, GC_ADA_dict,  percentage_in_modular_ABA_Dict, percentage_in_modular_ADA_Dict,intersection_dict) = changing_percentages_edges(Gnk_1,max_edge_percentage,step_size)
+(GC_dict,percentage_in_modular_dict,actual_nodes_removed_dict,time_stamp_dict) = changing_percentages_edges(Gnk_1,max_edge_percentage,step_size,"RAN")
 
 
-print(GC_ABA_dict)
-print(GC_ADA_dict)
-print(percentage_in_modular_ABA_Dict)
-print(percentage_in_modular_ADA_Dict)
-print(intersection_dict)
+print(GC_dict)
+print(percentage_in_modular_dict)
+print(time_stamp_dict)
+
 
 """
 
