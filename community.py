@@ -96,6 +96,17 @@ def createOrder_BI(G):
 
 
 
+def random_removal(G,numNodesToRemove):
+
+	all_nodes = G.nodes()
+
+	listToRemove = random.sample(all_nodes, numNodesToRemove)
+
+	for n in listToRemove:
+		G.removeNode(n)
+
+	return listToRemove
+
 
 def adaptive_degree(G,numNodesToRemove):
 	degree = nk.centrality.DegreeCentrality(G)
@@ -480,6 +491,9 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 	elif typeOfAttack == "ADA":
 		nodes_removed = adaptive_degree(G,num_nodes_to_remove)
 
+	elif typeOfAttack == "RAN":
+		nodes_removed = random_removal(G,num_nodes_to_remove)
+
 	curr_GC = get_GC(G)
 
 	percentage_in_modular = get_percentage(nodes_removed,nodes_1)
@@ -553,11 +567,15 @@ def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack):
 
 	G_size = copy_G.numberOfNodes() 
 
+	print(copy_G.numberOfEdges())
+
 	edges_to_add = int(edge_percentage * G_size / 2)
 
 	connections = list(connect_random_nodes(copy_G,edges_to_add))
 
 	nodes_1 = set(list(map(lambda x : x[0],connections)) + list(map(lambda x : x[1],connections)))
+
+	print(copy_G.numberOfEdges())
 
 	GC_ABA_List = []
 
@@ -576,6 +594,16 @@ def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack):
 
 		num_nodes_to_remove = int(counter * G_size)
 
+		(new_GC_RAN,percentage_in_modular_RAN,actual_nodes_removed_RAN) = get_optimal_set(copy_G,nodes_1,counter,"RAN")
+
+		GC_ABA_List.append(new_GC_RAN)
+
+		percentage_in_modular_ABA_List.append(percentage_in_modular_RAN)
+
+		actual_nodes_removed_ABA_List.append(actual_nodes_removed_RAN)
+
+		"""
+
 		(new_GC_ABA,percentage_in_modular_ABA,actual_nodes_removed_ABA) = get_optimal_set(copy_G,nodes_1,counter,"ABA")
 		(new_GC_ADA,percentage_in_modular_ADA,actual_nodes_removed_ADA) = get_optimal_set(copy_G,nodes_1,counter,"ADA")
 
@@ -587,6 +615,7 @@ def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack):
 
 		actual_nodes_removed_ABA_List.append(actual_nodes_removed_ABA)
 		actual_nodes_removed_ADA_List.append(actual_nodes_removed_ADA)
+		"""
 
 		counter += step_size
 
