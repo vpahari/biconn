@@ -506,6 +506,8 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 	counter = 0
 
+	time_stamp = [curr_GC]
+
 	while counter < G_size:
 
 		#print(counter)
@@ -531,6 +533,8 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 		new_GC = check_GC(G,new_nodes_to_remove)
 
+		time_stamp.append(new_GC)
+
 		if new_GC < curr_GC:
 
 			print(curr_GC,new_GC)
@@ -553,13 +557,13 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 			counter += 1
 
-	return (new_GC,percentage_in_modular,actual_nodes_removed)
+	return (new_GC,percentage_in_modular,actual_nodes_removed,time_stamp)
 
 
 
 
 
-def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack):
+def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack,typeOfAttack):
 
 	counter = 0.01
 
@@ -577,6 +581,7 @@ def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack):
 
 	print(copy_G.numberOfEdges())
 
+	"""
 	GC_ABA_List = []
 
 	GC_ADA_List = []
@@ -588,19 +593,35 @@ def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack):
 	actual_nodes_removed_ABA_List = []
 
 	actual_nodes_removed_ADA_List = []
+	"""
 
+	GC_List = []
+	percentage_in_modular_List = []
+	actual_nodes_removed_List = []
+
+	time_stamp_List = []
 
 	while counter <= max_to_attack:
 
 		num_nodes_to_remove = int(counter * G_size)
 
-		(new_GC_RAN,percentage_in_modular_RAN,actual_nodes_removed_RAN) = get_optimal_set(copy_G,nodes_1,counter,"RAN")
+		if typeOfAttack == "RAN":
 
-		GC_ABA_List.append(new_GC_RAN)
+			(new_GC,percentage_in_modular,actual_nodes_removed,time_stamp) = get_optimal_set(copy_G,nodes_1,counter,"RAN")
 
-		percentage_in_modular_ABA_List.append(percentage_in_modular_RAN)
+		elif typeOfAttack == "ABA":
+			(new_GC,percentage_in_modular,actual_nodes_removed,time_stamp) = get_optimal_set(copy_G,nodes_1,counter,"ABA")
 
-		actual_nodes_removed_ABA_List.append(actual_nodes_removed_RAN)
+		elif typeOfAttack == "ADA":
+			(new_GC,percentage_in_modular,actual_nodes_removed,time_stamp) = get_optimal_set(copy_G,nodes_1,counter,"ADA")
+
+		GC_List.append(new_GC)
+
+		percentage_in_modular_List.append(percentage_in_modular)
+
+		actual_nodes_removed_List.append(actual_nodes_removed_RAN)
+
+		time_stamp_List.append(time_stamp)
 
 		"""
 
@@ -619,7 +640,9 @@ def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack):
 
 		counter += step_size
 
-	return (GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List)
+	#return (GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List)
+	return (GC_List,percentage_in_modular_List,actual_nodes_removed_List,time_stamp_List)
+
 
 
 def create_new_List(l):
@@ -630,24 +653,27 @@ def create_new_List(l):
 	return new_list
 
 
-def changing_percentages_edges(G,max_edge_percentage,step_size):
+def changing_percentages_edges(G,max_edge_percentage,step_size,typeOfAttack):
 
-	max_to_attack = 0.05
+	max_to_attack = 0.02
 
 	counter = 0.05
 
 	step_size_for_attack = 0.01
 
-	GC_ABA_dict = {}
+	GC_dict = {}
 
-	GC_ADA_dict = {}
+	actual_nodes_removed_dict = {}
 
-	percentage_in_modular_ADA_Dict = {}
-	percentage_in_modular_ABA_Dict = {}
+	percentage_in_modular_dict = {}
 
-	intersection_dict = {}
+	time_stamp_dict = {}
 
-	while counter < max_edge_percentage:
+
+	while counter <= max_edge_percentage:
+
+
+		"""
 
 		(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(G,counter,step_size_for_attack,max_to_attack)
 
@@ -660,14 +686,21 @@ def changing_percentages_edges(G,max_edge_percentage,step_size):
 		print(actual_nodes_removed_ABA_List)
 		print(actual_nodes_removed_ADA_List)
 
-		intersection_dict[counter] = getIntersectionList(actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List)
+		"""
+
+		(GC_List,percentage_in_modular_List,actual_nodes_removed_List,time_stamp_List) = changing_percentages_attack(G,counter,step_size_for_attack,max_to_attack,typeOfAttack)
+
+		GC_dict[counter] = GC_List
+		percentage_in_modular_dict[counter] = percentage_in_modular
+		actual_nodes_removed_dict[counter] = actual_nodes_removed_List
+		time_stamp_dict[counter] = time_stamp_List
 
 		counter += step_size
 
 
 
 
-	return (GC_ABA_dict, GC_ADA_dict,  percentage_in_modular_ABA_Dict, percentage_in_modular_ADA_Dict, intersection_dict)
+	return (GC_dict,percentage_in_modular_dict,actual_nodes_removed_dict,time_stamp_dict)
 
 
 
@@ -708,7 +741,7 @@ step_size = 0.05
 
 max_to_attack = 0.2
 
-max_edge_percentage = 0.2
+max_edge_percentage = 0.1
 
 #(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(Gnk_1,edge_perc_to_connect,step_size,max_to_attack)
 
