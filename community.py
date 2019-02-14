@@ -508,7 +508,7 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 	time_stamp = [curr_GC]
 
-	while counter < G_size:
+	while counter < (G_size * 2):
 
 		#print(counter)
 
@@ -619,7 +619,7 @@ def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack,typeOf
 
 		percentage_in_modular_List.append(percentage_in_modular)
 
-		actual_nodes_removed_List.append(actual_nodes_removed_RAN)
+		actual_nodes_removed_List.append(actual_nodes_removed)
 
 		time_stamp_List.append(time_stamp)
 
