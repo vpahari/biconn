@@ -691,7 +691,7 @@ def changing_percentages_edges(G,max_edge_percentage,step_size,typeOfAttack):
 		(GC_List,percentage_in_modular_List,actual_nodes_removed_List,time_stamp_List) = changing_percentages_attack(G,counter,step_size_for_attack,max_to_attack,typeOfAttack)
 
 		GC_dict[counter] = GC_List
-		percentage_in_modular_dict[counter] = percentage_in_modular
+		percentage_in_modular_dict[counter] = percentage_in_modular_List
 		actual_nodes_removed_dict[counter] = actual_nodes_removed_List
 		time_stamp_dict[counter] = time_stamp_List
 
