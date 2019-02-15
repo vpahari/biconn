@@ -734,6 +734,8 @@ def change_dict_to_list(time_stamp_dict):
 
 
 
+
+
 def plot_time_stamps(time_stamp_dict):
 
 	keys = list(time_stamp_dict.keys())
@@ -800,6 +802,11 @@ max_edge_percentage = 0.1
 print(GC_dict)
 print(percentage_in_modular_dict)
 print(time_stamp_dict)
+
+for k in time_stamp_dict.keys():
+	print(len(time_stamp_dict[k]))
+
+
 
 
 """
