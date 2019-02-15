@@ -748,9 +748,10 @@ def plot_time_stamps(time_stamp_dict):
 
 		for ts in ts_list:
 
-			x_axis_list = [i for i in range(len(ts))]
+			x_axis_list = [i+1 for i in range(len(ts))]
 
-			
+			print(ts)
+			print(x_axis_list)
 
 			plt.plot(x_axis_list,ts)
 
