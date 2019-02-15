@@ -717,6 +717,48 @@ def getIntersectionList(l1,l2):
 
 	return intersection_list
 
+
+
+def change_dict_to_list(time_stamp_dict):
+
+	keys = list(time_stamp_dict.keys())
+
+	new_list = []
+
+	for k in keys:
+
+		curr_list = time_stamp_dict[k]
+
+		new_list.append(curr_list)
+
+
+
+
+def plot_time_stamps(time_stamp_dict):
+
+	keys = list(time_stamp_dict.keys())
+
+	for k in keys:
+
+		ts_list = time_stamp_dict[k]
+
+		for ts in ts_list:
+
+			x_axis_list = [for i in range(len(ts))]
+
+			label_str = "edge percentage : " + str(k) + ""
+
+			plt.plot(x_axis_list,ts, label = )
+
+
+
+
+
+
+
+
+
+
 N = 1000
 k = 3
 
