@@ -744,13 +744,20 @@ def plot_time_stamps(time_stamp_dict):
 
 		ts_list = time_stamp_dict[k]
 
+		label_str = "edge percentage : " + str(k) + ".png"
+
 		for ts in ts_list:
 
 			x_axis_list = [i for i in range(len(ts))]
 
-			label_str = "edge percentage : " + str(k) + ""
+			
 
-			#plt.plot(x_axis_list,ts, label = )
+			plt.plot(x_axis_list,ts)
+
+
+		plt.clf()
+
+		plt.savefig(label_str)
 
 
 
@@ -807,7 +814,7 @@ for k in time_stamp_dict.keys():
 	print(len(time_stamp_dict[k]))
 
 
-
+plot_time_stamps(time_stamp_dict)
 
 """
 
