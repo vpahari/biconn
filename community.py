@@ -753,7 +753,15 @@ def plot_time_stamps(time_stamp_dict):
 			print(ts)
 			print(x_axis_list)
 
-			plt.plot(x_axis_list,ts)
+			print(len(ts))
+			print(len(x_axis_list))
+
+			plt.xlabel("time",fontsize = 20)
+			plt.ylabel("GC",fontsize = 20)
+
+			plt.title("timestamps", fontsize=20)
+
+			plt.plot(x_axis_list,ts,label='GC with time stamp')
 
 
 		plt.clf()
