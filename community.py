@@ -6,10 +6,8 @@ import math
 from functools import reduce
 import csv
 from operator import itemgetter
-import matplotlib
-matplotlib.use('agg')
 import matplotlib.pyplot as plt
-
+import pickle
 
 
 
@@ -825,7 +823,14 @@ for k in time_stamp_dict.keys():
 	print(len(time_stamp_dict[k]))
 
 
-plot_time_stamps(time_stamp_dict)
+#plot_time_stamps(time_stamp_dict)
+
+
+with open('edge_perc_dict.pickle','wb') as handle:
+	pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+
 
 """
 
