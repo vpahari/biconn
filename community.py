@@ -801,7 +801,7 @@ step_size = 0.05
 
 max_to_attack = 0.2
 
-max_edge_percentage = 0.1
+max_edge_percentage = 0.2
 
 #(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(Gnk_1,edge_perc_to_connect,step_size,max_to_attack)
 
