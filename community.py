@@ -827,7 +827,7 @@ for k in time_stamp_dict.keys():
 
 
 with open('edge_perc_dict.pickle','wb') as handle:
-	pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	pickle.dump(time_stamp_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
