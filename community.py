@@ -508,7 +508,7 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 	time_stamp = [curr_GC]
 
-	while counter < (G_size * 2):
+	while counter < (G_size * 10):
 
 		#print(counter)
 
