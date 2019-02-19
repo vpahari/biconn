@@ -785,9 +785,13 @@ k = 3
 
 #edgesToAdd = int(N * edgesPercentage)
 
-Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = 21452)
+SEED1 = 21452
 
-Gnx_2 = nx.erdos_renyi_graph(N, k/(N-1), seed = 414653)
+SEED2 = 414653
+
+Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED1)
+
+Gnx_2 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED2)
 
 Gnk_1 = nk.nxadapter.nx2nk(Gnx_1)
 
@@ -825,8 +829,10 @@ for k in time_stamp_dict.keys():
 
 #plot_time_stamps(time_stamp_dict)
 
+filename = 'edge_perc_dict_' + str(SEED1) + "_" + str(SEED2) + '.pickle'
 
-with open('edge_perc_dict.pickle','wb') as handle:
+
+with open(filename,'wb') as handle:
 	pickle.dump(time_stamp_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
