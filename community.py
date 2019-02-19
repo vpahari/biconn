@@ -510,6 +510,8 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 	while counter < (G_size * 10):
 
+		print(counter)
+
 		#print(counter)
 
 		G = copy_graph(G_init)
