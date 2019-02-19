@@ -777,17 +777,23 @@ def plot_time_stamps(time_stamp_dict):
 
 
 
-N = 1000
-k = 3
+N=int(sys.argv[1]) # number of nodes
+k=int(sys.argv[2]) # average degree
+SEED1=int(sys.argv[3])
+SEED2 = int(sys.argv[4])
+attack_type = str(sys.argv[5])
+
+#gType = str(sys.argv[6])
+
 
 #edgesPercentage = 0.15
 
 
 #edgesToAdd = int(N * edgesPercentage)
 
-SEED1 = 2512112
+#SEED1 = 2512112
 
-SEED2 = 4543142
+#SEED2 = 4543142
 
 Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED1)
 
@@ -816,7 +822,7 @@ max_edge_percentage = 0.9
 #print(percentage_in_modular_ADA_List)
 
 
-(GC_dict,percentage_in_modular_dict,actual_nodes_removed_dict,time_stamp_dict) = changing_percentages_edges(Gnk_1,max_edge_percentage,step_size,"RAN")
+(GC_dict,percentage_in_modular_dict,actual_nodes_removed_dict,time_stamp_dict) = changing_percentages_edges(Gnk_1,max_edge_percentage,step_size,attack_type)
 
 
 print(GC_dict)
