@@ -785,9 +785,9 @@ k = 3
 
 #edgesToAdd = int(N * edgesPercentage)
 
-SEED1 = 2521
+SEED1 = 252112
 
-SEED2 = 4531
+SEED2 = 453142
 
 Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED1)
 
