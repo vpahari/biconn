@@ -508,6 +508,8 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 
 	time_stamp = [curr_GC]
 
+	print(G_size)
+
 	while counter < (G_size * 10):
 
 		print(counter)
@@ -825,7 +827,7 @@ for k in time_stamp_dict.keys():
 
 #plot_time_stamps(time_stamp_dict)
 
-filename = 'edge_perc_dict_SEED1_' + str(SEED1) + "_SEED2_" + str(SEED2) + "_attack_type_" + attack_type + "_max_edge_percentage" + '.pickle'
+filename = 'edge_perc_dict_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_attack_type_" + attack_type + "_max_edge_percentage" + str(max_edge_percentage) + '.pickle'
 
 
 with open(filename,'wb') as handle:
