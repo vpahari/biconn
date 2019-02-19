@@ -655,7 +655,7 @@ def create_new_List(l):
 
 def changing_percentages_edges(G,max_edge_percentage,step_size,typeOfAttack):
 
-	max_to_attack = 0.25
+	max_to_attack = 0.02
 
 	counter = 0.05
 
@@ -782,18 +782,12 @@ k=int(sys.argv[2]) # average degree
 SEED1=int(sys.argv[3])
 SEED2 = int(sys.argv[4])
 attack_type = str(sys.argv[5])
+step_size = float(sys.argv[6])
+max_edge_percentage = float(sys.argv[7])
 
-#gType = str(sys.argv[6])
+#step_size = 0.05
+#max_edge_percentage = 0.9
 
-
-#edgesPercentage = 0.15
-
-
-#edgesToAdd = int(N * edgesPercentage)
-
-#SEED1 = 2512112
-
-#SEED2 = 4543142
 
 Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED1)
 
@@ -805,13 +799,7 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
 change_nodes(Gnk_1, Gnk_2)
 
-edge_perc_to_connect = 0.1
 
-step_size = 0.05
-
-max_to_attack = 0.2
-
-max_edge_percentage = 0.9
 
 #(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(Gnk_1,edge_perc_to_connect,step_size,max_to_attack)
 
@@ -835,7 +823,7 @@ for k in time_stamp_dict.keys():
 
 #plot_time_stamps(time_stamp_dict)
 
-filename = 'edge_perc_dict_' + str(SEED1) + "_" + str(SEED2) + '.pickle'
+filename = 'edge_perc_dict_SEED1_' + str(SEED1) + "_SEED2_" + str(SEED2) + "_attack_type_" + attack_type + "_max_edge_percentage" + '.pickle'
 
 
 with open(filename,'wb') as handle:
