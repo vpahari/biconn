@@ -19,44 +19,7 @@ import pickle
 #M_out = int(sys.argv[4])
 #r = float(sys.argv[5])
 
-"""
-N=int(sys.argv[1]) # number of nodes
-k=int(sys.argv[2]) # average degree
-SEED=int(sys.argv[3])
-alpha = float(sys.argv[4])
-r = float(sys.argv[5])
-#gType = str(sys.argv[6])
 
-N = 10000
-
-k = 4
-
-SEED = 312
-
-alpha = 0.01
-
-r = 0.1
-
-
-numModules = 2
-
-M = int((numModules * N * k) / 2)
-
-M_out = int(M * alpha)
-
-M_in = int(M * (1 - alpha))
-
-k_in = (M_in * 2) / (numModules * N)
-
-p_in = k_in / (N-1)
-
-numNodesToConnect = int(r * N)
-
-
-print(M_in)
-print(k_in)
-print(p_in)
-"""
 
 
 
@@ -521,6 +484,8 @@ def get_optimal_set(G_init, nodes_1,percentage_to_attack,typeOfAttack):
 		#print(G.numberOfNodes())
 		#print(G.numberOfEdges())
 
+		#add assertion
+
 		random_node_1 = random.choice(nodes_removed)
 
 		random_node_2 = random.choice(G_nodes_removed)
@@ -585,20 +550,6 @@ def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack,typeOf
 
 	print(copy_G.numberOfEdges())
 
-	"""
-	GC_ABA_List = []
-
-	GC_ADA_List = []
-
-	percentage_in_modular_ABA_List = []
-
-	percentage_in_modular_ADA_List = []
-
-	actual_nodes_removed_ABA_List = []
-
-	actual_nodes_removed_ADA_List = []
-	"""
-
 	GC_List = []
 	percentage_in_modular_List = []
 	actual_nodes_removed_List = []
@@ -626,21 +577,6 @@ def changing_percentages_attack(G,edge_percentage,step_size,max_to_attack,typeOf
 		actual_nodes_removed_List.append(actual_nodes_removed)
 
 		time_stamp_List.append(time_stamp)
-
-		"""
-
-		(new_GC_ABA,percentage_in_modular_ABA,actual_nodes_removed_ABA) = get_optimal_set(copy_G,nodes_1,counter,"ABA")
-		(new_GC_ADA,percentage_in_modular_ADA,actual_nodes_removed_ADA) = get_optimal_set(copy_G,nodes_1,counter,"ADA")
-
-		GC_ABA_List.append(new_GC_ABA)
-		GC_ADA_List.append(new_GC_ADA)
-
-		percentage_in_modular_ABA_List.append(percentage_in_modular_ABA)
-		percentage_in_modular_ADA_List.append(percentage_in_modular_ADA)
-
-		actual_nodes_removed_ABA_List.append(actual_nodes_removed_ABA)
-		actual_nodes_removed_ADA_List.append(actual_nodes_removed_ADA)
-		"""
 
 		counter += step_size
 
@@ -676,32 +612,17 @@ def changing_percentages_edges(G,max_edge_percentage,step_size,typeOfAttack):
 
 	while counter <= max_edge_percentage:
 
-
-		"""
-
-		(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(G,counter,step_size_for_attack,max_to_attack)
-
-		GC_ABA_dict[counter] = create_new_List(GC_ABA_List)
-		GC_ADA_dict[counter] = create_new_List(GC_ADA_List)
-
-		percentage_in_modular_ABA_Dict[counter] = create_new_List(percentage_in_modular_ABA_List)
-		percentage_in_modular_ADA_Dict[counter] = create_new_List(percentage_in_modular_ADA_List)
-
-		print(actual_nodes_removed_ABA_List)
-		print(actual_nodes_removed_ADA_List)
-
-		"""
-
 		(GC_List,percentage_in_modular_List,actual_nodes_removed_List,time_stamp_List) = changing_percentages_attack(G,counter,step_size_for_attack,max_to_attack,typeOfAttack)
 
 		GC_dict[counter] = GC_List
+
 		percentage_in_modular_dict[counter] = percentage_in_modular_List
+
 		actual_nodes_removed_dict[counter] = actual_nodes_removed_List
+
 		time_stamp_dict[counter] = time_stamp_List
 
 		counter += step_size
-
-
 
 
 	return (GC_dict,percentage_in_modular_dict,actual_nodes_removed_dict,time_stamp_dict)
@@ -816,6 +737,7 @@ change_nodes(Gnk_1, Gnk_2)
 
 (GC_dict,percentage_in_modular_dict,actual_nodes_removed_dict,time_stamp_dict) = changing_percentages_edges(Gnk_1,max_edge_percentage,step_size,attack_type)
 
+connect_random_nodes(Gnk_1, int(Gnk_1.numberOfNodes() * 0.05))
 
 print(GC_dict)
 print(percentage_in_modular_dict)
@@ -827,7 +749,7 @@ for k in time_stamp_dict.keys():
 
 #plot_time_stamps(time_stamp_dict)
 
-filename = 'edge_perc_dict_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_attack_type_" + attack_type + "_max_edge_percentage" + str(max_edge_percentage) + '.pickle'
+filename = 'edge_perc_dict_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_attack_type_" + attack_type + "_max_edge_percentage_" + str(max_edge_percentage) + '.pickle'
 
 
 with open(filename,'wb') as handle:
@@ -835,80 +757,4 @@ with open(filename,'wb') as handle:
 
 
 
-
-"""
-
-edges_to_add = int(edge_perc_to_connect * Gnk_1.numberOfNodes() / 2)
-
-connections = list(connect_random_nodes(Gnk_1,edges_to_add))
-
-nodes_1 = set(list(map(lambda x : x[0],connections)) + list(map(lambda x : x[1],connections)))
-
-(new_GC_ABA,percentage_in_modular_ABA,actual_nodes_removed_ABA) = get_optimal_set(Gnk_1,nodes_1,edge_perc_to_connect,percentage_to_attack,"ABA")
-(new_GC_ADA,percentage_in_modular_ADA,actual_nodes_removed_ADA) = get_optimal_set(Gnk_1,nodes_1,edge_perc_to_connect,percentage_to_attack,"ADA")
-
-print(new_GC_ABA,percentage_in_modular_ABA,actual_nodes_removed_ABA)
-print(new_GC_ADA,percentage_in_modular_ADA,actual_nodes_removed_ADA)
-
-print(get_GC(Gnk_1))
-
-copy_gnk = copy_graph(Gnk_1)
-
-print(check_GC(Gnk_1,actual_nodes_removed_ADA))
-print(check_GC(copy_gnk,actual_nodes_removed_ABA))
-
-"""
-
-
-
-
-
-
-
-
-
-
-"""
-(percolation_threshold_list, intersection_list) = changing_edge_percentages(Gnk_1)
-
-print(percolation_threshold_list)
-
-for i in intersection_list:
-	print(len(i))
-
-
-"""
-
-"""
-step_size = 0.01
-
-percentage_to_attack = 0.3
-
-(gc_List1,gc1_List1,gc2_List1,GC_nodes_List1, sgc_List1) = percolation(Gnk_1, step_size, "ABA", percentage_to_attack)
-(gc_List2,gc1_List2,gc2_List2,GC_nodes_List2, sgc_List2) = percolation(Gnk_1, step_size, "ADA", percentage_to_attack)
-
-intersect = intersection(GC_nodes_List1,GC_nodes_List2)
-
-#print(len(GC_nodes_List1))
-#print(len(GC_nodes_List2))
-
-print(len(intersect))
-
-#print(intersect)
-
-print(gc_List1)
-print(gc_List2)
-
-(GC_init,GC_final) = check_GC(Gnk_1,intersect)
-
-print(GC_init)
-print(GC_final)
-
-
-print(get_percolation_threshold(sgc_List1))
-print(get_percolation_threshold(sgc_List2))
-
-#print(sgc_List1)
-#print(sgc_List2)
-"""
 
