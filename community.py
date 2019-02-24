@@ -768,7 +768,11 @@ def fixed_edge_ADCA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 
 		G_size = G_copy.numberOfNodes() 
 
+		print(get_GC(G_copy))
+
 		num_nodes_to_remove = int(perc_nodes_to_remove * G_size)
+
+		print(num_nodes_to_remove)
 
 		edges_to_add = int(edge_percentage * (G_size / 2))
 
@@ -816,7 +820,11 @@ def fixed_edge_ADA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 
 		G_size = G_copy.numberOfNodes() 
 
+		print(get_GC(G_copy))
+
 		num_nodes_to_remove = int(perc_nodes_to_remove * G_size)
+
+		print(num_nodes_to_remove)
 
 		edges_to_add = int(edge_percentage * (G_size / 2))
 
