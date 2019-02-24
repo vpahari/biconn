@@ -804,7 +804,7 @@ def ADA_attack(G,num_nodes_to_remove):
 
 
 
-def fixed_edge_ADA_attack(G,edges_percentage,num_nodes_to_remove,num_sims):
+def fixed_edge_ADA_attack(G,edge_percentage,num_nodes_to_remove,num_sims):
 
 	GC_List = []
 
