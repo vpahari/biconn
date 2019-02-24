@@ -746,7 +746,7 @@ def adaptive_connections_degree_attack(G,numNodesToRemove,connections):
 		if len(nodes_connections) == 0:
 			break
 
-		nodes_connections_degree = list(map(lambda x : (x,G_copy.degree(i)),nodes_connections))
+		nodes_connections_degree = list(map(lambda x : (x,G_copy.degree(x)),nodes_connections))
 
 		sorted_list = sorted(nodes_connections_degree, key = itemgetter(1), reverse = True)
 
