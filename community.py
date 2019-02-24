@@ -308,7 +308,34 @@ def find_best_nodes(G,step_size,percentage_to_attack):
 	return intersection_nodes
 
 
+
 def connect_random_nodes(G,numEdges):
+	single_module_size = int(G.numberOfNodes() / 2)
+
+	GC1_nodes = [i for i in range(single_module_size)]
+
+	GC2_nodes = [single_module_size + i for i in range(single_module_size)]
+
+	connections = set([])
+
+	counter = 0
+
+	while counter < numEdges:
+
+		i = random.choice(GC1_nodes)
+		j = random.choice(GC2_nodes)
+
+		if (i,j) not in connections:
+			G.addEdge(i,j)
+			connections.add((i,j))
+
+			counter += 1
+
+
+	return connections
+
+
+def connect_random_nodes_GC(G,numEdges):
 	single_module_size = int(G.numberOfNodes() / 2)
 
 	nodes1 = G.nodes()
@@ -696,9 +723,123 @@ def plot_time_stamps(time_stamp_dict):
 
 
 
+def adaptive_connections_degree_attack(G,numNodesToRemove,connections):
+
+	G_copy = copy_graph(G)
+
+	nodes_connections = list(set(list(map(lambda x : x[0],connections)) + list(map(lambda x : x[1],connections))))
+
+	nodes_connections_degree = list(map(lambda x : (x,G_copy.degree(i)),nodes_connections))
+
+	sorted_list = sorted(nodes_connections_degree, key = itemgetter(1), reverse = True)
+
+	counter = 0
+
+	while counter < numNodesToRemove:
+
+		node_to_remove = sorted_list[0][0]
+
+		G_copy.removeNode(node_to_remove)
+
+		nodes_connections.remove(node_to_remove)
+
+		if len(nodes_connections) == 0:
+			break
+
+		nodes_connections_degree = list(map(lambda x : (x,G_copy.degree(i)),nodes_connections))
+
+		sorted_list = sorted(nodes_connections_degree, key = itemgetter(1), reverse = True)
+
+		counter += 1
+
+	GC_final = get_GC(G_copy)
+
+	return GC_final
 
 
 
+def fixed_edge_ADCA_attack(G,edge_percentage,num_nodes_to_remove,num_sims):
+
+	GC_List = []
+
+	for i in range(num_sims):
+
+		G_copy = copy_graph(G)
+
+		G_size = G_copy.numberOfNodes() 
+
+		edges_to_add = int(edge_percentage * (G_size / 2))
+
+		print(G_copy.numberOfEdges())
+
+		connections = connect_random_nodes(G_copy,edges_to_add)
+
+		print(G_copy.numberOfEdges())
+
+		curr_GC = adaptive_connections_degree_attack(G_copy,num_nodes_to_remove,connections)
+
+		GC_List.append(curr_GC)
+
+	return GC_List
+
+
+def ADA_attack(G,num_nodes_to_remove):
+
+	G_copy = copy_graph(G)
+
+	for i in range(num_nodes_to_remove):
+
+		degree = nk.centrality.DegreeCentrality(G)
+
+		degree.run()
+
+		degree_sequence = degree.ranking()
+
+		node_to_remove = degree_sequence[0][0]
+
+		G_copy.removeNode(node_to_remove)
+
+	return get_GC(G_copy)
+
+
+
+
+def fixed_edge_ADA_attack(G,edges_percentage,num_nodes_to_remove,num_sims):
+
+	GC_List = []
+
+	for i in range(num_sims):
+
+		G_copy = copy_graph(G)
+
+		G_size = G_copy.numberOfNodes() 
+
+		edges_to_add = int(edge_percentage * (G_size / 2))
+
+		connections = connect_random_nodes(G_copy,edges_to_add)
+
+		print(G_copy.numberOfEdges())
+
+		curr_GC = ADA_attack(G_copy,num_nodes_to_remove)
+
+		GC_List.append(curr_GC)
+
+	return GC_List
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#def fixed_percentage_attack(G_init, typeOfAttack, edges_percentage, attack_percentage):
 
 
 
@@ -706,12 +847,18 @@ N=int(sys.argv[1]) # number of nodes
 k=int(sys.argv[2]) # average degree
 SEED1=int(sys.argv[3])
 SEED2 = int(sys.argv[4])
+edge_perc = float(sys.argv[5])
+nodes_to_remove = float(sys.argv[6])
+
+
+"""
 attack_type = str(sys.argv[5])
 step_size = float(sys.argv[6])
 max_edge_percentage = float(sys.argv[7])
 
 #step_size = 0.05
 #max_edge_percentage = 0.9
+"""
 
 
 Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED1)
@@ -724,6 +871,18 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
 change_nodes(Gnk_1, Gnk_2)
 
+num_sims = 10
+
+GC_List_ADA = fixed_edge_ADA_attack(Gnk_1, edge_perc, nodes_to_remove, num_sims)
+
+GC_List_ADCA = fixed_edge_ADCA_attack(Gnk_1, edge_perc, nodes_to_remove, num_sims)
+
+print(GC_List_ADA)
+
+print(GC_List_ADCA)
+
+
+
 
 
 #(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(Gnk_1,edge_perc_to_connect,step_size,max_to_attack)
@@ -734,7 +893,7 @@ change_nodes(Gnk_1, Gnk_2)
 #print(percentage_in_modular_ABA_List)
 #print(percentage_in_modular_ADA_List)
 
-
+"""
 (GC_dict,percentage_in_modular_dict,actual_nodes_removed_dict,time_stamp_dict) = changing_percentages_edges(Gnk_1,max_edge_percentage,step_size,attack_type)
 
 connect_random_nodes(Gnk_1, int(Gnk_1.numberOfNodes() * 0.05))
@@ -754,6 +913,36 @@ filename = 'edge_perc_dict_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str
 
 with open(filename,'wb') as handle:
 	pickle.dump(time_stamp_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
