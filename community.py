@@ -768,8 +768,6 @@ def fixed_edge_ADCA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 
 		G_size = G_copy.numberOfNodes() 
 
-		print(get_GC(G_copy))
-
 		num_nodes_to_remove = int(perc_nodes_to_remove * G_size)
 
 		print(num_nodes_to_remove)
@@ -781,6 +779,8 @@ def fixed_edge_ADCA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 		connections = connect_random_nodes(G_copy,edges_to_add)
 
 		print(G_copy.numberOfEdges())
+
+		print(get_GC(G_copy))
 
 		curr_GC = adaptive_connections_degree_attack(G_copy,num_nodes_to_remove,connections)
 
@@ -820,8 +820,6 @@ def fixed_edge_ADA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 
 		G_size = G_copy.numberOfNodes() 
 
-		print(get_GC(G_copy))
-
 		num_nodes_to_remove = int(perc_nodes_to_remove * G_size)
 
 		print(num_nodes_to_remove)
@@ -831,6 +829,8 @@ def fixed_edge_ADA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 		connections = connect_random_nodes(G_copy,edges_to_add)
 
 		print(G_copy.numberOfEdges())
+
+		print(get_GC(G_copy))
 
 		curr_GC = ADA_attack(G_copy,num_nodes_to_remove)
 
