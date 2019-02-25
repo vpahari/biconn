@@ -876,9 +876,9 @@ print(GC_List_ADA)
 print(GC_List_ADCA)
 
 
-filename_ADA = 'ADA_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edge_perc_" + str(edge_perc) + "nodes_to_remove" + str(nodes_to_remove) + '.pickle'
+filename_ADA = 'ADA_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + "_nodestoremove_" + str(nodes_to_remove) + '.pickle'
 
-filename_ADCA = 'ADCA_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edge_perc_" + str(edge_perc) + "nodes_to_remove" + str(nodes_to_remove) + '.pickle'
+filename_ADCA = 'ADCA_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + "_nodestoremove_" + str(nodes_to_remove) + '.pickle'
 
 
 with open(filename_ADA,'wb') as handle:
