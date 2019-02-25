@@ -793,6 +793,10 @@ def ADA_ADCA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 	GC_List_ADA = []
 	GC_List_ADCA = []
 
+	G_size = G.numberOfNodes() 
+
+	edges_to_add = int(edge_percentage * (G_size / 2))
+
 	num_nodes_to_remove = int(perc_nodes_to_remove * G_size)
 
 	print(num_nodes_to_remove)
@@ -800,10 +804,6 @@ def ADA_ADCA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 	for i in range(num_sims):
 
 		G_copy = copy_graph(G)
-
-		G_size = G_copy.numberOfNodes() 
-
-		edges_to_add = int(edge_percentage * (G_size / 2))
 
 		connections = connect_random_nodes(G_copy,edges_to_add)
 
