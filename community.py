@@ -738,9 +738,9 @@ def adaptive_connections_degree_attack(G,numNodesToRemove,connections):
 
 		node_to_remove = sorted_list[0][0]
 
-		print(sorted_list)
+		#print(sorted_list)
 
-		print(node_to_remove)
+		#print(node_to_remove)
 
 		G_copy.removeNode(node_to_remove)
 
@@ -866,7 +866,7 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
 change_nodes(Gnk_1, Gnk_2)
 
-num_sims = 1
+num_sims = 10
 
 (GC_List_ADA,GC_List_ADCA) = ADA_ADCA_attack(Gnk_1, edge_perc, nodes_to_remove, num_sims)
 
