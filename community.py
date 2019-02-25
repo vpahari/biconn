@@ -806,7 +806,7 @@ def ADA_ADCA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 
 		connections = connect_random_nodes(G_copy,edges_to_add)
 
-		print(connections)
+		#print(connections)
 
 		print(G_copy.numberOfEdges())
 
@@ -876,7 +876,17 @@ print(GC_List_ADA)
 print(GC_List_ADCA)
 
 
+filename_ADA = 'ADA_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edge_perc_" + str(edge_perc) + "nodes_to_remove" + str(nodes_to_remove) + '.pickle'
 
+filename_ADCA = 'ADCA_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edge_perc_" + str(edge_perc) + "nodes_to_remove" + str(nodes_to_remove) + '.pickle'
+
+
+with open(filename_ADA,'wb') as handle:
+	pickle.dump(filename_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+with open(filename_ADCA,'wb') as handle:
+	pickle.dump(filename_ADCA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 #(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(Gnk_1,edge_perc_to_connect,step_size,max_to_attack)
