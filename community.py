@@ -739,6 +739,10 @@ def adaptive_connections_degree_attack(G,numNodesToRemove,connections):
 
 		node_to_remove = sorted_list[0][0]
 
+		print(sorted_list)
+
+		print(node_to_remove)
+
 		G_copy.removeNode(node_to_remove)
 
 		nodes_connections.remove(node_to_remove)
@@ -758,42 +762,15 @@ def adaptive_connections_degree_attack(G,numNodesToRemove,connections):
 
 
 
-def fixed_edge_ADCA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
-
-	GC_List = []
-
-	for i in range(num_sims):
-
-		G_copy = copy_graph(G)
-
-		G_size = G_copy.numberOfNodes() 
-
-		num_nodes_to_remove = int(perc_nodes_to_remove * G_size)
-
-		print(num_nodes_to_remove)
-
-		edges_to_add = int(edge_percentage * (G_size / 2))
-
-		print(G_copy.numberOfEdges())
-
-		connections = connect_random_nodes(G_copy,edges_to_add)
-
-		print(G_copy.numberOfEdges())
-
-		print(get_GC(G_copy))
-
-		curr_GC = adaptive_connections_degree_attack(G_copy,num_nodes_to_remove,connections)
-
-		GC_List.append(curr_GC)
-
-	return GC_List
-
-
 def ADA_attack(G,num_nodes_to_remove):
 
 	G_copy = copy_graph(G)
 
+	print("ADA")
+
 	for i in range(num_nodes_to_remove):
+
+		print()
 
 		degree = nk.centrality.DegreeCentrality(G_copy)
 
@@ -810,9 +787,10 @@ def ADA_attack(G,num_nodes_to_remove):
 
 
 
-def fixed_edge_ADA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
+def ADA_ADCA_attack(G,edges_percentage,perc_nodes_to_remove,num_sims):
 
-	GC_List = []
+	GC_List_ADA = []
+	GC_List_ADCA = []
 
 	for i in range(num_sims):
 
@@ -832,12 +810,15 @@ def fixed_edge_ADA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 
 		print(get_GC(G_copy))
 
-		curr_GC = ADA_attack(G_copy,num_nodes_to_remove)
+		curr_GC_ADA = ADA_attack(G_copy,num_nodes_to_remove)
 
-		GC_List.append(curr_GC)
+		curr_GC_ADCA = adaptive_connections_degree_attack(G_copy,num_nodes_to_remove,connections)
 
-	return GC_List
+		GC_List_ADA.append(curr_GC_ADA)
 
+		GC_List_ADCA.append(curr_GC_ADCA)
+
+	return (GC_List_ADA,GC_List_ADCA)
 
 
 
@@ -885,9 +866,8 @@ change_nodes(Gnk_1, Gnk_2)
 
 num_sims = 10
 
-GC_List_ADA = fixed_edge_ADA_attack(Gnk_1, edge_perc, nodes_to_remove, num_sims)
+(GC_List_ADA,GC_List_ADCA) = fixed_edge_ADA_attack(Gnk_1, edge_perc, nodes_to_remove, num_sims)
 
-GC_List_ADCA = fixed_edge_ADCA_attack(Gnk_1, edge_perc, nodes_to_remove, num_sims)
 
 print(GC_List_ADA)
 
