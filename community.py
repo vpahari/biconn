@@ -778,8 +778,8 @@ def ADA_attack(G,num_nodes_to_remove):
 
 		node_to_remove = degree_sequence[0][0]
 
-		print(degree_sequence)
-		print(node_to_remove)
+		#print(degree_sequence)
+		#print(node_to_remove)
 
 		G_copy.removeNode(node_to_remove)
 
