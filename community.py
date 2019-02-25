@@ -865,7 +865,7 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
 change_nodes(Gnk_1, Gnk_2)
 
-num_sims = 10
+num_sims = 2
 
 (GC_List_ADA,GC_List_ADCA) = ADA_ADCA_attack(Gnk_1, edge_perc, nodes_to_remove, num_sims)
 
