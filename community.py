@@ -331,7 +331,6 @@ def connect_random_nodes(G,numEdges):
 
 			counter += 1
 
-
 	return connections
 
 
@@ -806,6 +805,8 @@ def ADA_ADCA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 		G_copy = copy_graph(G)
 
 		connections = connect_random_nodes(G_copy,edges_to_add)
+
+		print(connections)
 
 		print(G_copy.numberOfEdges())
 
