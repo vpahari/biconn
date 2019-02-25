@@ -770,8 +770,6 @@ def ADA_attack(G,num_nodes_to_remove):
 
 	for i in range(num_nodes_to_remove):
 
-		print()
-
 		degree = nk.centrality.DegreeCentrality(G_copy)
 
 		degree.run()
@@ -779,6 +777,9 @@ def ADA_attack(G,num_nodes_to_remove):
 		degree_sequence = degree.ranking()
 
 		node_to_remove = degree_sequence[0][0]
+
+		print(degree_sequence)
+		print(node_to_remove)
 
 		G_copy.removeNode(node_to_remove)
 
@@ -866,7 +867,7 @@ change_nodes(Gnk_1, Gnk_2)
 
 num_sims = 10
 
-(GC_List_ADA,GC_List_ADCA) = fixed_edge_ADA_attack(Gnk_1, edge_perc, nodes_to_remove, num_sims)
+(GC_List_ADA,GC_List_ADCA) = ADA_ADCA_attack(Gnk_1, edge_perc, nodes_to_remove, num_sims)
 
 
 print(GC_List_ADA)
