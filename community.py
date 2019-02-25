@@ -866,7 +866,7 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
 change_nodes(Gnk_1, Gnk_2)
 
-num_sims = 10
+num_sims = 20
 
 (GC_List_ADA,GC_List_ADCA) = ADA_ADCA_attack(Gnk_1, edge_perc, nodes_to_remove, num_sims)
 
@@ -882,11 +882,11 @@ filename_ADCA = 'ADCA_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED
 
 
 with open(filename_ADA,'wb') as handle:
-	pickle.dump(filename_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	pickle.dump(GC_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 with open(filename_ADCA,'wb') as handle:
-	pickle.dump(filename_ADCA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	pickle.dump(GC_List_ADCA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 #(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(Gnk_1,edge_perc_to_connect,step_size,max_to_attack)
