@@ -766,7 +766,7 @@ def ADA_attack(G,num_nodes_to_remove):
 
 	G_copy = copy_graph(G)
 
-	print("ADA")
+	#print("ADA")
 
 	for i in range(num_nodes_to_remove):
 
