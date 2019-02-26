@@ -722,7 +722,7 @@ def plot_time_stamps(time_stamp_dict):
 
 
 
-def adaptive_connections_degree_attack(G,numNodesToRemove,connections):
+def adaptive_connections_degree_attack(G,numNodesToRemove,nodes_to_remove_stepwise,connections):
 
 	G_copy = copy_graph(G)
 
@@ -734,7 +734,12 @@ def adaptive_connections_degree_attack(G,numNodesToRemove,connections):
 
 	counter = 0
 
+	GC_List = []
+
 	while counter < numNodesToRemove:
+
+		if i % nodes_to_remove_stepwise == 0:
+			GC_List.append(get_GC(G_copy))
 
 		node_to_remove = sorted_list[0][0]
 
@@ -755,19 +760,24 @@ def adaptive_connections_degree_attack(G,numNodesToRemove,connections):
 
 		counter += 1
 
-	GC_final = get_GC(G_copy)
+	GC_List.append(get_GC(G_copy))
 
-	return GC_final
+	return GC_List
 
 
 
-def ADA_attack(G,num_nodes_to_remove):
+def ADA_attack(G,num_nodes_to_remove,nodes_to_remove_stepwise):
 
 	G_copy = copy_graph(G)
 
-	#print("ADA")
+	GC_List = []
+
+	assert(num_nodes_to_remove % nodes_to_remove_stepwise == 0)
 
 	for i in range(num_nodes_to_remove):
+
+		if i % nodes_to_remove_stepwise == 0:
+			GC_List.append(get_GC(G_copy))
 
 		degree = nk.centrality.DegreeCentrality(G_copy)
 
@@ -777,13 +787,11 @@ def ADA_attack(G,num_nodes_to_remove):
 
 		node_to_remove = degree_sequence[0][0]
 
-		#print(degree_sequence)
-		#print(node_to_remove)
-
 		G_copy.removeNode(node_to_remove)
 
-	return get_GC(G_copy)
+	GC_List.append(get_GC(G_copy))
 
+	return GC_List
 
 
 
@@ -824,11 +832,53 @@ def ADA_ADCA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 
 
 
+def ADA_ADCA_attack_full(G,edge_percentage,num_sims,step_size):
+
+	GC_List_ADA = []
+	GC_List_ADCA = []
+
+	G_size = G.numberOfNodes() 
+
+	edges_to_add = int(edge_percentage * (G_size / 2))
+
+	num_nodes_to_remove = int(edge_percentage * G_size)
+
+	nodes_to_remove_stepwise = int(step_size * G_size)
+
+	for i in range(num_sims):
+
+		G_copy = copy_graph(G)
+
+		connections = connect_random_nodes(G_copy,edges_to_add)
+
+		curr_GC_ADA = ADA_attack(G_copy,num_nodes_to_remove,nodes_to_remove_stepwise)
+
+		curr_GC_ADCA = adaptive_connections_degree_attack(G_copy,num_nodes_to_remove,nodes_to_remove_stepwise,connections)
+
+		GC_List_ADA.append(curr_GC_ADA)
+
+		GC_List_ADCA.append(curr_GC_ADCA)
+
+	return (GC_List_ADA,GC_List_ADCA)	
 
 
 
 
+def convert_lists(l):
 
+	len_of_list = len(l[0])
+
+	final_avg_list = []
+
+	for i in range(len_of_list):
+
+		avg_list = list(map(lambda x : x[i], l))
+
+		avg = sum(avg_list) / len(avg_list)
+
+		final_avg_list.append(avg)
+
+	return final_avg_list
 
 
 
@@ -843,7 +893,7 @@ k=int(sys.argv[2]) # average degree
 SEED1=int(sys.argv[3])
 SEED2 = int(sys.argv[4])
 edge_perc = float(sys.argv[5])
-nodes_to_remove = float(sys.argv[6])
+#nodes_to_remove = float(sys.argv[6])
 
 
 """
@@ -866,9 +916,9 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
 change_nodes(Gnk_1, Gnk_2)
 
-num_sims = 20
+num_sims = 10
 
-(GC_List_ADA,GC_List_ADCA) = ADA_ADCA_attack(Gnk_1, edge_perc, nodes_to_remove, num_sims)
+(GC_List_ADA,GC_List_ADCA) = ADA_ADCA_attack_full(Gnk_1, edge_perc, num_sims,0.01)
 
 
 print(GC_List_ADA)
@@ -876,6 +926,7 @@ print(GC_List_ADA)
 print(GC_List_ADCA)
 
 
+"""
 filename_ADA = 'ADA_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + "_nodestoremove_" + str(nodes_to_remove) + '.pickle'
 
 filename_ADCA = 'ADCA_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + "_nodestoremove_" + str(nodes_to_remove) + '.pickle'
@@ -887,6 +938,13 @@ with open(filename_ADA,'wb') as handle:
 
 with open(filename_ADCA,'wb') as handle:
 	pickle.dump(GC_List_ADCA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+"""
+
+
+
+
+
+
 
 
 #(GC_ABA_List,GC_ADA_List,percentage_in_modular_ABA_List,percentage_in_modular_ADA_List,actual_nodes_removed_ABA_List,actual_nodes_removed_ADA_List) = changing_percentages_attack(Gnk_1,edge_perc_to_connect,step_size,max_to_attack)
