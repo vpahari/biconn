@@ -791,6 +791,8 @@ def ADA_attack(G,num_nodes_to_remove,nodes_to_remove_stepwise):
 
 		G_copy.removeNode(node_to_remove)
 
+		print(removeNode)
+
 	GC_List.append(get_GC(G_copy))
 
 	return GC_List
