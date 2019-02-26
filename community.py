@@ -730,6 +730,8 @@ def adaptive_connections_degree_attack(G,numNodesToRemove,nodes_to_remove_stepwi
 
 	nodes_connections_degree = list(map(lambda x : (x,G_copy.degree(x)),nodes_connections))
 
+	random.shuffle(nodes_connections_degree)
+
 	sorted_list = sorted(nodes_connections_degree, key = itemgetter(1), reverse = True)
 
 	counter = 0
@@ -786,6 +788,10 @@ def ADA_attack(G,num_nodes_to_remove,nodes_to_remove_stepwise):
 		degree.run()
 
 		degree_sequence = degree.ranking()
+
+		random.shuffle(degree_sequence)
+
+		degree_sequence.sort(key = itemgetter(1), reverse = True)
 
 		node_to_remove = degree_sequence[0][0]
 
