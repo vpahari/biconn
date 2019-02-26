@@ -930,7 +930,7 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
 change_nodes(Gnk_1, Gnk_2)
 
-num_sims = 3
+num_sims = 20
 
 (GC_List_ADA,GC_List_ADCA) = ADA_ADCA_attack_full(Gnk_1, edge_perc, num_sims,0.01)
 
@@ -946,10 +946,10 @@ for i in GC_List_ADCA:
 	print(len(i))
 
 
-"""
-filename_ADA = 'ADA_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + "_nodestoremove_" + str(nodes_to_remove) + '.pickle'
 
-filename_ADCA = 'ADCA_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + "_nodestoremove_" + str(nodes_to_remove) + '.pickle'
+filename_ADA = 'BigList_ADA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + '.pickle'
+
+filename_ADCA = 'BigList_ADCA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc)  + '.pickle'
 
 
 with open(filename_ADA,'wb') as handle:
@@ -958,7 +958,7 @@ with open(filename_ADA,'wb') as handle:
 
 with open(filename_ADCA,'wb') as handle:
 	pickle.dump(GC_List_ADCA, handle, protocol=pickle.HIGHEST_PROTOCOL)
-"""
+
 
 
 
