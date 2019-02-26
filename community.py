@@ -935,6 +935,12 @@ print(GC_List_ADA)
 
 print(GC_List_ADCA)
 
+for i in GC_List_ADA:
+	print(len(i))
+
+for i in GC_List_ADCA:
+	print(len(i))
+
 
 """
 filename_ADA = 'ADA_SEED1_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + "_nodestoremove_" + str(nodes_to_remove) + '.pickle'
