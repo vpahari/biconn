@@ -740,10 +740,10 @@ def adaptive_connections_degree_attack(G,numNodesToRemove,nodes_to_remove_stepwi
 
 	count = 0
 
-	while counter < numNodesToRemove:
+	for i in range(numNodesToRemove):
 
-		if counter % nodes_to_remove_stepwise == 0:
-			print(counter)
+		if i % nodes_to_remove_stepwise == 0:
+			print(i)
 			print(count)
 			GC_List.append(get_GC(G_copy))
 			count += 1
@@ -765,7 +765,6 @@ def adaptive_connections_degree_attack(G,numNodesToRemove,nodes_to_remove_stepwi
 
 		sorted_list = sorted(nodes_connections_degree, key = itemgetter(1), reverse = True)
 
-		counter += 1
 
 	GC_List.append(get_GC(G_copy))
 
