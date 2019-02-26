@@ -738,7 +738,7 @@ def adaptive_connections_degree_attack(G,numNodesToRemove,nodes_to_remove_stepwi
 
 	while counter < numNodesToRemove:
 
-		if i % nodes_to_remove_stepwise == 0:
+		if counter % nodes_to_remove_stepwise == 0:
 			GC_List.append(get_GC(G_copy))
 
 		node_to_remove = sorted_list[0][0]
@@ -771,6 +771,8 @@ def ADA_attack(G,num_nodes_to_remove,nodes_to_remove_stepwise):
 	G_copy = copy_graph(G)
 
 	GC_List = []
+
+	print(num_nodes_to_remove % nodes_to_remove_stepwise)
 
 	assert(num_nodes_to_remove % nodes_to_remove_stepwise == 0)
 
