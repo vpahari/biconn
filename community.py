@@ -939,11 +939,11 @@ print(GC_List_ADA)
 
 print(GC_List_ADCA)
 
-for i in GC_List_ADA:
-	print(len(i))
+#for i in GC_List_ADA:
+#	print(len(i))
 
-for i in GC_List_ADCA:
-	print(len(i))
+#for i in GC_List_ADCA:
+#	print(len(i))
 
 
 
