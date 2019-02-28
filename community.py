@@ -829,7 +829,7 @@ def ABA_attack(G,num_nodes_to_remove,nodes_to_remove_stepwise):
 
 		between_sequence = between.ranking()
 
-		random.shuffle(between_sequence)
+		#random.shuffle(between_sequence)
 
 		between_sequence.sort(key = itemgetter(1), reverse = True)
 
