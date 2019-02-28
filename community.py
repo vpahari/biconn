@@ -1029,6 +1029,26 @@ print(final_ADCA_List)
 
 
 
+filename_ADA = 'BigGraphSims_ADA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + '.pickle'
+
+filename_ABA = 'BigGraphSims_ABA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + '.pickle'
+
+filename_ADCA = 'BigGraphSims_ADCA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc)  + '.pickle'
+
+
+with open(filename_ADA,'wb') as handle:
+	pickle.dump(GC_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_ABA,'wb') as handle:
+	pickle.dump(GC_List_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_ADCA,'wb') as handle:
+	pickle.dump(GC_List_ADCA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+
+
+
 
 #(GC_List_ADA,GC_List_ADCA) = ADA_ADCA_attack_full(Gnk_1, edge_perc, num_sims,0.01)
 
@@ -1044,20 +1064,7 @@ print(final_ADCA_List)
 #	print(len(i))
 
 
-"""
-filename_ADA = 'GraphSims_ADA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + '.pickle'
 
-filename_ADCA = 'GraphSims_ADCA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc)  + '.pickle'
-
-
-with open(filename_ADA,'wb') as handle:
-	pickle.dump(GC_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-
-with open(filename_ADCA,'wb') as handle:
-	pickle.dump(GC_List_ADCA, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-"""
 
 
 
