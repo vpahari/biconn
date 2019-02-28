@@ -1015,9 +1015,9 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
 change_nodes(Gnk_1, Gnk_2)
 
-num_sims = 5
+num_sims = 20
 
-num_graphs = 2
+num_graphs = 10
 
 (final_ADA_List,final_ABA_List,final_ADCA_List) = do_all_sims(N,k,SEED1,SEED2,edge_perc,num_graphs,num_sims,0.01)
 
