@@ -1017,12 +1017,25 @@ change_nodes(Gnk_1, Gnk_2)
 
 num_sims = 20
 
-(GC_List_ADA,GC_List_ADCA) = ADA_ADCA_attack_full(Gnk_1, edge_perc, num_sims,0.01)
+num_graphs = 2
+
+(final_ADA_List,final_ABA_List,final_ADCA_List) = do_all_sims(N,k,SEED1,SEED2,edge_perc,num_graphs,num_sims,0.01)
+
+print(final_ADA_List)
+
+print(final_ABA_List)
+
+print(final_ADCA_List)
 
 
-print(GC_List_ADA)
 
-print(GC_List_ADCA)
+
+#(GC_List_ADA,GC_List_ADCA) = ADA_ADCA_attack_full(Gnk_1, edge_perc, num_sims,0.01)
+
+
+#print(GC_List_ADA)
+
+#print(GC_List_ADCA)
 
 #for i in GC_List_ADA:
 #	print(len(i))
