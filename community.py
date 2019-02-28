@@ -809,9 +809,48 @@ def ADA_attack(G,num_nodes_to_remove,nodes_to_remove_stepwise):
 
 
 
+def ABA_attack(G,num_nodes_to_remove,nodes_to_remove_stepwise):
+
+	G_copy = copy_graph(G)
+
+	GC_List = []
+
+	print(num_nodes_to_remove % nodes_to_remove_stepwise)
+
+	assert(num_nodes_to_remove % nodes_to_remove_stepwise == 0)
+
+	for i in range(num_nodes_to_remove):
+
+		if i % nodes_to_remove_stepwise == 0:
+			GC_List.append(get_GC(G_copy))
+
+		between = nk.centrality.DynBetweenness(G)
+		between.run()
+
+		between_sequence = between.ranking()
+
+		random.shuffle(between_sequence)
+
+		between_sequence.sort(key = itemgetter(1), reverse = True)
+
+		node_to_remove = between_sequence[0][0]
+
+		G_copy.removeNode(node_to_remove)
+
+		print(between_sequence[0])
+
+	GC_List.append(get_GC(G_copy))
+
+	return GC_List
+
+
+
+
+
 def ADA_ADCA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 
 	GC_List_ADA = []
+	GC_List_ABA = []
 	GC_List_ADCA = []
 
 	G_size = G.numberOfNodes() 
@@ -836,19 +875,29 @@ def ADA_ADCA_attack(G,edge_percentage,perc_nodes_to_remove,num_sims):
 
 		curr_GC_ADA = ADA_attack(G_copy,num_nodes_to_remove)
 
+		curr_GC_ABA = ABA_attack(G_copy,num_nodes_to_remove)
+
 		curr_GC_ADCA = adaptive_connections_degree_attack(G_copy,num_nodes_to_remove,connections)
 
 		GC_List_ADA.append(curr_GC_ADA)
 
+		GC_List_ABA.append(curr_GC_ABA)
+
 		GC_List_ADCA.append(curr_GC_ADCA)
 
-	return (GC_List_ADA,GC_List_ADCA)
+
+	return (GC_List_ADA,GC_List_ABA,GC_List_ADCA)
+
+
+
+
 
 
 
 def ADA_ADCA_attack_full(G,edge_percentage,num_sims,step_size):
 
 	GC_List_ADA = []
+	GC_List_ABA = []
 	GC_List_ADCA = []
 
 	G_size = G.numberOfNodes() 
@@ -867,32 +916,68 @@ def ADA_ADCA_attack_full(G,edge_percentage,num_sims,step_size):
 
 		curr_GC_ADA = ADA_attack(G_copy,num_nodes_to_remove,nodes_to_remove_stepwise)
 
+		curr_GC_ABA = ABA_attack(G_copy,num_nodes_to_remove,nodes_to_remove_stepwise)
+
 		curr_GC_ADCA = adaptive_connections_degree_attack(G_copy,num_nodes_to_remove,nodes_to_remove_stepwise,connections)
 
 		GC_List_ADA.append(curr_GC_ADA)
 
+		GC_List_ABA.append(curr_GC_ABA)
+
 		GC_List_ADCA.append(curr_GC_ADCA)
 
-	return (GC_List_ADA,GC_List_ADCA)	
+	return (GC_List_ADA,GC_List_ABA,GC_List_ADCA)	
 
 
 
 
-def convert_lists(l):
+def get_graphs(N,k,SEED1,SEED2):
 
-	len_of_list = len(l[0])
+	Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED1)
 
-	final_avg_list = []
+	Gnx_2 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED2)
 
-	for i in range(len_of_list):
+	Gnk_1 = nk.nxadapter.nx2nk(Gnx_1)
 
-		avg_list = list(map(lambda x : x[i], l))
+	Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
-		avg = sum(avg_list) / len(avg_list)
+	change_nodes(Gnk_1, Gnk_2)
 
-		final_avg_list.append(avg)
+	return Gnk_1
 
-	return final_avg_list
+
+
+def do_all_sims(N,k,SEED1,SEED2,edge_percentage,num_graphs,num_sims,step_size):
+
+	final_ADA_List = []
+	final_ABA_List = []
+	final_ADCA_List = []
+
+	for i in range(num_graphs):
+
+		G_new = get_graphs(N,k,SEED1,SEED2)
+
+		(GC_List_ADA,GC_List_ABA,GC_List_ADCA) = ADA_ADCA_attack_full(G_new, edge_perc, num_sims, step_size)
+
+		final_ADA_List.append(GC_List_ADA)
+		final_ABA_List.append(GC_List_ABA)
+		final_ADCA_List.append(GC_List_ADCA)
+
+		SEED1 = SEED1 * 2 + 1
+		SEED2 = SEED2 * 2 + 1
+
+	return (final_ADA_List,final_ABA_List,final_ADCA_List)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -947,9 +1032,9 @@ print(GC_List_ADCA)
 
 
 
-filename_ADA = 'BigList_ADA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + '.pickle'
+filename_ADA = 'GraphSims_ADA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + '.pickle'
 
-filename_ADCA = 'BigList_ADCA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc)  + '.pickle'
+filename_ADCA = 'GraphSims_ADCA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc)  + '.pickle'
 
 
 with open(filename_ADA,'wb') as handle:
