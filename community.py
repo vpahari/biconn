@@ -824,7 +824,7 @@ def ABA_attack(G,num_nodes_to_remove,nodes_to_remove_stepwise):
 		if i % nodes_to_remove_stepwise == 0:
 			GC_List.append(get_GC(G_copy))
 
-		between = nk.centrality.DynBetweenness(G)
+		between = nk.centrality.DynBetweenness(G_copy)
 		between.run()
 
 		between_sequence = between.ranking()
@@ -1044,7 +1044,7 @@ print(final_ADCA_List)
 #	print(len(i))
 
 
-
+"""
 filename_ADA = 'GraphSims_ADA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + '.pickle'
 
 filename_ADCA = 'GraphSims_ADCA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc)  + '.pickle'
@@ -1057,7 +1057,7 @@ with open(filename_ADA,'wb') as handle:
 with open(filename_ADCA,'wb') as handle:
 	pickle.dump(GC_List_ADCA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-
+"""
 
 
 
