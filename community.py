@@ -1015,7 +1015,7 @@ Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
 
 change_nodes(Gnk_1, Gnk_2)
 
-num_sims = 20
+num_sims = 5
 
 num_graphs = 2
 
