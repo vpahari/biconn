@@ -971,18 +971,6 @@ def do_all_sims(N,k,SEED1,SEED2,edge_percentage,num_graphs,num_sims,step_size):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 #def fixed_percentage_attack(G_init, typeOfAttack, edges_percentage, attack_percentage):
 
 
