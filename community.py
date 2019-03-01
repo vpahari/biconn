@@ -1037,13 +1037,13 @@ filename_ADCA = 'BigGraphSims_ADCA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + s
 
 
 with open(filename_ADA,'wb') as handle:
-	pickle.dump(GC_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	pickle.dump(final_ADA_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 with open(filename_ABA,'wb') as handle:
-	pickle.dump(GC_List_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	pickle.dump(final_ABA_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 with open(filename_ADCA,'wb') as handle:
-	pickle.dump(GC_List_ADCA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	pickle.dump(final_ADCA_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
