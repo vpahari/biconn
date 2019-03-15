@@ -127,7 +127,7 @@ norm_vals = make_partitions_multiple_graphs(N,k,SEED,radius,step_size,num_sims)
 
 print(norm_vals)
 
-filename = 'dballs_N_' + str(N) + '_k_' + str(k) + '_SEED_' + str(SEED) + '_radius_xw' + str(radius) + "_numsims_" + str(num_sims) + '_stepsize_' + str(step_size) '.pickle'
+filename = 'dballs_N_' + str(N) + '_k_' + str(k) + '_SEED_' + str(SEED) + '_radius_' + str(radius) + "_numsims_" + str(num_sims) + '_stepsize_' + str(step_size) + '.pickle'
 
 with open(filename,'wb') as handle:
 	pickle.dump(norm_vals, handle, protocol=pickle.HIGHEST_PROTOCOL)
