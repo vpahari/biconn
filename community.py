@@ -931,11 +931,24 @@ def ADA_ADCA_attack_full(G,edge_percentage,num_sims,step_size):
 
 
 
-def get_graphs(N,k,SEED1,SEED2):
+def get_graphs(N,k,SEED1,SEED2,type_graph1,type_graph2,exponent_out1,exponent_out2):
 
-	Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED1)
+	if type_graph1 == "ER":
 
-	Gnx_2 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED2)
+		Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED1)
+
+	elif type_graph1 == "SF":
+
+		Gnx_1 = get_SF_graph(N,k,SEED1,float(exponent_out1))
+
+	if type_graph2 == "ER":
+
+		Gnx_2 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED2)
+
+	elif type_graph2 == "SF":
+
+		Gnx_2 = get_SF_graph(N,k,SEED2,float(exponent_out2))
+
 
 	Gnk_1 = nk.nxadapter.nx2nk(Gnx_1)
 
@@ -947,7 +960,7 @@ def get_graphs(N,k,SEED1,SEED2):
 
 
 
-def do_all_sims(N,k,SEED1,SEED2,edge_percentage,num_graphs,num_sims,step_size):
+def do_all_sims(N,k,SEED1,SEED2,edge_percentage,num_graphs,num_sims,step_size,type_graphs1,type_graphs2,exponent_out1,exponent_out2):
 
 	final_ADA_List = []
 	final_ABA_List = []
@@ -955,7 +968,7 @@ def do_all_sims(N,k,SEED1,SEED2,edge_percentage,num_graphs,num_sims,step_size):
 
 	for i in range(num_graphs):
 
-		G_new = get_graphs(N,k,SEED1,SEED2)
+		G_new = get_graphs(N,k,SEED1,SEED2,type_graphs1,type_graphs2,exponent_out1,exponent_out2)
 
 		(GC_List_ADA,GC_List_ABA,GC_List_ADCA) = ADA_ADCA_attack_full(G_new, edge_perc, num_sims, step_size)
 
@@ -971,7 +984,30 @@ def do_all_sims(N,k,SEED1,SEED2,edge_percentage,num_graphs,num_sims,step_size):
 
 
 
-#def fixed_percentage_attack(G_init, typeOfAttack, edges_percentage, attack_percentage):
+def get_SF_graph(N,k,SEED,exponent_out):
+
+	random.seed(SEED)
+
+	num_edges = int((N * k) / 2)
+
+	igG = ig.Graph.Static_Power_Law(N,num_edges,exponent_out)
+
+	allEdges = igG.get_edgelist()
+
+	fixed_G = nx.Graph()
+
+	listOfNodes = [i for i in range(N)]
+
+	fixed_G.add_nodes_from(listOfNodes)
+
+	fixed_G.add_edges_from(allEdges)
+
+	G_nk = nk.nxadapter.nx2nk(fixed_G)
+
+	return G_nk
+
+
+
 
 
 
@@ -980,6 +1016,10 @@ k=int(sys.argv[2]) # average degree
 SEED1=int(sys.argv[3])
 SEED2 = int(sys.argv[4])
 edge_perc = float(sys.argv[5])
+type_graphs1 = str(sys.argv[6])
+type_graphs2 = str(sys.argv[7])
+exp_out1 = str(sys.argv[8])
+exp_out2 = str(sys.argv[9])
 #nodes_to_remove = float(sys.argv[6])
 
 
@@ -993,21 +1033,12 @@ max_edge_percentage = float(sys.argv[7])
 """
 
 
-Gnx_1 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED1)
-
-Gnx_2 = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED2)
-
-Gnk_1 = nk.nxadapter.nx2nk(Gnx_1)
-
-Gnk_2 = nk.nxadapter.nx2nk(Gnx_2)
-
-change_nodes(Gnk_1, Gnk_2)
 
 num_sims = 20
 
 num_graphs = 10
 
-(final_ADA_List,final_ABA_List,final_ADCA_List) = do_all_sims(N,k,SEED1,SEED2,edge_perc,num_graphs,num_sims,0.01)
+(final_ADA_List,final_ABA_List,final_ADCA_List) = do_all_sims(N,k,SEED1,SEED2,edge_perc,num_graphs,num_sims,0.01,type_graphs1,type_graphs2,exp_out1,exp_out2)
 
 print(final_ADA_List)
 
@@ -1017,11 +1048,11 @@ print(final_ADCA_List)
 
 
 
-filename_ADA = 'BigGraphSims_ADA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + '.pickle'
+filename_ADA = 'BigGraphSims_ADA_' + type_graphs1 + type_graphs2 + '_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + '.pickle'
 
-filename_ABA = 'BigGraphSims_ABA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + '.pickle'
+filename_ABA = 'BigGraphSims_ABA_' + type_graphs1 + type_graphs2 + '_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc) + '.pickle'
 
-filename_ADCA = 'BigGraphSims_ADCA_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc)  + '.pickle'
+filename_ADCA = 'BigGraphSims_ADCA_' + type_graphs1 + type_graphs2 + '_N_' + str(N) + "_k_" + str(k) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_edgeperc_" + str(edge_perc)  + '.pickle'
 
 
 with open(filename_ADA,'wb') as handle:
