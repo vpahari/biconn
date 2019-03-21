@@ -16,6 +16,22 @@ def add_into_set(s,new_s):
 
 	return s
 
+
+def take_out_list(dBall, ball):
+	new_list = []
+
+	for i in dBall:
+
+		if i in ball:
+			continue
+
+		new_list.append(i)
+
+	return new_list
+
+
+
+#change this such that the neighbors are diff
 def get_dBN(G,node,radius):
 
 	dBall = set([node])
@@ -23,11 +39,19 @@ def get_dBN(G,node,radius):
 
 	for i in range(radius):
 
+		print(dBall)
+		print(ball)
+
 		neighbor = []
 
 		for j in dBall:
 
-			neighbor += G.neighbors(j)
+			for n in G.neighbors(j):
+
+				if n in ball:
+					continue
+
+				neighbor.append(n)
 
 		ball = add_into_set(ball,neighbor)
 
@@ -113,8 +137,23 @@ def make_partitions_multiple_graphs(N,k,SEED,radius,step_size,num_sims):
 	return normalized_values
 
 
+N = 100
+k=3
+SEED = 321
+
+radius = 2
+
+G = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
+
+get_dBN(G,0,radius)
+#get_all_dBN(G,radius)
 
 
+
+
+
+
+"""
 
 N=int(sys.argv[1]) # number of nodes
 k=int(sys.argv[2]) # average degree
@@ -131,4 +170,4 @@ filename = 'dballs_N_' + str(N) + '_k_' + str(k) + '_SEED_' + str(SEED) + '_radi
 
 with open(filename,'wb') as handle:
 	pickle.dump(norm_vals, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
+"""
