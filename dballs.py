@@ -278,10 +278,15 @@ ADA_GC = ADA_attack(G,int(0.25*N))
 print(dBalls_GC)
 print(ADA_GC)
 
+print(len(dBalls_GC))
+print(len(ADA_GC))
+
+
 filename_ADA = "ADA.png"
 filename_dball = "dBall.png"
 
 x_axis = [i for i in range(len(dBalls_GC))]
+
 
 plt.plot(x_axis,dBalls_GC)
 plt.plot(x_axis,ADA_GC)
