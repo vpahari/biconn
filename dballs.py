@@ -187,7 +187,7 @@ radius = 2
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
-G = nx.nxadapter.nx2nk(G_nx)
+G = nk.nxadapter.nx2nk(G_nx)
 
 #(dBall,ball) = get_dBN(G,0,radius)
 (dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
