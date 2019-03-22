@@ -151,7 +151,7 @@ def get_GC(G):
 
 	print(all_comp_sizes)
 
-	all_values = all_comp_sizes.values()
+	all_values = list(all_comp_sizes.values())
 	all_values.sort()
 
 	print(all_values)
