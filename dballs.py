@@ -283,9 +283,9 @@ G = nk.nxadapter.nx2nk(G_nx)
 G_copy = nk.nxadapter.nx2nk(G_nx_copy)
 
 
-(dBalls_GC,nodes_remaining) = perc_process_dBalls(G,radius,int(0.05*N))
+(dBalls_GC,nodes_remaining) = perc_process_dBalls(G,radius,int(0.1*N))
 
-ADA_GC = ADA_attack(G,int(0.05*N))
+ADA_GC = ADA_attack(G,int(0.1*N))
 
 print(dBalls_GC)
 print(ADA_GC)
