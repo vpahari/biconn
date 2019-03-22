@@ -384,7 +384,11 @@ def get_GC(G):
 	comp = nk.components.DynConnectedComponents(G)
 	comp.run()
 
-	return comp.getComponentSizes()[0]
+	all_comp_sizes = comp.getComponentSizes()
+	all_comp_sizes.sort()
+
+	return all_comp_sizes[-1]
+
 
 
 

@@ -1,5 +1,5 @@
 import networkx as nx
-#import networkit as nk
+import networkit as nk
 import random
 import sys
 import math
@@ -38,9 +38,6 @@ def get_dBN(G,node,radius):
 	ball = set([node])
 
 	for i in range(radius):
-
-		print(dBall)
-		print(ball)
 
 		neighbor = []
 
@@ -137,16 +134,76 @@ def make_partitions_multiple_graphs(N,k,SEED,radius,step_size,num_sims):
 	return normalized_values
 
 
-N = 100
-k=3
+def dict_to_sorted_list(d):
+
+	new_list = list(d.items())
+
+	final_list = sorted(new_list, key = itemgetter(1))
+
+	return final_list
+
+
+def get_GC(G):
+	comp = nk.components.DynConnectedComponents(G)
+	comp.run()
+
+	all_comp_sizes = comp.getComponentSizes()
+	all_comp_sizes.sort()
+
+	return all_comp_sizes[-1]
+
+
+
+
+
+def perc_process(G,radius,num_nodes_to_remove):
+
+	GC_list = []
+
+	for i in range(num_nodes_to_remove):
+
+		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+		list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
+		G.remove_node(list_to_remove[0][0])
+
+		print(list_to_remove[0][0])
+
+		GC_List.append(get_GC(G))
+
+	return GC_list
+
+
+
+
+
+
+
+
+N = 1000
+k = 4
 SEED = 321
 
 radius = 2
 
-G = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
+G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
-get_dBN(G,0,radius)
-#get_all_dBN(G,radius)
+G = nx.nxadapter.nx2nk(G_nx)
+
+#(dBall,ball) = get_dBN(G,0,radius)
+(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+
+print(dict_nodes_dBall)
+print(dict_nodes_ball)
+print(dict_nodes_x_i)
+
+final_list = dict_to_sorted_list(dict_nodes_x_i)
+
+print(final_list)
+
+
+
+
+print(perc_process(G,radius,int(N/1.2)))
 
 
 
