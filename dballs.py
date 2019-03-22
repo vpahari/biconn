@@ -176,6 +176,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 	G = copy_graph(G_copy)
 
 	GC_List = []
+	nodes_remaining = [] 
 
 	counter = 0
 
@@ -197,10 +198,11 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 			counter += 1
 
 		GC_List.append(get_GC(G))
+		nodes_remaining.append(G.numberOfNodes())
 
 	print(G.numberOfNodes())
 
-	return GC_List
+	return (GC_List,nodes_remaining)
 
 
 
@@ -273,12 +275,13 @@ print(final_list)
 
 
 
-dBalls_GC = perc_process_dBalls(G,radius,int(0.05*N))
+(dBalls_GC,nodes_remaining) = perc_process_dBalls(G,radius,int(0.05*N))
 
 ADA_GC = ADA_attack(G,int(0.05*N))
 
 print(dBalls_GC)
 print(ADA_GC)
+print(nodes_remaining)
 
 print(len(dBalls_GC))
 print(len(ADA_GC))
