@@ -176,7 +176,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 	G = copy_graph(G_copy)
 
 	GC_List = []
-	nodes_removed = [] 
+	num_nodes_removed = [] 
 
 	counter = 0
 
@@ -198,11 +198,11 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 			counter += 1
 
 		GC_List.append(get_GC(G))
-		nodes_removed.append(counter)
+		num_nodes_removed.append(counter)
 
 	print(G.numberOfNodes())
 
-	return (GC_List,nodes_remaining)
+	return (GC_List,num_nodes_removed)
 
 
 
