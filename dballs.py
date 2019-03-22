@@ -218,6 +218,8 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 	G = copy_graph(G_copy)
 
+	GC_List = []
+
 	for i in range(num_nodes_to_remove):
 
 		degree = nk.centrality.DegreeCentrality(G)
@@ -234,7 +236,9 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 		G.removeNode(node_to_remove)
 
-	return get_GC(G)
+		GC_List.append(get_GC(G))
+
+	return GC_List
 
 
 
@@ -272,6 +276,8 @@ print(perc_process(G,radius,int(0.25*N)))
 print(perc_random(G,int(0.25*N)))
 
 print(ADA_attack(G,int(0.25*N)))
+
+
 
 
 """
