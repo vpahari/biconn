@@ -171,7 +171,7 @@ def copy_graph(G):
 
 
 
-def perc_process(G_copy,radius,num_nodes_to_remove):
+def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 	G = copy_graph(G_copy)
 
@@ -271,13 +271,18 @@ print(final_list)
 
 
 
-print(perc_process(G,radius,int(0.25*N)))
+dBalls_GC = perc_process_dBalls(G,radius,int(0.25*N))
 
-print(perc_random(G,int(0.25*N)))
+ADA_GC = ADA_attack(G,int(0.25*N))
 
-print(ADA_attack(G,int(0.25*N)))
+filename_ADA = "ADA.png"
+filename_dball = "dBall.png"
 
+x_axis = [i for i in range(len(dBalls_GC))]
 
+plt.plot(x_axis,dBalls_GC)
+plt.plot(x_axis,ADA_GC)
+plt.show()
 
 
 """
