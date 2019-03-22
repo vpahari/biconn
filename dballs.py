@@ -245,6 +245,27 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 	return GC_List
 
 
+def turn_lists_together(GC_List,num_nodes_removed):
+
+	final_list = []
+	pointer = 0
+	counter = 0
+
+	for i in num_nodes_removed:
+
+		diff = i - counter
+
+		for j in range(diff):
+
+			final_list.append(GC_List[pointer]) 
+			counter += 1
+
+
+		pointer += 1
+
+	return final_list
+
+
 
 
 
@@ -260,19 +281,6 @@ G_nx_copy = G_nx.copy()
 
 G = nk.nxadapter.nx2nk(G_nx)
 G_copy = nk.nxadapter.nx2nk(G_nx_copy)
-
-#(dBall,ball) = get_dBN(G,0,radius)
-(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
-
-print(dict_nodes_dBall)
-print(dict_nodes_ball)
-print(dict_nodes_x_i)
-
-final_list = dict_to_sorted_list(dict_nodes_x_i)
-
-print(final_list)
-
-
 
 
 (dBalls_GC,nodes_remaining) = perc_process_dBalls(G,radius,int(0.05*N))
@@ -290,7 +298,9 @@ print(len(ADA_GC))
 filename_ADA = "ADA.png"
 filename_dball = "dBall.png"
 
-x_axis = [i for i in range(len(dBalls_GC))]
+final_list = turn_lists_together(dBalls_GC,nodes_remaining)
+
+print(final_list)
 
 
 #plt.plot(x_axis,dBalls_GC)
