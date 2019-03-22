@@ -275,6 +275,9 @@ dBalls_GC = perc_process_dBalls(G,radius,int(0.25*N))
 
 ADA_GC = ADA_attack(G,int(0.25*N))
 
+print(dBalls_GC)
+print(ADA_GC)
+
 filename_ADA = "ADA.png"
 filename_dball = "dBall.png"
 
