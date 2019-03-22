@@ -209,7 +209,7 @@ print(final_list)
 
 
 
-print(perc_process(G,radius,1))
+print(perc_process(G,radius,int(N/2)))
 
 
 
