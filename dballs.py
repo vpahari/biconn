@@ -301,6 +301,7 @@ filename_dball = "dBall.png"
 final_list = turn_lists_together(dBalls_GC,nodes_remaining)
 
 print(final_list)
+print(len(final_list))
 
 
 #plt.plot(x_axis,dBalls_GC)
