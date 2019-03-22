@@ -180,7 +180,15 @@ def perc_process(G,radius,num_nodes_to_remove):
 
 
 
-#def perc_random
+def perc_random(G,num_nodes_to_remove):
+
+	all_nodes = random.sample(list(G.nodes()))
+
+	for i in all_nodes:
+		G.removeNode(i)
+
+	return get_GC(G)
+
 
 
 
@@ -192,8 +200,10 @@ SEED = 321
 radius = 2
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
+G_nx_copy = G_nx.copy()
 
 G = nk.nxadapter.nx2nk(G_nx)
+G_copy = nk.nxadapter.nx2nk(G_nx_copy)
 
 #(dBall,ball) = get_dBN(G,0,radius)
 (dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
@@ -211,7 +221,7 @@ print(final_list)
 
 print(perc_process(G,radius,int(N/1.5)))
 
-
+print(perc_random(G_copy,int(N/1.5)))
 
 
 
