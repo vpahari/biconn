@@ -182,7 +182,7 @@ def perc_process(G,radius,num_nodes_to_remove):
 
 def perc_random(G,num_nodes_to_remove):
 
-	all_nodes = random.sample(list(G.nodes()))
+	all_nodes = random.sample(list(G.nodes()),num_nodes_to_remove)
 
 	for i in all_nodes:
 		G.removeNode(i)
