@@ -148,11 +148,15 @@ def get_GC(G):
 	comp.run()
 
 	all_comp_sizes = comp.getComponentSizes()
-	print(all_comp_sizes)
-	all_comp_sizes.sort()
+
 	print(all_comp_sizes)
 
-	return all_comp_sizes[-1]
+	all_values = all_comp_sizes.values()
+	all_values.sort()
+
+	print(all_values)
+
+	return all_values[-1]
 
 
 
