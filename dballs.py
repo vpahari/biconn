@@ -180,7 +180,7 @@ def perc_process(G,radius,num_nodes_to_remove):
 
 
 
-
+def perc_random
 
 
 
@@ -209,7 +209,7 @@ print(final_list)
 
 
 
-print(perc_process(G,radius,int(N/2)))
+print(perc_process(G,radius,int(N/1.5)))
 
 
 
