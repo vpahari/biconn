@@ -148,7 +148,9 @@ def get_GC(G):
 	comp.run()
 
 	all_comp_sizes = comp.getComponentSizes()
+	print(all_comp_sizes)
 	all_comp_sizes.sort()
+	print(all_comp_sizes)
 
 	return all_comp_sizes[-1]
 
@@ -203,7 +205,7 @@ print(final_list)
 
 
 
-print(perc_process(G,radius,int(N/1.2)))
+print(perc_process(G,radius,1))
 
 
 
