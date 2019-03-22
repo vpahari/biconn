@@ -140,7 +140,9 @@ def dict_to_sorted_list(d):
 
 	final_list = sorted(new_list, key = itemgetter(1))
 
-	return final_list
+	final_list_no_0 = list(filter(lambda x : x[1] != 0, final_list))
+
+	return final_list_no_0
 
 
 def get_GC(G):
