@@ -175,7 +175,7 @@ def perc_process(G,radius,num_nodes_to_remove):
 
 		if len(list_to_remove) == 0:
 			break
-			
+
 		G.removeNode(list_to_remove[0][0])
 
 		print(list_to_remove[0][0])
@@ -225,9 +225,9 @@ print(final_list)
 
 
 
-print(perc_process(G,radius,int(0.8*N)))
+print(perc_process(G,radius,int(0.5*N)))
 
-print(perc_random(G_copy,int(0.8*N)))
+print(perc_random(G_copy,int(0.5*N)))
 
 
 
