@@ -198,7 +198,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 			counter += 1
 
 		GC_List.append(get_GC(G))
-		nodes_remaining.append(G.numberOfNodes())
+		nodes_removed.append(counter)
 
 	print(G.numberOfNodes())
 
