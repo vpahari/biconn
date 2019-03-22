@@ -164,7 +164,7 @@ def perc_process(G,radius,num_nodes_to_remove):
 
 		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
 		list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
-		G.remove_node(list_to_remove[0][0])
+		G.removeNode(list_to_remove[0][0])
 
 		print(list_to_remove[0][0])
 
