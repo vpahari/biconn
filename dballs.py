@@ -163,9 +163,21 @@ def get_GC(G):
 
 
 
+def copy_graph(G):
+	G_copy = G.copyNodes()
+
+	edges = G.edges()
+
+	for (i,j) in edges:
+		G_copy.addEdge(i,j)
+
+	return G_copy
 
 
-def perc_process(G,radius,num_nodes_to_remove):
+
+def perc_process(G_copy,radius,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
 
 	GC_List = []
 
@@ -194,7 +206,9 @@ def perc_process(G,radius,num_nodes_to_remove):
 
 
 
-def perc_random(G,num_nodes_to_remove):
+def perc_random(G_copy,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
 
 	all_nodes = random.sample(list(G.nodes()),num_nodes_to_remove)
 
@@ -202,6 +216,30 @@ def perc_random(G,num_nodes_to_remove):
 		G.removeNode(i)
 
 	return get_GC(G)
+
+
+def ADA_attack(G_copy,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
+
+	for i in range(num_nodes_to_remove):
+
+		degree = nk.centrality.DegreeCentrality(G)
+
+		degree.run()
+
+		degree_sequence = degree.ranking()
+
+		random.shuffle(degree_sequence)
+
+		degree_sequence.sort(key = itemgetter(1), reverse = True)
+
+		node_to_remove = degree_sequence[0][0]
+
+		G.removeNode(node_to_remove)
+
+	return get_GC(G)
+
 
 
 
@@ -235,9 +273,9 @@ print(final_list)
 
 print(perc_process(G,radius,int(0.25*N)))
 
-print(perc_random(G_copy,int(0.25*N)))
+print(perc_random(G,int(0.25*N)))
 
-
+print(ADA_attack(G,int(0.25*N)))
 
 
 """
