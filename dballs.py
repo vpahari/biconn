@@ -219,9 +219,9 @@ print(final_list)
 
 
 
-print(perc_process(G,radius,int(0.75*N)))
+print(perc_process(G,radius,int(0.8*N)))
 
-print(perc_random(G_copy,int(0.75*N)))
+print(perc_random(G_copy,int(0.8*N)))
 
 
 
