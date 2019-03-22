@@ -288,9 +288,9 @@ filename_dball = "dBall.png"
 x_axis = [i for i in range(len(dBalls_GC))]
 
 
-plt.plot(x_axis,dBalls_GC)
-plt.plot(x_axis,ADA_GC)
-plt.show()
+#plt.plot(x_axis,dBalls_GC)
+#plt.plot(x_axis,ADA_GC)
+#plt.show()
 
 
 """
