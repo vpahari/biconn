@@ -31,6 +31,7 @@ def take_out_list(dBall, ball):
 
 
 
+
 #change this such that the neighbors are diff
 def get_dBN(G,node,radius):
 
@@ -168,17 +169,24 @@ def perc_process(G,radius,num_nodes_to_remove):
 
 	GC_List = []
 
-	for i in range(num_nodes_to_remove):
+	counter = 0
+
+	while counter < num_nodes_to_remove:
 
 		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+
 		list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
 
 		if len(list_to_remove) == 0:
 			break
 
-		G.removeNode(list_to_remove[0][0])
+		node = list_to_remove[0][0]
 
-		print(list_to_remove[0][0])
+		(dBall,ball) = get_dBN(G,node,radius) 
+
+		for i in dBall:
+			G.removeNode(i)
+			counter += 1
 
 		GC_List.append(get_GC(G))
 
