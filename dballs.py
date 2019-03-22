@@ -158,7 +158,7 @@ def get_GC(G):
 
 def perc_process(G,radius,num_nodes_to_remove):
 
-	GC_list = []
+	GC_List = []
 
 	for i in range(num_nodes_to_remove):
 
@@ -170,7 +170,7 @@ def perc_process(G,radius,num_nodes_to_remove):
 
 		GC_List.append(get_GC(G))
 
-	return GC_list
+	return GC_List
 
 
 
