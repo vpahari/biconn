@@ -334,6 +334,8 @@ final_list = turn_lists_together(dBalls_GC,nodes_remaining)
 print(dBalls_GC)
 print(final_list)
 print(len(final_list))
+print(nodes_remaining)
+
 
 
 #plt.plot(x_axis,dBalls_GC)
