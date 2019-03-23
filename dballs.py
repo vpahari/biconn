@@ -193,11 +193,16 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 		(dBall,ball) = get_dBN(G,node,radius) 
 
+		print(counter)
+		print(dBall)
+		print(ball)
+
 		for i in dBall:
 			G.removeNode(i)
 			counter += 1
 
 		GC_List.append(get_GC(G))
+
 		num_nodes_removed.append(counter)
 
 	print(G.numberOfNodes())
