@@ -55,6 +55,10 @@ def get_dBN(G,node,radius):
 
 		dBall = set(neighbor.copy())
 
+		print(dBall)
+		print(ball)
+
+
 	return (dBall,ball)
 
 
@@ -191,9 +195,11 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 		node = list_to_remove[0][0]
 
+		print(counter)
+
 		(dBall,ball) = get_dBN(G,node,radius) 
 
-		print(counter)
+
 		print(dBall)
 		print(ball)
 
