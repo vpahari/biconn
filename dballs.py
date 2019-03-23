@@ -253,7 +253,7 @@ def ABA_attack(G,num_nodes_to_remove):
 
 	for i in range(num_nodes_to_remove):
 
-		between = nk.centrality.DynBetweenness(G_copy)
+		between = nk.centrality.DynBetweenness(G)
 		between.run()
 
 		between_sequence = between.ranking()
@@ -262,7 +262,7 @@ def ABA_attack(G,num_nodes_to_remove):
 
 		node_to_remove = between_sequence[0][0]
 
-		G_copy.removeNode(node_to_remove)
+		G.removeNode(node_to_remove)
 
 		GC_List.append(get_GC(G))
 
