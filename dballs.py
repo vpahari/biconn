@@ -245,6 +245,32 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 	return GC_List
 
 
+def ABA_attack(G,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+
+	for i in range(num_nodes_to_remove):
+
+		between = nk.centrality.DynBetweenness(G_copy)
+		between.run()
+
+		between_sequence = between.ranking()
+
+		between_sequence.sort(key = itemgetter(1), reverse = True)
+
+		node_to_remove = between_sequence[0][0]
+
+		G_copy.removeNode(node_to_remove)
+
+		GC_List.append(get_GC(G))
+
+	return GC_List
+
+
+
+
 def turn_lists_together(GC_List,num_nodes_removed):
 
 	final_list = []
@@ -287,9 +313,14 @@ G_copy = nk.nxadapter.nx2nk(G_nx_copy)
 
 ADA_GC = ADA_attack(G,int(0.1*N))
 
+ABA_GC = ABA_attack(G,int(0.1*N))
+
+
+
 print(dBalls_GC)
 print(ADA_GC)
 print(nodes_remaining)
+print(ABA_GC)
 
 print(len(dBalls_GC))
 print(len(ADA_GC))
