@@ -262,7 +262,7 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 	return GC_List
 
 
-def ABA_attack(G,num_nodes_to_remove):
+def ABA_attack(G_copy,num_nodes_to_remove):
 
 	G = copy_graph(G_copy)
 
@@ -352,7 +352,7 @@ print(dBalls_GC)
 print(nodes_remaining)
 print(nodes_removed)
 
-
+print(get_dBN(G,452,radius))
 
 #plt.plot(x_axis,dBalls_GC)
 #plt.plot(x_axis,ADA_GC)
