@@ -324,12 +324,38 @@ def turn_lists_together(GC_List,num_nodes_removed):
 
 
 
+def large_sims(N,k,SEED,type_of_attack,num_nodes_to_remove,num_sims):
+
+	if type_of_attack == "ABA":
+		attack = ABA_attack
+
+	elif type_of_attack == "ADA":
+		attack = ADA_attack
+
+	elif type_of_attack == "RAN":
+		attack = perc_random
+
+	if type_of_attack == "DBA":
+		attack = perc_process_dBalls
+
+	for i in range(num_sims):
+
+		G = 
+
+
+
+
+
+
+
+
 
 N = 1000
 k = 4
 SEED = 3211
 
-radius = 2
+radius1 = 2
+raidus2 = 3
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 G_nx_copy = G_nx.copy()
@@ -342,7 +368,10 @@ print(get_GC_nodes(G))
 
 
 
-(dBalls_GC,nodes_remaining,nodes_removed) = perc_process_dBalls(G,radius,int(0.9*N))
+(dBalls_GC1,nodes_remaining1,nodes_removed1) = perc_process_dBalls(G,radius1,int(0.9*N))
+
+(dBalls_GC2,nodes_remaining2,nodes_removed2) = perc_process_dBalls(G,radius2,int(0.9*N))
+
 
 ADA_GC = ADA_attack(G,int(0.9*N))
 
@@ -351,44 +380,15 @@ ABA_GC = ABA_attack(G,int(0.9*N))
 RAN_GC = perc_random(G,int(0.9*N))
 
 
-
-print(dBalls_GC)
-print(ADA_GC)
-print(nodes_remaining)
-print(ABA_GC)
-
-print(len(dBalls_GC))
-print(len(ADA_GC))
-
-
-filename_ADA = "ADA.png"
-filename_dball = "dBall.png"
-
-
-print(dBalls_GC)
-print(nodes_remaining)
-print(nodes_removed)
-print(len(nodes_removed))
-
-
-
-
-print(dBalls_GC)
-print(ADA_GC)
-print(ABA_GC)
-
-print(len(dBalls_GC))
-print(len(ADA_GC))
-print(len(ABA_GC))
-
-
 filename = "dBalls_sims.png"
 
 x_axis = [i for i in range(len(ADA_GC))]
 
-dBalls_GC_plot = dBalls_GC[:len(ADA_GC)]
+dBalls_GC_plot_rad2 = dBalls_GC[:len(ADA_GC)]
+dBalls_GC_plot_rad3 = dBalls_GC[:len(ADA_GC)]
 
-plt.plot(x_axis,dBalls_GC_plot, label = "dball")
+plt.plot(x_axis,dBalls_GC_plot_rad2, label = "dball_2")
+plt.plot(x_axis,dBalls_GC_plot_rad3, label = "dball_3")
 plt.plot(x_axis,ADA_GC, label = "ADA")
 plt.plot(x_axis,ABA_GC,label = "ABA")
 plt.plot(x_axis,RAN_GC,label = "Random")
