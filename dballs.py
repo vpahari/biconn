@@ -351,6 +351,7 @@ final_list = turn_lists_together(dBalls_GC,nodes_remaining)
 print(dBalls_GC)
 print(nodes_remaining)
 print(nodes_removed)
+print(len(nodes_removed))
 
 print(get_dBN(G,452,radius))
 
