@@ -358,7 +358,7 @@ print(len(ADA_GC))
 filename_ADA = "ADA.png"
 filename_dball = "dBall.png"
 
-final_list = turn_lists_together(dBalls_GC,nodes_remaining)
+#final_list = turn_lists_together(dBalls_GC,nodes_remaining)
 
 print(dBalls_GC)
 print(nodes_remaining)
@@ -367,6 +367,14 @@ print(len(nodes_removed))
 
 
 
+
+print(dBalls_GC)
+print(ADA_GC)
+print(ABA_GC)
+
+print(len(dBalls_GC))
+print(len(ADA_GC))
+print(len(ABA_GC))
 
 """
 
