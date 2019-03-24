@@ -32,6 +32,10 @@ def take_out_list(dBall, ball):
 
 
 
+
+
+
+
 #change this such that the neighbors are diff
 def get_dBN(G,node,radius):
 
@@ -181,6 +185,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 	GC_List = []
 	num_nodes_removed = [] 
+	nodes_removed = []
 
 	counter = 0
 
@@ -205,6 +210,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 		for i in dBall:
 			G.removeNode(i)
+			nodes_removed.append(i)
 			counter += 1
 
 		GC_List.append(get_GC(G))
@@ -213,7 +219,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 	print(G.numberOfNodes())
 
-	return (GC_List,num_nodes_removed)
+	return (GC_List,num_nodes_removed,nodes_removed)
 
 
 
@@ -320,7 +326,7 @@ G = nk.nxadapter.nx2nk(G_nx)
 G_copy = nk.nxadapter.nx2nk(G_nx_copy)
 
 
-(dBalls_GC,nodes_remaining) = perc_process_dBalls(G,radius,int(0.1*N))
+(dBalls_GC,nodes_remaining,nodes_removed) = perc_process_dBalls(G,radius,int(0.1*N))
 
 ADA_GC = ADA_attack(G,int(0.1*N))
 
@@ -343,9 +349,8 @@ filename_dball = "dBall.png"
 final_list = turn_lists_together(dBalls_GC,nodes_remaining)
 
 print(dBalls_GC)
-print(final_list)
-print(len(final_list))
 print(nodes_remaining)
+print(nodes_removed)
 
 
 
