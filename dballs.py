@@ -158,6 +158,8 @@ def get_GC_nodes(G):
 
 	all_comp.sort(key = len)
 
+	print(all_comp)
+
 	return all_comp[-1]
 
 
@@ -335,7 +337,7 @@ G = nk.nxadapter.nx2nk(G_nx)
 G_copy = nk.nxadapter.nx2nk(G_nx_copy)
 
 
-get_GC_nodes(G)
+print(get_GC_nodes(G))
 
 
 """
