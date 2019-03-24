@@ -358,7 +358,6 @@ print(len(ADA_GC))
 filename_ADA = "ADA.png"
 filename_dball = "dBall.png"
 
-#final_list = turn_lists_together(dBalls_GC,nodes_remaining)
 
 print(dBalls_GC)
 print(nodes_remaining)
@@ -376,6 +375,21 @@ print(len(dBalls_GC))
 print(len(ADA_GC))
 print(len(ABA_GC))
 
+
+filename = "dBalls_sims.png"
+
+x_axis = [i for i in range(len(ADA_GC))]
+
+plt.plot(x_axis,dBalls_GC[:250])
+plt.plot(x_axis,ADA_GC)
+plt.plot(x_axis,ABA_GC)
+
+plt.savefig(filename)
+
+plt.clf()
+
+
+
 """
 
 print(get_dBN(G,145,radius))
@@ -386,10 +400,6 @@ print(G.neighbors(551))
 print(G.neighbors(145))
 print(G.neighbors(324))
 
-
-#plt.plot(x_axis,dBalls_GC)
-#plt.plot(x_axis,ADA_GC)
-#plt.show()
 
 
 
