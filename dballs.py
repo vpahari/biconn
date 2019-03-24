@@ -380,7 +380,7 @@ filename = "dBalls_sims.png"
 
 x_axis = [i for i in range(len(ADA_GC))]
 
-plt.plot(x_axis,dBalls_GC[:250])
+plt.plot(x_axis,dBalls_GC[:len(ADA_GC)])
 plt.plot(x_axis,ADA_GC)
 plt.plot(x_axis,ABA_GC)
 
