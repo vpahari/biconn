@@ -32,11 +32,6 @@ def take_out_list(dBall, ball):
 
 
 
-
-
-
-
-
 #change this such that the neighbors are diff
 def get_dBN(G,node,radius):
 
@@ -386,6 +381,8 @@ dBalls_GC_plot = dBalls_GC[:len(ADA_GC)]
 plt.plot(x_axis,dBalls_GC_plot, label = "dball")
 plt.plot(x_axis,ADA_GC, label = "ADA")
 plt.plot(x_axis,ABA_GC,label = "ABA")
+
+plt.legend(loc='best')
 
 plt.savefig(filename)
 
