@@ -6,8 +6,9 @@ import math
 from functools import reduce
 import csv
 from operator import itemgetter
+import matplotlib
 matplotlib.use('agg')
-import matplotlib.pyplot as plt
+import pyplot as plt
 import pickle
 
 
