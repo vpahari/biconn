@@ -232,12 +232,15 @@ def perc_random(G_copy,num_nodes_to_remove):
 
 	G = copy_graph(G_copy)
 
+	GC_List = []
+
 	all_nodes = random.sample(list(G.nodes()),num_nodes_to_remove)
 
 	for i in all_nodes:
 		G.removeNode(i)
+		GC_List.append(get_GC(G))
 
-	return get_GC(G)
+	return GC_List
 
 
 def ADA_attack(G_copy,num_nodes_to_remove):
@@ -340,6 +343,8 @@ ADA_GC = ADA_attack(G,int(0.4*N))
 
 ABA_GC = ABA_attack(G,int(0.4*N))
 
+RAN_GC = perc_random(G,int(0.4*N))
+
 
 
 print(dBalls_GC)
@@ -381,6 +386,7 @@ dBalls_GC_plot = dBalls_GC[:len(ADA_GC)]
 plt.plot(x_axis,dBalls_GC_plot, label = "dball")
 plt.plot(x_axis,ADA_GC, label = "ADA")
 plt.plot(x_axis,ABA_GC,label = "ABA")
+plt.plot(x_axis,RAN_GC,label = "Random")
 
 plt.legend(loc='best')
 
