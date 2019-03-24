@@ -324,7 +324,7 @@ def turn_lists_together(GC_List,num_nodes_removed):
 
 N = 1000
 k = 4
-SEED = 321
+SEED = 3211
 
 radius = 2
 
