@@ -364,8 +364,7 @@ print(dBalls_GC)
 print(nodes_remaining)
 print(nodes_removed)
 print(len(nodes_removed))
-print(final_list)
-print(len(final_list))
+
 
 
 
