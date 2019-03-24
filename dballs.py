@@ -335,12 +335,8 @@ def large_sims(N,k,SEED,type_of_attack,num_nodes_to_remove,num_sims):
 	elif type_of_attack == "RAN":
 		attack = perc_random
 
-	if type_of_attack == "DBA":
+	elif type_of_attack == "DBA":
 		attack = perc_process_dBalls
-
-	for i in range(num_sims):
-
-		G = 
 
 
 
