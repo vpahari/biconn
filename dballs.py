@@ -338,7 +338,7 @@ G_copy = nk.nxadapter.nx2nk(G_nx_copy)
 print(get_GC_nodes(G))
 
 
-"""
+
 (dBalls_GC,nodes_remaining,nodes_removed) = perc_process_dBalls(G,radius,int(0.1*N))
 
 ADA_GC = ADA_attack(G,int(0.1*N))
@@ -367,6 +367,9 @@ print(nodes_removed)
 print(len(nodes_removed))
 
 
+
+"""
+
 print(get_dBN(G,145,radius))
 print(get_dBN(G,324,radius))
 print(get_dBN(G,551,radius))
@@ -374,14 +377,13 @@ print(get_dBN(G,551,radius))
 print(G.neighbors(551))
 print(G.neighbors(145))
 print(G.neighbors(324))
-"""
+
 
 #plt.plot(x_axis,dBalls_GC)
 #plt.plot(x_axis,ADA_GC)
 #plt.show()
 
 
-"""
 
 N=int(sys.argv[1]) # number of nodes
 k=int(sys.argv[2]) # average degree
