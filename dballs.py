@@ -352,6 +352,7 @@ SEED = 3211
 
 radius1 = 2
 radius2 = 3
+radius3 = 4
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 G_nx_copy = G_nx.copy()
@@ -364,16 +365,18 @@ print(get_GC_nodes(G))
 
 
 
-(dBalls_GC1,nodes_remaining1,nodes_removed1) = perc_process_dBalls(G,radius1,int(0.9*N))
+(dBalls_GC1,nodes_remaining1,nodes_removed1) = perc_process_dBalls(G,radius1,int(0.5*N))
 
-(dBalls_GC2,nodes_remaining2,nodes_removed2) = perc_process_dBalls(G,radius2,int(0.9*N))
+(dBalls_GC2,nodes_remaining2,nodes_removed2) = perc_process_dBalls(G,radius2,int(0.5*N))
+
+(dBalls_GC3,nodes_remaining3,nodes_removed3) = perc_process_dBalls(G,radius3,int(0.5*N))
 
 
-ADA_GC = ADA_attack(G,int(0.9*N))
+ADA_GC = ADA_attack(G,int(0.5*N))
 
-ABA_GC = ABA_attack(G,int(0.9*N))
+ABA_GC = ABA_attack(G,int(0.5*N))
 
-RAN_GC = perc_random(G,int(0.9*N))
+RAN_GC = perc_random(G,int(0.5*N))
 
 
 filename = "dBalls_sims.png"
@@ -382,9 +385,12 @@ x_axis = [i for i in range(len(ADA_GC))]
 
 dBalls_GC_plot_rad2 = dBalls_GC1[:len(ADA_GC)]
 dBalls_GC_plot_rad3 = dBalls_GC2[:len(ADA_GC)]
+dBalls_GC_plot_rad4 = dBalls_GC3[:len(ADA_GC)]
+
 
 plt.plot(x_axis,dBalls_GC_plot_rad2, label = "dball_2")
 plt.plot(x_axis,dBalls_GC_plot_rad3, label = "dball_3")
+plt.plot(x_axis,dBalls_GC_plot_rad4, label = "dball_4")
 plt.plot(x_axis,ADA_GC, label = "ADA")
 plt.plot(x_axis,ABA_GC,label = "ABA")
 plt.plot(x_axis,RAN_GC,label = "Random")
