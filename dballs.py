@@ -380,8 +380,8 @@ filename = "dBalls_sims.png"
 
 x_axis = [i for i in range(len(ADA_GC))]
 
-dBalls_GC_plot_rad2 = dBalls_GC[:len(ADA_GC)]
-dBalls_GC_plot_rad3 = dBalls_GC[:len(ADA_GC)]
+dBalls_GC_plot_rad2 = dBalls_GC1[:len(ADA_GC)]
+dBalls_GC_plot_rad3 = dBalls_GC2[:len(ADA_GC)]
 
 plt.plot(x_axis,dBalls_GC_plot_rad2, label = "dball_2")
 plt.plot(x_axis,dBalls_GC_plot_rad3, label = "dball_3")
