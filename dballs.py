@@ -382,9 +382,9 @@ x_axis = [i for i in range(len(ADA_GC))]
 
 dBalls_GC_plot = dBalls_GC[:len(ADA_GC)]
 
-plt.plot(x_axis,dBalls_GC_plot)
-plt.plot(x_axis,ADA_GC)
-plt.plot(x_axis,ABA_GC)
+plt.plot(x_axis,dBalls_GC_plot, label = "dball")
+plt.plot(x_axis,ADA_GC, label = "ADA")
+plt.plot(x_axis,ABA_GC,label = "ABA")
 
 plt.savefig(filename)
 
