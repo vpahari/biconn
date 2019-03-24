@@ -65,7 +65,7 @@ def get_dBN(G,node,radius):
 
 def get_all_dBN(G,radius):
 
-	all_nodes = G.nodes()
+	all_nodes = get_GC_nodes(G)
 
 	dict_nodes_dBall = {}
 	dict_nodes_ball = {}
@@ -157,8 +157,6 @@ def get_GC_nodes(G):
 	all_comp = comp.getComponents()
 
 	all_comp.sort(key = len)
-
-	print(all_comp)
 
 	return all_comp[-1]
 
