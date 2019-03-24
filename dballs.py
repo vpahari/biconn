@@ -337,13 +337,13 @@ print(get_GC_nodes(G))
 
 
 
-(dBalls_GC,nodes_remaining,nodes_removed) = perc_process_dBalls(G,radius,int(0.4*N))
+(dBalls_GC,nodes_remaining,nodes_removed) = perc_process_dBalls(G,radius,int(0.9*N))
 
-ADA_GC = ADA_attack(G,int(0.4*N))
+ADA_GC = ADA_attack(G,int(0.9*N))
 
-ABA_GC = ABA_attack(G,int(0.4*N))
+ABA_GC = ABA_attack(G,int(0.9*N))
 
-RAN_GC = perc_random(G,int(0.4*N))
+RAN_GC = perc_random(G,int(0.9*N))
 
 
 
