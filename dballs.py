@@ -374,12 +374,12 @@ print(get_GC_nodes(G))
 
 ADA_GC = ADA_attack(G,int(0.5*N))
 
-ABA_GC = ABA_attack(G,int(0.5*N))
+#ABA_GC = ABA_attack(G,int(0.5*N))
 
 RAN_GC = perc_random(G,int(0.5*N))
 
 
-filename = "dBalls_sims.png"
+filename = "dBalls_sims_new.png"
 
 x_axis = [i for i in range(len(ADA_GC))]
 
@@ -392,7 +392,7 @@ plt.plot(x_axis,dBalls_GC_plot_rad2, label = "dball_2")
 plt.plot(x_axis,dBalls_GC_plot_rad3, label = "dball_3")
 plt.plot(x_axis,dBalls_GC_plot_rad4, label = "dball_4")
 plt.plot(x_axis,ADA_GC, label = "ADA")
-plt.plot(x_axis,ABA_GC,label = "ABA")
+#plt.plot(x_axis,ABA_GC,label = "ABA")
 plt.plot(x_axis,RAN_GC,label = "Random")
 
 plt.legend(loc='best')
