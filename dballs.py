@@ -363,7 +363,7 @@ print(dBalls_GC)
 print(nodes_remaining)
 print(nodes_removed)
 print(len(nodes_removed))
-"""
+
 
 print(get_dBN(G,145,radius))
 print(get_dBN(G,324,radius))
@@ -372,7 +372,7 @@ print(get_dBN(G,551,radius))
 print(G.neighbors(551))
 print(G.neighbors(145))
 print(G.neighbors(324))
-
+"""
 
 #plt.plot(x_axis,dBalls_GC)
 #plt.plot(x_axis,ADA_GC)
