@@ -346,7 +346,7 @@ def large_sims(N,k,SEED,type_of_attack,num_nodes_to_remove,num_sims):
 
 
 
-N = 1000
+N = 10000
 k = 4
 SEED = 3211
 
