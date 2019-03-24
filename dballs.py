@@ -156,7 +156,9 @@ def get_GC_nodes(G):
 
 	all_comp = comp.getComponents()
 
-	print(all_comp)
+	all_comp.sort(key = len)
+
+	return all_comp[-1]
 
 
 
