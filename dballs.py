@@ -321,7 +321,7 @@ G_nx_copy = G_nx.copy()
 G = nk.nxadapter.nx2nk(G_nx)
 G_copy = nk.nxadapter.nx2nk(G_nx_copy)
 
-
+"""
 (dBalls_GC,nodes_remaining,nodes_removed) = perc_process_dBalls(G,radius,int(0.1*N))
 
 ADA_GC = ADA_attack(G,int(0.1*N))
@@ -348,6 +348,7 @@ print(dBalls_GC)
 print(nodes_remaining)
 print(nodes_removed)
 print(len(nodes_removed))
+"""
 
 print(get_dBN(G,145,radius))
 print(get_dBN(G,324,radius))
