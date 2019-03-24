@@ -150,6 +150,18 @@ def dict_to_sorted_list(d):
 	return final_list_no_0
 
 
+def get_GC_nodes(G):
+	comp = nk.components.DynConnectedComponents(G)
+	comp.run()
+
+	all_comp = comp.getComponents()
+
+	print(all_comp)
+
+
+
+
+
 def get_GC(G):
 	comp = nk.components.DynConnectedComponents(G)
 	comp.run()
@@ -308,7 +320,6 @@ def turn_lists_together(GC_List,num_nodes_removed):
 
 
 
-
 N = 1000
 k = 4
 SEED = 321
@@ -320,6 +331,10 @@ G_nx_copy = G_nx.copy()
 
 G = nk.nxadapter.nx2nk(G_nx)
 G_copy = nk.nxadapter.nx2nk(G_nx_copy)
+
+
+get_GC_nodes(G)
+
 
 """
 (dBalls_GC,nodes_remaining,nodes_removed) = perc_process_dBalls(G,radius,int(0.1*N))
