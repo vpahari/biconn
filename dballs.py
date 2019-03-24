@@ -355,6 +355,8 @@ print(get_dBN(G,324,radius))
 print(get_dBN(G,551,radius))
 
 print(G.neighbors(551))
+print(G.neighbors(145))
+print(G.neighbors(324))
 
 
 #plt.plot(x_axis,dBalls_GC)
