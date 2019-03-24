@@ -351,7 +351,7 @@ k = 4
 SEED = 3211
 
 radius1 = 2
-raidus2 = 3
+radius2 = 3
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 G_nx_copy = G_nx.copy()
