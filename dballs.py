@@ -59,10 +59,6 @@ def get_dBN(G,node,radius):
 
 		dBall = set(neighbor.copy())
 
-		print(dBall)
-		print(ball)
-
-
 	return (dBall,ball)
 
 
