@@ -346,7 +346,7 @@ def large_sims(N,k,SEED,type_of_attack,num_nodes_to_remove,num_sims):
 
 
 
-N = 100000
+N = 1000
 k = 4
 SEED = 3211
 
@@ -379,7 +379,7 @@ ADA_GC = ADA_attack(G,int(0.5*N))
 RAN_GC = perc_random(G,int(0.5*N))
 
 
-filename = "dBalls_sims_new.png"
+filename = "dBalls_sims_" + N + ".png"
 
 x_axis = [i for i in range(len(ADA_GC))]
 
@@ -402,6 +402,13 @@ plt.savefig(filename)
 plt.clf()
 
 
+
+
+
+
+G_lattice = nx.grid_graph(dim = (math.sqrt(N),math.sqrt(N)),periodic=True)
+
+G_WS = nx.watts_strogatz_graph(N, k=4, p=0)
 
 """
 
