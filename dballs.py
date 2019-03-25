@@ -406,7 +406,7 @@ plt.clf()
 
 
 
-G_lattice = nx.grid_graph(dim = (int(math.sqrt(N)),int(math.sqrt(N))),periodic=True)
+G_lattice = nx.grid_graph(dim = [int(math.sqrt(N)),int(math.sqrt(N))],periodic=True)
 
 G_WS = nx.watts_strogatz_graph(N, k=4, p=0)
 
