@@ -388,9 +388,9 @@ dBalls_GC_plot_rad3 = dBalls_GC2[:len(ADA_GC)]
 dBalls_GC_plot_rad4 = dBalls_GC3[:len(ADA_GC)]
 
 
-plt.plot(x_axis,dBalls_GC_plot_rad2, label = "dball_2")
-plt.plot(x_axis,dBalls_GC_plot_rad3, label = "dball_3")
-plt.plot(x_axis,dBalls_GC_plot_rad4, label = "dball_4")
+plt.plot(x_axis,dBalls_GC_plot_rad2, '-o' , label = "dball_2")
+plt.plot(x_axis,dBalls_GC_plot_rad3, '-o' ,label = "dball_3")
+plt.plot(x_axis,dBalls_GC_plot_rad4, '-o' ,label = "dball_4")
 plt.plot(x_axis,ADA_GC, label = "ADA")
 #plt.plot(x_axis,ABA_GC,label = "ABA")
 plt.plot(x_axis,RAN_GC,label = "Random")
