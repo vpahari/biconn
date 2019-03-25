@@ -379,7 +379,7 @@ ADA_GC = ADA_attack(G,int(0.5*N))
 RAN_GC = perc_random(G,int(0.5*N))
 
 
-filename = "dBalls_sims_" + N + ".png"
+filename = "dBalls_sims_" + str(N) + ".png"
 
 x_axis = [i for i in range(len(ADA_GC))]
 
