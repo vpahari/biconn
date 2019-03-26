@@ -431,8 +431,8 @@ def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle):
 
 		counter += 1
 
-	plt.plot(x_axis,dB, label = "ADA")
-	plt.plot(x_axis,dB, label = "Random")
+	plt.plot(x_axis,ADA_GC, label = "ADA")
+	plt.plot(x_axis,RAN_GC, label = "Random")
 
 	plt.legend(loc='best')
 
@@ -492,7 +492,7 @@ filename_pickle_WS = "dball_sims_WS_N_" + str(N) + "_k_" + str(k) + "_SEED_" + s
 
 
 get_graphs(G_lattice_nk,radius_list, int(perc_to_remove*N),filename_plt_lattice,filename_pickle_lattice)
-get_graphs(G_lattice_nk,radius_list, int(perc_to_remove*N),filename_plt_WS,filename_pickle_WS)
+get_graphs(G_WS_nk,radius_list, int(perc_to_remove*N),filename_plt_WS,filename_pickle_WS)
 
 
 """
