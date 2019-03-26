@@ -206,7 +206,8 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 		if len(list_to_remove) == 0:
 			i = random.sample(list(G.nodes()),1)
 			G.removeNode(i[0])
-			nodes_removed.append(i)
+			size_dball.append(0)
+			size_ball.append(0)
 			counter += 1
 			GC_List.append(get_GC(G))
 			continue
