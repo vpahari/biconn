@@ -466,7 +466,7 @@ def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle):
 
 
 
-N = 1000
+N = 10000
 k = 4
 SEED = 3211
 
