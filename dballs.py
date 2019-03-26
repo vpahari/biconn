@@ -455,7 +455,7 @@ def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle_d
 
 
 N = 1000
-k = 4
+k = 8
 SEED = 3211
 
 radius_list = [2,3,4]
