@@ -195,6 +195,8 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 	counter = 0
 
+	GC_List.append(get_GC(G))
+
 	while counter < num_nodes_to_remove:
 
 		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
@@ -227,8 +229,6 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 		num_nodes_removed.append(counter)
 
-	print(G.numberOfNodes())
-
 	return (GC_List,num_nodes_removed,nodes_removed)
 
 
@@ -238,6 +238,8 @@ def perc_random(G_copy,num_nodes_to_remove):
 	G = copy_graph(G_copy)
 
 	GC_List = []
+
+	GC_List.append(get_GC(G))
 
 	all_nodes = random.sample(list(G.nodes()),num_nodes_to_remove)
 
@@ -253,6 +255,8 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 	G = copy_graph(G_copy)
 
 	GC_List = []
+
+	GC_List.append(get_GC(G))
 
 	for i in range(num_nodes_to_remove):
 
@@ -280,6 +284,8 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 	G = copy_graph(G_copy)
 
 	GC_List = []
+
+	GC_List.append(get_GC(G))
 
 	for i in range(num_nodes_to_remove):
 
@@ -323,8 +329,34 @@ def turn_lists_together(GC_List,num_nodes_removed):
 
 
 
+def get_avg_list(big_list):
 
-def large_sims(N,k,SEED,type_of_attack,num_nodes_to_remove,num_sims):
+	counter = 0
+	size_of_list = len(big_list[0])
+	avg_list = []
+
+	while counter < size_of_list:
+
+		index_list = list(map(lambda x : x[counter], big_list))
+
+		avg = sum(index_list) / len(index_list)
+
+		avg_list.append(avg)
+
+		counter += 1
+
+	return avg_list
+
+
+
+
+
+
+def large_sims(N,k,SEED,type_of_attack,radius,num_nodes_to_remove,num_sims):
+
+	GC_big_list = []
+
+	num_nodes_removed_list = []
 
 	if type_of_attack == "ABA":
 		attack = ABA_attack
@@ -338,6 +370,94 @@ def large_sims(N,k,SEED,type_of_attack,num_nodes_to_remove,num_sims):
 	elif type_of_attack == "DBA":
 		attack = perc_process_dBalls
 
+	for i in range(num_sims):
+
+		G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = (SEED * i)) 
+		G = nk.nxadapter.nx2nk(G_nx)
+
+		if type_of_attack == "DBA":
+			(GC_List,num_nodes_removed,nodes_removed) = attack(G,radius,num_nodes_to_remove)
+
+		else:
+			GC_List = attack(G,num_nodes_to_remove)
+
+		GC_List = GC_List[:(num_nodes_to_remove + 1)]
+
+		GC_big_list.append(GC_List)
+
+		if type_of_attack == "DBA":
+			num_nodes_removed = num_nodes_removed[:num_nodes_to_remove]
+			num_nodes_removed_list.append(num_nodes_removed)
+
+
+	avg_GC_list = get_avg_list(GC_big_list)
+
+	if type_of_attack == "DBA":
+
+		avg_numNodesRemoved_list = get_avg_list(num_nodes_removed_list)
+
+		return (avg_GC_list,num_nodes_removed_list)
+
+	else:
+		return avg_GC_list
+
+
+
+
+def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle):
+
+	nodes_removed_list = []
+	num_nodes_removed_list = []
+	dBalls_GC_list = []
+
+	for i in radius_list:
+
+		(dBalls_GC,num_nodes_removed,nodes_removed) = perc_process_dBalls(G,radius1,num_nodes_to_remove)
+
+		dBalls_GC_list.append(dBalls_GC[:(num_nodes_to_remove + 1)])
+		num_nodes_removed_list.append(num_nodes_removed)
+		nodes_removed_list.append(nodes_removed)
+
+	ADA_GC = ADA_attack(G,num_nodes_to_remove)
+	RAN_GC = perc_random(G,num_nodes_to_remove)
+
+	x_axis = [i for i in range(num_nodes_to_remove + 1)]
+
+	counter = 0
+
+	for dB in dBalls_GC_list:
+
+		plt.plot(x_axis,dB, label = "dball_" + str(radius_list[counter]))
+
+		counter += 1
+
+	plt.plot(x_axis,dB, label = "ADA")
+	plt.plot(x_axis,dB, label = "Random")
+
+	plt.legend(loc='best')
+
+	plt.savefig(filename_plt)
+
+	plt.clf()
+
+	with open(filename_pickle,'wb') as handle:
+		pickle.dump(num_nodes_removed_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -350,65 +470,30 @@ N = 1000
 k = 4
 SEED = 3211
 
-radius1 = 2
-radius2 = 3
-radius3 = 4
+radius_list = [2,3,4]
+
+perc_to_remove = 0.5
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
-G_nx_copy = G_nx.copy()
-
-G = nk.nxadapter.nx2nk(G_nx)
-G_copy = nk.nxadapter.nx2nk(G_nx_copy)
-
-
-print(get_GC_nodes(G))
-
-
-
-(dBalls_GC1,nodes_remaining1,nodes_removed1) = perc_process_dBalls(G,radius1,int(0.5*N))
-
-(dBalls_GC2,nodes_remaining2,nodes_removed2) = perc_process_dBalls(G,radius2,int(0.5*N))
-
-(dBalls_GC3,nodes_remaining3,nodes_removed3) = perc_process_dBalls(G,radius3,int(0.5*N))
-
-
-ADA_GC = ADA_attack(G,int(0.5*N))
-
-#ABA_GC = ABA_attack(G,int(0.5*N))
-
-RAN_GC = perc_random(G,int(0.5*N))
-
-
-filename = "dBalls_sims_" + str(N) + ".png"
-
-x_axis = [i for i in range(len(ADA_GC))]
-
-dBalls_GC_plot_rad2 = dBalls_GC1[:len(ADA_GC)]
-dBalls_GC_plot_rad3 = dBalls_GC2[:len(ADA_GC)]
-dBalls_GC_plot_rad4 = dBalls_GC3[:len(ADA_GC)]
-
-
-plt.plot(x_axis,dBalls_GC_plot_rad2, '-o' , label = "dball_2")
-plt.plot(x_axis,dBalls_GC_plot_rad3, '-o' ,label = "dball_3")
-plt.plot(x_axis,dBalls_GC_plot_rad4, '-o' ,label = "dball_4")
-plt.plot(x_axis,ADA_GC, label = "ADA")
-#plt.plot(x_axis,ABA_GC,label = "ABA")
-plt.plot(x_axis,RAN_GC,label = "Random")
-
-plt.legend(loc='best')
-
-plt.savefig(filename)
-
-plt.clf()
-
-
-
-
-
 
 G_lattice = nx.grid_graph(dim = [int(math.sqrt(N)),int(math.sqrt(N))],periodic=True)
 
-G_WS = nx.watts_strogatz_graph(N, k=4, p=0)
+G_WS = nx.watts_strogatz_graph(N, k, p=0)
+
+G_lattice_nk = nk.nxadapter.nx2nk(G_lattice)
+
+G_WS_nk = nk.nxadapter.nx2nk(G_WS)
+
+filename_plt_lattice = "dball_sims_lattice_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
+filename_pickle_lattice = "dball_sims_lattice_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+
+filename_plt_WS = "dball_sims_WS_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
+filename_pickle_WS = "dball_sims_WS_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+
+
+get_graphs(G_lattice_nk,radius_list, int(perc_to_remove*N),filename_plt_lattice,filename_pickle_lattice)
+get_graphs(G_lattice_nk,radius_list, int(perc_to_remove*N),filename_plt_WS,filename_pickle_WS)
+
 
 """
 
