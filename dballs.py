@@ -410,9 +410,9 @@ def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle):
 	num_nodes_removed_list = []
 	dBalls_GC_list = []
 
-	for i in radius_list:
+	for radius in radius_list:
 
-		(dBalls_GC,num_nodes_removed,nodes_removed) = perc_process_dBalls(G,radius1,num_nodes_to_remove)
+		(dBalls_GC,num_nodes_removed,nodes_removed) = perc_process_dBalls(G,radius,num_nodes_to_remove)
 
 		dBalls_GC_list.append(dBalls_GC[:(num_nodes_to_remove + 1)])
 		num_nodes_removed_list.append(num_nodes_removed)
