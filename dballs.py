@@ -190,8 +190,8 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 	G = copy_graph(G_copy)
 
 	GC_List = []
-	num_nodes_removed = [] 
-	nodes_removed = []
+	size_dball = [] 
+	size_ball = []
 
 	counter = 0
 
@@ -217,6 +217,9 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 		(dBall,ball) = get_dBN(G,node,radius) 
 
+		size_dball.append(dBall)
+		size_ball.append(ball)
+
 
 		print(dBall)
 		print(ball)
@@ -227,9 +230,8 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 			counter += 1
 			GC_List.append(get_GC(G))
 
-		num_nodes_removed.append(counter)
 
-	return (GC_List,num_nodes_removed,nodes_removed)
+	return (GC_List,size_dball,size_ball)
 
 
 
@@ -356,7 +358,8 @@ def large_sims(N,k,SEED,type_of_attack,radius,num_nodes_to_remove,num_sims):
 
 	GC_big_list = []
 
-	num_nodes_removed_list = []
+	size_ball_list = []
+	size_dball_list = []
 
 	if type_of_attack == "ABA":
 		attack = ABA_attack
@@ -376,7 +379,7 @@ def large_sims(N,k,SEED,type_of_attack,radius,num_nodes_to_remove,num_sims):
 		G = nk.nxadapter.nx2nk(G_nx)
 
 		if type_of_attack == "DBA":
-			(GC_List,num_nodes_removed,nodes_removed) = attack(G,radius,num_nodes_to_remove)
+			(GC_List,size_dball,size_ball) = attack(G,radius,num_nodes_to_remove)
 
 		else:
 			GC_List = attack(G,num_nodes_to_remove)
@@ -386,8 +389,8 @@ def large_sims(N,k,SEED,type_of_attack,radius,num_nodes_to_remove,num_sims):
 		GC_big_list.append(GC_List)
 
 		if type_of_attack == "DBA":
-			num_nodes_removed = num_nodes_removed[:num_nodes_to_remove]
-			num_nodes_removed_list.append(num_nodes_removed)
+			size_dball_list.append(size_dball)
+			size_ball_list.append(size_ball)
 
 
 	avg_GC_list = get_avg_list(GC_big_list)
@@ -404,19 +407,19 @@ def large_sims(N,k,SEED,type_of_attack,radius,num_nodes_to_remove,num_sims):
 
 
 
-def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle):
+def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle_dball,filename_pickle_ball):
 
-	nodes_removed_list = []
-	num_nodes_removed_list = []
+	size_dball_list = []
+	size_ball_list = []
 	dBalls_GC_list = []
 
 	for radius in radius_list:
 
-		(dBalls_GC,num_nodes_removed,nodes_removed) = perc_process_dBalls(G,radius,num_nodes_to_remove)
+		(dBalls_GC,size_dball,size_ball) = perc_process_dBalls(G,radius,num_nodes_to_remove)
 
 		dBalls_GC_list.append(dBalls_GC[:(num_nodes_to_remove + 1)])
-		num_nodes_removed_list.append(num_nodes_removed)
-		nodes_removed_list.append(nodes_removed)
+		size_dball_list.append(size_dball)
+		size_ball_list.append(size_ball)
 
 	ADA_GC = ADA_attack(G,num_nodes_to_remove)
 	RAN_GC = perc_random(G,num_nodes_to_remove)
@@ -440,15 +443,18 @@ def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle):
 
 	plt.clf()
 
-	with open(filename_pickle,'wb') as handle:
-		pickle.dump(num_nodes_removed_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(filename_pickle_dball,'wb') as handle:
+		pickle.dump(size_dball_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(filename_pickle_ball,'wb') as handle:
+		pickle.dump(size_ball_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
 
 
 
-N = 100000
+N = 1000
 k = 4
 SEED = 3211
 
@@ -467,14 +473,17 @@ G_lattice_nk = nk.nxadapter.nx2nk(G_lattice)
 G_WS_nk = nk.nxadapter.nx2nk(G_WS)
 
 filename_plt_lattice = "dball_sims_lattice_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
-filename_pickle_lattice = "dball_sims_lattice_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+filename_pickle_lattice_dball = "dball_sims_dball_lattice_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+filename_pickle_lattice_ball = "dball_sims_ball_lattice_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+
 
 filename_plt_WS = "dball_sims_WS_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
-filename_pickle_WS = "dball_sims_WS_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+filename_pickle_WS_dball = "dball_sims_dball_WS_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+filename_pickle_WS_ball = "dball_sims_ball_WS_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
 
 
-get_graphs(G_lattice_nk,radius_list, int(perc_to_remove*N),filename_plt_lattice,filename_pickle_lattice)
-get_graphs(G_WS_nk,radius_list, int(perc_to_remove*N),filename_plt_WS,filename_pickle_WS)
+get_graphs(G_lattice_nk,radius_list, int(perc_to_remove*N),filename_plt_lattice,filename_pickle_lattice_dball,filename_pickle_lattice_ball)
+get_graphs(G_WS_nk,radius_list, int(perc_to_remove*N),filename_plt_WS,filename_pickle_WS_dball,filename_pickle_WS_ball)
 
 
 """
