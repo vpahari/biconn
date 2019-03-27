@@ -545,6 +545,21 @@ G_WS_nk = nk.nxadapter.nx2nk(G_WS)
 
 (GC_List,size_dball,size_ball,radius_track) = big_attack(G_nk,radius_list,int(perc_to_remove * N))
 
+with open("GC_list.pickle",'wb') as handle:
+	pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open("size_dball.pickle",'wb') as handle:
+	pickle.dump(size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open("size_ball.pickle",'wb') as handle:
+	pickle.dump(size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open("radius_track.pickle",'wb') as handle:
+	pickle.dump(radius_track, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+
+
 print(GC_List)
 print(list(zip(size_dball,size_ball)))
 print(radius_track)
