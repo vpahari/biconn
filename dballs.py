@@ -454,6 +454,75 @@ def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle_d
 
 
 
+def big_attack(G_copy,radius_list):
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+	size_dball = [] 
+	size_ball = []
+	radius_track = []
+
+	counter = 0
+
+	GC_List.append(get_GC(G))
+
+	while counter < num_nodes_to_remove:
+
+		x_i_value = 2
+
+		curr_radius = 0
+
+		for radius in radius_list:
+
+			(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+			
+			list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
+			
+			if len(list_to_remove) == 0:
+				continue
+
+			node = list_to_remove[0][0]
+
+			curr_x_i_value = list_to_remove[0][1]
+
+			if curr_x_i_value < x_i_value:
+
+				x_i_value = curr_x_i_value
+
+				(dBall,ball) = get_dBN(G,node,radius) 
+
+				curr_radius = radius
+
+		if x_i_value == 2:
+			break
+
+		size_dball.append(len(dBall))
+
+		size_ball.append(len(ball))
+
+		raidus_track.append(curr_radius)
+
+
+
+		for i in dBall:
+			G.removeNode(i)
+			counter += 1
+			GC_List.append(get_GC(G))
+
+
+	return (GC_List,size_dball,size_ball,radius_track)
+
+
+
+
+
+
+
+
+
+
+
 N = 100000
 k = 4
 SEED = 42316
