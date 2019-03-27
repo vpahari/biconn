@@ -529,7 +529,7 @@ SEED = 42316
 
 radius_list = [2,3,4]
 
-perc_to_remove = 0.33
+perc_to_remove = 0.5
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
