@@ -523,7 +523,7 @@ def big_attack(G_copy,radius_list):
 
 
 
-N = 100000
+N = 1000
 k = 4
 SEED = 42316
 
@@ -543,12 +543,20 @@ G_lattice_nk = nk.nxadapter.nx2nk(G_lattice)
 
 G_WS_nk = nk.nxadapter.nx2nk(G_WS)
 
-filename_plt_Gnx = "dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
-filename_pickle_Gnx_dball = "dball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
-filename_pickle_Gnx_ball = "ball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+(GC_List,size_dball,size_ball,radius_track) = big_attack(G_nk,radius_list)
+
+print(GC_List)
+print(size_dball)
+print(size_ball)
+print(raidus_track)
 
 
-get_graphs(G_nk, radius_list,int(perc_to_remove*N),filename_plt_Gnx,filename_pickle_Gnx_dball,filename_pickle_Gnx_ball)
+#filename_plt_Gnx = "dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
+#filename_pickle_Gnx_dball = "dball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+#filename_pickle_Gnx_ball = "ball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+
+
+#get_graphs(G_nk, radius_list,int(perc_to_remove*N),filename_plt_Gnx,filename_pickle_Gnx_dball,filename_pickle_Gnx_ball)
 
 
 """
