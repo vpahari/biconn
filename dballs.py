@@ -454,7 +454,7 @@ def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle_d
 
 
 
-def big_attack(G_copy,radius_list):
+def big_attack(G_copy,radius_list, num_nodes_to_remove):
 
 	G = copy_graph(G_copy)
 
@@ -529,7 +529,7 @@ SEED = 42316
 
 radius_list = [2,3,4]
 
-perc_to_remove = 0.5
+perc_to_remove = 0.33
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
@@ -543,7 +543,7 @@ G_lattice_nk = nk.nxadapter.nx2nk(G_lattice)
 
 G_WS_nk = nk.nxadapter.nx2nk(G_WS)
 
-(GC_List,size_dball,size_ball,radius_track) = big_attack(G_nk,radius_list)
+(GC_List,size_dball,size_ball,radius_track) = big_attack(G_nk,radius_list,int(perc_to_remove * N))
 
 print(GC_List)
 print(size_dball)
