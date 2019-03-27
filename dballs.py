@@ -218,8 +218,8 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 		(dBall,ball) = get_dBN(G,node,radius) 
 
-		size_dball.append(len(list(dBall)))
-		size_ball.append(len(list(ball)))
+		size_dball.append(list(dBall))
+		size_ball.append(list(ball))
 
 
 		print(dBall)
