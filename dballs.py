@@ -455,7 +455,7 @@ def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle_d
 
 
 N = 10000
-k = 8
+k = 4
 SEED = 3211
 
 radius_list = [2,3,4]
@@ -464,6 +464,8 @@ perc_to_remove = 0.5
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
+G_nk = nk.nxadapter.nx2nk(G_nx)
+
 G_lattice = nx.grid_graph(dim = [int(math.sqrt(N)),int(math.sqrt(N))],periodic=True)
 
 G_WS = nx.watts_strogatz_graph(N, k, p=0)
@@ -471,6 +473,16 @@ G_WS = nx.watts_strogatz_graph(N, k, p=0)
 G_lattice_nk = nk.nxadapter.nx2nk(G_lattice)
 
 G_WS_nk = nk.nxadapter.nx2nk(G_WS)
+
+filename_plt_Gnx = "dball_sims_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
+filename_pickle_Gnx_dball = "dball_sims_dball_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+filename_pickle_Gnx_ball = "dball_sims_ball_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+
+
+get_graphs(G_nk, radius_list,int(perc_to_remove*N),filename_plt_Gnx,filename_pickle_Gnx_dball,filename_pickle_Gnx_ball)
+
+
+"""
 
 filename_plt_lattice = "dball_sims_lattice_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
 filename_pickle_lattice_dball = "dball_sims_dball_lattice_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
@@ -484,6 +496,9 @@ filename_pickle_WS_ball = "dball_sims_ball_WS_N_" + str(N) + "_k_" + str(k) + "_
 
 get_graphs(G_lattice_nk,radius_list, int(perc_to_remove*N),filename_plt_lattice,filename_pickle_lattice_dball,filename_pickle_lattice_ball)
 get_graphs(G_WS_nk,radius_list, int(perc_to_remove*N),filename_plt_WS,filename_pickle_WS_dball,filename_pickle_WS_ball)
+
+"""
+
 
 
 """
