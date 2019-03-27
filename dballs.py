@@ -548,6 +548,7 @@ G_WS_nk = nk.nxadapter.nx2nk(G_WS)
 print(GC_List)
 print(list(zip(size_dball,size_ball)))
 print(radius_track)
+print(len(radius_track))
 
 
 #filename_plt_Gnx = "dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
