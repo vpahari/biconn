@@ -501,7 +501,7 @@ def big_attack(G_copy,radius_list, num_nodes_to_remove):
 
 		size_ball.append(len(ball))
 
-		raidus_track.append(curr_radius)
+		radius_track.append(curr_radius)
 
 
 
