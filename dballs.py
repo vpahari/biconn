@@ -527,7 +527,7 @@ def big_attack(G_copy,radius_list, num_nodes_to_remove):
 
 
 
-N = 1000
+N = 10000
 k = 4
 SEED = 42316
 
