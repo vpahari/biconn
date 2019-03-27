@@ -475,8 +475,8 @@ G_lattice_nk = nk.nxadapter.nx2nk(G_lattice)
 G_WS_nk = nk.nxadapter.nx2nk(G_WS)
 
 filename_plt_Gnx = "dball_sims_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
-filename_pickle_Gnx_dball = "dball_sims_dball_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
-filename_pickle_Gnx_ball = "dball_sims_ball_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+filename_pickle_Gnx_dball = "dball_size_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+filename_pickle_Gnx_ball = "ball_size_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
 
 
 get_graphs(G_nk, radius_list,int(perc_to_remove*N),filename_plt_Gnx,filename_pickle_Gnx_dball,filename_pickle_Gnx_ball)
