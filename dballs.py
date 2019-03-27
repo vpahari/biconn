@@ -437,6 +437,10 @@ def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle_d
 	plt.plot(x_axis,ADA_GC, label = "ADA")
 	plt.plot(x_axis,RAN_GC, label = "Random")
 
+	(GC_List_opt,size_dball_opt,size_ball_opt,radius_track_opt) = big_attack(G, radius_list,num_nodes_to_remove)
+
+	plt.plot(x_axis,GC_List_opt, label = "dballs_opt")
+
 	plt.legend(loc='best')
 
 	plt.savefig(filename_plt)
@@ -523,7 +527,7 @@ def big_attack(G_copy,radius_list, num_nodes_to_remove):
 
 
 
-N = 10000
+N = 1000
 k = 4
 SEED = 42316
 
@@ -566,12 +570,12 @@ print(radius_track)
 print(len(radius_track))
 
 
-#filename_plt_Gnx = "dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
-#filename_pickle_Gnx_dball = "dball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
-#filename_pickle_Gnx_ball = "ball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+filename_plt_Gnx = "dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
+filename_pickle_Gnx_dball = "dball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+filename_pickle_Gnx_ball = "ball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
 
 
-#get_graphs(G_nk, radius_list,int(perc_to_remove*N),filename_plt_Gnx,filename_pickle_Gnx_dball,filename_pickle_Gnx_ball)
+get_graphs(G_nk, radius_list,int(perc_to_remove*N),filename_plt_Gnx,filename_pickle_Gnx_dball,filename_pickle_Gnx_ball)
 
 
 """
