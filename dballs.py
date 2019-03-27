@@ -546,9 +546,8 @@ G_WS_nk = nk.nxadapter.nx2nk(G_WS)
 (GC_List,size_dball,size_ball,radius_track) = big_attack(G_nk,radius_list,int(perc_to_remove * N))
 
 print(GC_List)
-print(size_dball)
-print(size_ball)
-print(raidus_track)
+print(list(zip(size_dball,size_ball)))
+print(radius_track)
 
 
 #filename_plt_Gnx = "dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
