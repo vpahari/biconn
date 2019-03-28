@@ -216,7 +216,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 		node = list_to_remove[0][0]
 
-		degree_list.append(node, G.degree(node))
+		degree_list.append((node, G.degree(node)))
 
 		print(counter)
 
