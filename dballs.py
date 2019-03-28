@@ -557,7 +557,7 @@ G_WS_nk = nk.nxadapter.nx2nk(G_WS)
 
 (GC_List,size_dball,size_ball,dg_list) = perc_process_dBalls(G_nk,radius,int(perc_to_remove * N))
 
-print(zip(size_dball,size_ball))
+print(list(zip(size_dball,size_ball)))
 
 print(dg_list)
 
