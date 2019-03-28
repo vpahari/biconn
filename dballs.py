@@ -193,6 +193,8 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 	size_dball = [] 
 	size_ball = []
 
+	degree_list = []
+
 	counter = 0
 
 	GC_List.append(get_GC(G))
@@ -214,6 +216,8 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 		node = list_to_remove[0][0]
 
+		degree_list.append(G.degree(node))
+
 		print(counter)
 
 		(dBall,ball) = get_dBN(G,node,radius) 
@@ -231,7 +235,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 			GC_List.append(get_GC(G))
 
 
-	return (GC_List,size_dball,size_ball)
+	return (GC_List,size_dball,size_ball,degree_list)
 
 
 
@@ -533,6 +537,8 @@ SEED = 42316
 
 radius_list = [2,3,4]
 
+radius = 2
+
 perc_to_remove = 0.4
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
@@ -546,6 +552,12 @@ G_WS = nx.watts_strogatz_graph(N, k, p=0)
 G_lattice_nk = nk.nxadapter.nx2nk(G_lattice)
 
 G_WS_nk = nk.nxadapter.nx2nk(G_WS)
+
+
+
+(GC_List,size_dball,size_ball) = perc_process_dBalls(G_nk,radius,int(perc_to_remove * N))
+
+
 
 """
 (GC_List,size_dball,size_ball,radius_track) = big_attack(G_nk,radius_list,int(perc_to_remove * N))
@@ -571,12 +583,12 @@ print(radius_track)
 print(len(radius_track))
 """
 
-filename_plt_Gnx = "dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
-filename_pickle_Gnx_dball = "dball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
-filename_pickle_Gnx_ball = "ball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+#filename_plt_Gnx = "dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
+#filename_pickle_Gnx_dball = "dball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+#filename_pickle_Gnx_ball = "ball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
 
 
-get_graphs(G_nk, radius_list,int(perc_to_remove*N),filename_plt_Gnx,filename_pickle_Gnx_dball,filename_pickle_Gnx_ball)
+#get_graphs(G_nk, radius_list,int(perc_to_remove*N),filename_plt_Gnx,filename_pickle_Gnx_dball,filename_pickle_Gnx_ball)
 
 
 """
