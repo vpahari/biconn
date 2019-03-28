@@ -216,7 +216,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 		node = list_to_remove[0][0]
 
-		degree_list.append(G.degree(node))
+		degree_list.append(node, G.degree(node))
 
 		print(counter)
 
@@ -555,7 +555,15 @@ G_WS_nk = nk.nxadapter.nx2nk(G_WS)
 
 
 
-(GC_List,size_dball,size_ball) = perc_process_dBalls(G_nk,radius,int(perc_to_remove * N))
+(GC_List,size_dball,size_ball,dg_list) = perc_process_dBalls(G_nk,radius,int(perc_to_remove * N))
+
+print(zip(size_dball,size_ball))
+
+print(dg_list)
+
+
+
+
 
 
 
