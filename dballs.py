@@ -365,6 +365,8 @@ def large_sims(N,k,SEED,type_of_attack,radius,num_nodes_to_remove,num_sims):
 	size_ball_list = []
 	size_dball_list = []
 
+	degree_big_list = []
+
 	if type_of_attack == "ABA":
 		attack = ABA_attack
 
@@ -383,7 +385,12 @@ def large_sims(N,k,SEED,type_of_attack,radius,num_nodes_to_remove,num_sims):
 		G = nk.nxadapter.nx2nk(G_nx)
 
 		if type_of_attack == "DBA":
-			(GC_List,size_dball,size_ball) = attack(G,radius,num_nodes_to_remove)
+			(GC_List,size_dball,size_ball,degree_list) = attack(G,radius,num_nodes_to_remove)
+
+			size_dball_list.append(size_dball)
+			size_ball_list.append(size_ball)
+			degree_big_list.append(degree_list)
+
 
 		else:
 			GC_List = attack(G,num_nodes_to_remove)
@@ -392,18 +399,11 @@ def large_sims(N,k,SEED,type_of_attack,radius,num_nodes_to_remove,num_sims):
 
 		GC_big_list.append(GC_List)
 
-		if type_of_attack == "DBA":
-			size_dball_list.append(size_dball)
-			size_ball_list.append(size_ball)
-
-
 	avg_GC_list = get_avg_list(GC_big_list)
 
 	if type_of_attack == "DBA":
 
-		avg_numNodesRemoved_list = get_avg_list(num_nodes_removed_list)
-
-		return (avg_GC_list,num_nodes_removed_list)
+		return (avg_GC_list,size_dball_list,size_ball_list,degree_big_list)
 
 	else:
 		return avg_GC_list
@@ -520,12 +520,6 @@ def big_attack(G_copy,radius_list, num_nodes_to_remove):
 
 
 	return (GC_List,size_dball,size_ball,radius_track)
-
-
-
-
-
-
 
 
 
