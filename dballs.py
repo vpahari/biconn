@@ -531,7 +531,7 @@ SEED = 42316
 
 radius_list = [2,3,4]
 
-radius = 3
+radius = 4
 
 perc_to_remove = 0.4
 
