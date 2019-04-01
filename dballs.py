@@ -531,7 +531,7 @@ SEED = 42316
 
 radius_list = [2,3,4]
 
-radius = 2
+radius = 3
 
 perc_to_remove = 0.4
 
@@ -554,6 +554,7 @@ G_WS_nk = nk.nxadapter.nx2nk(G_WS)
 print(list(zip(size_dball,size_ball)))
 
 print(dg_list)
+
 
 
 
