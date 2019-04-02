@@ -582,6 +582,7 @@ filename_ball = "dballAtt_ball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str
 filename_dball = "dballAtt_dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
 filename_dg = "dballAtt_dg_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
 
+print(big_GC_List)
 
 with open(filename_GC, 'wb') as handle:
 	pickle.dump(big_GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
