@@ -523,8 +523,81 @@ def big_attack(G_copy,radius_list, num_nodes_to_remove):
 
 
 
+def big_sim(N,k,SEED,radius,perc_to_remove,num_sims):
+
+	big_GC_List = []
+	big_size_dball = []
+	big_size_ball = []
+	big_dg_list = []
 
 
+	for i in range(num_sims):
+
+		G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED * (i+1)) 
+
+		G_nk = nk.nxadapter.nx2nk(G_nx)
+
+		num_nodes_to_remove = int(perc_to_remove * N)
+
+		(GC_List,size_dball,size_ball,dg_list) = perc_process_dBalls(G_nk,radius,num_nodes_to_remove)
+
+		GC_List_to_append = GC_List[:num_nodes_to_remove]
+
+		big_GC_List.append(GC_List_to_append)
+
+		big_size_dball.append(size_dball)
+
+		big_size_ball.append(size_ball)
+
+		big_dg_list.append(dg_list)
+
+	return (big_GC_List,big_size_dball,big_size_ball,big_dg_list)
+
+
+
+
+
+
+
+
+
+
+N=int(sys.argv[1]) # number of nodes
+
+k=int(sys.argv[2])
+
+SEED=int(sys.argv[3])
+
+radius = int(sys.argv[4])
+
+perc_to_remove = float(sys.argv[5])
+
+num_sims = int(sys.argv[6])
+
+(big_GC_List,big_size_dball,big_size_ball,big_dg_list) = big_sim(N,k,SEED,radius,perc_to_remove,num_sims)
+
+
+filename_GC = "dballAtt_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_ball = "dballAtt_ball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_dball = "dballAtt_dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_dg = "dballAtt_dg_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+
+
+with open(filename_GC, 'wb') as handle:
+	pickle.dump(big_GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_ball,'wb') as handle:
+	pickle.dump(big_size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_dball,'wb') as handle:
+	pickle.dump(big_size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_dg,'wb') as handle:
+	pickle.dump(big_dg_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+
+"""
 N = 10000
 k = 4
 SEED = 42316
@@ -546,14 +619,8 @@ G_WS = nx.watts_strogatz_graph(N, k, p=0)
 G_lattice_nk = nk.nxadapter.nx2nk(G_lattice)
 
 G_WS_nk = nk.nxadapter.nx2nk(G_WS)
+"""
 
-
-
-(GC_List,size_dball,size_ball,dg_list) = perc_process_dBalls(G_nk,radius,int(perc_to_remove * N))
-
-print(list(zip(size_dball,size_ball)))
-
-print(dg_list)
 
 
 
