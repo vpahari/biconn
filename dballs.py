@@ -169,19 +169,27 @@ def get_largest_dball(dball_dict,node_list):
 
 
 
-def dict_to_sorted_list(d):
+def dict_to_sorted_list(d, ascending):
+
+	rev_value = not ascending
 
 	new_list = list(d.items())
 
-	final_list = sorted(new_list, key = itemgetter(1))
+	final_list = sorted(new_list, key = itemgetter(1), reverse = rev_value)
 
 	final_list_no_0 = list(filter(lambda x : x[1] != 0, final_list))
 
-	#if len(final_list_no_0) != 0:
+	if len(final_list_no_0) != 0:
 
-	#	x_i_value = final_list_no_0[0][1]
+		x_i_value = final_list_no_0[0][1]
 
-	return final_list_no_0
+		nodes_list = get_all_same_x_i(final_list_no_0, x_i_value)
+
+		return nodes_list 
+
+	else:
+
+		return final_list_no_0
 
 
 
@@ -227,9 +235,6 @@ def copy_graph(G):
 
 
 
-
-
-
 def perc_process_dBalls(G_copy,radius,num_nodes_to_remove,ascending):
 
 	G = copy_graph(G_copy)
@@ -248,7 +253,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove,ascending):
 
 		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
 
-		list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
+		list_to_remove = dict_to_sorted_list(dict_nodes_x_i,ascending)
 
 		if len(list_to_remove) == 0:
 			i = random.sample(list(G.nodes()),1)
@@ -258,16 +263,9 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove,ascending):
 			counter += 1
 			GC_List.append(get_GC(G))
 			continue
+		
 
-		print(list_to_remove[-4:])
-
-		if ascending:
-
-			node = list_to_remove[0][0]
-
-		else:
-
-			node = list_to_remove[-1][0]
+		node = get_largest_dball(dict_nodes_dBall,list_to_remove)
 
 		degree_list.append((node, G.degree(node)))
 
