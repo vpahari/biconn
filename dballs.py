@@ -146,6 +146,8 @@ def dict_to_sorted_list(d):
 	return final_list_no_0
 
 
+
+
 def get_GC_nodes(G):
 	comp = nk.components.DynConnectedComponents(G)
 	comp.run()
@@ -213,6 +215,8 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 			counter += 1
 			GC_List.append(get_GC(G))
 			continue
+
+		print(list_to_remove)
 
 		node = list_to_remove[0][0]
 
@@ -555,13 +559,13 @@ def big_sim(N,k,SEED,radius,perc_to_remove,num_sims):
 
 
 
+G_nx = nx.erdos_renyi_graph(10000, 3/9999, seed = 1234) 
+G_nk = nk.nxadapter.nx2nk(G_nx)
+perc_process_dBalls(G_nk,2,1000)
 
 
 
-
-
-
-
+"""
 N=int(sys.argv[1]) # number of nodes
 
 k=int(sys.argv[2])
@@ -596,7 +600,7 @@ with open(filename_dball,'wb') as handle:
 with open(filename_dg,'wb') as handle:
 	pickle.dump(big_dg_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-
+"""
 
 """
 N = 10000
