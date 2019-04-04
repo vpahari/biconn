@@ -222,7 +222,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 		degree_list.append((node, G.degree(node)))
 
-		print(counter)
+		#print(counter)
 
 		(dBall,ball) = get_dBN(G,node,radius) 
 
@@ -230,8 +230,8 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 		size_ball.append(len(ball))
 
 
-		print(dBall)
-		print(ball)
+		#print(dBall)
+		#print(ball)
 
 		for i in dBall:
 			G.removeNode(i)
