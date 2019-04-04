@@ -135,6 +135,40 @@ def make_partitions_multiple_graphs(N,k,SEED,radius,step_size,num_sims):
 	return normalized_values
 
 
+def get_all_same_x_i(sorted_list,x_i_value):
+
+	node_list = []
+
+	for i in sorted_list:
+
+		if i[1] == x_i_value:
+
+			node_list.append(i[0])
+
+	return node_list
+
+
+
+
+
+def get_largest_dball(dball_dict,node_list):
+
+	largest_dball = 0
+	largest_node = 0
+
+	for i in node_list:
+
+		if dball_dict[i] > largest_dball:
+
+			largest_dball = dball_dict[i]
+			largest_node = i
+
+	return largest_node
+
+
+
+
+
 def dict_to_sorted_list(d):
 
 	new_list = list(d.items())
@@ -142,6 +176,10 @@ def dict_to_sorted_list(d):
 	final_list = sorted(new_list, key = itemgetter(1))
 
 	final_list_no_0 = list(filter(lambda x : x[1] != 0, final_list))
+
+	#if len(final_list_no_0) != 0:
+
+	#	x_i_value = final_list_no_0[0][1]
 
 	return final_list_no_0
 
@@ -216,7 +254,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 			GC_List.append(get_GC(G))
 			continue
 
-		print(list_to_remove[:4])
+		print(list_to_remove[-4:])
 
 		node = list_to_remove[0][0]
 
