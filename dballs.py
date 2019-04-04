@@ -158,6 +158,8 @@ def get_largest_dball(dball_dict,node_list):
 
 	for i in node_list:
 
+		print(dball_dict[i])
+
 		if dball_dict[i] > largest_dball:
 
 			largest_dball = dball_dict[i]
@@ -264,6 +266,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove,ascending):
 			GC_List.append(get_GC(G))
 			continue
 		
+		print(list_to_remove)
 
 		node = get_largest_dball(dict_nodes_dBall,list_to_remove)
 
@@ -574,14 +577,12 @@ def big_attack(G_copy,radius_list, num_nodes_to_remove):
 
 
 
-def big_sim(N,k,SEED,radius,perc_to_remove,num_sims):
+def big_sim(N,k,SEED,radius,perc_to_remove,num_sims,ascending):
 
 	big_GC_List = []
 	big_size_dball = []
 	big_size_ball = []
 	big_dg_list = []
-
-	ascending = False
 
 	for i in range(num_sims):
 
@@ -607,13 +608,19 @@ def big_sim(N,k,SEED,radius,perc_to_remove,num_sims):
 
 
 
-#G_nx = nx.erdos_renyi_graph(10000, 3/9999, seed = 1234) 
-#G_nk = nk.nxadapter.nx2nk(G_nx)
-#perc_process_dBalls(G_nk,2,1000)
+G_nx = nx.erdos_renyi_graph(10000, 3/9999, seed = 1234) 
+G_nk = nk.nxadapter.nx2nk(G_nx)
+
+asc = True
+
+perc_process_dBalls(G_nk,2,5000,asc)
 
 
 
 
+
+
+"""
 N=int(sys.argv[1]) # number of nodes
 
 k=int(sys.argv[2])
@@ -626,13 +633,15 @@ perc_to_remove = float(sys.argv[5])
 
 num_sims = int(sys.argv[6])
 
-(big_GC_List,big_size_dball,big_size_ball,big_dg_list) = big_sim(N,k,SEED,radius,perc_to_remove,num_sims)
+ascending = bool(sys.argv[7])
+
+(big_GC_List,big_size_dball,big_size_ball,big_dg_list) = big_sim(N,k,SEED,radius,perc_to_remove,num_sims,ascending)
 
 
-filename_GC = "dballAttDesc_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_ball = "dballAttDesc_ball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_dball = "dballAttDesc_dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_dg = "dballAttDesc_dg_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_GC = "dballAttNew_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_ball = "dballAttNew_ball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_dball = "dballAttDescNew_dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_dg = "dballAttDescNew_dg_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
 
 print(big_GC_List)
 
@@ -647,7 +656,7 @@ with open(filename_dball,'wb') as handle:
 
 with open(filename_dg,'wb') as handle:
 	pickle.dump(big_dg_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
+"""
 
 
 """
