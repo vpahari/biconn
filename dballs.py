@@ -270,6 +270,8 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove,ascending):
 
 		node = get_largest_dball(dict_nodes_dBall,list_to_remove)
 
+		print(node,dict_nodes_dBall[node])
+
 		degree_list.append((node, G.degree(node)))
 
 		#print(counter)
