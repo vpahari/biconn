@@ -253,6 +253,8 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove,ascending):
 
 	while counter < num_nodes_to_remove:
 
+		print(counter)
+
 		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
 
 		list_to_remove = dict_to_sorted_list(dict_nodes_x_i,ascending)
@@ -610,7 +612,7 @@ def big_sim(N,k,SEED,radius,perc_to_remove,num_sims,ascending):
 
 
 
-G_nx = nx.erdos_renyi_graph(10000, 3/9999, seed = 1234) 
+G_nx = nx.erdos_renyi_graph(10000, 3/999, seed = 1234) 
 G_nk = nk.nxadapter.nx2nk(G_nx)
 
 asc = True
