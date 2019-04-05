@@ -71,6 +71,9 @@ def get_all_dBN(G,radius):
 
 		(dBall,ball) = get_dBN(G,n,radius)
 
+		print(dBall)
+		print(ball)
+
 		dict_nodes_dBall[n] = len(dBall)
 		dict_nodes_ball[n] = len(ball)
 		dict_nodes_x_i[n] = len(dBall) / len(ball)
