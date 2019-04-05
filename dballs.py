@@ -610,7 +610,7 @@ def big_sim(N,k,SEED,radius,perc_to_remove,num_sims,ascending):
 
 
 
-G_nx = nx.erdos_renyi_graph(10000, 3/999, seed = 1234) 
+G_nx = nx.erdos_renyi_graph(10000, 3/9999, seed = 1234) 
 G_nk = nk.nxadapter.nx2nk(G_nx)
 
 asc = True
