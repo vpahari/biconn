@@ -615,7 +615,7 @@ G_nk = nk.nxadapter.nx2nk(G_nx)
 
 asc = True
 
-perc_process_dBalls(G_nk,2,500,asc)
+perc_process_dBalls(G_nk,3,500,asc)
 
 
 
