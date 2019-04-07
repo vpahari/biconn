@@ -832,12 +832,14 @@ num_nodes_to_remove = int(perc_to_remove * N)
 
 (GC_List2,size_dball2,size_ball2,dg_list2) = perc_process_dBalls_bigDBalls(G_nk,radius,num_nodes_to_remove)
 
+(GC_List3,size_dball3,size_ball3,dg_list3) = perc_process_dBalls(G_nk,radius,num_nodes_to_remove)
+
 
 print(GC_List1)
 
 print(GC_List2)
 
-print(list(zip(GC_List1[:1000],GC_List2[:1000])))
+print(list(zip(zip(GC_List1[:1000],GC_List2[:1000])),GC_List3))
 
 
 
