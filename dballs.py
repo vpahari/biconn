@@ -582,6 +582,42 @@ def big_attack(G_copy,radius_list, num_nodes_to_remove):
 
 
 
+def random_ball_removal(G_copy,radius,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
+
+	counter = 0
+
+	GC_list = []
+
+	while counter < num_nodes_to_remove:
+
+		all_nodes = get_GC_nodes(G)
+
+		node_sample = random.sample(all_nodes,1)
+
+		node = node_sample[0]
+
+		(dBall,ball) = get_dBN(G,node,radius)
+
+		if len(dBall) == 0:
+			continue
+
+		for i in dBall:
+			G.removeNode(i)
+			counter += 1
+			GC_list.append(get_GC(G))
+
+	return GC_list
+
+
+
+
+
+
+
+
+
 def big_sim(N,k,SEED,radius,perc_to_remove,num_sims,ascending):
 
 	big_GC_List = []
@@ -633,8 +669,8 @@ ascending = bool(sys.argv[7])
 
 filename_GC = "dballAttNew_" + str(ascending) + "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
 filename_ball = "dballAttNew_" + str(ascending) + "_ball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_dball = "dballAttDescNew_" + str(ascending) + "_dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_dg = "dballAttDescNew_" + str(ascending) + "_dg_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_dball = "dballAttNew_" + str(ascending) + "_dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_dg = "dballAttNew_" + str(ascending) + "_dg_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
 
 print(big_GC_List)
 
