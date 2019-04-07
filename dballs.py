@@ -722,6 +722,7 @@ num_nodes_to_remove = int(perc_to_remove * N)
 (GC_List,size_dball,size_ball,degree_list) = perc_process_dBalls_bigBalls(G_nk,radius,num_nodes_to_remove)
 
 print(GC_List)
+print(len(GC_List))
 
 
 """
