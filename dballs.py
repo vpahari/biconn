@@ -765,6 +765,36 @@ def big_sim_dball(N,k,SEED,radius,perc_to_remove,num_sims):
 
 		num_nodes_to_remove = int(perc_to_remove * N)
 
+		(GC_List,size_dball,size_ball,dg_list) = perc_process_dBalls_bigDBalls(G_nk,radius,num_nodes_to_remove)
+
+		GC_List_to_append = GC_List[:num_nodes_to_remove]
+
+		big_GC_List.append(GC_List_to_append)
+
+		big_size_dball.append(size_dball)
+
+		big_size_ball.append(size_ball)
+
+		big_dg_list.append(dg_list)
+
+	return (big_GC_List,big_size_dball,big_size_ball,big_dg_list)
+
+
+def big_sim_ball(N,k,SEED,radius,perc_to_remove,num_sims):
+
+	big_GC_List = []
+	big_size_dball = []
+	big_size_ball = []
+	big_dg_list = []
+
+	for i in range(num_sims):
+
+		G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED * (i+1)) 
+
+		G_nk = nk.nxadapter.nx2nk(G_nx)
+
+		num_nodes_to_remove = int(perc_to_remove * N)
+
 		(GC_List,size_dball,size_ball,dg_list) = perc_process_dBalls_bigBalls(G_nk,radius,num_nodes_to_remove)
 
 		GC_List_to_append = GC_List[:num_nodes_to_remove]
@@ -785,7 +815,7 @@ def big_sim_dball(N,k,SEED,radius,perc_to_remove,num_sims):
 
 
 
-
+"""
 N=int(sys.argv[1]) # number of nodes
 
 k=int(sys.argv[2])
@@ -819,7 +849,7 @@ with open(filename_dball,'wb') as handle:
 
 with open(filename_dg,'wb') as handle:
 	pickle.dump(big_dg_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
+"""
 
 
 
