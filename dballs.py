@@ -839,7 +839,9 @@ print(GC_List1)
 
 print(GC_List2)
 
-print(list(zip(zip(GC_List1[:1000],GC_List2[:1000]),GC_List3)))
+print(GC_List3)
+
+#print(list(zip(zip(GC_List1[:1000],GC_List2[:1000]),GC_List3)))
 
 
 
