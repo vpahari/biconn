@@ -326,8 +326,6 @@ def perc_process_dBalls_bigBalls(G_copy,radius,num_nodes_to_remove):
 
 		node_to_remove = dict_to_sorted_list_dball(dict_nodes_ball)
 
-		degree_list.append((node_to_remove, G.degree(node_to_remove)))
-
 		(dBall,ball) = get_dBN(G,node_to_remove,radius)
 
 		print(len(dBall), len(ball))
@@ -339,10 +337,13 @@ def perc_process_dBalls_bigBalls(G_copy,radius,num_nodes_to_remove):
 			size_ball.append(0)
 			counter += 1
 			GC_List.append(get_GC(G))
+			degree_list.append((i, G.degree(i)))
 			continue
 
 		size_dball.append(len(dBall))
 		size_ball.append(len(ball))
+
+		degree_list.append((node_to_remove, G.degree(node_to_remove)))
 
 		for i in dBall:
 			G.removeNode(i)
