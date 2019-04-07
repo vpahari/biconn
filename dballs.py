@@ -811,6 +811,27 @@ def big_sim_ball(N,k,SEED,radius,perc_to_remove,num_sims):
 
 
 
+N = 10000
+k = 4
+SEED = 4321
+perc_to_remove = 0.9
+radius = 2
+
+
+G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
+
+G_nk = nk.nxadapter.nx2nk(G_nx)
+
+num_nodes_to_remove = int(perc_to_remove * N)
+
+(GC_List1,size_dball1,size_ball1,dg_list1) = perc_process_dBalls_bigBalls(G_nk,radius,num_nodes_to_remove)
+(GC_List2,size_dball2,size_ball2,dg_list2) = perc_process_dBalls_bigDBalls(G_nk,radius,num_nodes_to_remove)
+
+
+print(GC_List1)
+
+print(GC_List2)
+
 
 
 
