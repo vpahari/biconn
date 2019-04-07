@@ -330,6 +330,8 @@ def perc_process_dBalls_bigBalls(G_copy,radius,num_nodes_to_remove):
 
 		(dBall,ball) = get_dBN(G,node_to_remove,radius)
 
+		print(len(dBall), len(ball))
+
 		if len(dBall) == 0:
 			i = random.sample(list(G.nodes()),1)
 			G.removeNode(i[0])
