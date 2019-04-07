@@ -172,7 +172,7 @@ def get_largest_dball(dball_dict,node_list):
 
 
 
-def dict_to_sorted_list(d, ascending):
+def dict_to_sorted_list(d):
 
 	new_list = list(d.items())
 
