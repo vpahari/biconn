@@ -337,7 +337,7 @@ def perc_process_dBalls_bigBalls(G_copy,radius,num_nodes_to_remove):
 			size_ball.append(0)
 			counter += 1
 			GC_List.append(get_GC(G))
-			degree_list.append((i, G.degree(i)))
+			degree_list.append((i[0], G.degree(i[0])))
 			continue
 
 		size_dball.append(len(dBall))
@@ -389,7 +389,7 @@ def perc_process_dBalls_bigDBalls(G_copy,radius,num_nodes_to_remove):
 			size_ball.append(0)
 			counter += 1
 			GC_List.append(get_GC(G))
-			degree_list.append((i, G.degree(i)))
+			degree_list.append((i[0], G.degree(i[0])))
 			continue
 
 		size_dball.append(len(dBall))
