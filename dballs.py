@@ -825,12 +825,15 @@ G_nk = nk.nxadapter.nx2nk(G_nx)
 num_nodes_to_remove = int(perc_to_remove * N)
 
 (GC_List1,size_dball1,size_ball1,dg_list1) = perc_process_dBalls_bigBalls(G_nk,radius,num_nodes_to_remove)
+
 (GC_List2,size_dball2,size_ball2,dg_list2) = perc_process_dBalls_bigDBalls(G_nk,radius,num_nodes_to_remove)
 
 
 print(GC_List1)
 
 print(GC_List2)
+
+list(zip(GC_List1[:1000],GC_List2[:1000]))
 
 
 
