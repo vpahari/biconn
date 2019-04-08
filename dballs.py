@@ -700,7 +700,26 @@ def random_ball_removal(G_copy,radius,num_nodes_to_remove):
 
 	GC_list = []
 
+	size_dball = [] 
+
+	size_ball = []
+
+	continue_counter = 0
+
+	N = G.numberOfNodes()
+
 	while counter < num_nodes_to_remove:
+
+		if continue_counter > (0.1 * N):
+			all_nodes = list(G.nodes())
+			node_sample = random.sample(all_nodes,(num_nodes_to_remove - counter))
+			for i in node_sample:
+				G.removeNode(i)
+				counter += 1
+				GC_list.append(get_GC(G))
+
+			break
+
 
 		all_nodes = get_GC_nodes(G)
 
@@ -711,14 +730,19 @@ def random_ball_removal(G_copy,radius,num_nodes_to_remove):
 		(dBall,ball) = get_dBN(G,node,radius)
 
 		if len(dBall) == 0:
+			continue_counter += 1
 			continue
+
+		size_dball.append(len(dBall))
+		size_ball.append(len(ball))
 
 		for i in dBall:
 			G.removeNode(i)
 			counter += 1
 			GC_list.append(get_GC(G))
+			continue_counter = 0
 
-	return GC_list
+	return (GC_list,size_dball,size_ball)
 
 
 
@@ -812,6 +836,38 @@ def big_sim_ball(N,k,SEED,radius,perc_to_remove,num_sims):
 		big_dg_list.append(dg_list)
 
 	return (big_GC_List,big_size_dball,big_size_ball,big_dg_list)
+
+
+
+def big_sim_random_ball_removal(N,k,SEED,radius,perc_to_remove,num_sims):
+
+	big_GC_List = []
+
+	big_size_ball = []
+
+	big_size_dball = []
+
+	for i in range(num_sims):
+
+		G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED * (i+1)) 
+
+		G_nk = nk.nxadapter.nx2nk(G_nx)
+
+		num_nodes_to_remove = int(perc_to_remove * N)
+
+		(GC_list,size_dball,size_ball) = random_ball_removal(G_nk,radius,num_nodes_to_remove)
+
+		GC_List_to_append = GC_List[:num_nodes_to_remove]
+
+		big_GC_List.append(GC_List_to_append)
+
+		big_size_ball.append(size_ball)
+
+		big_size_dball.append(size_dball)
+
+	return big_GC_List
+
+
 
 
 
