@@ -865,7 +865,7 @@ def big_sim_random_ball_removal(N,k,SEED,radius,perc_to_remove,num_sims):
 
 		big_size_dball.append(size_dball)
 
-	return big_GC_List
+	return (big_GC_List,big_size_dball,big_size_ball)
 
 
 
