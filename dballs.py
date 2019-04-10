@@ -870,15 +870,17 @@ def big_sim_random_ball_removal(N,k,SEED,radius,perc_to_remove,num_sims):
 	return (big_GC_List,big_size_dball,big_size_ball)
 
 
+N=int(sys.argv[1]) # number of nodes
 
+k=int(sys.argv[2])
 
+SEED=int(sys.argv[3])
 
-N = 10000
-k = 4
-SEED = 4321
-perc_to_remove = 0.9
-radius = 4
-num_sims = 10
+radius = int(sys.argv[4])
+
+perc_to_remove = float(sys.argv[5])
+
+num_sims = int(sys.argv[6])
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
