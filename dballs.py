@@ -884,18 +884,33 @@ G_nk = nk.nxadapter.nx2nk(G_nx)
 
 num_nodes_to_remove = int(perc_to_remove * N)
 
-(GC_List1,size_dball1,size_ball1,dg_list1) = perc_process_dBalls_bigBalls(G_nk,radius,num_nodes_to_remove)
+(big_GC_List,big_size_dball,big_size_ball) = big_sim_random_ball_removal(N,k,SEED,radius,perc_to_remove,num_sims)
 
-(GC_List2,size_dball2,size_ball2,dg_list2) = perc_process_dBalls_bigDBalls(G_nk,radius,num_nodes_to_remove)
+filename_GC = "dballAttRandomBall" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_ball = "dballAttRandomBall" +  "_ball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_dball = "dballAttRandomBall"  + "_dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
 
-(GC_List3,size_dball3,size_ball3,dg_list3) = perc_process_dBalls(G_nk,radius,num_nodes_to_remove)
+with open(filename_GC, 'wb') as handle:
+	pickle.dump(big_GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_ball,'wb') as handle:
+	pickle.dump(big_size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_dball,'wb') as handle:
+	pickle.dump(big_size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+#(GC_List1,size_dball1,size_ball1,dg_list1) = perc_process_dBalls_bigBalls(G_nk,radius,num_nodes_to_remove)
+
+#(GC_List2,size_dball2,size_ball2,dg_list2) = perc_process_dBalls_bigDBalls(G_nk,radius,num_nodes_to_remove)
+
+#(GC_List3,size_dball3,size_ball3,dg_list3) = perc_process_dBalls(G_nk,radius,num_nodes_to_remove)
 
 
-print(GC_List1)
+#print(GC_List1)
 
-print(GC_List2)
+#print(GC_List2)
 
-print(GC_List3)
+#print(GC_List3)
 
 #print(list(zip(zip(GC_List1[:1000],GC_List2[:1000]),GC_List3)))
 
