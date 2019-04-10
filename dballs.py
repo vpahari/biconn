@@ -720,6 +720,8 @@ def random_ball_removal(G_copy,radius,num_nodes_to_remove):
 
 			break
 
+		print(counter)
+
 
 		all_nodes = get_GC_nodes(G)
 
