@@ -873,7 +873,7 @@ def big_sim_random_ball_removal(N,k,SEED,radius,perc_to_remove,num_sims):
 
 
 
-N = 10000
+N = 1000
 k = 4
 SEED = 4321
 perc_to_remove = 0.9
