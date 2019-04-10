@@ -855,7 +855,7 @@ def big_sim_random_ball_removal(N,k,SEED,radius,perc_to_remove,num_sims):
 
 		num_nodes_to_remove = int(perc_to_remove * N)
 
-		(GC_list,size_dball,size_ball) = random_ball_removal(G_nk,radius,num_nodes_to_remove)
+		(GC_List,size_dball,size_ball) = random_ball_removal(G_nk,radius,num_nodes_to_remove)
 
 		GC_List_to_append = GC_List[:num_nodes_to_remove]
 
