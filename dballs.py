@@ -9,6 +9,7 @@ from operator import itemgetter
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
 import pickle
+import igraph as ig
 
 
 def add_into_set(s,new_s):
@@ -870,11 +871,62 @@ def big_sim_random_ball_removal(N,k,SEED,radius,perc_to_remove,num_sims):
 	return (big_GC_List,big_size_dball,big_size_ball)
 
 
+
+def make_SF_Graph(N,k,exp_out):
+
+	num_edges = int((N * k) / 2)
+
+	igG = ig.Graph.Static_Power_Law(N,num_edges,exp_out)
+
+	allEdges = igG.get_edgelist()
+
+	fixed_G = nx.Graph()
+
+	listOfNodes = [i for i in range(N)]
+
+	fixed_G.add_nodes_from(listOfNodes)
+
+	fixed_G.add_edges_from(allEdges)
+
+	G_nk = nk.nxadapter.nx2nk(fixed_G)
+
+	return G_nk
+
+
+def big_sim_SF(N,k,exp_out,radius,perc_to_remove,num_sims):
+
+	big_GC_List = []
+
+	big_size_ball = []
+
+	big_size_dball = []
+
+	for i in range(num_sims):
+
+		G_nk = make_SF_Graph(N,k,exp_out)
+
+		num_nodes_to_remove = int(perc_to_remove * N)
+
+		(GC_List,size_dball,size_ball) = perc_process_dBalls(G_nk,radius,num_nodes_to_remove)
+
+		GC_List_to_append = GC_List[:num_nodes_to_remove]
+
+		big_GC_List.append(GC_List_to_append)
+
+		big_size_ball.append(size_ball)
+
+		big_size_dball.append(size_dball)
+
+	return (big_GC_List,big_size_dball,big_size_ball)
+
+
+
+
 N=int(sys.argv[1]) # number of nodes
 
 k=int(sys.argv[2])
 
-SEED=int(sys.argv[3])
+exp_out=int(sys.argv[3])
 
 radius = int(sys.argv[4])
 
@@ -882,17 +934,17 @@ perc_to_remove = float(sys.argv[5])
 
 num_sims = int(sys.argv[6])
 
-G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
+#G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
-G_nk = nk.nxadapter.nx2nk(G_nx)
+#G_nk = nk.nxadapter.nx2nk(G_nx)
 
 num_nodes_to_remove = int(perc_to_remove * N)
 
-(big_GC_List,big_size_dball,big_size_ball) = big_sim_random_ball_removal(N,k,SEED,radius,perc_to_remove,num_sims)
+(big_GC_List,big_size_dball,big_size_ball) = big_sim_SF(N,k,exp_out,radius,perc_to_remove,num_sims)
 
-filename_GC = "dballAttRandomBall" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_ball = "dballAttRandomBall" +  "_ball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_dball = "dballAttRandomBall"  + "_dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_GC = "dballSF" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_ball = "dballSF" +  "_ball_ER_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_dball = "dballSF"  + "_dball_ER_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
 
 with open(filename_GC, 'wb') as handle:
 	pickle.dump(big_GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
