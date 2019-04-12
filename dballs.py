@@ -901,13 +901,15 @@ def big_sim_SF(N,k,exp_out,radius,perc_to_remove,num_sims):
 
 	big_size_dball = []
 
+	big_dg_list = []
+
 	for i in range(num_sims):
 
 		G_nk = make_SF_Graph(N,k,exp_out)
 
 		num_nodes_to_remove = int(perc_to_remove * N)
 
-		(GC_List,size_dball,size_ball) = perc_process_dBalls(G_nk,radius,num_nodes_to_remove)
+		(GC_List,size_dball,size_ball,degree_list) = perc_process_dBalls(G_nk,radius,num_nodes_to_remove)
 
 		GC_List_to_append = GC_List[:num_nodes_to_remove]
 
@@ -917,7 +919,9 @@ def big_sim_SF(N,k,exp_out,radius,perc_to_remove,num_sims):
 
 		big_size_dball.append(size_dball)
 
-	return (big_GC_List,big_size_dball,big_size_ball)
+		big_dg_list.append(degree_list)
+
+	return (big_GC_List,big_size_dball,big_size_ball,big_dg_list)
 
 
 
@@ -940,11 +944,13 @@ num_sims = int(sys.argv[6])
 
 num_nodes_to_remove = int(perc_to_remove * N)
 
-(big_GC_List,big_size_dball,big_size_ball) = big_sim_SF(N,k,exp_out,radius,perc_to_remove,num_sims)
+(big_GC_List,big_size_dball,big_size_ball,big_dg_list) = big_sim_SF(N,k,exp_out,radius,perc_to_remove,num_sims)
 
-filename_GC = "dballSF" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_ball = "dballSF" +  "_ball_ER_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_dball = "dballSF"  + "_dball_ER_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_GC = "dballSF" +  "_GC_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_ball = "dballSF" +  "_ball_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_dball = "dballSF"  + "_dball_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+filename_dg = "dballSF"  + "_dg_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
+
 
 with open(filename_GC, 'wb') as handle:
 	pickle.dump(big_GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -954,6 +960,9 @@ with open(filename_ball,'wb') as handle:
 
 with open(filename_dball,'wb') as handle:
 	pickle.dump(big_size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_dg,'wb') as handle:
+	pickle.dump(big_dg_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 #(GC_List1,size_dball1,size_ball1,dg_list1) = perc_process_dBalls_bigBalls(G_nk,radius,num_nodes_to_remove)
 
