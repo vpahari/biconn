@@ -1051,7 +1051,7 @@ def big_sims_WS(dim,size,nei,p,SEED,start_radius,end_radius):
 
 	G = make_WS_graph(dim,size,nei,p,SEED)
 
-	(big_GC_List_dball,big_counter_list_dball) = perc_process_dBalls_track_balls(G,start_radius,end_radius)
+	(big_GC_List_dball,big_counter_list_dball) = big_sim_changing_radius(G,start_radius,end_radius)
 
 	GC_list_ADA = ADA_attack(G_nk, int(N * 0.99))
 
