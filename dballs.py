@@ -487,21 +487,23 @@ def perc_random(G_copy,num_nodes_to_remove):
 	return GC_List
 
 
-def gc_avg(graphList):
+
+
+def get_avg_list(big_list):
 
 	counter = 0
 
-	len_list = len(graphList[0])
+	size_of_list = len(big_list[0])
 
 	avg_list = []
 
-	while counter < len_list:
+	while counter < size_of_list:
 
-		gList = list(map(lambda x : x[counter], graphList))
+		index_list = list(map(lambda x : x[counter], big_list))
 
-		gAvg = sum(gList) / len(gList)
+		avg = sum(index_list) / len(index_list)
 
-		avg_list.append(gAvg)
+		avg_list.append(avg)
 
 		counter += 1
 
@@ -518,7 +520,7 @@ def big_random_attack(G_copy,num_nodes_to_remove,num_sims):
 
 		big_GC_List.append(GC_list)
 
-	avg_list = gc_avg(big_GC_List)
+	avg_list = get_avg_list(big_GC_List)
 
 	return avg_list
 
@@ -600,29 +602,6 @@ def turn_lists_together(GC_List,num_nodes_removed):
 		pointer += 1
 
 	return final_list
-
-
-
-def get_avg_list(big_list):
-
-	counter = 0
-	size_of_list = len(big_list[0])
-	avg_list = []
-
-	while counter < size_of_list:
-
-		index_list = list(map(lambda x : x[counter], big_list))
-
-		avg = sum(index_list) / len(index_list)
-
-		avg_list.append(avg)
-
-		counter += 1
-
-	return avg_list
-
-
-
 
 
 
@@ -1074,9 +1053,9 @@ k=int(sys.argv[2])
 
 SEED = int(sys.argv[3])
 
-start_radius = int(sys.argv[4])
+#start_radius = int(sys.argv[4])
 
-end_radius = int(sys.argv[5])
+#end_radius = int(sys.argv[5])
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
@@ -1086,28 +1065,36 @@ G_nk = nk.nxadapter.nx2nk(G_nx)
 
 #(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,start_radius)
 
-(big_GC_List,big_counter_list) = big_sim_changing_radius(G_nk,start_radius,end_radius)
+#(big_GC_List,big_counter_list) = big_sim_changing_radius(G_nk,start_radius,end_radius)
 
-#GC_list_ADA = ADA_attack(G, int(N * 0.99))
+GC_list_ADA = ADA_attack(G_nk, int(N * 0.99))
 
-print(big_GC_List)
-
-print(big_counter_list)
-
-print(len(big_GC_List))
-
-print(len(big_counter_list))
-
-filename_GC = "dballTrackRadius" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
-
-filename_CL = "dballTrackRadius" +  "_CL_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
+GC_list_RAN = big_random_attack(G_nk,int(N * 0.99),20)
 
 
+#filename_GC = "dballTrackRadius" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
+
+#filename_CL = "dballTrackRadius" +  "_CL_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
+
+filename_ADA = "dballTrackRadiusADA" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
+
+filename_RAN = "dballTrackRadiusRAN" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
+
+
+"""
 with open(filename_GC, 'wb') as handle:
 	pickle.dump(big_GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 with open(filename_CL,'wb') as handle:
 	pickle.dump(big_counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+"""
+
+
+with open(filename_ADA, 'wb') as handle:
+	pickle.dump(GC_list_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_RAN,'wb') as handle:
+	pickle.dump(GC_list_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 #exp_out=float(sys.argv[3])
 
