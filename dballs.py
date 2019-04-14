@@ -235,6 +235,67 @@ def copy_graph(G):
 
 
 
+def perc_process_dBalls_track_balls(G_copy,radius):
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+	size_dball = [] 
+	size_ball = []
+
+	degree_list = []
+
+	counter = 0
+
+	counter_list = []
+
+	GC_List.append(get_GC(G))
+	counter_list.append(counter)
+
+	num_nodes_to_remove = G.numberOfNodes()
+
+	while counter < num_nodes_to_remove:
+
+		print(counter)
+
+		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+
+		list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
+
+		if len(list_to_remove) == 0:
+			break
+		
+		print(list_to_remove)
+
+		node = get_largest_dball(dict_nodes_dBall,list_to_remove)
+
+		print(node,dict_nodes_dBall[node])
+
+		degree_list.append((node, G.degree(node)))
+
+		#print(counter)
+
+		(dBall,ball) = get_dBN(G,node,radius) 
+
+		size_dball.append(len(dBall))
+		size_ball.append(len(ball))
+
+
+		#print(dBall)
+		#print(ball)
+
+		for i in dBall:
+			G.removeNode(i)
+			counter += 1
+
+		GC_List.append(get_GC(G))
+
+		counter_list.append(counter)
+
+
+	return (GC_List,size_dball,size_ball,degree_list,counter_list)
+
+
 
 
 def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
@@ -925,23 +986,94 @@ def big_sim_SF(N,k,exp_out,radius,perc_to_remove,num_sims):
 
 
 
+def make_WS_graph(dim,size,nei,p):
+
+	N = size ** dim
+
+	igG = ig.Graph.Watts_Strogatz(dim,size,nei,p)
+
+	allEdges = igG.get_edgelist()
+
+	fixed_G = nx.Graph()
+
+	listOfNodes = [i for i in range(N)]
+
+	fixed_G.add_nodes_from(listOfNodes)
+
+	fixed_G.add_edges_from(allEdges)
+
+	G_nk = nk.nxadapter.nx2nk(fixed_G)
+
+	return G_nk
+
+
+def big_sim_changing_radius(G,start_radius,end_radius):
+
+	big_GC_List = []
+	big_counter_list = []
+
+	curr_radius = start_radius 
+
+	while curr_radius <= end_radius:
+
+		(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G,curr_radius)
+
+		big_GC_List.append(GC_List)
+
+		big_counter_list.append(counter_list)
+
+		curr_radius += 1
+
+	return (big_GC_List,big_counter_list)
+
+
+
+
+
 
 N=int(sys.argv[1]) # number of nodes
 
 k=int(sys.argv[2])
 
-exp_out=float(sys.argv[3])
+SEED = int(sys.argv[3])
 
-radius = int(sys.argv[4])
+start_radius = int(sys.argv[4])
 
-perc_to_remove = float(sys.argv[5])
+end_radius = int(sys.argv[5])
 
-num_sims = int(sys.argv[6])
+G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
+
+G_nk = nk.nxadapter.nx2nk(G_nx)
+
+#perc_to_remove = float(sys.argv[5])
+
+(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,start_radius)
+
+print(GC_List)
+
+print(counter_list)
+
+print(len(GC_List))
+
+print(len(counter_list))
+
+
+
+#exp_out=float(sys.argv[3])
+
+#radius = int(sys.argv[4])
+
+#perc_to_remove = float(sys.argv[5])
+
+#num_sims = int(sys.argv[6])
 
 #G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
 #G_nk = nk.nxadapter.nx2nk(G_nx)
 
+
+
+"""
 num_nodes_to_remove = int(perc_to_remove * N)
 
 (big_GC_List,big_size_dball,big_size_ball,big_dg_list) = big_sim_SF(N,k,exp_out,radius,perc_to_remove,num_sims)
@@ -979,7 +1111,7 @@ with open(filename_dg,'wb') as handle:
 
 #print(list(zip(zip(GC_List1[:1000],GC_List2[:1000]),GC_List3)))
 
-
+"""
 
 
 
