@@ -487,6 +487,43 @@ def perc_random(G_copy,num_nodes_to_remove):
 	return GC_List
 
 
+def gc_avg(graphList):
+
+	counter = 0
+
+	len_list = len(graphList[0])
+
+	avg_list = []
+
+	while counter < len_list:
+
+		gList = list(map(lambda x : x[counter], graphList))
+
+		gAvg = sum(gList) / len(gList)
+
+		avg_list.append(gAvg)
+
+		counter += 1
+
+	return avg_list
+
+
+def big_random_attack(G_copy,num_nodes_to_remove,num_sims):
+
+	big_GC_List = []
+
+	for i in range(num_sims):
+
+		GC_list = perc_random(G_copy,num_nodes_to_remove)
+
+		big_GC_List.append(GC_list)
+
+	avg_list = gc_avg(big_GC_List)
+
+	return avg_list
+
+
+
 def ADA_attack(G_copy,num_nodes_to_remove):
 
 	G = copy_graph(G_copy)
@@ -1051,6 +1088,8 @@ G_nk = nk.nxadapter.nx2nk(G_nx)
 
 (big_GC_List,big_counter_list) = big_sim_changing_radius(G_nk,start_radius,end_radius)
 
+#GC_list_ADA = ADA_attack(G, int(N * 0.99))
+
 print(big_GC_List)
 
 print(big_counter_list)
@@ -1059,7 +1098,16 @@ print(len(big_GC_List))
 
 print(len(big_counter_list))
 
+filename_GC = "dballTrackRadius" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
 
+filename_CL = "dballTrackRadius" +  "_CL_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
+
+
+with open(filename_GC, 'wb') as handle:
+	pickle.dump(big_GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_CL,'wb') as handle:
+	pickle.dump(big_counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 #exp_out=float(sys.argv[3])
 
