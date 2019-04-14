@@ -1049,7 +1049,7 @@ G_nk = nk.nxadapter.nx2nk(G_nx)
 
 #(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,start_radius)
 
-(big_GC_List,big_counter_list) = big_sim_changing_radius(G,start_radius,end_radius)
+(big_GC_List,big_counter_list) = big_sim_changing_radius(G_nk,start_radius,end_radius)
 
 print(big_GC_List)
 
