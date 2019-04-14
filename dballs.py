@@ -1047,15 +1047,17 @@ G_nk = nk.nxadapter.nx2nk(G_nx)
 
 #perc_to_remove = float(sys.argv[5])
 
-(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,start_radius)
+#(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,start_radius)
 
-print(GC_List)
+(big_GC_List,big_counter_list) = big_sim_changing_radius(G,start_radius,end_radius)
 
-print(counter_list)
+print(big_GC_List)
 
-print(len(GC_List))
+print(big_counter_list)
 
-print(len(counter_list))
+print(len(big_GC_List))
+
+print(len(big_counter_list))
 
 
 
