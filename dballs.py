@@ -1053,9 +1053,9 @@ k=int(sys.argv[2])
 
 SEED = int(sys.argv[3])
 
-#start_radius = int(sys.argv[4])
+start_radius = int(sys.argv[4])
 
-#end_radius = int(sys.argv[5])
+end_radius = int(sys.argv[5])
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
