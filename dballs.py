@@ -130,7 +130,11 @@ def swap_fun(G,removal_list, GC_list):
 
 		swap_element(removal_list,el1,el2)
 
+		print(removal_list)
+
 		new_GC_list = get_GC_list(G,removal_list)
+
+		print(removal_list)
 
 		diff = get_diff(new_GC_list, GC_list)
 
@@ -145,6 +149,8 @@ def swap_fun(G,removal_list, GC_list):
 			swap_element(removal_list,el1,el2)
 
 			counter += 1
+
+		break
 
 
 def get_final_removal_list(G_copy, radius):
