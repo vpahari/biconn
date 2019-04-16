@@ -150,7 +150,6 @@ def swap_fun(G,removal_list, GC_list):
 
 			counter += 1
 
-		break
 
 
 def get_final_removal_list(G_copy, radius):
