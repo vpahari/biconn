@@ -130,11 +130,11 @@ def swap_fun(G,removal_list, GC_list):
 
 		swap_element(removal_list,el1,el2)
 
-		print(GC_list)
+		#print(GC_list)
 
 		new_GC_list = get_GC_list(G,removal_list)
 
-		print(new_GC_list)
+		#print(new_GC_list)
 
 		diff = get_diff(new_GC_list, GC_list)
 
