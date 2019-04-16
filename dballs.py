@@ -117,6 +117,8 @@ def swap_fun(G,removal_list, GC_list):
 
 	while counter < 1000:
 
+		print(counter)
+
 		l = [i for i in range(len(removal_list))]
 
 		el_list = random.sample(l,2)
@@ -129,6 +131,8 @@ def swap_fun(G,removal_list, GC_list):
 		new_GC_list = get_GC_list(G,removal_list)
 
 		diff = get_diff(new_GC_list, GC_list)
+
+		print(diff)
 
 		if diff > 0:
 
@@ -1204,12 +1208,26 @@ def big_sims_WS(dim,size,nei,p,SEED,start_radius,end_radius):
 	return (big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN)
 
 
+N = 10000
+
+k = 4
+ 
+SEED = 4132
+
+radius = 2
 
 
+G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
+
+G_nk = nk.nxadapter.nx2nk(G_nx)
 
 
+r_list = get_final_removal_list(G_nk, radius)
+
+print(r_list)
 
 
+"""
 
 dim = int(sys.argv[1]) # number of nodes
 
@@ -1262,6 +1280,9 @@ with open(filename_RAN,'wb') as handle:
 #G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
 #G_nk = nk.nxadapter.nx2nk(G_nx)
+
+"""
+
 
 
 
