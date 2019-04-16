@@ -160,6 +160,8 @@ def get_final_removal_list(G_copy, radius):
 
 	(GC_List,size_dball,size_ball,degree_list,removal_order) = perc_process_dBalls_removalOrder(G_copy,radius,num_nodes)
 
+	print(GC_List)
+
 	swap_fun(G_copy,removal_order, GC_List)
 
 	return removal_order
