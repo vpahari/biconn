@@ -81,6 +81,8 @@ def get_diff(GC_list1, GC_list2):
 
 		diff += GC_list2[counter] - GC_list1[counter] 
 
+		print(diff)
+
 		counter += 1
 
 	return diff
@@ -156,6 +158,13 @@ def get_final_removal_list(G_copy, radius):
 	swap_fun(G_copy,removal_order, GC_List)
 
 	return removal_order
+
+
+
+
+
+
+
 
 
 
