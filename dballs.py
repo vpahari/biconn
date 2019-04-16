@@ -126,7 +126,7 @@ def swap_fun(G,removal_list, GC_list):
 		el1 = el_list[0]
 		el2 = el_list[1]
 
-		swap_element(removal_list,c1,c2)
+		swap_element(removal_list,el1,el2)
 
 		new_GC_list = get_GC_list(G,removal_list)
 
