@@ -156,7 +156,7 @@ def get_final_removal_list(G_copy, radius):
 
 	G = copy_graph(G_copy)
 
-	num_nodes = G.numberOfNodes()
+	num_nodes = G.numberOfNodes() * 0.2
 
 	(GC_List,size_dball,size_ball,degree_list,removal_order) = perc_process_dBalls_removalOrder(G_copy,radius,num_nodes)
 
