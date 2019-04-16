@@ -81,7 +81,7 @@ def get_diff(GC_list1, GC_list2):
 
 		diff += GC_list2[counter] - GC_list1[counter] 
 
-		print(diff)
+		#print(diff)
 
 		counter += 1
 
@@ -1239,7 +1239,7 @@ G_nk = nk.nxadapter.nx2nk(G_nx)
 
 r_list = get_final_removal_list(G_nk, radius)
 
-print(r_list)
+#print(r_list)
 
 
 """
