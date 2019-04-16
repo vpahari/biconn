@@ -12,6 +12,150 @@ import pickle
 import igraph as ig
 
 
+
+def perc_process_dBalls_removalOrder(G_copy,radius,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+	size_dball = [] 
+	size_ball = []
+
+	degree_list = []
+
+	counter = 0
+
+	removal_order = []
+
+	GC_List.append(get_GC(G))
+
+	while counter < num_nodes_to_remove:
+
+		print(counter)
+
+		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+
+		list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
+
+		if len(list_to_remove) == 0:
+			break
+		
+		print(list_to_remove)
+
+		node = get_largest_dball(dict_nodes_dBall,list_to_remove)
+
+		print(node,dict_nodes_dBall[node])
+
+		degree_list.append((node, G.degree(node)))
+
+		#print(counter)
+
+		(dBall,ball) = get_dBN(G,node,radius) 
+
+		size_dball.append(len(dBall))
+		size_ball.append(len(ball))
+
+		removal_order += dBall
+
+		#print(dBall)
+		#print(ball)
+
+		for i in dBall:
+			G.removeNode(i)
+			counter += 1
+			GC_List.append(get_GC(G))
+
+
+	return (GC_List,size_dball,size_ball,degree_list,removal_order)
+
+
+
+#first list is the new one 
+def get_diff(GC_list1, GC_list2):
+
+	diff = 0
+
+	counter = 0
+
+	while counter < len(GC_list1):
+
+		diff += GC_list2[counter] - GC_list1[counter] 
+
+		counter += 1
+
+	return diff
+		
+
+
+def swap_element(l,c1,c2):
+
+	t = l[c1]
+	l[c1] = l[c2]
+	l[c2] = t
+
+
+def get_GC_list(G_copy,removal_list):
+
+	G = copy_graph(G_copy)
+
+	GC_list = [get_GC(G)]
+
+	for i in removal_list:
+
+		G.removeNode(i)
+
+		GC_list.append(get_GC(G))
+
+	return GC_list
+
+
+
+
+def swap_fun(G,removal_list, GC_list):
+
+	counter = 0
+
+	while counter < 1000:
+
+		l = [i for i in range(len(removal_list))]
+
+		el_list = random.sample(l,2)
+
+		el1 = el_list[0]
+		el2 = el_list[1]
+
+		swap_element(removal_list,c1,c2)
+
+		new_GC_list = get_GC_list(G,removal_list)
+
+		diff = get_diff(new_GC_list, GC_list)
+
+		if diff > 0:
+
+			counter = 0
+
+		else:
+
+			swap_element(removal_list,c1,c2)
+
+			counter += 1
+
+
+def get_final_removal_list(G_copy, radius):
+
+	G = copy_graph(G_copy)
+
+	num_nodes = G.numberOfNodes()
+
+	(GC_List,size_dball,size_ball,degree_list,removal_order) = perc_process_dBalls_removalOrder(G_copy,radius,num_nodes)
+
+	swap_fun(G_copy,removal_order, GC_List)
+
+	return removal_order
+
+
+
+
 def add_into_set(s,new_s):
 	for i in new_s:
 		s.add(i)
