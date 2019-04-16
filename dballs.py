@@ -140,7 +140,7 @@ def swap_fun(G,removal_list, GC_list):
 
 		else:
 
-			swap_element(removal_list,c1,c2)
+			swap_element(removal_list,el1,el2)
 
 			counter += 1
 
