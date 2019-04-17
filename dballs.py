@@ -172,10 +172,6 @@ def get_final_removal_list(G_copy, radius):
 
 
 
-
-
-
-
 def add_into_set(s,new_s):
 	for i in new_s:
 		s.add(i)
@@ -1217,13 +1213,13 @@ def big_sims_WS(dim,size,nei,p,SEED,start_radius,end_radius):
 
 	(big_GC_List_dball,big_counter_list_dball) = big_sim_changing_radius(G,start_radius,end_radius)
 
-	GC_list_ADA = ADA_attack(G_nk, int(N * 0.99))
+	GC_list_ADA = ADA_attack(G, int(N * 0.99))
 
-	GC_list_RAN = big_random_attack(G_nk,int(N * 0.99),20)
+	GC_list_RAN = big_random_attack(G,int(N * 0.99),20)
 
 	return (big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN)
 
-
+"""
 N = 10000
 
 k = 4
@@ -1241,9 +1237,9 @@ G_nk = nk.nxadapter.nx2nk(G_nx)
 r_list = get_final_removal_list(G_nk, radius)
 
 #print(r_list)
-
-
 """
+
+
 
 dim = int(sys.argv[1]) # number of nodes
 
@@ -1297,7 +1293,7 @@ with open(filename_RAN,'wb') as handle:
 
 #G_nk = nk.nxadapter.nx2nk(G_nx)
 
-"""
+
 
 
 
