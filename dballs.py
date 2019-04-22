@@ -152,19 +152,48 @@ def swap_fun(G,removal_list, GC_list):
 
 
 
-def get_final_removal_list(G_copy, radius):
+def get_fStar(ABA_list, dball_list):
 
-	G = copy_graph(G_copy)
+	counter = 0
 
-	num_nodes = G.numberOfNodes() * 0.2
+	big_counter = 0
 
-	(GC_List,size_dball,size_ball,degree_list,removal_order) = perc_process_dBalls_removalOrder(G_copy,radius,num_nodes)
+	while big_counter < 5:
 
-	print(GC_List)
+		if dball_list[counter] <= ABA_list[counter]:
 
-	swap_fun(G_copy,removal_order, GC_List)
+			counter += 1
 
-	return removal_order
+		else:
+
+			big_counter += 1
+
+	return counter
+
+
+
+
+
+
+def do_perc(G,radius,num_nodes_to_remove):
+
+	N = G.numberOfNodes()
+
+	GC_List_ABA = ABA_attack(G, num_nodes_to_remove)
+
+	(GC_List_dball,size_dball,size_ball,degree_list,removal_order) = perc_process_dBalls_removalOrder(G,radius,num_nodes_to_remove)
+
+	fstar = get_fStar(GC_List_ABA,GC_List_dball)
+
+	list_to_check = GC_List_dball[:fstar]
+
+	removal_order_to_check = removal_order[:fstar]
+
+	swap_fun(G, removal_order_to_check, list_to_check)
+
+
+
+
 
 
 
@@ -1231,6 +1260,16 @@ def big_sims_ER(G,start_radius,end_radius):
 	GC_list_RAN = big_random_attack(G,int(N * 0.99),20)
 
 	return (big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN)
+
+
+
+
+
+
+
+
+
+
 
 
 
