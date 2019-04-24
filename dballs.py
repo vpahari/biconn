@@ -77,8 +77,8 @@ def get_diff(GC_list1, GC_list2):
 
 	counter = 0
 
-	print(GC_list1)
-	print(GC_list2)
+	#print(GC_list1)
+	#print(GC_list2)
 
 	while counter < (len(GC_list1) - 1):
 
@@ -124,9 +124,9 @@ def swap_fun(G,removal_list, GC_list):
 
 		print(counter)
 
-		print(len(removal_list))
+		#print(len(removal_list))
 
-		print(len(GC_list))
+		#print(len(GC_list))
 
 		l = [i for i in range(len(removal_list))]
 
