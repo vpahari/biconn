@@ -192,7 +192,11 @@ def do_perc(G,radius,num_nodes_to_remove):
 
 	GC_List_ABA = ABA_attack(G, num_nodes_to_remove)
 
+	print(GC_List_ABA)
+
 	(GC_List_dball,size_dball,size_ball,degree_list,removal_order) = perc_process_dBalls_removalOrder(G,radius,num_nodes_to_remove)
+
+	print(GC_List_dball)
 
 	fstar = get_fStar(GC_List_ABA,GC_List_dball)
 
