@@ -189,6 +189,8 @@ def do_perc(G,radius,num_nodes_to_remove):
 
 	removal_order_to_check = removal_order[:fstar]
 
+	original_list = list_to_check.copy()
+
 	swap_fun(G, removal_order_to_check, list_to_check)
 
 
@@ -1307,7 +1309,7 @@ end_radius = int(sys.argv[5])
 """
 
 #SF
-
+"""
 N=int(sys.argv[1]) # number of nodes
 
 k=int(sys.argv[2])
@@ -1318,16 +1320,22 @@ start_radius = int(sys.argv[4])
 
 end_radius = int(sys.argv[5])
 
-
+"""
 
 
 
 #G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
-G_nk = make_SF_Graph(N,k,exp_out)
+#G_nk = make_SF_Graph(N,k,exp_out)
+
+G_nx = nx.erdos_renyi_graph(1000, 4/9999, seed = 2134) 
+
+G_nk = nk.nxadapter.nx2nk(G_nx)
+
+do_perc(G_nk,2,500)
 
 
-(big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN) = big_sims_SF(G_nk,start_radius,end_radius)
+#(big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN) = big_sims_SF(G_nk,start_radius,end_radius)
 
 
 #WS
@@ -1342,7 +1350,7 @@ filename_RAN = "dballTrackRadiusRAN" +  "_GC_WS_dim_" + str(dim) + "_size_" + st
 """
 
 #SF
-
+"""
 filename_GC = "dballTrackRadius" +  "_GC_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
 
 filename_CL = "dballTrackRadius" +  "_CL_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
@@ -1351,7 +1359,7 @@ filename_ADA = "dballTrackRadiusADA" +  "_GC_SF_N_" + str(N) + "_k_" + str(k) + 
 
 filename_RAN = "dballTrackRadiusRAN" +  "_GC_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
 
-
+"""
 
 
 
