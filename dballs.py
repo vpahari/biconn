@@ -172,7 +172,7 @@ def get_fStar(ABA_list, dball_list):
 
 			big_counter += 1
 
-	return counter
+	return counter - big_counter
 
 
 
