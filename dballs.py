@@ -80,7 +80,7 @@ def get_diff(GC_list1, GC_list2):
 	#print(GC_list1)
 	#print(GC_list2)
 
-	while counter < (len(GC_list1) - 1):
+	while counter < len(GC_list1):
 
 		diff += GC_list2[counter] - GC_list1[counter] 
 
@@ -145,9 +145,9 @@ def swap_fun(G,removal_list, GC_list):
 
 		diff = get_diff(new_GC_list, GC_list)
 
-		print(diff)
-
 		if diff > 0:
+
+			print(diff)
 
 			counter = 0
 
@@ -205,7 +205,7 @@ def do_perc(G,radius,num_nodes_to_remove):
 
 	list_to_check = GC_List_dball[:fstar]
 
-	removal_order_to_check = removal_order[:fstar]
+	removal_order_to_check = removal_order[:(fstar - 1)]
 
 	original_list = list_to_check.copy()
 
