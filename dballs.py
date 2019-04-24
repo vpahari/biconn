@@ -1293,9 +1293,9 @@ end_radius = int(sys.argv[5])
 
 
 
-G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
+#G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
-G_nk = nk.nxadapter.nx2nk(G_nx)
+#G_nk = nk.nxadapter.nx2nk(G_nx)
 
 
 (big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN) = big_sims_WS(dim,size,nei,p,SEED,start_radius,end_radius)
