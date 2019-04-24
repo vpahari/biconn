@@ -120,6 +120,8 @@ def swap_fun(G,removal_list, GC_list):
 
 	counter = 0
 
+	accumulation = []
+
 	while counter < 1000:
 
 		print(counter)
@@ -153,11 +155,17 @@ def swap_fun(G,removal_list, GC_list):
 
 			GC_list = new_GC_list.copy()
 
+			accumulation.append(diff)
+
+			print(accumulation)
+
 		else:
 
 			swap_element(removal_list,el1,el2)
 
 			counter += 1
+
+	return accumulation
 
 
 
@@ -211,7 +219,13 @@ def do_perc(G,radius,num_nodes_to_remove):
 
 	original_list = list_to_check.copy()
 
-	swap_fun(G, removal_order_to_check, list_to_check)
+	accumulation_list = swap_fun(G, removal_order_to_check, list_to_check)
+
+	new_list = get_GC_list(G,removal_order_to_check)
+
+	print(accumulation_list)
+
+	return (original_list,new_list,accumulation_list)
 
 
 
@@ -1335,16 +1349,17 @@ end_radius = int(sys.argv[5])
 
 """
 
-N = 1000
+N = 500
 k = 4
 radius = 2
 perc_to_remove = 0.5
+SEED = 4255
 
 #G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
 #G_nk = make_SF_Graph(N,k,exp_out)
 
-G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = 2134) 
+G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
 G_nk = nk.nxadapter.nx2nk(G_nx)
 
