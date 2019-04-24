@@ -1333,7 +1333,7 @@ end_radius = int(sys.argv[5])
 
 """
 
-N = 1000
+N = 100
 k = 4
 radius = 2
 perc_to_remove = 0.5
