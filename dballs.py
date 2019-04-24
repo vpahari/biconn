@@ -77,6 +77,9 @@ def get_diff(GC_list1, GC_list2):
 
 	counter = 0
 
+	print(len(GC_list1))
+	print(len(GC_list2))
+
 	while counter < len(GC_list1):
 
 		diff += GC_list2[counter] - GC_list1[counter] 
