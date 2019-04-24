@@ -1363,7 +1363,7 @@ G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
 G_nk = nk.nxadapter.nx2nk(G_nx)
 
-do_perc(G_nk,radius,int(perc_to_remove * N))
+print(do_perc(G_nk,radius,int(perc_to_remove * N)))
 
 
 #(big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN) = big_sims_SF(G_nk,start_radius,end_radius)
