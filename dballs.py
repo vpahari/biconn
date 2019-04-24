@@ -1346,7 +1346,7 @@ end_radius = int(sys.argv[5])
 
 #G_nk = make_SF_Graph(N,k,exp_out)
 
-G_nx = nx.erdos_renyi_graph(1000, 4/9999, seed = 2134) 
+G_nx = nx.erdos_renyi_graph(1000, 4/999, seed = 2134) 
 
 G_nk = nk.nxadapter.nx2nk(G_nx)
 
