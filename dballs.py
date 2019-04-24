@@ -185,6 +185,8 @@ def do_perc(G,radius,num_nodes_to_remove):
 
 	fstar = get_fStar(GC_List_ABA,GC_List_dball)
 
+	print(fstar)
+
 	list_to_check = GC_List_dball[:fstar]
 
 	removal_order_to_check = removal_order[:fstar]
