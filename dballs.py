@@ -1262,19 +1262,24 @@ def big_sims_ER(G,start_radius,end_radius):
 	return (big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN)
 
 
+dim = int(sys.argv[1])
+
+size = int(sys.argv[2])
+
+nei = int(sys.argv[3])
+
+p = float(sys.argv[4])
+
+SEED = int(sys.argv[5])
+
+start_radius = int(sys.argv[6])
+
+end_radius = int(sys.argv[7])
 
 
 
 
-
-
-
-
-
-
-
-
-
+"""
 N=int(sys.argv[1]) # number of nodes
 
 k=int(sys.argv[2])
@@ -1284,22 +1289,25 @@ SEED=int(sys.argv[3])
 start_radius = int(sys.argv[4])
 
 end_radius = int(sys.argv[5])
+"""
+
+
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
 G_nk = nk.nxadapter.nx2nk(G_nx)
 
 
-(big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN) = big_sims_ER(G_nk,start_radius,end_radius)
+(big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN) = big_sims_WS(dim,size,nei,p,SEED,start_radius,end_radius)
 
 
-filename_GC = "dballTrackRadius" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
+filename_GC = "dballTrackRadius" +  "_GC_WS_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
 
-filename_CL = "dballTrackRadius" +  "_CL_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
+filename_CL = "dballTrackRadius" +  "_CL_WS_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
 
-filename_ADA = "dballTrackRadiusADA" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
+filename_GC = "dballTrackRadiusADA" +  "_GC_WS_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
 
-filename_RAN = "dballTrackRadiusRAN" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
+filename_GC = "dballTrackRadiusRAN" +  "_GC_WS_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
 
 
 
@@ -1314,19 +1322,6 @@ with open(filename_ADA, 'wb') as handle:
 
 with open(filename_RAN,'wb') as handle:
 	pickle.dump(GC_list_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-#exp_out=float(sys.argv[3])
-
-#radius = int(sys.argv[4])
-
-#perc_to_remove = float(sys.argv[5])
-
-#num_sims = int(sys.argv[6])
-
-#G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
-
-#G_nk = nk.nxadapter.nx2nk(G_nx)
-
 
 
 
