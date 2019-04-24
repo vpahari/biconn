@@ -1335,7 +1335,7 @@ end_radius = int(sys.argv[5])
 
 """
 
-N = 100
+N = 1000
 k = 4
 radius = 2
 perc_to_remove = 0.5
@@ -1378,7 +1378,7 @@ filename_RAN = "dballTrackRadiusRAN" +  "_GC_SF_N_" + str(N) + "_k_" + str(k) + 
 """
 
 
-
+"""
 with open(filename_GC, 'wb') as handle:
 	pickle.dump(big_GC_List_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
@@ -1391,7 +1391,7 @@ with open(filename_ADA, 'wb') as handle:
 with open(filename_RAN,'wb') as handle:
 	pickle.dump(GC_list_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-
+"""
 
 
 
