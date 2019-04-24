@@ -158,11 +158,13 @@ def get_fStar(ABA_list, dball_list):
 
 	big_counter = 0
 
-	while big_counter < 5:
+	while big_counter < 10:
 
 		if dball_list[counter] <= ABA_list[counter]:
 
 			counter += 1
+
+			big_counter = 0
 
 		else:
 
