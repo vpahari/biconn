@@ -151,6 +151,8 @@ def swap_fun(G,removal_list, GC_list):
 
 			counter = 0
 
+			GC_list = new_GC_list.copy()
+
 		else:
 
 			swap_element(removal_list,el1,el2)
