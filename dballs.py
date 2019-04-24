@@ -80,7 +80,7 @@ def get_diff(GC_list1, GC_list2):
 	print(GC_list1)
 	print(GC_list2)
 
-	while counter < len(GC_list1):
+	while counter < len(GC_list1) - 1:
 
 		diff += GC_list2[counter] - GC_list1[counter] 
 
@@ -210,13 +210,6 @@ def do_perc(G,radius,num_nodes_to_remove):
 	original_list = list_to_check.copy()
 
 	swap_fun(G, removal_order_to_check, list_to_check)
-
-
-
-
-
-
-
 
 
 
