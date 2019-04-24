@@ -1340,17 +1340,20 @@ end_radius = int(sys.argv[5])
 
 """
 
-
+N = 1000
+k = 4
+radius = 2
+perc_to_remove = 0.5
 
 #G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
 #G_nk = make_SF_Graph(N,k,exp_out)
 
-G_nx = nx.erdos_renyi_graph(1000, 4/999, seed = 2134) 
+G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = 2134) 
 
 G_nk = nk.nxadapter.nx2nk(G_nx)
 
-do_perc(G_nk,2,500)
+do_perc(G_nk,radius,int(perc_to_remove * N))
 
 
 #(big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN) = big_sims_SF(G_nk,start_radius,end_radius)
