@@ -168,6 +168,8 @@ def get_fStar(ABA_list, dball_list):
 
 		else:
 
+			counter += 1
+
 			big_counter += 1
 
 	return counter
