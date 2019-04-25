@@ -10,223 +10,7 @@ import matplotlib.pyplot as plt
 plt.switch_backend('agg')
 import pickle
 import igraph as ig
-
-
-
-def perc_process_dBalls_removalOrder(G_copy,radius,num_nodes_to_remove):
-
-	G = copy_graph(G_copy)
-
-	GC_List = []
-	size_dball = [] 
-	size_ball = []
-
-	degree_list = []
-
-	counter = 0
-
-	removal_order = []
-
-	GC_List.append(get_GC(G))
-
-	while counter < num_nodes_to_remove:
-
-		print(counter)
-
-		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
-
-		list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
-
-		if len(list_to_remove) == 0:
-			break
-		
-		print(list_to_remove)
-
-		node = get_largest_dball(dict_nodes_dBall,list_to_remove)
-
-		print(node,dict_nodes_dBall[node])
-
-		degree_list.append((node, G.degree(node)))
-
-		#print(counter)
-
-		(dBall,ball) = get_dBN(G,node,radius) 
-
-		size_dball.append(len(dBall))
-		size_ball.append(len(ball))
-
-		removal_order += dBall
-
-		#print(dBall)
-		#print(ball)
-
-		for i in dBall:
-			G.removeNode(i)
-			counter += 1
-			GC_List.append(get_GC(G))
-
-
-	return (GC_List,size_dball,size_ball,degree_list,removal_order)
-
-
-
-#first list is the new one 
-def get_diff(GC_list1, GC_list2):
-
-	diff = 0
-
-	counter = 0
-
-	#print(GC_list1)
-	#print(GC_list2)
-
-	while counter < len(GC_list1):
-
-		diff += GC_list2[counter] - GC_list1[counter] 
-
-		#print(diff)
-
-		counter += 1
-
-	return diff
-		
-
-
-def swap_element(l,c1,c2):
-
-	t = l[c1]
-	l[c1] = l[c2]
-	l[c2] = t
-
-
-def get_GC_list(G_copy,removal_list):
-
-	G = copy_graph(G_copy)
-
-	GC_list = [get_GC(G)]
-
-	for i in removal_list:
-
-		G.removeNode(i)
-
-		GC_list.append(get_GC(G))
-
-	return GC_list
-
-
-
-
-def swap_fun(G,removal_list, GC_list):
-
-	counter = 0
-
-	accumulation = []
-
-	while counter < 1000:
-
-		print(counter)
-
-		#print(len(removal_list))
-
-		#print(len(GC_list))
-
-		l = [i for i in range(len(removal_list))]
-
-		el_list = random.sample(l,2)
-
-		el1 = el_list[0]
-		el2 = el_list[1]
-
-		swap_element(removal_list,el1,el2)
-
-		#print(GC_list)
-
-		new_GC_list = get_GC_list(G,removal_list)
-
-		#print(new_GC_list)
-
-		diff = get_diff(new_GC_list, GC_list)
-
-		if diff > 0:
-
-			print(diff)
-
-			counter = 0
-
-			GC_list = new_GC_list.copy()
-
-			accumulation.append(diff)
-
-			print(accumulation)
-
-		else:
-
-			swap_element(removal_list,el1,el2)
-
-			counter += 1
-
-	return accumulation
-
-
-
-def get_fStar(ABA_list, dball_list):
-
-	counter = 0
-
-	big_counter = 0
-
-	while big_counter < 10:
-
-		if dball_list[counter] <= ABA_list[counter]:
-
-			counter += 1
-
-			big_counter = 0
-
-		else:
-
-			counter += 1
-
-			big_counter += 1
-
-	return counter - big_counter
-
-
-
-
-
-
-def do_perc(G,radius,num_nodes_to_remove):
-
-	N = G.numberOfNodes()
-
-	GC_List_ABA = ABA_attack(G, num_nodes_to_remove)
-
-	print(GC_List_ABA)
-
-	(GC_List_dball,size_dball,size_ball,degree_list,removal_order) = perc_process_dBalls_removalOrder(G,radius,num_nodes_to_remove)
-
-	print(GC_List_dball)
-
-	fstar = get_fStar(GC_List_ABA,GC_List_dball)
-
-	print("fstar")
-	print(fstar)
-
-	list_to_check = GC_List_dball[:fstar]
-
-	removal_order_to_check = removal_order[:(fstar - 1)]
-
-	original_list = list_to_check.copy()
-
-	accumulation_list = swap_fun(G, removal_order_to_check, list_to_check)
-
-	new_list = get_GC_list(G,removal_order_to_check)
-
-	print(accumulation_list)
-
-	return (original_list,new_list,accumulation_list)
-
+import numpy as np
 
 
 
@@ -1304,307 +1088,255 @@ def big_sims_SF(G,start_radius,end_radius):
 	return (big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN)
 
 
-#WS
-"""
-dim = int(sys.argv[1])
-
-size = int(sys.argv[2])
-
-nei = int(sys.argv[3])
-
-p = float(sys.argv[4])
-
-SEED = int(sys.argv[5])
-
-start_radius = int(sys.argv[6])
-
-end_radius = int(sys.argv[7])
-"""
 
 
-#ER
-"""
-N=int(sys.argv[1]) # number of nodes
 
-k=int(sys.argv[2])
 
-SEED=int(sys.argv[3])
+def get_Area(GC_list):
 
-start_radius = int(sys.argv[4])
+	return sum(GC_list)
 
-end_radius = int(sys.argv[5])
-"""
+def get_nodes_not_in_list(l1,l2):
 
-#SF
-"""
-N=int(sys.argv[1]) # number of nodes
+	return np.setdiff1d(l1,l2)
 
-k=int(sys.argv[2])
 
-exp_out=float(sys.argv[3])
+def get_optimized_fstar(G,fstar):
 
-start_radius = int(sys.argv[4])
+	all_nodes = list(G.nodes())
 
-end_radius = int(sys.argv[5])
+	nodes_to_remove = random.sample(all_nodes,fstar)
 
-"""
+	counter = 0
 
-N = 750
+	GmodN = get_nodes_not_in_list(all_nodes, nodes_to_remove)
+
+	GC_List = get_GC_list(G,nodes_to_remove)
+
+	min_area = get_Area(GC_List)
+
+	curr_GC_list = []
+
+	min_removal_list = []
+
+	while counter < 1000:
+
+		node1 = random.choice(nodes_to_remove)
+
+		node2 = random.choice(GmodN)
+
+		nodes_to_remove.remove(node1)
+
+		nodes_to_remove.append(node2)
+
+		GmodN.remove(node2)
+
+		GmodN.append(node1)
+
+		GC_List = get_GC_list(G,nodes_to_remove)
+		
+		curr_area = get_Area(GC_List)
+
+		print(curr_area)
+
+		if curr_area < min_area:
+
+			min_area = curr_area
+
+			min_GC_list = GC_list.copy()
+
+			min_removal_list = nodes_to_remove.copy()
+
+		else:
+
+			nodes_to_remove.remove(node2)
+
+			nodes_to_remove.append(node1)
+
+			GmodN.remove(node1)
+
+			GmodN.append(node2)
+
+			counter += 1
+
+	return (min_area, min_GC_list, min_removal_list)
+
+
+
+
+
+#first list is the new one 
+def get_diff(GC_list1, GC_list2):
+
+	diff = 0
+
+	counter = 0
+
+	#print(GC_list1)
+	#print(GC_list2)
+
+	while counter < len(GC_list1):
+
+		diff += GC_list2[counter] - GC_list1[counter] 
+
+		#print(diff)
+
+		counter += 1
+
+	return diff
+		
+
+
+def swap_element(l,c1,c2):
+
+	t = l[c1]
+	l[c1] = l[c2]
+	l[c2] = t
+
+
+def get_GC_list(G_copy,removal_list):
+
+	G = copy_graph(G_copy)
+
+	GC_list = [get_GC(G)]
+
+	for i in removal_list:
+
+		G.removeNode(i)
+
+		GC_list.append(get_GC(G))
+
+	return GC_list
+
+
+
+
+def swap_fun(G,removal_list, GC_list):
+
+	counter = 0
+
+	accumulation = []
+
+	while counter < 1000:
+
+		print(counter)
+
+		#print(len(removal_list))
+
+		#print(len(GC_list))
+
+		l = [i for i in range(len(removal_list))]
+
+		el_list = random.sample(l,2)
+
+		el1 = el_list[0]
+		el2 = el_list[1]
+
+		swap_element(removal_list,el1,el2)
+
+		#print(GC_list)
+
+		new_GC_list = get_GC_list(G,removal_list)
+
+		#print(new_GC_list)
+
+		diff = get_diff(new_GC_list, GC_list)
+
+		if diff > 0:
+
+			print(diff)
+
+			counter = 0
+
+			GC_list = new_GC_list.copy()
+
+			accumulation.append(diff)
+
+			print(accumulation)
+
+		else:
+
+			swap_element(removal_list,el1,el2)
+
+			counter += 1
+
+	return accumulation
+
+
+
+def get_fStar(ABA_list, dball_list):
+
+	counter = 0
+
+	big_counter = 0
+
+	while big_counter < 10:
+
+		if dball_list[counter] <= ABA_list[counter]:
+
+			counter += 1
+
+			big_counter = 0
+
+		else:
+
+			counter += 1
+
+			big_counter += 1
+
+	return counter - big_counter
+
+
+
+
+def do_perc(G,radius,num_nodes_to_remove):
+
+	N = G.numberOfNodes()
+
+	GC_List_ABA = ABA_attack(G, num_nodes_to_remove)
+
+	(GC_List_dball,size_dball,size_ball,degree_list,removal_order) = perc_process_dBalls_removalOrder(G,radius,num_nodes_to_remove)
+
+	fstar = get_fStar(GC_List_ABA,GC_List_dball)
+
+	print("fstar")
+	print(fstar)
+
+	(min_area, min_GC_list, min_removal_list) = get_optimized_fstar(G,fstar)
+
+	list_to_check = min_GC_list[:fstar]
+
+	removal_order_to_check = min_removal_list[:(fstar - 1)]
+
+	original_list = list_to_check.copy()
+
+	accumulation_list = swap_fun(G, removal_order_to_check, list_to_check)
+
+	new_list = get_GC_list(G,removal_order_to_check)
+
+	print(accumulation_list)
+
+	return (original_list,new_list,accumulation_list)
+
+
+
+
+N = 1000
 k = 4
 radius = 2
 perc_to_remove = 0.5
 SEED = 4255
 
-#G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
-
-#G_nk = make_SF_Graph(N,k,exp_out)
-
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
 G_nk = nk.nxadapter.nx2nk(G_nx)
 
-(original_list,new_list,accumulation_list) =  do_perc(G_nk,radius,int(perc_to_remove * N))
 
-filename_OL = "dballSwapOL_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + ".pickle"
+(min_area, min_GC_list, min_removal_list) = get_optimized_fstar(G_nk,120)
 
-filename_NL = "dballSwapNL_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + ".pickle"
 
-filename_AL = "dballSwapAL_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + ".pickle"
+print(min_area)
+print(min_GC_list)
+print(min_removal_list)
 
 
-#(big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN) = big_sims_SF(G_nk,start_radius,end_radius)
-
-
-#WS
-"""
-filename_GC = "dballTrackRadius" +  "_GC_WS_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
-
-filename_CL = "dballTrackRadius" +  "_CL_WS_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
-
-filename_ADA = "dballTrackRadiusADA" +  "_GC_WS_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
-
-filename_RAN = "dballTrackRadiusRAN" +  "_GC_WS_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
-"""
-
-#SF
-"""
-filename_GC = "dballTrackRadius" +  "_GC_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
-
-filename_CL = "dballTrackRadius" +  "_CL_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
-
-filename_ADA = "dballTrackRadiusADA" +  "_GC_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
-
-filename_RAN = "dballTrackRadiusRAN" +  "_GC_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_startRadius_" + str(start_radius) + "_endRadius_" + str(end_radius) + ".pickle"
-
-"""
-
-
-"""
-with open(filename_GC, 'wb') as handle:
-	pickle.dump(big_GC_List_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(filename_CL,'wb') as handle:
-	pickle.dump(big_counter_list_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(filename_ADA, 'wb') as handle:
-	pickle.dump(GC_list_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(filename_RAN,'wb') as handle:
-	pickle.dump(GC_list_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-"""
-
-
-
-"""
-num_nodes_to_remove = int(perc_to_remove * N)
-
-(big_GC_List,big_size_dball,big_size_ball,big_dg_list) = big_sim_SF(N,k,exp_out,radius,perc_to_remove,num_sims)
-
-filename_GC = "dballSF" +  "_GC_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_ball = "dballSF" +  "_ball_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_dball = "dballSF"  + "_dball_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_dg = "dballSF"  + "_dg_SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-
-
-with open(filename_GC, 'wb') as handle:
-	pickle.dump(big_GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(filename_ball,'wb') as handle:
-	pickle.dump(big_size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(filename_dball,'wb') as handle:
-	pickle.dump(big_size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(filename_dg,'wb') as handle:
-	pickle.dump(big_dg_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-#(GC_List1,size_dball1,size_ball1,dg_list1) = perc_process_dBalls_bigBalls(G_nk,radius,num_nodes_to_remove)
-
-#(GC_List2,size_dball2,size_ball2,dg_list2) = perc_process_dBalls_bigDBalls(G_nk,radius,num_nodes_to_remove)
-
-#(GC_List3,size_dball3,size_ball3,dg_list3) = perc_process_dBalls(G_nk,radius,num_nodes_to_remove)
-
-
-#print(GC_List1)
-
-#print(GC_List2)
-
-#print(GC_List3)
-
-#print(list(zip(zip(GC_List1[:1000],GC_List2[:1000]),GC_List3)))
-
-"""
-
-
-
-"""
-N=int(sys.argv[1]) # number of nodes
-
-k=int(sys.argv[2])
-
-SEED=int(sys.argv[3])
-
-radius = int(sys.argv[4])
-
-perc_to_remove = float(sys.argv[5])
-
-num_sims = int(sys.argv[6])
-
-(big_GC_List,big_size_dball,big_size_ball,big_dg_list) = big_sim(N,k,SEED,radius,perc_to_remove,num_sims)
-
-
-filename_GC = "dballAttBigBall_" +  "_GC_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_ball = "dballAttBigBall_" +  "_ball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_dball = "dballAttBigBall_"  + "_dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-filename_dg = "dballAttBigBall_"  + "_dg_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_perctoremove_" + str(perc_to_remove) + ".pickle"
-
-print(big_GC_List)
-
-with open(filename_GC, 'wb') as handle:
-	pickle.dump(big_GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(filename_ball,'wb') as handle:
-	pickle.dump(big_size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(filename_dball,'wb') as handle:
-	pickle.dump(big_size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(filename_dg,'wb') as handle:
-	pickle.dump(big_dg_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
-"""
-
-
-
-"""
-N = 10000
-k = 4
-SEED = 42316
-
-radius_list = [2,3,4]
-
-radius = 4
-
-perc_to_remove = 0.4
-
-G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
-
-G_nk = nk.nxadapter.nx2nk(G_nx)
-
-G_lattice = nx.grid_graph(dim = [int(math.sqrt(N)),int(math.sqrt(N))],periodic=True)
-
-G_WS = nx.watts_strogatz_graph(N, k, p=0)
-
-G_lattice_nk = nk.nxadapter.nx2nk(G_lattice)
-
-G_WS_nk = nk.nxadapter.nx2nk(G_WS)
-"""
-
-
-
-
-
-
-
-
-
-"""
-(GC_List,size_dball,size_ball,radius_track) = big_attack(G_nk,radius_list,int(perc_to_remove * N))
-
-with open("GC_list.pickle",'wb') as handle:
-	pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open("size_dball.pickle",'wb') as handle:
-	pickle.dump(size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open("size_ball.pickle",'wb') as handle:
-	pickle.dump(size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open("radius_track.pickle",'wb') as handle:
-	pickle.dump(radius_track, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-
-
-
-print(GC_List)
-print(list(zip(size_dball,size_ball)))
-print(radius_track)
-print(len(radius_track))
-"""
-
-#filename_plt_Gnx = "dball_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
-#filename_pickle_Gnx_dball = "dball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
-#filename_pickle_Gnx_ball = "ball_size_ER_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
-
-
-#get_graphs(G_nk, radius_list,int(perc_to_remove*N),filename_plt_Gnx,filename_pickle_Gnx_dball,filename_pickle_Gnx_ball)
-
-
-"""
-
-filename_plt_lattice = "dball_sims_lattice_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
-filename_pickle_lattice_dball = "dball_sims_dball_lattice_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
-filename_pickle_lattice_ball = "dball_sims_ball_lattice_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
-
-
-filename_plt_WS = "dball_sims_WS_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".png"
-filename_pickle_WS_dball = "dball_sims_dball_WS_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
-filename_pickle_WS_ball = "dball_sims_ball_WS_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
-
-
-get_graphs(G_lattice_nk,radius_list, int(perc_to_remove*N),filename_plt_lattice,filename_pickle_lattice_dball,filename_pickle_lattice_ball)
-get_graphs(G_WS_nk,radius_list, int(perc_to_remove*N),filename_plt_WS,filename_pickle_WS_dball,filename_pickle_WS_ball)
-
-"""
-
-
-
-"""
-
-print(get_dBN(G,145,radius))
-print(get_dBN(G,324,radius))
-print(get_dBN(G,551,radius))
-
-print(G.neighbors(551))
-print(G.neighbors(145))
-print(G.neighbors(324))
-
-
-
-
-N=int(sys.argv[1]) # number of nodes
-k=int(sys.argv[2]) # average degree
-SEED = int(sys.argv[3])
-radius = int(sys.argv[4])
-num_sims = int(sys.argv[5])
-step_size = float(sys.argv[6])
-
-norm_vals = make_partitions_multiple_graphs(N,k,SEED,radius,step_size,num_sims)
-
-print(norm_vals)
-
-filename = 'dballs_N_' + str(N) + '_k_' + str(k) + '_SEED_' + str(SEED) + '_radius_' + str(radius) + "_numsims_" + str(num_sims) + '_stepsize_' + str(step_size) + '.pickle'
-
-with open(filename,'wb') as handle:
-	pickle.dump(norm_vals, handle, protocol=pickle.HIGHEST_PROTOCOL)
-"""
