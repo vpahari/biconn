@@ -1121,6 +1121,8 @@ def get_optimized_fstar(G,fstar):
 
 	while counter < 1000:
 
+		print(counter)
+
 		node1 = random.choice(nodes_to_remove)
 
 		node2 = random.choice(GmodN)
