@@ -1098,7 +1098,7 @@ def get_Area(GC_list):
 
 def get_nodes_not_in_list(l1,l2):
 
-	return np.setdiff1d(l1,l2)
+	return list(np.setdiff1d(l1,l2))
 
 
 def get_optimized_fstar(G,fstar):
