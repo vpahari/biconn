@@ -1143,7 +1143,7 @@ def get_optimized_fstar(G,fstar):
 
 			min_area = curr_area
 
-			min_GC_list = GC_list.copy()
+			min_GC_list = GC_List.copy()
 
 			min_removal_list = nodes_to_remove.copy()
 
