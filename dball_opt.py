@@ -1149,6 +1149,8 @@ def get_optimized_fstar(G,fstar):
 
 			print(curr_area)
 
+			counter = 0
+
 		else:
 
 			nodes_to_remove.remove(node2)
