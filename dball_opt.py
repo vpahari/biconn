@@ -1279,7 +1279,9 @@ def get_fStar(G,radius,num_nodes_to_remove):
 
 	GC_List_ABA = ABA_attack(G, num_nodes_to_remove)
 
-	(GC_List_dball,size_dball,size_ball,degree_list,removal_order) = perc_process_dBalls_removalOrder(G,radius,num_nodes_to_remove)
+	(GC_List_dballs,size_dball,size_ball,degree_list) = perc_process_dBalls(G,radius,num_nodes_to_remove)
+
+	
 
 	counter = 0
 
@@ -1299,6 +1301,10 @@ def get_fStar(G,radius,num_nodes_to_remove):
 
 			big_counter += 1
 
+	print("dball_fstar")
+
+	print(GC_List_dballs[counter - big_counter])
+
 	return counter - big_counter
 
 
@@ -1309,7 +1315,6 @@ radius = 2
 perc_to_remove = 0.5
 SEED = 42155
 
-perc_to_remove = 0.5
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
