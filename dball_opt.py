@@ -1350,6 +1350,7 @@ print(min_area)
 print(min_GC_list)
 print(min_removal_list)
 
+accumulation = swap_fun(G_nk,min_removal_list, min_GC_list)
 
-print(get_GC_list(G_nk,min_removal_list))
+print(accumulation)
 
