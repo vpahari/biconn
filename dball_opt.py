@@ -1303,7 +1303,7 @@ def get_fStar(G,radius,num_nodes_to_remove):
 
 	print("dball_fstar")
 
-	print(GC_List_dballs[counter - big_counter])
+	print(dball_list[counter - big_counter])
 
 	return counter - big_counter
 
