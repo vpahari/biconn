@@ -1277,9 +1277,9 @@ def swap_fun(G,removal_list, GC_list):
 
 def get_fStar(G,radius,num_nodes_to_remove):
 
-	GC_List_ABA = ABA_attack(G, num_nodes_to_remove)
+	ABA_list = ABA_attack(G, num_nodes_to_remove)
 
-	(GC_List_dballs,size_dball,size_ball,degree_list) = perc_process_dBalls(G,radius,num_nodes_to_remove)
+	(dball_list,size_dball,size_ball,degree_list) = perc_process_dBalls(G,radius,num_nodes_to_remove)
 
 	
 
