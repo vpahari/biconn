@@ -1120,6 +1120,7 @@ def get_optimized_fstar(G,fstar):
 	min_removal_list = []
 
 	GmodN_len = len(GmodN)
+
 	nodes_to_remove_len = len(nodes_to_remove)
 
 	while counter < 1000:
@@ -1349,4 +1350,6 @@ print(min_area)
 print(min_GC_list)
 print(min_removal_list)
 
+
+print(get_GC_list(G_nk,min_removal_list))
 
