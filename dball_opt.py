@@ -1119,6 +1119,9 @@ def get_optimized_fstar(G,fstar):
 
 	min_removal_list = []
 
+	GmodN_len = len(GmodN)
+	nodes_to_remove_len = len(nodes_to_remove)
+
 	while counter < 1000:
 
 		print(counter)
@@ -1134,6 +1137,9 @@ def get_optimized_fstar(G,fstar):
 		GmodN.remove(node2)
 
 		GmodN.append(node1)
+
+		assert(len(nodes_to_remove) == nodes_to_remove_len)
+		assert(len(GmodN) == GmodN_len)
 
 		GC_List = get_GC_list(G,nodes_to_remove)
 		
