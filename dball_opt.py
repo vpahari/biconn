@@ -1362,7 +1362,7 @@ with open(filename_optimal,'wb') as handle:
 	pickle.dump(optimal_GC_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 file1 = open(filename_fs, "w") 
-file1.write(fs) 
+file1.write(str(fs))
 file1.close()
 
 
