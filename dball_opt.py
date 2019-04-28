@@ -1281,8 +1281,6 @@ def get_fStar(G,radius,num_nodes_to_remove):
 
 	(dball_list,size_dball,size_ball,degree_list) = perc_process_dBalls(G,radius,num_nodes_to_remove)
 
-	
-
 	counter = 0
 
 	big_counter = 0
@@ -1305,7 +1303,27 @@ def get_fStar(G,radius,num_nodes_to_remove):
 
 	print(dball_list[counter - big_counter])
 
-	return counter - big_counter
+	return (counter - big_counter, ABA_list, dball_list)
+
+
+
+def full_function(G,radius,perc_to_remove):
+
+	(fs,ABA_list,dball_list) = get_fStar(G,radius,int(perc_to_remove * N))
+
+	(min_area, min_GC_list, min_removal_list) = get_optimized_fstar(G,fs)
+
+	original_removal_list = min_removal_list.copy()
+
+	accumulation = swap_fun(G,min_removal_list, min_GC_list)
+
+	original_GC_list = get_GC_list(G,original_removal_list)
+
+	optimal_GC_list = get_GC_list(G,min_removal_list)
+
+	return (fs,ABA_list,dball_list,original_GC_list,optimal_GC_list)
+
+
 
 
 
@@ -1321,7 +1339,7 @@ G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 G_nk = nk.nxadapter.nx2nk(G_nx)
 
 
-fs = get_fStar(G_nk,radius,int(perc_to_remove * N))
+(fs,ABA_list,dball_list) = get_fStar(G_nk,radius,int(perc_to_remove * N))
 
 print("fs")
 print(fs)
@@ -1333,7 +1351,13 @@ print(min_area)
 print(min_GC_list)
 print(min_removal_list)
 
+original_removal_list = min_removal_list.copy()
+
 accumulation = swap_fun(G_nk,min_removal_list, min_GC_list)
 
 print(accumulation)
+
+print(get_GC_list(G_nk,original_removal_list))
+print(get_GC_list(G_nk,min_removal_list))
+print(get_Area(dball_list[:fstar]))
 
