@@ -1103,7 +1103,7 @@ def get_nodes_not_in_list(l1,l2):
 
 def get_optimized_fstar(G,fstar):
 
-	all_nodes = list(G.nodes())
+	all_nodes = get_GC_nodes(G)
 
 	nodes_to_remove = random.sample(all_nodes,fstar)
 
