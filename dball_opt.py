@@ -11,7 +11,7 @@ plt.switch_backend('agg')
 import pickle
 import igraph as ig
 import numpy as np
-
+import os
 
 
 def add_into_set(s,new_s):
@@ -1309,6 +1309,8 @@ def get_fStar(G,radius,num_nodes_to_remove):
 
 def full_function(G,radius,perc_to_remove):
 
+	N = G.numberOfNodes()
+
 	(fs,ABA_list,dball_list) = get_fStar(G,radius,int(perc_to_remove * N))
 
 	(min_area, min_GC_list, min_removal_list) = get_optimized_fstar(G,fs)
@@ -1334,11 +1336,44 @@ perc_to_remove = 0.5
 SEED = 42155
 
 
-G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
+G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
 G_nk = nk.nxadapter.nx2nk(G_nx)
 
 
+(fs,ABA_list,dball_list,original_GC_list,optimal_GC_list) = full_function(G_nk,radius,perc_to_remove)
+
+filename_ABA = "minArea_ABA.pickle"
+filename_dball = "minArea_dball.pickle"
+filename_original = "minArea_originalGC.pickle"
+filename_optimal = "minArea_optimalGC.pickle"
+filename_fs = "minArea_fs.txt"
+
+with open(filename_ABA,'wb') as handle:
+	pickle.dump(ABA_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_dball,'wb') as handle:
+	pickle.dump(dball_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_original,'wb') as handle:
+	pickle.dump(original_GC_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(filename_optimal,'wb') as handle:
+	pickle.dump(optimal_GC_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+file1 = open(filename_fs, "w") 
+file1.write(fs) 
+file1.close()
+
+
+
+
+
+
+
+
+
+"""
 (fs,ABA_list,dball_list) = get_fStar(G_nk,radius,int(perc_to_remove * N))
 
 print("fs")
@@ -1359,5 +1394,7 @@ print(accumulation)
 
 print(get_GC_list(G_nk,original_removal_list))
 print(get_GC_list(G_nk,min_removal_list))
-print(get_Area(dball_list[:fstar]))
+print(get_Area(dball_list[:fs]))
+"""
+
 
