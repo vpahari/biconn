@@ -1176,6 +1176,81 @@ def get_optimized_fstar(G,fstar):
 
 
 
+def get_optimized_fstar_dball(G,fstar,nodes_to_remove):
+
+	all_nodes = get_GC_nodes(G)
+
+	#nodes_to_remove = random.sample(all_nodes,fstar)
+
+	counter = 0
+
+	GmodN = get_nodes_not_in_list(all_nodes, nodes_to_remove)
+
+	GC_List = get_GC_list(G,nodes_to_remove)
+
+	min_area = get_Area(GC_List)
+
+	curr_GC_list = []
+
+	min_removal_list = []
+
+	GmodN_len = len(GmodN)
+
+	nodes_to_remove_len = len(nodes_to_remove)
+
+	while counter < 1000:
+
+		print(counter)
+
+		node1 = random.choice(nodes_to_remove)
+
+		node2 = random.choice(GmodN)
+
+		nodes_to_remove.remove(node1)
+
+		nodes_to_remove.append(node2)
+
+		GmodN.remove(node2)
+
+		GmodN.append(node1)
+
+		assert(len(nodes_to_remove) == nodes_to_remove_len)
+		assert(len(GmodN) == GmodN_len)
+
+		GC_List = get_GC_list(G,nodes_to_remove)
+		
+		curr_area = get_Area(GC_List)
+
+		if curr_area < min_area:
+
+			min_area = curr_area
+
+			min_GC_list = GC_List.copy()
+
+			min_removal_list = nodes_to_remove.copy()
+
+			print(curr_area)
+
+			counter = 0
+
+		else:
+
+			nodes_to_remove.remove(node2)
+
+			nodes_to_remove.append(node1)
+
+			GmodN.remove(node1)
+
+			GmodN.append(node2)
+
+			counter += 1
+
+	return (min_area, min_GC_list, min_removal_list)
+
+
+
+
+
 #first list is the new one 
 def get_diff(GC_list1, GC_list2):
 
