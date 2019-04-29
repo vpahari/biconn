@@ -1478,6 +1478,8 @@ G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
 G_nk = nk.nxadapter.nx2nk(G_nx)
 
+num_nodes_to_remove = int(perc_to_remove * N)
+
 """
 (fs,ABA_list,dball_list,original_GC_list,optimal_GC_list) = full_function(G_nk,radius,perc_to_remove)
 
