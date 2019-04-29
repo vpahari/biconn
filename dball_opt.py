@@ -1515,7 +1515,7 @@ nodes_to_remove = nodes_removed[:209]
 (min_area, min_GC_list, min_removal_list) = get_optimized_fstar_dball(G_nk,fstar,nodes_to_remove)
 
 
-
+print(min_area)
 
 """
 (fs,ABA_list,dball_list) = get_fStar(G_nk,radius,int(perc_to_remove * N))
