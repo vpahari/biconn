@@ -1510,9 +1510,11 @@ file1.close()
 
 (GC_List,size_dball,size_ball,degree_list,nodes_removed) = perc_process_dBalls_nodes_removed(G_nk,radius,num_nodes_to_remove)
 
-nodes_to_remove = nodes_removed[:209]
+(fs,ABA_list,dball_list) = get_fStar(G_nk,radius,int(perc_to_remove * N))
 
-(min_area, min_GC_list, min_removal_list) = get_optimized_fstar_dball(G_nk,fstar,nodes_to_remove)
+nodes_to_remove = nodes_removed[:fs]
+
+(min_area, min_GC_list, min_removal_list) = get_optimized_fstar_dball(G_nk,fs,nodes_to_remove)
 
 
 print(min_area)
