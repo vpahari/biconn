@@ -359,6 +359,69 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 	return (GC_List,size_dball,size_ball,degree_list)
 
 
+def perc_process_dBalls_nodes_removed(G_copy,radius,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+	size_dball = [] 
+	size_ball = []
+
+	degree_list = []
+
+	counter = 0
+
+	GC_List.append(get_GC(G))
+
+	nodes_removed = []
+
+	while counter < num_nodes_to_remove:
+
+		print(counter)
+
+		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+
+		list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
+
+		if len(list_to_remove) == 0:
+			i = random.sample(list(G.nodes()),1)
+			G.removeNode(i[0])
+			size_dball.append(0)
+			size_ball.append(0)
+			counter += 1
+			GC_List.append(get_GC(G))
+			continue
+		
+		print(list_to_remove)
+
+		node = get_largest_dball(dict_nodes_dBall,list_to_remove)
+
+		print(node,dict_nodes_dBall[node])
+
+		degree_list.append((node, G.degree(node)))
+
+		#print(counter)
+
+		(dBall,ball) = get_dBN(G,node,radius) 
+
+		size_dball.append(len(dBall))
+		size_ball.append(len(ball))
+
+
+		#print(dBall)
+		#print(ball)
+
+		nodes_removed += dBall
+
+		for i in dBall:
+			G.removeNode(i)
+			counter += 1
+			GC_List.append(get_GC(G))
+
+
+	return (GC_List,size_dball,size_ball,degree_list,nodes_removed)
+
+
 def dict_to_sorted_list_dball(d):
 
 	new_list = list(d.items())
@@ -1415,7 +1478,7 @@ G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
 G_nk = nk.nxadapter.nx2nk(G_nx)
 
-
+"""
 (fs,ABA_list,dball_list,original_GC_list,optimal_GC_list) = full_function(G_nk,radius,perc_to_remove)
 
 filename_ABA = "minArea_ABA.pickle"
@@ -1440,10 +1503,14 @@ file1 = open(filename_fs, "w")
 file1.write(str(fs))
 file1.close()
 
+"""
 
 
+(GC_List,size_dball,size_ball,degree_list,nodes_removed) = perc_process_dBalls_nodes_removed(G_nk,radius,num_nodes_to_remove)
 
+nodes_to_remove = nodes_removed[:fstar]
 
+(min_area, min_GC_list, min_removal_list) = get_optimized_fstar_dball(G_nk,fstar,nodes_to_remove)
 
 
 
