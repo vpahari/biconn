@@ -1253,13 +1253,17 @@ def get_optimized_fstar_dball(G,fstar,nodes_to_remove):
 
 	min_area = get_Area(GC_List)
 
-	curr_GC_list = []
+	curr_GC_list = get_GC_list(G,nodes_to_remove)
 
-	min_removal_list = []
+	min_GC_list = curr_GC_list.copy()
+
+	min_removal_list = nodes_to_remove.copy()
 
 	GmodN_len = len(GmodN)
 
 	nodes_to_remove_len = len(nodes_to_remove)
+
+
 
 	while counter < 1000:
 
