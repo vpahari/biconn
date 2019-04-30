@@ -1353,7 +1353,7 @@ end_radius = int(sys.argv[5])
 N = 10000
 k = 4
 radius = 2
-exp_out=float(sys.argv[3])
+exp_out=2.5
 #SEED = 4255
 
 #G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
