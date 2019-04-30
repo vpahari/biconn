@@ -1321,7 +1321,7 @@ def printAll(G,node,radius):
 
 			print(n, G.neighbors(n))
 
-			nbors += G.neighbors(node)
+			nbors += G.neighbors(n)
 
 		curr_list = nbors.copy()
 
