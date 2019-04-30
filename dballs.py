@@ -1167,7 +1167,9 @@ def big_sim_random_ball_removal(N,k,SEED,radius,perc_to_remove,num_sims):
 
 
 
-def make_SF_Graph(N,k,exp_out):
+def make_SF_Graph(N,k,exp_out,SEED):
+
+	seed.set(SEED)
 
 	num_edges = int((N * k) / 2)
 
@@ -1188,7 +1190,7 @@ def make_SF_Graph(N,k,exp_out):
 	return G_nk
 
 
-def big_sim_SF(N,k,exp_out,radius,perc_to_remove,num_sims):
+def big_sim_SF(N,k,exp_out,SEED,radius,perc_to_remove,num_sims):
 
 	big_GC_List = []
 
@@ -1200,7 +1202,7 @@ def big_sim_SF(N,k,exp_out,radius,perc_to_remove,num_sims):
 
 	for i in range(num_sims):
 
-		G_nk = make_SF_Graph(N,k,exp_out)
+		G_nk = make_SF_Graph(N,k,exp_out,SEED)
 
 		num_nodes_to_remove = int(perc_to_remove * N)
 
@@ -1376,7 +1378,7 @@ N = 10000
 k = 4
 radius = 2
 exp_out=2.5
-#SEED = 4255
+SEED = 4255
 
 #G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
@@ -1384,13 +1386,13 @@ exp_out=2.5
 
 G_nk = make_SF_Graph(N,k,exp_out)
 
-#(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,radius)
+(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,radius)
 
-#print(degree_list[:50])
-#print(size_dball[:50])
+print(degree_list[:50])
+print(size_dball[:50])
 
 
-printAll(G_nk,2635,radius)
+#printAll(G_nk,2635,radius)
 
 
 
