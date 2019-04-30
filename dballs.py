@@ -1396,13 +1396,13 @@ SEED = 4255
 
 G_nk = make_SF_Graph(N,k,exp_out,SEED)
 
-(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,radius)
+#(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,radius)
 
-print(degree_list[:50])
-print(size_dball[:50])
+#print(degree_list[:50])
+#print(size_dball[:50])
 
 
-#printAll(G_nk,2635,radius)
+printAll(G_nk,5362,radius)
 
 
 
