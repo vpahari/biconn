@@ -1169,7 +1169,7 @@ def big_sim_random_ball_removal(N,k,SEED,radius,perc_to_remove,num_sims):
 
 def make_SF_Graph(N,k,exp_out,SEED):
 
-	seed.set(SEED)
+	random.seed(SEED)
 
 	num_edges = int((N * k) / 2)
 
