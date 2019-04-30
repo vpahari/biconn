@@ -1311,6 +1311,8 @@ def printAll(G,node,radius):
 
 	curr_list = [node]
 
+	checked = set([node])
+
 	for i in range(radius):
 
 		nbors = []
@@ -1322,6 +1324,14 @@ def printAll(G,node,radius):
 			nbors += G.neighbors(node)
 
 		curr_list = nbors.copy()
+
+		curr_list = filter(lambda x : x not in checked, curr_list)
+
+		for n in nbors:
+
+			checked.add(n)
+
+
 
 
 
