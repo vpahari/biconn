@@ -1327,6 +1327,8 @@ def printAll(G,node,radius):
 
 		curr_list = filter(lambda x : x not in checked, curr_list)
 
+		print(curr_list)
+
 		for n in nbors:
 
 			checked.add(n)
