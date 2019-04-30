@@ -1390,7 +1390,7 @@ G_nk = make_SF_Graph(N,k,exp_out)
 #print(size_dball[:50])
 
 
-printAll(G_nk,845,radius)
+printAll(G_nk,2635,radius)
 
 
 
