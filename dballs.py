@@ -1362,7 +1362,7 @@ exp_out=2.5
 
 G_nk = make_SF_Graph(N,k,exp_out)
 
-(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G,radius)
+(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,radius)
 
 print(degree_list[:50])
 print(size_dball[:50])
