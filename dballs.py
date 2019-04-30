@@ -1305,6 +1305,28 @@ def big_sims_SF(G,start_radius,end_radius):
 
 
 
+def printAll(G,node,radius):
+
+	curr_list = [node]
+
+	for i in range(radius):
+
+		nbors = []
+
+		for n in curr_list:
+
+			print(n, G.neighbors(n))
+
+			nbors += G.neighbors(node)
+
+		curr_list = nbors.copy()
+
+
+
+
+
+
+
 #WS
 """
 dim = int(sys.argv[1])
@@ -1366,6 +1388,11 @@ G_nk = make_SF_Graph(N,k,exp_out)
 
 print(degree_list[:50])
 print(size_dball[:50])
+
+
+printAll(G_nk,7702,radius)
+
+
 
 
 """
