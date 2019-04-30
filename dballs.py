@@ -1325,7 +1325,7 @@ def printAll(G,node,radius):
 
 		curr_list = nbors.copy()
 
-		curr_list = filter(lambda x : x not in checked, curr_list)
+		curr_list = list(filter(lambda x : x not in checked, curr_list))
 
 		print(curr_list)
 
