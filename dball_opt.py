@@ -1421,7 +1421,7 @@ def get_fStar(G,radius,num_nodes_to_remove):
 
 	ABA_list = ABA_attack(G, num_nodes_to_remove)
 
-	(dball_list,size_dball,size_ball,degree_list) = perc_process_dBalls(G,radius,num_nodes_to_remove)
+	(dball_list,size_dball,size_ball,degree_list,dball_nodes_removed) = perc_process_dBalls_nodes_removed(G,radius,num_nodes_to_remove)
 
 	counter = 0
 
@@ -1445,7 +1445,7 @@ def get_fStar(G,radius,num_nodes_to_remove):
 
 	print(dball_list[counter - big_counter])
 
-	return (counter - big_counter, ABA_list, dball_list)
+	return (counter - big_counter, ABA_list, dball_list, dball_nodes_removed)
 
 
 
@@ -1453,7 +1453,7 @@ def full_function(G,radius,perc_to_remove):
 
 	N = G.numberOfNodes()
 
-	(fs,ABA_list,dball_list) = get_fStar(G,radius,int(perc_to_remove * N))
+	(fs,ABA_list,dball_list,dball_nodes_removed) = get_fStar(G,radius,int(perc_to_remove * N))
 
 	(min_area, min_GC_list, min_removal_list) = get_optimized_fstar(G,fs)
 
@@ -1468,6 +1468,17 @@ def full_function(G,radius,perc_to_remove):
 	return (fs,ABA_list,dball_list,original_GC_list,optimal_GC_list)
 
 
+def timestamp_track(G,radius,perc_to_remove):
+
+	N = G.numberOfNodes() 
+
+	(fs,ABA_list,dball_list,dball_nodes_removed) = get_fStar(G,radius,int(perc_to_remove * N))
+
+	get_optimized_fstar_dball(G,fs,nodes_to_remove)
+
+
+
+
 
 
 
@@ -1478,11 +1489,63 @@ perc_to_remove = 0.5
 SEED = 42155
 
 
-G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
+#G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
-G_nk = nk.nxadapter.nx2nk(G_nx)
-
+#G_nk = nk.nxadapter.nx2nk(G_nx)
+"""
 num_nodes_to_remove = int(perc_to_remove * N)
+
+
+
+(GC_List,size_dball,size_ball,degree_list,nodes_removed) = perc_process_dBalls_nodes_removed(G_nk,radius,num_nodes_to_remove)
+
+(fs,ABA_list,dball_list) = get_fStar(G_nk,radius,int(perc_to_remove * N))
+
+print(fs)
+
+nodes_to_remove = nodes_removed[:fs]
+
+(min_area, min_GC_list, min_removal_list) = get_optimized_fstar_dball(G_nk,fs,nodes_to_remove)
+
+
+print(min_area)
+
+"""
+
+
+
+
+"""
+(fs,ABA_list,dball_list) = get_fStar(G_nk,radius,int(perc_to_remove * N))
+
+print("fs")
+print(fs)
+
+(min_area, min_GC_list, min_removal_list) = get_optimized_fstar(G_nk,fs)
+
+
+print(min_area)
+print(min_GC_list)
+print(min_removal_list)
+
+original_removal_list = min_removal_list.copy()
+
+accumulation = swap_fun(G_nk,min_removal_list, min_GC_list)
+
+print(accumulation)
+
+print(get_GC_list(G_nk,original_removal_list))
+print(get_GC_list(G_nk,min_removal_list))
+print(get_Area(dball_list[:fs]))
+"""
+
+
+
+
+
+
+
+
 
 """
 (fs,ABA_list,dball_list,original_GC_list,optimal_GC_list) = full_function(G_nk,radius,perc_to_remove)
@@ -1510,43 +1573,4 @@ file1.write(str(fs))
 file1.close()
 
 """
-
-
-(GC_List,size_dball,size_ball,degree_list,nodes_removed) = perc_process_dBalls_nodes_removed(G_nk,radius,num_nodes_to_remove)
-
-(fs,ABA_list,dball_list) = get_fStar(G_nk,radius,int(perc_to_remove * N))
-
-print(fs)
-
-nodes_to_remove = nodes_removed[:fs]
-
-(min_area, min_GC_list, min_removal_list) = get_optimized_fstar_dball(G_nk,fs,nodes_to_remove)
-
-
-print(min_area)
-
-"""
-(fs,ABA_list,dball_list) = get_fStar(G_nk,radius,int(perc_to_remove * N))
-
-print("fs")
-print(fs)
-
-(min_area, min_GC_list, min_removal_list) = get_optimized_fstar(G_nk,fs)
-
-
-print(min_area)
-print(min_GC_list)
-print(min_removal_list)
-
-original_removal_list = min_removal_list.copy()
-
-accumulation = swap_fun(G_nk,min_removal_list, min_GC_list)
-
-print(accumulation)
-
-print(get_GC_list(G_nk,original_removal_list))
-print(get_GC_list(G_nk,min_removal_list))
-print(get_Area(dball_list[:fs]))
-"""
-
 

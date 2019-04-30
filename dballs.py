@@ -1304,6 +1304,7 @@ def big_sims_SF(G,start_radius,end_radius):
 	return (big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN)
 
 
+
 #WS
 """
 dim = int(sys.argv[1])
@@ -1349,20 +1350,25 @@ end_radius = int(sys.argv[5])
 
 """
 
-N = 750
+N = 10000
 k = 4
 radius = 2
-perc_to_remove = 0.5
-SEED = 4255
+exp_out=float(sys.argv[3])
+#SEED = 4255
 
 #G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
 
 #G_nk = make_SF_Graph(N,k,exp_out)
 
-G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
+G_nk = make_SF_Graph(N,k,exp_out)
 
-G_nk = nk.nxadapter.nx2nk(G_nx)
+(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G,radius)
 
+print(degree_list[:50])
+print(size_dball[:50])
+
+
+"""
 (original_list,new_list,accumulation_list) =  do_perc(G_nk,radius,int(perc_to_remove * N))
 
 filename_OL = "dballSwapOL_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + ".pickle"
@@ -1370,7 +1376,7 @@ filename_OL = "dballSwapOL_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) 
 filename_NL = "dballSwapNL_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + ".pickle"
 
 filename_AL = "dballSwapAL_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + ".pickle"
-
+"""
 
 #(big_GC_List_dball,big_counter_list_dball,GC_list_ADA,GC_list_RAN) = big_sims_SF(G_nk,start_radius,end_radius)
 
