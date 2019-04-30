@@ -1384,7 +1384,7 @@ SEED = 4255
 
 #G_nk = make_SF_Graph(N,k,exp_out)
 
-G_nk = make_SF_Graph(N,k,exp_out)
+G_nk = make_SF_Graph(N,k,exp_out,SEED)
 
 (GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,radius)
 
