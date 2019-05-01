@@ -1389,7 +1389,7 @@ end_radius = int(sys.argv[5])
 N = 10000
 k = 4
 radius = 2
-exp_out=2.5
+exp_out=3.5
 SEED = 4255
 
 #G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
@@ -1398,17 +1398,19 @@ SEED = 4255
 
 G_nk = make_SF_Graph(N,k,exp_out,SEED)
 
-#(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,radius)
+(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,radius)
 
-#print(degree_list[:50])
-#print(size_dball[:50])
+print(degree_list[:50])
+print(size_dball[:50])
 
 
 printAll(G_nk,1059,radius)
 
 
-
+#2.5 k = 4
 #[(5362, 3), (513, 2), (1914, 2), (1966, 2), (2107, 2), (2243, 2), (2835, 2), (3178, 2), (4168, 2), (4301, 2), (4766, 2), (4960, 2), (4970, 2), (5308, 2), (5419, 2), (5453, 2), (7436, 2), (2317, 3), (3628, 3), (4762, 3), (6892, 3), (9552, 3), (12, 1), (34, 1), (90, 1), (94, 1), (111, 1), (129, 1), (192, 1), (199, 1), (200, 1), (275, 1), (281, 1), (314, 1), (368, 1), (370, 1), (404, 1), (437, 1), (491, 1), (517, 1), (520, 1), (542, 1), (548, 1), (582, 1), (621, 1), (625, 1), (698, 1), (867, 1), (971, 1), (1059, 1)]
+
+#3.5 k = 4
 
 
 
