@@ -1404,7 +1404,7 @@ G_nk = make_SF_Graph(N,k,exp_out,SEED)
 #print(size_dball[:50])
 
 
-printAll(G_nk,881,radius)
+printAll(G_nk,3111,radius)
 
 
 #2.5 k = 4
