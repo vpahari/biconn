@@ -1400,8 +1400,8 @@ SEED = 4255
 
 #(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G_nk,radius)
 
-print(degree_list[:50])
-print(size_dball[:50])
+#print(degree_list[:50])
+#print(size_dball[:50])
 
 
 printAll(G_nk,513,radius)
