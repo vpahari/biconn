@@ -1508,6 +1508,14 @@ print(min_GC_list)
 print(min_removal_list)
 
 
+filename_fs = "minArea.txt"
+
+file1 = open(filename_fs, "w") 
+file1.write(str(min_area))
+file1.close()
+
+
+
 """
 num_nodes_to_remove = int(perc_to_remove * N)
 
