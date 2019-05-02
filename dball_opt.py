@@ -1504,7 +1504,7 @@ SEED = 124
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
-G = nk.nxadapter.nx2nk(G_nx)x
+G = nk.nxadapter.nx2nk(G_nx)
 
 #all_combos = get_all_combinations(G,200)
 
