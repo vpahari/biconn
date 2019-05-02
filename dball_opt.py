@@ -1504,15 +1504,19 @@ SEED = 124
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
-G = nk.nxadapter.nx2nk(G_nx)
+G = nk.nxadapter.nx2nk(G_nx)x
 
-print(get_all_combinations(G,200))
+#all_combos = get_all_combinations(G,200)
 
-#(fs, ABA_list, dball_list, dball_nodes_removed) = get_fStar(G,radius,int(N * perc_to_remove))
+(fs, ABA_list, dball_list, dball_nodes_removed) = get_fStar(G,radius,int(N * perc_to_remove))
 
+list_to_use =  dball_nodes_removed[:fs]
 
+GC_list_to_use = dball_list[:fs]
 
-#list_to_use =  dball_nodes_removed[:fs]
+accumulation = swap_fun(G,list_to_use, GC_list_to_use)
+
+print(accumulation)
 
 #print(sum(dball_list[:fs]))
 
