@@ -1493,7 +1493,7 @@ G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
 G = nk.nxadapter.nx2nk(G_nx)
 
-(fs, ABA_list, dball_list, dball_nodes_removed) = get_fStar(G,radius,num_nodes_to_remove)
+(fs, ABA_list, dball_list, dball_nodes_removed) = get_fStar(G,radius,int(N * perc_to_remove))
 
 list_to_use =  dball_nodes_removed[:fs]
 
