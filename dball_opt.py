@@ -1501,7 +1501,7 @@ list_to_use =  dball_nodes_removed[:fs]
 
 print(sum(dball_list[:fs]))
 
-(min_area, min_GC_list, min_removal_list) = get_optimized_fstar_dball(G,fs,list_to_use)
+(min_area, min_GC_list, min_removal_list) = get_optimized_fstar(G,fs)
 
 print(min_area)
 print(min_GC_list)
