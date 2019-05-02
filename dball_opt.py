@@ -1265,7 +1265,7 @@ def get_optimized_fstar_dball(G,fstar,nodes_to_remove):
 
 
 
-	while counter < 1000:
+	while counter < 10000:
 
 		print(counter)
 
@@ -1489,9 +1489,23 @@ perc_to_remove = 0.5
 SEED = 42155
 
 
-#G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
+G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
-#G_nk = nk.nxadapter.nx2nk(G_nx)
+G_nk = nk.nxadapter.nx2nk(G_nx)
+
+(fs, ABA_list, dball_list, dball_nodes_removed) = get_fStar(G,radius,num_nodes_to_remove)
+
+list_to_use =  dball_nodes_removed[:fs]
+
+print(sum(dball_list[:fs]))
+
+(min_area, min_GC_list, min_removal_list) = get_optimized_fstar_dball(G,fs,list_to_use)
+
+print(min_area)
+print(min_GC_list)
+print(min_removal_list)
+
+
 """
 num_nodes_to_remove = int(perc_to_remove * N)
 
