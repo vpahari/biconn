@@ -1445,6 +1445,8 @@ def get_fStar(G,radius,num_nodes_to_remove):
 
 	print(dball_list[counter - big_counter])
 
+	print(counter - big_counter)
+
 	return (counter - big_counter, ABA_list, dball_list, dball_nodes_removed)
 
 
@@ -1486,7 +1488,7 @@ N = 1000
 k = 4
 radius = 2
 perc_to_remove = 0.5
-SEED = 42155
+SEED = 124
 
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
