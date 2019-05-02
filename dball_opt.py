@@ -12,7 +12,7 @@ import pickle
 import igraph as ig
 import numpy as np
 import os
-
+import itertools
 
 def add_into_set(s,new_s):
 	for i in new_s:
@@ -1480,6 +1480,17 @@ def timestamp_track(G,radius,perc_to_remove):
 
 
 
+def get_all_combinations(G, fs):
+
+	all_nodes = get_GC_nodes(G)
+
+	all_combos = []
+
+	for s in itertools.combinations(all_nodes, fs):
+
+		all_combos.append(list(s))
+
+	return all_combos
 
 
 
@@ -1495,24 +1506,28 @@ G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
 G = nk.nxadapter.nx2nk(G_nx)
 
-(fs, ABA_list, dball_list, dball_nodes_removed) = get_fStar(G,radius,int(N * perc_to_remove))
+print(get_all_combinations(G,200))
 
-list_to_use =  dball_nodes_removed[:fs]
-
-print(sum(dball_list[:fs]))
-
-(min_area, min_GC_list, min_removal_list) = get_optimized_fstar(G,fs)
-
-print(min_area)
-print(min_GC_list)
-print(min_removal_list)
+#(fs, ABA_list, dball_list, dball_nodes_removed) = get_fStar(G,radius,int(N * perc_to_remove))
 
 
-filename_fs = "minArea.txt"
 
-file1 = open(filename_fs, "w") 
-file1.write(str(min_area))
-file1.close()
+#list_to_use =  dball_nodes_removed[:fs]
+
+#print(sum(dball_list[:fs]))
+
+#(min_area, min_GC_list, min_removal_list) = get_optimized_fstar(G,fs)
+
+#print(min_area)
+#print(min_GC_list)
+#print(min_removal_list)
+
+
+#filename_fs = "minArea.txt"
+
+#file1 = open(filename_fs, "w") 
+#file1.write(str(min_area))
+#file1.close()
 
 
 
