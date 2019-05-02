@@ -1512,7 +1512,7 @@ G = nk.nxadapter.nx2nk(G_nx)
 
 list_to_use =  dball_nodes_removed[:fs]
 
-GC_list_to_use = dball_list[:fs]
+GC_list_to_use = dball_list[:(fs + 1)]
 
 print(len(list_to_use))
 print(len(GC_list_to_use))
