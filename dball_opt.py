@@ -1514,6 +1514,9 @@ list_to_use =  dball_nodes_removed[:fs]
 
 GC_list_to_use = dball_list[:fs]
 
+print(len(list_to_use))
+print(len(GC_list_to_use))
+
 accumulation = swap_fun(G,list_to_use, GC_list_to_use)
 
 print(accumulation)
