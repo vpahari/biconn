@@ -1421,10 +1421,12 @@ a = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 2, 2, 2, 2, 3, 4, 
 
 #print(a.index(3))
 
-print(a[18])
-print(b[18])
+ind = 19
 
-printAll(G_nk,b[18][0],radius)
+print(a[ind])
+print(b[ind])
+
+printAll(G_nk,b[ind][0],radius)
 
 
 """
