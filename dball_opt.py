@@ -1186,7 +1186,7 @@ def get_optimized_fstar(G,fstar):
 
 	nodes_to_remove_len = len(nodes_to_remove)
 
-	while counter < 1000:
+	while counter < 10000:
 
 		print(counter)
 
