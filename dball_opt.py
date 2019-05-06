@@ -1450,6 +1450,39 @@ def get_fStar(G,radius,num_nodes_to_remove):
 	return (counter - big_counter, ABA_list, dball_list, dball_nodes_removed)
 
 
+def get_fStar_balls(G,radius,num_nodes_to_remove):
+
+	ABA_list = ABA_attack(G, num_nodes_to_remove)
+
+	(dball_list,size_dball,size_ball,degree_list,dball_nodes_removed) = perc_process_dBalls_nodes_removed(G,radius,num_nodes_to_remove)
+
+	counter = 0
+
+	big_counter = 0
+
+	while big_counter < 10:
+
+		if dball_list[counter] <= ABA_list[counter]:
+
+			counter += 1
+
+			big_counter = 0
+
+		else:
+
+			counter += 1
+
+			big_counter += 1
+
+	print("dball_fstar")
+
+	print(dball_list[counter - big_counter])
+
+	print(counter - big_counter)
+
+	return (counter - big_counter, ABA_list, dball_list, dball_nodes_removed,size_dball,size_ball)
+
+
 
 def full_function(G,radius,perc_to_remove):
 
@@ -1493,6 +1526,17 @@ def get_all_combinations(G, fs):
 	return all_combos
 
 
+def get_dball_fs(G,radius,num_nodes_to_remove):
+
+	(fstar, ABA_list, dball_list, dball_nodes_removed,size_dball,size_ball) = get_fStar_balls(G,radius,num_nodes_to_remove)
+
+	final_size_dball = size_dball[:(fstar + 1)]
+
+	final_size_ball = size_ball[:(fstar + 1)]
+
+	return (final_size_dball, final_size_ball)
+
+
 
 
 N = 1000
@@ -1505,6 +1549,15 @@ SEED = 124
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
 
 G = nk.nxadapter.nx2nk(G_nx)
+
+
+(final_size_dball, final_size_ball) = get_dball_fs(G,radius,int(N * perc_to_remove))
+
+print(final_size_dball)
+print(final_size_ball)
+
+
+"""
 
 #all_combos = get_all_combinations(G,200)
 
@@ -1536,7 +1589,7 @@ print(accumulation)
 #file1.write(str(min_area))
 #file1.close()
 
-
+"""
 
 """
 num_nodes_to_remove = int(perc_to_remove * N)
