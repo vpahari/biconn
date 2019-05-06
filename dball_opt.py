@@ -1539,11 +1539,11 @@ def get_dball_fs(G,radius,num_nodes_to_remove):
 
 
 
-N = 1000
+N = 5000
 k = 4
 radius = 2
-perc_to_remove = 0.5
-SEED = 124
+perc_to_remove = 0.3
+SEED = 65782
 
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
@@ -1555,6 +1555,14 @@ G = nk.nxadapter.nx2nk(G_nx)
 
 print(final_size_dball)
 print(final_size_ball)
+
+
+with open("fs_dball.pickle",'wb') as handle:
+	pickle.dump(final_size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open("fs_ball.pickle",'wb') as handle:
+	pickle.dump(final_size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
 
 
 """
