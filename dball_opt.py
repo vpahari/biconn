@@ -1512,6 +1512,21 @@ def timestamp_track(G,radius,perc_to_remove):
 	get_optimized_fstar_dball(G,fs,nodes_to_remove)
 
 
+def get_index_ball(ball_list, fstar):
+
+	counter = 0
+
+	ball_counter = 0
+
+	while counter <= fstar:
+
+		counter += ball_list[ball_counter]
+
+		ball_counter += 1
+
+	return ball_counter
+
+
 
 def get_all_combinations(G, fs):
 
@@ -1536,11 +1551,11 @@ def get_dball_fs(G,radius,num_nodes_to_remove):
 
 	print(len(size_dball))
 
+	index_list = get_index_ball(size_dball, fstar)
 
+	final_size_dball = size_dball[:index_list]
 
-	final_size_dball = size_dball[:fstar]
-
-	final_size_ball = size_ball[:fstar]
+	final_size_ball = size_ball[:index_list]
 
 	return (final_size_dball, final_size_ball)
 
