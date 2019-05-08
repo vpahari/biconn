@@ -1553,9 +1553,9 @@ def get_dball_fs(G,radius,num_nodes_to_remove):
 
 	index_list = get_index_ball(size_dball, fstar)
 
-	final_size_dball = size_dball[:index_list]
+	final_size_dball = size_dball[:]
 
-	final_size_ball = size_ball[:index_list]
+	final_size_ball = size_ball[:]
 
 	return (final_size_dball, final_size_ball)
 
@@ -1567,7 +1567,7 @@ def get_dball_fs(G,radius,num_nodes_to_remove):
 
 
 N = 1000
-k = 2
+k = 4
 radius = 2
 perc_to_remove = 0.5
 SEED = 12456
