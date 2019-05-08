@@ -1562,8 +1562,12 @@ def get_dball_fs(G,radius,num_nodes_to_remove):
 
 
 
+
+
+
+
 N = 1000
-k = 6
+k = 2
 radius = 2
 perc_to_remove = 0.5
 SEED = 12456
