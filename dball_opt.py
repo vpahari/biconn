@@ -1556,6 +1556,9 @@ G = nk.nxadapter.nx2nk(G_nx)
 print(final_size_dball)
 print(final_size_ball)
 
+print(len(final_size_dball))
+print(len(final_size_ball))
+
 filename_dball = "fs_dball_" + str(N) + "_" + str(k) + "_" + str(radius) + "_" + str(SEED) + ".pickle"
 filename_ball = "fs_ball_" + str(N) + "_" + str(k) + "_" + str(radius) + "_" + str(SEED) + ".pickle"
 
