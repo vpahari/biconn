@@ -1532,9 +1532,15 @@ def get_dball_fs(G,radius,num_nodes_to_remove):
 
 	print(fstar)
 
-	final_size_dball = size_dball[:(fstar + 1)]
+	print(len(size_ball))
 
-	final_size_ball = size_ball[:(fstar + 1)]
+	print(len(size_dball))
+
+
+
+	final_size_dball = size_dball[:fstar]
+
+	final_size_ball = size_ball[:fstar]
 
 	return (final_size_dball, final_size_ball)
 
