@@ -1539,8 +1539,8 @@ def get_dball_fs(G,radius,num_nodes_to_remove):
 
 
 
-N = 5000
-k = 4
+N = 1000
+k = 8
 radius = 2
 perc_to_remove = 0.3
 SEED = 65782
@@ -1556,11 +1556,13 @@ G = nk.nxadapter.nx2nk(G_nx)
 print(final_size_dball)
 print(final_size_ball)
 
+filename_dball = "fs_dball_" + str(N) + "_" + str(k) + "_" + str(radius) + "_" + str(SEED) + ".pickle"
+filename_ball = "fs_ball_" + str(N) + "_" + str(k) + "_" + str(radius) + "_" + str(SEED) + ".pickle"
 
-with open("fs_dball.pickle",'wb') as handle:
+with open(filename_dball,'wb') as handle:
 	pickle.dump(final_size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open("fs_ball.pickle",'wb') as handle:
+with open(filename_ball,'wb') as handle:
 	pickle.dump(final_size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
