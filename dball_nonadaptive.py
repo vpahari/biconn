@@ -106,38 +106,6 @@ def make_partitions(dict_nodes_x_i, step_size):
 	return all_values
 
 
-def merge_boxes(boxes,big_list):
-
-	for i in range(len(boxes)):
-
-		big_list[i] = big_list[i] + boxes[i]
-
-
-
-
-def make_partitions_multiple_graphs(N,k,SEED,radius,step_size,num_sims):
-
-	num_partitions = int(1 / step_size)
-
-	all_values = [0 for i in range(num_partitions)]
-
-	for i in range(num_sims):
-
-		G = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED * (i+1) + 1) 
-
-		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
-
-		boxes = make_partitions(dict_nodes_x_i,step_size)
-
-		merge_boxes(boxes,all_values)
-
-	normalized_values = list(map(lambda x : x / (N * num_sims), all_values))
-
-	print(sum(all_values))
-	print(sum(normalized_values))
-
-	return normalized_values
-
 
 def get_all_same_x_i(sorted_list,x_i_value):
 
@@ -361,65 +329,6 @@ def perc_process_dBalls_track_balls_NA(G_copy,radius):
 	return (GC_List,size_dball,size_ball,degree_list,counter_list)
 
 
-
-
-def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
-
-	G = copy_graph(G_copy)
-
-	GC_List = []
-	size_dball = [] 
-	size_ball = []
-
-	degree_list = []
-
-	counter = 0
-
-	GC_List.append(get_GC(G))
-
-	while counter < num_nodes_to_remove:
-
-		print(counter)
-
-		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
-
-		list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
-
-		if len(list_to_remove) == 0:
-			i = random.sample(list(G.nodes()),1)
-			G.removeNode(i[0])
-			size_dball.append(0)
-			size_ball.append(0)
-			counter += 1
-			GC_List.append(get_GC(G))
-			continue
-		
-		print(list_to_remove)
-
-		node = get_largest_dball(dict_nodes_dBall,list_to_remove)
-
-		print(node,dict_nodes_dBall[node])
-
-		degree_list.append((node, G.degree(node)))
-
-		#print(counter)
-
-		(dBall,ball) = get_dBN(G,node,radius) 
-
-		size_dball.append(len(dBall))
-		size_ball.append(len(ball))
-
-
-		#print(dBall)
-		#print(ball)
-
-		for i in dBall:
-			G.removeNode(i)
-			counter += 1
-			GC_List.append(get_GC(G))
-
-
-	return (GC_List,size_dball,size_ball,degree_list)
 
 
 
