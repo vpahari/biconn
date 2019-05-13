@@ -320,7 +320,7 @@ def perc_process_dBalls_track_balls_NA(G_copy,radius):
 
 	(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
 
-	list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
+	list_to_remove = dict_to_sorted_list_NA(dict_nodes_x_i)
 
 	counter_for_nodes = 0
 
