@@ -340,7 +340,7 @@ def dict_to_sorted_list_NA(d):
 
 	random.shuffle(new_list)
 
-	final_list = sorted(new_list, key = itemgetter(1), reverse = True)
+	final_list = sorted(new_list, key = itemgetter(1))
 
 	return final_list
 
