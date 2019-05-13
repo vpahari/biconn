@@ -324,18 +324,18 @@ def perc_process_dBalls_track_balls_NA(G_copy,radius):
 
 	counter_for_nodes = 0
 
+	print(list_to_remove)
+
 	while counter < num_nodes_to_remove:
 
 		curr_nodes = G.nodes()
 
 		if len(list_to_remove) == 0:
 			break
-		
-		print(list_to_remove)
-
-		print(node,dict_nodes_dBall[node])
 
 		node = list_to_remove[counter_for_nodes][0]
+
+		print(node,dict_nodes_dBall[node])
 
 		degree_list.append((node, G.degree(node)))
 
