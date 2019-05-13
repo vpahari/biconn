@@ -328,7 +328,7 @@ def perc_process_dBalls_track_balls_NA(G_copy,radius):
 
 	print(list_to_remove)
 
-	while counter < num_nodes_to_remove:
+	while counter_for_nodes < len(list_to_remove):
 
 		curr_nodes = G.nodes()
 
