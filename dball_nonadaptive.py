@@ -324,6 +324,8 @@ def perc_process_dBalls_track_balls_NA(G_copy,radius):
 
 	counter_for_nodes = 0
 
+	print(dict_nodes_x_i)
+
 	print(list_to_remove)
 
 	while counter < num_nodes_to_remove:
@@ -1466,7 +1468,7 @@ def get_dball_fs(G,radius,num_nodes_to_remove):
 
 
 N = 1000
-k = 10
+k = 4
 radius = 2
 perc_to_remove = 0.5
 SEED = 12456
