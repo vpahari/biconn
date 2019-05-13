@@ -427,9 +427,11 @@ def dict_to_sorted_list_dball(d):
 
 	new_list = list(d.items())
 
+	random.shuffle(new_list)
+
 	final_list = sorted(new_list, key = itemgetter(1), reverse = True)
 
-	return final_list[0][0]
+	return final_list
 
 
 def perc_random(G_copy,num_nodes_to_remove):
