@@ -173,7 +173,7 @@ def get_largest_dball(dball_dict,node_list):
 
 
 
-
+"""
 
 def dict_to_sorted_list(d):
 
@@ -195,7 +195,7 @@ def dict_to_sorted_list(d):
 
 		return final_list_no_0
 
-
+"""
 
 
 def get_GC_nodes(G):
@@ -425,7 +425,7 @@ def perc_process_dBalls(G_copy,radius,num_nodes_to_remove):
 
 
 
-def dict_to_sorted_list_dball(d):
+def dict_to_sorted_list(d):
 
 	new_list = list(d.items())
 
