@@ -296,7 +296,7 @@ def perc_process_dBalls_track_balls_NA(G_copy,radius):
 
 	print(list_to_remove)
 
-	while counter_for_nodes < len(list_to_remove):
+	while counter < len(list_to_remove):
 
 		curr_nodes = G.nodes()
 
@@ -327,8 +327,6 @@ def perc_process_dBalls_track_balls_NA(G_copy,radius):
 
 
 	return (GC_List,size_dball,size_ball,degree_list,counter_list)
-
-
 
 
 
@@ -400,6 +398,34 @@ def big_random_attack(G_copy,num_nodes_to_remove,num_sims):
 	return avg_list
 
 
+def DA_attack(G_copy,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+
+	GC_List.append(get_GC(G))
+
+	degree = nk.centrality.DegreeCentrality(G)
+
+	degree.run()
+
+	degree_sequence = degree.ranking()
+
+	random.shuffle(degree_sequence)
+
+	degree_sequence.sort(key = itemgetter(1), reverse = True)
+
+	for i in range(num_nodes_to_remove):
+
+		node_to_remove = degree_sequence[i][0]
+
+		G.removeNode(node_to_remove)
+
+		GC_List.append(get_GC(G))
+
+	return GC_List
+
 
 def ADA_attack(G_copy,num_nodes_to_remove):
 
@@ -422,6 +448,34 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 		degree_sequence.sort(key = itemgetter(1), reverse = True)
 
 		node_to_remove = degree_sequence[0][0]
+
+		G.removeNode(node_to_remove)
+
+		GC_List.append(get_GC(G))
+
+	return GC_List
+
+
+def BA_attack(G_copy,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+
+	GC_List.append(get_GC(G))
+
+	between = nk.centrality.DynBetweenness(G)
+	between.run()
+
+	between_sequence = between.ranking()
+
+	random.shuffle(between_sequence)
+
+	between_sequence.sort(key = itemgetter(1), reverse = True)
+
+	for i in range(num_nodes_to_remove):
+		
+		node_to_remove = between_sequence[i][0]
 
 		G.removeNode(node_to_remove)
 
@@ -478,106 +532,6 @@ def turn_lists_together(GC_List,num_nodes_removed):
 
 	return final_list
 
-
-
-def large_sims(N,k,SEED,type_of_attack,radius,num_nodes_to_remove,num_sims):
-
-	GC_big_list = []
-
-	size_ball_list = []
-	size_dball_list = []
-
-	degree_big_list = []
-
-	if type_of_attack == "ABA":
-		attack = ABA_attack
-
-	elif type_of_attack == "ADA":
-		attack = ADA_attack
-
-	elif type_of_attack == "RAN":
-		attack = perc_random
-
-	elif type_of_attack == "DBA":
-		attack = perc_process_dBalls
-
-	for i in range(num_sims):
-
-		G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = (SEED * i)) 
-		G = nk.nxadapter.nx2nk(G_nx)
-
-		if type_of_attack == "DBA":
-			(GC_List,size_dball,size_ball,degree_list) = attack(G,radius,num_nodes_to_remove)
-
-			size_dball_list.append(size_dball)
-			size_ball_list.append(size_ball)
-			degree_big_list.append(degree_list)
-
-
-		else:
-			GC_List = attack(G,num_nodes_to_remove)
-
-		GC_List = GC_List[:(num_nodes_to_remove + 1)]
-
-		GC_big_list.append(GC_List)
-
-	avg_GC_list = get_avg_list(GC_big_list)
-
-	if type_of_attack == "DBA":
-
-		return (avg_GC_list,size_dball_list,size_ball_list,degree_big_list)
-
-	else:
-		return avg_GC_list
-
-
-
-
-def get_graphs(G,radius_list,num_nodes_to_remove,filename_plt, filename_pickle_dball,filename_pickle_ball):
-
-	size_dball_list = []
-	size_ball_list = []
-	dBalls_GC_list = []
-
-	for radius in radius_list:
-
-		(dBalls_GC,size_dball,size_ball) = perc_process_dBalls(G,radius,num_nodes_to_remove)
-
-		dBalls_GC_list.append(dBalls_GC[:(num_nodes_to_remove + 1)])
-		size_dball_list.append(size_dball)
-		size_ball_list.append(size_ball)
-
-	ADA_GC = ADA_attack(G,num_nodes_to_remove)
-	RAN_GC = perc_random(G,num_nodes_to_remove)
-
-	x_axis = [i for i in range(num_nodes_to_remove + 1)]
-
-	counter = 0
-
-	for dB in dBalls_GC_list:
-
-		plt.plot(x_axis,dB, label = "dball_" + str(radius_list[counter]))
-
-		counter += 1
-
-	plt.plot(x_axis,ADA_GC, label = "ADA")
-	plt.plot(x_axis,RAN_GC, label = "Random")
-
-	(GC_List_opt,size_dball_opt,size_ball_opt,radius_track_opt) = big_attack(G, radius_list,num_nodes_to_remove)
-
-	plt.plot(x_axis,GC_List_opt, label = "dballs_opt")
-
-	plt.legend(loc='best')
-
-	plt.savefig(filename_plt)
-
-	plt.clf()
-
-	with open(filename_pickle_dball,'wb') as handle:
-		pickle.dump(size_dball_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-	with open(filename_pickle_ball,'wb') as handle:
-		pickle.dump(size_ball_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
@@ -1391,6 +1345,10 @@ G = nk.nxadapter.nx2nk(G_nx)
 
 (GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G,radius)
 
+GC_List_BA = BA_attack(G,int(N * perc_to_remove))
+
+GC_List_DA = DA_attack(G,int(N * perc_to_remove))
+
 print(GC_List_NA)
 print(GC_List)
 
@@ -1399,6 +1357,9 @@ print(size_dball)
 
 print(size_ball_NA)
 print(size_ball)
+
+print(GC_List_BA)
+print(GC_List_DA)
 
 
 """
