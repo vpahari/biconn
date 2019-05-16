@@ -1348,8 +1348,7 @@ GC_List_BA = BA_attack(G,int(N * perc_to_remove))
 
 GC_List_DA = DA_attack(G,int(N * perc_to_remove))
 
-print(GC_List_NA)
-print(GC_List)
+
 
 print(size_dball_NA)
 print(size_dball)
@@ -1360,6 +1359,8 @@ print(size_ball)
 print(counter_list_NA)
 print(counter_list)
 
+print(GC_List_NA)
+print(GC_List)
 print(GC_List_BA)
 print(GC_List_DA)
 
