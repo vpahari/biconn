@@ -315,9 +315,8 @@ def perc_process_dBalls_track_balls_NA(G_copy,radius):
 		size_ball.append(len(ball))
 
 		for i in dBall:
-			if i in curr_nodes:
-				G.removeNode(i)
-				counter += 1
+			G.removeNode(i)
+			counter += 1
 
 		GC_List.append(get_GC(G))
 
@@ -1357,6 +1356,9 @@ print(size_dball)
 
 print(size_ball_NA)
 print(size_ball)
+
+print(counter_list_NA)
+print(counter_list)
 
 print(GC_List_BA)
 print(GC_List_DA)
