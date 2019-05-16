@@ -1329,7 +1329,7 @@ def get_dball_fs(G,radius,num_nodes_to_remove):
 
 
 
-N = 1000
+N = 10000
 k = 4
 radius = 2
 perc_to_remove = 0.5
