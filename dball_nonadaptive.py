@@ -1333,7 +1333,7 @@ N = 10000
 k = 4
 radius = 2
 perc_to_remove = 0.5
-SEED = 12456
+SEED = 24212
 
 
 G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED)
