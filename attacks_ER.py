@@ -910,12 +910,16 @@ perc_to_remove = float(sys.argv[5])
 
 G = make_ER_Graph(N,k,SEED)
 
-(GC_List_NA,size_dball_NA,size_ball_NA,degree_list_NA,counter_list_NA) = perc_process_dBalls_track_balls_NA(G,radius)
+(GC_List,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack(G,radius)
 
-(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G,radius)
+print(degree_list_mainNode)
+print(degree_list_removedNode)
 
-GC_List_BA = BA_attack(G,int(N * perc_to_remove))
+print(betweenness_list_mainNode)
+print(betweenness_list_removedNode)
 
-GC_List_DA = DA_attack(G,int(N * perc_to_remove))
+print(coreness_list_mainNode)
+print(coreness_list_removedNode)
+
 
 
