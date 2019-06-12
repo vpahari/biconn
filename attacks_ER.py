@@ -16,18 +16,18 @@ import itertools
 
 
 
-def get_name_WS(initial_name, dim, size, nei, p, SEED):
+def get_name_WS(initial_name, dim, size, nei, p, SEED,radius):
 
-	return initial_name + "_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_" + ".pickle"
+	return initial_name + "_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_" + ".pickle"
 
 
-def get_name_ER(initial_name, N, k, SEED):
+def get_name_ER(initial_name, N, k, SEED,radius):
 
-	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_" + ".pickle"
+	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_" + ".pickle"
 
-def get_name_SF(initial_name,N,k,exp_out,SEED):
+def get_name_SF(initial_name,N,k,exp_out,SEED,radius):
 
-	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_SEED_" + str(SEED) + "_" + ".pickle"
+	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_" + ".pickle"
 
 
 def make_WS_graph(dim,size,nei,p,SEED):
@@ -930,24 +930,24 @@ init_name_bet_removedNode = "attacksDB_ER_betRemovedNode"
 init_name_core_mainNode = "attackDB_ER_coreMainNode"
 init_name_core_removedNode = "attackDB_ER_coreRemovedNode"
 
-GC_List_Deg_name = get_name_ER(init_name_GC_Deg, N, k, SEED)
-GC_List_Bet_name = get_name_ER(init_name_GC_Bet, N, k, SEED)
-GC_List_Ran_name = get_name_ER(init_name_GC_Ran, N, k, SEED)
-GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED)
+GC_List_Deg_name = get_name_ER(init_name_GC_Deg, N, k, SEED,radius)
+GC_List_Bet_name = get_name_ER(init_name_GC_Bet, N, k, SEED,radius)
+GC_List_Ran_name = get_name_ER(init_name_GC_Ran, N, k, SEED,radius)
+GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED,radius)
 
-CL_name = get_name_ER(init_name_CL, N, k, SEED)
+CL_name = get_name_ER(init_name_CL, N, k, SEED,radius)
 
-dBall_name = get_name_ER(init_name_dball, N, k, SEED)
-ball_name = get_name_ER(init_name_ball, N, k, SEED)
+dBall_name = get_name_ER(init_name_dball, N, k, SEED,radius)
+ball_name = get_name_ER(init_name_ball, N, k, SEED,radius)
 
-deg_mainNode_name = get_name_ER(init_name_deg_mainNode, N, k, SEED)
-deg_removedNode_name = get_name_ER(init_name_deg_removedNode, N, k, SEED)
+deg_mainNode_name = get_name_ER(init_name_deg_mainNode, N, k, SEED,radius)
+deg_removedNode_name = get_name_ER(init_name_deg_removedNode, N, k, SEED,radius)
 
-bet_mainNode_name = get_name_ER(init_name_bet_mainNode, N, k, SEED)
-bet_removedNode_name = get_name_ER(init_name_bet_removedNode, N, k, SEED)
+bet_mainNode_name = get_name_ER(init_name_bet_mainNode, N, k, SEED,radius)
+bet_removedNode_name = get_name_ER(init_name_bet_removedNode, N, k, SEED,radius)
 
-core_mainNode_name = get_name_ER(init_name_core_mainNode, N, k, SEED)
-core_removedNode_name = get_name_ER(init_name_core_removedNode, N, k, SEED)
+core_mainNode_name = get_name_ER(init_name_core_mainNode, N, k, SEED,radius)
+core_removedNode_name = get_name_ER(init_name_core_removedNode, N, k, SEED,radius)
 
 
 with open(GC_List_Deg_name,'wb') as handle:

@@ -16,18 +16,18 @@ import itertools
 
 
 
-def get_name_WS(initial_name, dim, size, nei, p, SEED):
+def get_name_WS(initial_name, dim, size, nei, p, SEED,radius):
 
-	return initial_name + "_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_" + ".pickle"
+	return initial_name + "_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_" + ".pickle"
 
 
-def get_name_ER(initial_name, N, k, SEED):
+def get_name_ER(initial_name, N, k, SEED,radius):
 
-	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_" + ".pickle"
+	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_" + ".pickle"
 
-def get_name_SF(initial_name,N,k,exp_out,SEED):
+def get_name_SF(initial_name,N,k,exp_out,SEED,radius):
 
-	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_SEED_" + str(SEED) + "_" + ".pickle"
+	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_" + ".pickle"
 
 
 def make_WS_graph(dim,size,nei,p,SEED):
@@ -916,7 +916,7 @@ G = make_SF_Graph(N,k,exp_out,SEED)
 
 (GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_result(G, radius)
 
-"""
+
 init_name_GC_Deg = "attackDEG_SF_GC"
 init_name_GC_Bet = "attackBET_SF_GC"
 init_name_GC_Ran = "attackRAN_SF_GC"
@@ -936,24 +936,24 @@ init_name_bet_removedNode = "attacksDB_SF_betRemovedNode"
 init_name_core_mainNode = "attackDB_SF_coreMainNode"
 init_name_core_removedNode = "attackDB_SF_coreRemovedNode"
 
-GC_List_Deg_name = get_name_ER(init_name_GC_Deg, N, k, SEED)
-GC_List_Bet_name = get_name_ER(init_name_GC_Bet, N, k, SEED)
-GC_List_Ran_name = get_name_ER(init_name_GC_Ran, N, k, SEED)
-GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED)
+GC_List_Deg_name = get_name_SF(init_name_GC_Deg, N,k,exp_out,SEED,radius)
+GC_List_Bet_name = get_name_SF(init_name_GC_Bet, N,k,exp_out,SEED,radius)
+GC_List_Ran_name = get_name_SF(init_name_GC_Ran, N,k,exp_out,SEED,radius)
+GC_List_DB_name = get_name_SF(init_name_GC_DB, N,k,exp_out,SEED,radius)
 
-CL_name = get_name_ER(init_name_CL, N, k, SEED)
+CL_name = get_name_SF(init_name_CL, N,k,exp_out,SEED,radius)
 
-dBall_name = get_name_ER(init_name_dball, N, k, SEED)
-ball_name = get_name_ER(init_name_ball, N, k, SEED)
+dBall_name = get_name_SF(init_name_dball, N,k,exp_out,SEED,radius)
+ball_name = get_name_SF(init_name_ball, N,k,exp_out,SEED,radius)
 
-deg_mainNode_name = get_name_ER(init_name_deg_mainNode, N, k, SEED)
-deg_removedNode_name = get_name_ER(init_name_deg_removedNode, N, k, SEED)
+deg_mainNode_name = get_name_SF(init_name_deg_mainNode, N,k,exp_out,SEED,radius)
+deg_removedNode_name = get_name_SF(init_name_deg_removedNode, N,k,exp_out,SEED,radius)
 
-bet_mainNode_name = get_name_ER(init_name_bet_mainNode, N, k, SEED)
-bet_removedNode_name = get_name_ER(init_name_bet_removedNode, N, k, SEED)
+bet_mainNode_name = get_name_SF(init_name_bet_mainNode, N,k,exp_out,SEED,radius)
+bet_removedNode_name = get_name_SF(init_name_bet_removedNode, N,k,exp_out,SEED,radius)
 
-core_mainNode_name = get_name_ER(init_name_core_mainNode, N, k, SEED)
-core_removedNode_name = get_name_ER(init_name_core_removedNode, N, k, SEED)
+core_mainNode_name = get_name_SF(init_name_core_mainNode, N,k,exp_out,SEED,radius)
+core_removedNode_name = get_name_SF(init_name_core_removedNode, N,k,exp_out,SEED,radius)
 
 
 with open(GC_List_Deg_name,'wb') as handle:
@@ -994,7 +994,7 @@ with open(bet_removedNode_name,'wb') as handle:
 
 with open(core_removedNode_name,'wb') as handle:
 	pickle.dump(coreness_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
-"""
+
 
 print(degree_list_mainNode)
 print(degree_list_removedNode)
