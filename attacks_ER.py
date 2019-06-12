@@ -872,7 +872,7 @@ def get_results_NA(G, radius):
 
 	GC_list_BA = BA_attack(G, int(N * 0.99))
  
-	GC_list_RAN = big_random_attack(G,int(N * 0.99),20)
+	GC_list_RAN = big_RA_attack(G,int(N * 0.99),20)
 
 	(GC_List_DB,size_dball,size_ball,degree_list,counter_list) = dBalls_attack_NA(G_copy,radius)
 
@@ -888,7 +888,7 @@ def get_result(G, radius):
 
 	GC_list_ABA = ABA_attack(G, int(N * 0.99))
  
-	GC_list_RAN = big_random_attack(G,int(N * 0.99),20)
+	GC_list_RAN = big_RA_attack(G,int(N * 0.99),20)
 
 	(GC_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack(G_copy,radius)
 
