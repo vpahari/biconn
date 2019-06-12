@@ -906,8 +906,6 @@ SEED=int(sys.argv[3])
 
 radius = int(sys.argv[4])
 
-perc_to_remove = float(sys.argv[5])
-
 G = make_ER_Graph(N,k,SEED)
 
 (GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_result(G, radius)
