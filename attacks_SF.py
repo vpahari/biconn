@@ -902,7 +902,7 @@ N=int(sys.argv[1])
 
 k=int(sys.argv[2])
 
-exp_out = int(sys.argv[3])
+exp_out = float(sys.argv[3])
 
 SEED=int(sys.argv[4])
 
