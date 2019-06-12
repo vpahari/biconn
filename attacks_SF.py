@@ -18,16 +18,16 @@ import itertools
 
 def get_name_WS(initial_name, dim, size, nei, p, SEED):
 
-	return initial_name + "_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + ".pickle"
+	return initial_name + "_dim_" + str(dim) + "_size_" + str(size) + "_nei_" + str(nei) + "_p_" + str(p) + "_SEED_" + str(SEED) + "_" + ".pickle"
 
 
 def get_name_ER(initial_name, N, k, SEED):
 
-	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + ".pickle"
+	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_" + ".pickle"
 
 def get_name_SF(initial_name,N,k,exp_out,SEED):
 
-	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_SEED_" + str(SEED) + ".pickle"
+	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_SEED_" + str(SEED) + "_" + ".pickle"
 
 
 def make_WS_graph(dim,size,nei,p,SEED):
@@ -234,6 +234,69 @@ def big_RA_attack(G_copy,num_nodes_to_remove,num_sims):
 
 
 
+def get_betweenness_score(G, node):
+
+	between = nk.centrality.DynBetweenness(G)
+	between.run()
+
+	return between.score(node)
+
+
+def get_degree_score(G,node):
+
+	return G.degree(node)
+
+
+def get_coreness_score(G,node):
+
+	coreness = nk.centrality.CoreDecomposition(G) 
+	coreness.run()
+
+	partition = coreness.getPartition()
+	core_number = partition.subsetOf(node)
+
+	return core_number
+
+
+def get_betweenness_score_list(G, node_list):
+
+	between = nk.centrality.DynBetweenness(G)
+	between.run()
+
+	final_list = []
+
+	for node in node_list:
+
+		final_list.append(between.score(node))
+
+	return final_list
+
+
+def get_degree_score_list(G,node_list):
+
+	final_list = []
+
+	for node in node_list:
+
+		final_list.append(G.degree(node))
+
+	return final_list
+
+
+def get_coreness_score_list(G,node_list):
+
+	coreness = nk.centrality.CoreDecomposition(G) 
+	coreness.run()
+
+	final_list = []
+
+	partition = coreness.getPartition()
+
+	for node in node_list:
+
+		final_list.append(partition.subsetOf(node))
+
+	return final_list
 
 
 
@@ -432,6 +495,8 @@ def copy_graph(G):
 
 
 
+
+#dball, vball, degree, betweenness, coreness
 def dBalls_attack(G_copy,radius):
 
 	G = copy_graph(G_copy)
@@ -440,7 +505,13 @@ def dBalls_attack(G_copy,radius):
 	size_dball = [] 
 	size_ball = []
 
-	degree_list = []
+	degree_list_mainNode = []
+	betweenness_list_mainNode = []
+	coreness_list_mainNode = []
+
+	degree_list_removedNode = []
+	betweenness_list_removedNode = []
+	coreness_list_removedNode = []
 
 	counter = 0
 
@@ -462,17 +533,26 @@ def dBalls_attack(G_copy,radius):
 		if len(list_to_remove) == 0:
 			break
 		
-		print(list_to_remove)
 
 		node = get_random_dball(list_to_remove)
-
-		print(node,dict_nodes_dBall[node])
-
-		degree_list.append((node, G.degree(node)))
-
-		#print(counter)
-
 		(dBall,ball) = get_dBN(G,node,radius) 
+
+		combined_list = [node] + dBall
+
+		between_list = get_betweenness_score_list(G,combined_list)
+		degree_list = get_degree_score_list(G,combined_list)
+		coreness_list = get_coreness_score_list(G,combined_list)
+
+
+
+		degree_list_mainNode.append(degree_list[0])
+		betweenness_list_mainNode.append(between_list[0])
+		coreness_list_mainNode.append(coreness_list[0])
+
+		degree_list_removedNode += degree_list[1:]
+		betweenness_list_removedNode += between_list[1:]
+		coreness_list_removedNode += coreness_list[1:]
+		
 
 		size_dball.append(len(dBall))
 		size_ball.append(len(ball))
@@ -490,7 +570,7 @@ def dBalls_attack(G_copy,radius):
 		counter_list.append(counter)
 
 
-	return (GC_List,size_dball,size_ball,degree_list,counter_list)
+	return (GC_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
 
 
 
@@ -792,7 +872,7 @@ def get_results_NA(G, radius):
 
 	GC_list_BA = BA_attack(G, int(N * 0.99))
  
-	GC_list_RAN = big_random_attack(G,int(N * 0.99),20)
+	GC_list_RAN = big_RA_attack(G,int(N * 0.99),20)
 
 	(GC_List_DB,size_dball,size_ball,degree_list,counter_list) = dBalls_attack_NA(G_copy,radius)
 
@@ -808,11 +888,11 @@ def get_result(G, radius):
 
 	GC_list_ABA = ABA_attack(G, int(N * 0.99))
  
-	GC_list_RAN = big_random_attack(G,int(N * 0.99),20)
+	GC_list_RAN = big_RA_attack(G,int(N * 0.99),20)
 
-	(GC_List_DB,size_dball,size_ball,degree_list,counter_list) = dBalls_attack(G_copy,radius)
+	(GC_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack(G,radius)
 
-	return (GC_list_ABA, GC_list_ADA, GC_list_RAN, GC_List_DB)
+	return (GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode)
 
 
 
@@ -828,16 +908,105 @@ SEED=int(sys.argv[4])
 
 radius = int(sys.argv[5])
 
-perc_to_remove = float(sys.argv[6])
-
 G = make_SF_Graph(N,k,exp_out,SEED)
 
-(GC_List_NA,size_dball_NA,size_ball_NA,degree_list_NA,counter_list_NA) = perc_process_dBalls_track_balls_NA(G,radius)
+(GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_result(G, radius)
 
-(GC_List,size_dball,size_ball,degree_list,counter_list) = perc_process_dBalls_track_balls(G,radius)
+"""
+init_name_GC_Deg = "attackDEG_SF_GC"
+init_name_GC_Bet = "attackBET_SF_GC"
+init_name_GC_Ran = "attackRAN_SF_GC"
+init_name_GC_DB = "attackDB_SF_GC"
 
-GC_List_BA = BA_attack(G,int(N * perc_to_remove))
+init_name_dball = "attackDB_SF_DBALL"
+init_name_ball = "attackDB_SF_BALL"
 
-GC_List_DA = DA_attack(G,int(N * perc_to_remove))
+init_name_CL = "attackDB_SF_CL"
+
+init_name_deg_mainNode = "attackDB_SF_degMainNode"
+init_name_deg_removedNode = "attackDB_SF_degRemovedNode"
+
+init_name_bet_mainNode = "attackDB_SF_betMainNode"
+init_name_bet_removedNode = "attacksDB_SF_betRemovedNode"
+
+init_name_core_mainNode = "attackDB_SF_coreMainNode"
+init_name_core_removedNode = "attackDB_SF_coreRemovedNode"
+
+GC_List_Deg_name = get_name_ER(init_name_GC_Deg, N, k, SEED)
+GC_List_Bet_name = get_name_ER(init_name_GC_Bet, N, k, SEED)
+GC_List_Ran_name = get_name_ER(init_name_GC_Ran, N, k, SEED)
+GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED)
+
+CL_name = get_name_ER(init_name_CL, N, k, SEED)
+
+dBall_name = get_name_ER(init_name_dball, N, k, SEED)
+ball_name = get_name_ER(init_name_ball, N, k, SEED)
+
+deg_mainNode_name = get_name_ER(init_name_deg_mainNode, N, k, SEED)
+deg_removedNode_name = get_name_ER(init_name_deg_removedNode, N, k, SEED)
+
+bet_mainNode_name = get_name_ER(init_name_bet_mainNode, N, k, SEED)
+bet_removedNode_name = get_name_ER(init_name_bet_removedNode, N, k, SEED)
+
+core_mainNode_name = get_name_ER(init_name_core_mainNode, N, k, SEED)
+core_removedNode_name = get_name_ER(init_name_core_removedNode, N, k, SEED)
+
+
+with open(GC_List_Deg_name,'wb') as handle:
+	pickle.dump(GC_list_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(GC_List_Bet_name,'wb') as handle:
+	pickle.dump(GC_list_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(GC_List_Ran_name,'wb') as handle:
+	pickle.dump(GC_list_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(GC_List_DB_name,'wb') as handle:
+	pickle.dump(GC_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(CL_name,'wb') as handle:
+	pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(dBall_name,'wb') as handle:
+	pickle.dump(size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(ball_name,'wb') as handle:
+	pickle.dump(size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(deg_mainNode_name,'wb') as handle:
+	pickle.dump(degree_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(bet_mainNode_name,'wb') as handle:
+	pickle.dump(betweenness_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(core_mainNode_name,'wb') as handle:
+	pickle.dump(coreness_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(deg_removedNode_name,'wb') as handle:
+	pickle.dump(degree_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(bet_removedNode_name,'wb') as handle:
+	pickle.dump(betweenness_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(core_removedNode_name,'wb') as handle:
+	pickle.dump(coreness_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+"""
+
+print(degree_list_mainNode)
+print(degree_list_removedNode)
+
+print(betweenness_list_mainNode)
+print(betweenness_list_removedNode)
+
+print(coreness_list_mainNode)
+print(coreness_list_removedNode)
+
+
+
+
+
+
+
+
 
 

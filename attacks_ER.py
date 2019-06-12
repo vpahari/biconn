@@ -925,7 +925,7 @@ init_name_deg_mainNode = "attackDB_ER_degMainNode"
 init_name_deg_removedNode = "attackDB_ER_degRemovedNode"
 
 init_name_bet_mainNode = "attackDB_ER_betMainNode"
-init_name_bet_removedNode = "attacksER_betRemovedNode"
+init_name_bet_removedNode = "attacksDB_ER_betRemovedNode"
 
 init_name_core_mainNode = "attackDB_ER_coreMainNode"
 init_name_core_removedNode = "attackDB_ER_coreRemovedNode"
