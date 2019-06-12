@@ -126,6 +126,8 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 	for i in range(num_nodes_to_remove):
 
+		print(i)
+
 		degree = nk.centrality.DegreeCentrality(G)
 
 		degree.run()
@@ -182,6 +184,8 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 	GC_List.append(get_GC(G))
 
 	for i in range(num_nodes_to_remove):
+
+		print(i)
 
 		between = nk.centrality.DynBetweenness(G)
 		between.run()
