@@ -908,6 +908,13 @@ radius = int(sys.argv[4])
 
 G = make_ER_Graph(N,k,SEED)
 
+print(int(N * 0.99))
+
+GC_list = ADA_attack(G, int(N * 0.99))
+
+print(len(GC_list))
+
+"""
 (GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_result(G, radius)
 
 
@@ -999,5 +1006,5 @@ print(betweenness_list_removedNode)
 print(coreness_list_mainNode)
 print(coreness_list_removedNode)
 
-
+"""
 
