@@ -931,7 +931,7 @@ init_name_deg_mainNode = "attackDB_SF_degMainNode"
 init_name_deg_removedNode = "attackDB_SF_degRemovedNode"
 
 init_name_bet_mainNode = "attackDB_SF_betMainNode"
-init_name_bet_removedNode = "attacksDB_SF_betRemovedNode"
+init_name_bet_removedNode = "attackDB_SF_betRemovedNode"
 
 init_name_core_mainNode = "attackDB_SF_coreMainNode"
 init_name_core_removedNode = "attackDB_SF_coreRemovedNode"
