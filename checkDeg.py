@@ -122,6 +122,8 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 	GC_List = []
 
+	degree_list = []
+
 	GC_List.append(get_GC(G))
 
 	for i in range(num_nodes_to_remove):
@@ -142,7 +144,9 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 		GC_List.append(get_GC(G))
 
-	return GC_List
+		degree_list.append(degree_sequence[0][1])
+
+	return (GC_List, degree_list)
 
 
 def BA_attack(G_copy,num_nodes_to_remove):
@@ -908,7 +912,13 @@ radius = int(sys.argv[4])
 
 G = make_ER_Graph(N,k,SEED)
 
+(GC_List, degree_list) = ADA_attack(G, int(N * 0.99))
+
+print(degree_list)
+
+"""
 (GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_result(G, radius)
+
 
 init_name_GC_Deg = "attackDEG_ER_GC"
 init_name_GC_Bet = "attackBET_ER_GC"
@@ -997,6 +1007,6 @@ print(betweenness_list_removedNode)
 
 print(coreness_list_mainNode)
 print(coreness_list_removedNode)
-
+"""
 
 
