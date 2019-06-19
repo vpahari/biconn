@@ -939,7 +939,16 @@ radius = int(sys.argv[5])
 
 G = make_SF_Graph(N,k,exp_out,SEED)
 
-(GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_result(G, radius)
+#(GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_results_NA(G, radius)
+
+
+(GC_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack_NA(G,radius)
+
+print(GC_List_DB)
+print(counter_list)
+print(size_dball)
+
+
 
 """
 GC_list_DA = DA_attack(G,int(N * 0.99))
@@ -949,26 +958,26 @@ GC_list_BA = BA_attack(G,int(N * 0.99))
 print(GC_list_DA)
 print(GC_list_BA)
 
-"""
 
-init_name_GC_Deg = "attackDEG_SF_GC"
-init_name_GC_Bet = "attackBET_SF_GC"
-init_name_GC_Ran = "attackRAN_SF_GC"
-init_name_GC_DB = "attackDB_SF_GC"
 
-init_name_dball = "attackDB_SF_DBALL"
-init_name_ball = "attackDB_SF_BALL"
+init_name_GC_Deg = "NA_attackDEG_SF_GC"
+init_name_GC_Bet = "NA_attackBET_SF_GC"
+init_name_GC_Ran = "NA_attackRAN_SF_GC"
+init_name_GC_DB = "NA_attackDB_SF_GC"
 
-init_name_CL = "attackDB_SF_CL"
+init_name_dball = "NA_attackDB_SF_DBALL"
+init_name_ball = "NA_attackDB_SF_BALL"
 
-init_name_deg_mainNode = "attackDB_SF_degMainNode"
-init_name_deg_removedNode = "attackDB_SF_degRemovedNode"
+init_name_CL = "NA_attackDB_SF_CL"
 
-init_name_bet_mainNode = "attackDB_SF_betMainNode"
-init_name_bet_removedNode = "attackDB_SF_betRemovedNode"
+init_name_deg_mainNode = "NA_attackDB_SF_degMainNode"
+init_name_deg_removedNode = "NA_attackDB_SF_degRemovedNode"
 
-init_name_core_mainNode = "attackDB_SF_coreMainNode"
-init_name_core_removedNode = "attackDB_SF_coreRemovedNode"
+init_name_bet_mainNode = "NA_attackDB_SF_betMainNode"
+init_name_bet_removedNode = "NA_attackDB_SF_betRemovedNode"
+
+init_name_core_mainNode = "NA_attackDB_SF_coreMainNode"
+init_name_core_removedNode = "NA_attackDB_SF_coreRemovedNode"
 
 GC_List_Deg_name = get_name_SF(init_name_GC_Deg, N,k,exp_out,SEED,radius)
 GC_List_Bet_name = get_name_SF(init_name_GC_Bet, N,k,exp_out,SEED,radius)
@@ -1041,7 +1050,7 @@ print(coreness_list_removedNode)
 
 
 
-
+"""
 
 
 
