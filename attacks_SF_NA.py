@@ -939,14 +939,8 @@ radius = int(sys.argv[5])
 
 G = make_SF_Graph(N,k,exp_out,SEED)
 
-#(GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_results_NA(G, radius)
+(GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_results_NA(G, radius)
 
-
-(GC_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack_NA(G,radius)
-
-print(GC_List_DB)
-print(counter_list)
-print(size_dball)
 
 
 
@@ -957,7 +951,7 @@ GC_list_BA = BA_attack(G,int(N * 0.99))
 
 print(GC_list_DA)
 print(GC_list_BA)
-
+"""
 
 
 init_name_GC_Deg = "NA_attackDEG_SF_GC"
@@ -1050,7 +1044,7 @@ print(coreness_list_removedNode)
 
 
 
-"""
+
 
 
 
