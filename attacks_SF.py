@@ -917,6 +917,10 @@ G = make_SF_Graph(N,k,exp_out,SEED)
 (GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_result(G, radius)
 
 
+print(GC_list_ADA)
+print(GC_list_ABA)
+
+"""
 init_name_GC_Deg = "attackDEG_SF_GC"
 init_name_GC_Bet = "attackBET_SF_GC"
 init_name_GC_Ran = "attackRAN_SF_GC"
@@ -1005,7 +1009,7 @@ print(betweenness_list_removedNode)
 print(coreness_list_mainNode)
 print(coreness_list_removedNode)
 
-
+"""
 
 
 
