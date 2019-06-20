@@ -545,22 +545,6 @@ def dBalls_attack(G_copy,radius):
 
 		node = get_random_dball(list_to_remove)
 		(dBall,ball) = get_dBN(G,node,radius) 
-
-		combined_list = [node] + dBall
-
-		between_list = get_betweenness_score_list(G,combined_list)
-		degree_list = get_degree_score_list(G,combined_list)
-		coreness_list = get_coreness_score_list(G,combined_list)
-
-
-
-		degree_list_mainNode.append(degree_list[0])
-		betweenness_list_mainNode.append(between_list[0])
-		coreness_list_mainNode.append(coreness_list[0])
-
-		degree_list_removedNode += degree_list[1:]
-		betweenness_list_removedNode += between_list[1:]
-		coreness_list_removedNode += coreness_list[1:]
 		
 
 		size_dball.append(len(dBall))
@@ -653,19 +637,6 @@ def dBalls_attack_NA(G_copy,radius):
 		size_dball.append(len(dBall))
 		size_ball.append(len(ball))
 
-		combined_list = [node] + dBall
-
-		between_list = get_betweenness_score_list(G,combined_list)
-		degree_list = get_degree_score_list(G,combined_list)
-		coreness_list = get_coreness_score_list(G,combined_list)
-
-		degree_list_mainNode.append(degree_list[0])
-		betweenness_list_mainNode.append(between_list[0])
-		coreness_list_mainNode.append(coreness_list[0])
-
-		degree_list_removedNode += degree_list[1:]
-		betweenness_list_removedNode += between_list[1:]
-		coreness_list_removedNode += coreness_list[1:]
 
 		main_node_track.append(node)
 
