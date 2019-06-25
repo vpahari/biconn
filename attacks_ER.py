@@ -93,6 +93,10 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 	GC_List = []
 
+	original_degree_list = []
+
+	adaptive_degree_list = []
+
 	GC_List.append(get_GC(G))
 
 	degree = nk.centrality.DegreeCentrality(G)
@@ -109,11 +113,17 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 		node_to_remove = degree_sequence[i][0]
 
+		original_degree = degree_sequence[i][1]
+
+		adaptive_degree_list.append(G.degree(node_to_remove))
+
+		original_degree_list.append(original_degree)
+
 		G.removeNode(node_to_remove)
 
 		GC_List.append(get_GC(G))
 
-	return GC_List
+	return (GC_List, original_degree_list,adaptive_degree_list)
 
 
 def ADA_attack(G_copy,num_nodes_to_remove):
@@ -123,6 +133,8 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 	GC_List = []
 
 	GC_List.append(get_GC(G))
+
+	degree_list = []
 
 	for i in range(num_nodes_to_remove):
 
@@ -138,11 +150,13 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 		node_to_remove = degree_sequence[0][0]
 
+		degree_list.append(G.degree(node_to_remove))
+
 		G.removeNode(node_to_remove)
 
 		GC_List.append(get_GC(G))
 
-	return GC_List
+	return (GC_List, degree_list)
 
 
 def BA_attack(G_copy,num_nodes_to_remove):
@@ -884,7 +898,7 @@ def get_result(G, radius):
 
 	N = G.numberOfNodes()
 
-	GC_list_ADA = ADA_attack(G, int(N * 0.99))
+	(GC_list_ADA, degree_list) = ADA_attack(G, int(N * 0.99))
 
 	GC_list_ABA = ABA_attack(G, int(N * 0.99))
  
@@ -892,7 +906,7 @@ def get_result(G, radius):
 
 	(GC_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack(G,radius)
 
-	return (GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode)
+	return (GC_list_ADA, degree_list, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode)
 
 
 
@@ -908,7 +922,7 @@ radius = int(sys.argv[4])
 
 G = make_ER_Graph(N,k,SEED)
 
-(GC_list_ADA, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_result(G, radius)
+(GC_list_ADA, degree_list, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_result(G, radius)
 
 init_name_GC_Deg = "attackDEG_ER_GC"
 init_name_GC_Bet = "attackBET_ER_GC"
@@ -929,6 +943,8 @@ init_name_bet_removedNode = "attackDB_ER_betRemovedNode"
 init_name_core_mainNode = "attackDB_ER_coreMainNode"
 init_name_core_removedNode = "attackDB_ER_coreRemovedNode"
 
+init_degree_list_name = "attackDEG_ER_degreeList"
+
 GC_List_Deg_name = get_name_ER(init_name_GC_Deg, N, k, SEED,radius)
 GC_List_Bet_name = get_name_ER(init_name_GC_Bet, N, k, SEED,radius)
 GC_List_Ran_name = get_name_ER(init_name_GC_Ran, N, k, SEED,radius)
@@ -948,6 +964,7 @@ bet_removedNode_name = get_name_ER(init_name_bet_removedNode, N, k, SEED,radius)
 core_mainNode_name = get_name_ER(init_name_core_mainNode, N, k, SEED,radius)
 core_removedNode_name = get_name_ER(init_name_core_removedNode, N, k, SEED,radius)
 
+degree_list_name = get_name_ER(init_degree_list_name, N, k, SEED, radius)
 
 with open(GC_List_Deg_name,'wb') as handle:
 	pickle.dump(GC_list_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -988,15 +1005,10 @@ with open(bet_removedNode_name,'wb') as handle:
 with open(core_removedNode_name,'wb') as handle:
 	pickle.dump(coreness_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+with open(degree_list_name,'wb') as handle:
+	pickle.dump(degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-print(degree_list_mainNode)
-print(degree_list_removedNode)
 
-print(betweenness_list_mainNode)
-print(betweenness_list_removedNode)
-
-print(coreness_list_mainNode)
-print(coreness_list_removedNode)
-
+print(degree_list)
 
 
