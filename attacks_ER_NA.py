@@ -907,7 +907,7 @@ def get_results_NA(G, radius):
 
 	N = G.numberOfNodes()
 
-	(GC_List, original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 0.99))
+	(GC_list_DA, original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 0.99))
 
 	GC_list_BA = BA_attack(G, int(N * 0.99))
  
