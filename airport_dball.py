@@ -910,7 +910,7 @@ def get_result(G, radius):
 
 
 
-
+radius = 2
 
 file_name= "USairport500.txt"
 
