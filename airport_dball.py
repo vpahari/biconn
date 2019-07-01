@@ -920,7 +920,7 @@ file_name= "USairport500.txt"
 
 lines = [line.rstrip('\n') for line in open(file_name)]
 
-G = nk.graph.Graph(n = 500, directed = True)
+G = nk.graph.Graph(n = 500)
 
 for line in lines:
 
