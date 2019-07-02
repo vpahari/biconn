@@ -426,7 +426,7 @@ radius = int(sys.argv[5])
 
 G = make_SF_Graph(N,k,exp_out,SEED)
 
-path = os.getcwd()
+path = os.getcwd() + "/"
 
 path += "SF_" + str(N) + "_" + str(k) + "_"+ str(exp_out) + "_" +  str(SEED)+ "_" + str(radius) + "/"
 
