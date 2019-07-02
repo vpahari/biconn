@@ -404,7 +404,7 @@ radius = int(sys.argv[4])
 
 G = nx.erdos_renyi_graph(N, k/(N-1), SEED)
 
-path = os.getcwd()
+path = os.getcwd() + "/"
 
 path += "ER_" + str(N) + "_" + str(k) + "_"+ str(SEED)+ "_" + str(radius) + "/"
 
