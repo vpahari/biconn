@@ -432,7 +432,7 @@ path += "SF_" + str(N) + "_" + str(k) + "_"+ str(exp_out) + "_" +  str(SEED)+ "_
 
 os.mkdir(path)
 
-create_all_graphs(G, radius, path)
+#create_all_graphs(G, radius, path)
 
 
 
