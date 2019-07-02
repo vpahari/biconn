@@ -203,6 +203,12 @@ def dBalls_attack(G_copy,radius, init_filename, position, path):
 
 	counterNew = 0
 
+	try:
+		os.mkdir(path)
+
+	except:
+		pass
+
 	while counter < num_nodes_to_remove:
 
 		print(counter)
@@ -364,9 +370,9 @@ def create_all_graphs(G, radius,path):
 
 	counter = 0
 
-	position=nx.spring_layout(G) 
+	#position=nx.spring_layout(G) 
 
-	plt.figure(figsize=(10,10))
+	#plt.figure(figsize=(10,10))
 
 	nx.drawing.nx_pylab.draw_networkx(G, pos=position, arrowsize = 0.1, node_size = 0.4, with_labels = False, edge_color = 'b')
 
@@ -391,36 +397,116 @@ def create_all_graphs(G, radius,path):
 
 		counter += 1
 	"""
+def turn_dict_to_list(d):
+
+	new_list = []
+
+	for k in list(d.keys()):
+
+		new_list.append((k,d[k]))
+
+	return new_list
+
+def ADA_attack(G_copy,num_nodes_to_remove, init_filename, position, path):
+
+	G = G_copy.copy()
+
+	GC_List = []
+
+	GC_List.append(get_GC(G))
+
+	degree_list = []
+
+	#path += init_filename
+
+	try:
+		os.mkdir(path)
+
+	except:
+		pass
+
+	for i in range(num_nodes_to_remove):
+
+		print(i)
+
+		new_filename =  path + init_filename + str(i) + ".png"
+
+		degree_sequence_dict = dict(G.degree())
+
+		degree_sequence = turn_dict_to_list(degree_sequence_dict)
+
+		random.shuffle(degree_sequence)
+
+		degree_sequence.sort(key = itemgetter(1), reverse = True)
+
+		node_to_remove = degree_sequence[0][0]
+
+		degree_list.append(G.degree(node_to_remove))
+
+		G_nodes = list(G.nodes())
+		G_edges = list(G.edges())
+
+		plt.figure(figsize=(10,10))
+
+		G_nodes.remove(node_to_remove)
+
+		edges_remaining = remove_all_edges_with_node(G_edges, node_to_remove)
+
+		nx.drawing.nx_pylab.draw_networkx_nodes(G, nodelist = G_nodes, pos = position, node_size = 0.4, with_labels = False, node_color = 'r')
+
+		nx.drawing.nx_pylab.draw_networkx_edges(G, edgelist = G_edges, pos = position, arrowsize = 0.1, with_labels = False, edge_color = 'b')
+
+		nx.drawing.nx_pylab.draw_networkx_nodes(G, pos = position, nodelist = [node_to_remove], node_size = 10, with_labels = False, node_color = 'magenta')
+
+		nx.drawing.nx_pylab.draw_networkx_edges(G, pos = position, edgelist = edges_remaining, arrowsize = 4, with_labels = False, edge_color = 'y')
+
+		plt.savefig(new_filename)
+
+		plt.clf()
+
+		G.remove_node(node_to_remove)
+
+		GC_List.append(get_GC(G))
+
+	return (GC_List, degree_list)
+
+
+def create_graphs_degree(G, position,path):
+
+	num_nodes_to_remove = int(G.number_of_nodes() * 0.8)
+
+	init_filename = "ER_" + str(N) + "_" + str(k) + "_" +  str(SEED)+ "_" + str(radius) + "_numBalls_" 
+
+	(GC_List, degree_list) = ADA_attack(G,num_nodes_to_remove, init_filename, position, path)
 
 
 
-N = int(sys.argv[1]) 
 
-k = int(sys.argv[2])
+N=int(sys.argv[1]) 
 
-SEED = int(sys.argv[3])  
+k=int(sys.argv[2])
 
-radius = int(sys.argv[4]) 
+SEED=int(sys.argv[3])
+
+radius = int(sys.argv[4])
 
 G = nx.erdos_renyi_graph(N, k/(N-1), SEED)
 
+position=nx.spring_layout(G)
+
+plt.figure(figsize=(10,10))
+
 path = os.getcwd() + "/"
 
-path += "ER_" + str(N) + "_" + str(k) + "_"+ str(SEED)+ "_" + str(radius) + "/"
+path_dball = path +  "DBALL_SF_" + str(N) + "_" + str(k)  + "_" +  str(SEED)+ "_" + str(radius) + "/"
 
-os.mkdir(path)
-
-create_all_graphs(G, radius, path)
+path_degree = path + "DEG_SF_" + str(N) + "_" + str(k) + "_" +  str(SEED)+ "_" + str(radius) + "/"
 
 
+create_all_graphs(G, radius, path_dball)
 
 
-
-
-
-
-
-
+create_graphs_degree(G, position,path_degree)
 
 
 
