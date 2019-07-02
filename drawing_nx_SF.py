@@ -9,7 +9,7 @@ import random
 import sys
 from operator import itemgetter
 import os
-
+import igraph as ig
 
 def make_SF_Graph(N,k,exp_out,SEED):
 
