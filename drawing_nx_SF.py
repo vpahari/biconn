@@ -1,6 +1,7 @@
 import csv
 import glob
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 import pickle
 import math
 from functools import reduce
