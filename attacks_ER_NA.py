@@ -939,7 +939,7 @@ def get_result(G, radius):
 
 N=int(sys.argv[1]) 
 
-k=int(sys.argv[2])
+k=float(sys.argv[2])
 
 SEED=int(sys.argv[3])
 

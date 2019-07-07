@@ -929,7 +929,7 @@ def get_result(G, radius):
 
 N=int(sys.argv[1]) 
 
-k=int(sys.argv[2])
+k=float(sys.argv[2])
 
 exp_out = float(sys.argv[3])
 
