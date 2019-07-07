@@ -498,9 +498,9 @@ plt.figure(figsize=(10,10))
 
 path = os.getcwd() + "/"
 
-path_dball = path +  "DBALL_SF_" + str(N) + "_" + str(k)  + "_" +  str(SEED)+ "_" + str(radius) + "/"
+path_dball = path +  "DBALL_ER_" + str(N) + "_" + str(k)  + "_" +  str(SEED)+ "_" + str(radius) + "/"
 
-path_degree = path + "DEG_SF_" + str(N) + "_" + str(k) + "_" +  str(SEED)+ "_" + str(radius) + "/"
+path_degree = path + "DEG_ER_" + str(N) + "_" + str(k) + "_" +  str(SEED)+ "_" + str(radius) + "/"
 
 
 create_all_graphs(G, radius, path_dball)
