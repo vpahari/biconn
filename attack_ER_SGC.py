@@ -203,6 +203,10 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 
 	GC_List = []
 
+	SGC_List = []
+
+	num_comp_List = []
+
 	GC_List.append(get_GC(G))
 
 	for i in range(num_nodes_to_remove):
