@@ -132,6 +132,10 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 	GC_List = []
 
+	SGC_List = []
+
+	num_comp_List = []
+
 	GC_List.append(get_GC(G))
 
 	degree_list = []
@@ -154,9 +158,15 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 		G.removeNode(node_to_remove)
 
-		GC_List.append(get_GC(G))
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
-	return (GC_List, degree_list)
+		GC_List.append(GC)
+
+		SGC_List.append(SGC)
+
+		num_comp_List.append(num_comp)
+
+	return (GC_List, SGC_List, num_comp_List, degree_list)
 
 
 def BA_attack(G_copy,num_nodes_to_remove):
@@ -208,9 +218,15 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 
 		G.removeNode(node_to_remove)
 
-		GC_List.append(get_GC(G))
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
-	return GC_List
+		GC_List.append(GC)
+
+		SGC_List.append(SGC)
+
+		num_comp_List.append(num_comp)
+
+	return (GC_List, SGC_List, num_comp_List)
 
 
 
@@ -534,6 +550,10 @@ def dBalls_attack(G_copy,radius):
 	G = copy_graph(G_copy)
 
 	GC_List = []
+	SGC_List = []
+	num_comp_List = []
+
+
 	size_dball = [] 
 	size_ball = []
 
@@ -597,12 +617,16 @@ def dBalls_attack(G_copy,radius):
 			G.removeNode(i)
 			counter += 1
 
-		GC_List.append(get_GC(G))
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+		GC_List.append(GC)
+		SGC_List.append(SGC)
+		num_comp_List.append(num_comp)
 
 		counter_list.append(counter)
 
 
-	return (GC_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
+	return (GC_List,SGC_List,num_comp_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
 
 
 
@@ -916,16 +940,15 @@ def get_result(G, radius):
 
 	N = G.numberOfNodes()
 
-	(GC_list_ADA, degree_list) = ADA_attack(G, int(N * 0.99))
+	(GC_List_ADA, SGC_List_ADA, num_comp_List_ADA, degree_list) = ADA_attack(G, int(N * 0.99))
 
-	GC_list_ABA = ABA_attack(G, int(N * 0.99))
+	(GC_List_ABA, SGC_List_ABA, num_comp_List_ABA) = ABA_attack(G, int(N * 0.99))
  
 	GC_list_RAN = big_RA_attack(G,int(N * 0.99),20)
 
-	(GC_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack(G,radius)
+	(GC_List_DB, SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack(G,radius)
 
-	return (GC_list_ADA, degree_list, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode)
-
+	return (GC_List_ADA, SGC_List_ADA, num_comp_List_ADA, degree_list, GC_List_ABA, SGC_List_ABA, num_comp_List_ABA, GC_List_DB,SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
 
 
 
@@ -940,6 +963,18 @@ radius = int(sys.argv[4])
 
 G = make_ER_Graph(N,k,SEED)
 
+(GC_List_ADA, SGC_List_ADA, num_comp_List_ADA, GC_List_ABA, SGC_List_ABA, num_comp_List_ABA, GC_List_DB,SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = get_result(G, radius)
+
+
+print(SGC_List_ADA)
+print(SGC_List_ABA)
+print(SGC_List_DB)
+
+print(num_comp_List_ADA)
+print(num_comp_List_ABA)
+print(num_comp_List_DB)
+
+"""
 (GC_list_ADA, degree_list, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_result(G, radius)
 
 init_name_GC_Deg = "attackDEG_ER_GC"
@@ -1029,4 +1064,4 @@ with open(degree_list_name,'wb') as handle:
 
 print(degree_list)
 
-
+"""
