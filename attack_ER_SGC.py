@@ -1081,13 +1081,13 @@ numComp_DB_name = get_name_ER(init_name_numComp_DB, N, k, SEED, radius)
 
 
 with open(GC_List_Deg_name,'wb') as handle:
-	pickle.dump(GC_list_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	pickle.dump(GC_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 with open(GC_List_Bet_name,'wb') as handle:
-	pickle.dump(GC_list_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	pickle.dump(GC_List_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 with open(GC_List_Ran_name,'wb') as handle:
-	pickle.dump(GC_list_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	pickle.dump(GC_List_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 with open(GC_List_DB_name,'wb') as handle:
 	pickle.dump(GC_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
