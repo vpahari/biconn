@@ -292,7 +292,7 @@ def big_RA_attack(G_copy,num_nodes_to_remove,num_sims):
 
 		(GC_List, SGC_List, num_comp_List) = RA_attack(G_copy,num_nodes_to_remove)
 
-		big_GC_List.append(GC_list)
+		big_GC_List.append(GC_List)
 		big_SGC_List.append(SGC_List)
 		big_numComp_List.append(num_comp_List)
 
