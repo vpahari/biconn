@@ -609,7 +609,12 @@ def dBalls_attack(G_copy,radius):
 
 	counter_list = []
 
-	GC_List.append(get_GC(G))
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+	SGC_List.append(SGC)
+	num_comp_List.append(num_comp)
+
 	counter_list.append(counter)
 
 	num_nodes_to_remove = G.numberOfNodes()
