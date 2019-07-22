@@ -1003,9 +1003,8 @@ radius = int(sys.argv[4])
 
 G = make_ER_Graph(N,k,SEED)
 
-(GC_List_ADA, SGC_List_ADA, num_comp_List_ADA, degree_list, GC_List_ABA, SGC_List_ABA, num_comp_List_ABA, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN, GC_List_DB,SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = get_result(G,radius)
 
-
+"""
 print(SGC_List_ADA)
 print(SGC_List_ABA)
 print(SGC_List_DB)
@@ -1013,9 +1012,9 @@ print(SGC_List_DB)
 print(num_comp_List_ADA)
 print(num_comp_List_ABA)
 print(num_comp_List_DB)
+"""
 
-
-(GC_list_ADA, degree_list, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_result(G, radius)
+(GC_List_ADA, SGC_List_ADA, num_comp_List_ADA, degree_list, GC_List_ABA, SGC_List_ABA, num_comp_List_ABA, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN, GC_List_DB,SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = get_result(G,radius)
 
 init_name_GC_Deg = "attackDEG_ER_GC"
 init_name_GC_Bet = "attackBET_ER_GC"
