@@ -136,7 +136,13 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 	num_comp_List = []
 
-	GC_List.append(get_GC(G))
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+
+	SGC_List.append(SGC)
+
+	num_comp_List.append(num_comp)
 
 	degree_list = []
 
@@ -207,7 +213,13 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 
 	num_comp_List = []
 
-	GC_List.append(get_GC(G))
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+
+	SGC_List.append(SGC)
+
+	num_comp_List.append(num_comp)
 
 	for i in range(num_nodes_to_remove):
 
@@ -240,31 +252,55 @@ def RA_attack(G_copy,num_nodes_to_remove):
 
 	GC_List = []
 
-	GC_List.append(get_GC(G))
+	SGC_List = []
+
+	num_comp_List = []
+
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+
+	SGC_List.append(SGC)
+
+	num_comp_List.append(num_comp)
 
 	all_nodes = random.sample(list(G.nodes()),num_nodes_to_remove)
 
 	for i in all_nodes:
-		G.removeNode(i)
-		GC_List.append(get_GC(G))
 
-	return GC_List
+		G.removeNode(i)
+
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+		GC_List.append(GC)
+
+		SGC_List.append(SGC)
+
+		num_comp_List.append(num_comp)
+
+	return (GC_List, SGC_List, num_comp_List)
 
 
 
 def big_RA_attack(G_copy,num_nodes_to_remove,num_sims):
 
 	big_GC_List = []
+	big_SGC_List = []
+	big_numComp_List = []
 
 	for i in range(num_sims):
 
-		GC_list = RA_attack(G_copy,num_nodes_to_remove)
+		(GC_List, SGC_List, num_comp_List) = RA_attack(G_copy,num_nodes_to_remove)
 
 		big_GC_List.append(GC_list)
+		big_SGC_List.append(SGC_List)
+		big_numComp_List.append(num_comp_List)
 
-	avg_list = get_avg_list(big_GC_List)
+	avg_list_GC = get_avg_list(big_GC_List)
+	avg_list_SGC = get_avg_list(big_SGC_List)
+	avg_list_numComp = get_avg_list(big_numComp_List)
 
-	return avg_list 
+	return (avg_list_GC, avg_list_SGC, avg_list_numComp) 
 
 
 
@@ -948,11 +984,11 @@ def get_result(G, radius):
 
 	(GC_List_ABA, SGC_List_ABA, num_comp_List_ABA) = ABA_attack(G, int(N * 0.99))
  
-	GC_list_RAN = big_RA_attack(G,int(N * 0.99),20)
+	(GC_List_RAN, SGC_List_RAN, num_comp_List_RAN) = big_RA_attack(G,int(N * 0.99),20)
 
 	(GC_List_DB, SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack(G,radius)
 
-	return (GC_List_ADA, SGC_List_ADA, num_comp_List_ADA, degree_list, GC_List_ABA, SGC_List_ABA, num_comp_List_ABA, GC_List_DB,SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
+	return (GC_List_ADA, SGC_List_ADA, num_comp_List_ADA, degree_list, GC_List_ABA, SGC_List_ABA, num_comp_List_ABA, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN, GC_List_DB,SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
 
 
 
@@ -967,7 +1003,7 @@ radius = int(sys.argv[4])
 
 G = make_ER_Graph(N,k,SEED)
 
-(GC_List_ADA, SGC_List_ADA, num_comp_List_ADA, degree_list, GC_List_ABA, SGC_List_ABA, num_comp_List_ABA, GC_List_DB,SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = get_result(G,radius)
+(GC_List_ADA, SGC_List_ADA, num_comp_List_ADA, degree_list, GC_List_ABA, SGC_List_ABA, num_comp_List_ABA, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN, GC_List_DB,SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = get_result(G,radius)
 
 
 print(SGC_List_ADA)
@@ -978,7 +1014,7 @@ print(num_comp_List_ADA)
 print(num_comp_List_ABA)
 print(num_comp_List_DB)
 
-"""
+
 (GC_list_ADA, degree_list, GC_list_ABA, GC_list_RAN, GC_List_DB, counter_list, size_dball, size_ball, degree_list_mainNode, betweenness_list_mainNode, coreness_list_mainNode, degree_list_removedNode, betweenness_list_removedNode, coreness_list_removedNode) = get_result(G, radius)
 
 init_name_GC_Deg = "attackDEG_ER_GC"
@@ -986,21 +1022,32 @@ init_name_GC_Bet = "attackBET_ER_GC"
 init_name_GC_Ran = "attackRAN_ER_GC"
 init_name_GC_DB = "attackDB_ER_GC"
 
-init_name_dball = "attackDB_ER_DBALL"
-init_name_ball = "attackDB_ER_BALL"
+init_name_dball = "SGCattackDB_ER_DBALL"
+init_name_ball = "SGCattackDB_ER_BALL"
 
-init_name_CL = "attackDB_ER_CL"
+init_name_CL = "SGCattackDB_ER_CL"
 
-init_name_deg_mainNode = "attackDB_ER_degMainNode"
-init_name_deg_removedNode = "attackDB_ER_degRemovedNode"
+init_name_deg_mainNode = "SGCattackDB_ER_degMainNode"
+init_name_deg_removedNode = "SGCattackDB_ER_degRemovedNode"
 
-init_name_bet_mainNode = "attackDB_ER_betMainNode"
-init_name_bet_removedNode = "attackDB_ER_betRemovedNode"
+init_name_bet_mainNode = "SGCattackDB_ER_betMainNode"
+init_name_bet_removedNode = "SGCattackDB_ER_betRemovedNode"
 
-init_name_core_mainNode = "attackDB_ER_coreMainNode"
-init_name_core_removedNode = "attackDB_ER_coreRemovedNode"
+init_name_core_mainNode = "SGCattackDB_ER_coreMainNode"
+init_name_core_removedNode = "SGCattackDB_ER_coreRemovedNode"
 
 init_degree_list_name = "attackDEG_ER_degreeList"
+
+init_name_SGC_Deg = "SGCattackDEG_ER_SGC"
+init_name_SGC_Bet = "SGCattackBET_ER_SGC"
+init_name_SGC_Ran = "SGCattackRAN_ER_SGC"
+init_name_SGC_DB = "SGCattackDB_ER_SGC"
+
+init_name_numComp_Deg = "SGCattackDEG_ER_numberOfComponents"
+init_name_numComp_Bet = "SGCattackBET_ER_numberOfComponents"
+init_name_numComp_Ran = "SGCattackRAN_ER_numberOfComponents"
+init_name_numComp_DB = "SGCattackDB_ER_numberOfComponents"
+
 
 GC_List_Deg_name = get_name_ER(init_name_GC_Deg, N, k, SEED,radius)
 GC_List_Bet_name = get_name_ER(init_name_GC_Bet, N, k, SEED,radius)
@@ -1022,6 +1069,17 @@ core_mainNode_name = get_name_ER(init_name_core_mainNode, N, k, SEED,radius)
 core_removedNode_name = get_name_ER(init_name_core_removedNode, N, k, SEED,radius)
 
 degree_list_name = get_name_ER(init_degree_list_name, N, k, SEED, radius)
+
+SGC_DEG_name = get_name_ER(init_name_SGC_Deg, N, k, SEED, radius)
+SGC_BET_name = get_name_ER(init_name_SGC_Bet, N, k, SEED, radius)
+SGC_RAN_name = get_name_ER(init_name_SGC_Ran, N, k, SEED, radius)
+SGC_DB_name = get_name_ER(init_name_SGC_DB, N, k, SEED, radius)
+
+numComp_DEG_name = get_name_ER(init_name_numComp_Deg, N, k, SEED, radius)
+numComp_BET_name = get_name_ER(init_name_numComp_Bet, N, k, SEED, radius)
+numComp_RAN_name = get_name_ER(init_name_numComp_Ran, N, k, SEED, radius)
+numComp_DB_name = get_name_ER(init_name_numComp_DB, N, k, SEED, radius)
+
 
 with open(GC_List_Deg_name,'wb') as handle:
 	pickle.dump(GC_list_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -1065,7 +1123,35 @@ with open(core_removedNode_name,'wb') as handle:
 with open(degree_list_name,'wb') as handle:
 	pickle.dump(degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+with open(SGC_DEG_name,'wb') as handle:
+	pickle.dump(SGC_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-print(degree_list)
+with open(SGC_BET_name,'wb') as handle:
+	pickle.dump(SGC_List_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-"""
+with open(SGC_RAN_name,'wb') as handle:
+	pickle.dump(SGC_List_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(SGC_DB_name,'wb') as handle:
+	pickle.dump(SGC_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(numComp_DEG_name,'wb') as handle:
+	pickle.dump(num_comp_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(numComp_BET_name,'wb') as handle:
+	pickle.dump(num_comp_List_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(numComp_RAN_name,'wb') as handle:
+	pickle.dump(num_comp_List_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(numComp_DB_name,'wb') as handle:
+	pickle.dump(num_comp_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+
+
+
+
+
+
+
