@@ -1008,143 +1008,147 @@ SEED=int(sys.argv[4])
 
 radius = int(sys.argv[5])
 
-G = make_SF_Graph(N,k,exp_out,SEED)
+num_times = int(sys.argv[6])
+
+for i in range(num_times):
+
+	SEED = SEED * (i+1) + 1
+
+	G = make_SF_Graph(N,k,exp_out,SEED)
+
+	(GC_List_ADA, SGC_List_ADA, num_comp_List_ADA, degree_list, GC_List_ABA, SGC_List_ABA, num_comp_List_ABA, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN, GC_List_DB,SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = get_result(G,radius)
+
+	type_Graph = "SF"
+
+	init_name_GC_Deg = "SGCattackDEG_SF_GC"
+	init_name_GC_Bet = "SGCattackBET_SF_GC"
+	init_name_GC_Ran = "SGCattackRAN_SF_GC"
+	init_name_GC_DB = "SGCattackDB_SF_GC"
+
+	init_name_dball = "SGCattackDB_SF_DBALL"
+	init_name_ball = "SGCattackDB_SF_BALL"
+
+	init_name_CL = "SGCattackDB_SF_CL"
+
+	init_name_deg_mainNode = "SGCattackDB_SF_degMainNode"
+	init_name_deg_removedNode = "SGCattackDB_SF_degRemovedNode"
+
+	init_name_bet_mainNode = "SGCattackDB_SF_betMainNode"
+	init_name_bet_removedNode = "SGCattackDB_SF_betRemovedNode"
+
+	init_name_core_mainNode = "SGCattackDB_SF_coreMainNode"
+	init_name_core_removedNode = "SGCattackDB_SF_coreRemovedNode"
+
+	init_degree_list_name = "attackDEG_SF_degreeList"
+
+	init_name_SGC_Deg = "SGCattackDEG_SF_SGC"
+	init_name_SGC_Bet = "SGCattackBET_SF_SGC"
+	init_name_SGC_Ran = "SGCattackRAN_SF_SGC"
+	init_name_SGC_DB = "SGCattackDB_SF_SGC"
+
+	init_name_numComp_Deg = "SGCattackDEG_SF_numberOfComponents"
+	init_name_numComp_Bet = "SGCattackBET_SF_numberOfComponents"
+	init_name_numComp_Ran = "SGCattackRAN_SF_numberOfComponents"
+	init_name_numComp_DB = "SGCattackDB_SF_numberOfComponents"
 
 
+	GC_List_Deg_name = get_name_SF(init_name_GC_Deg, N,k,exp_out,SEED,radius)
+	GC_List_Bet_name = get_name_SF(init_name_GC_Bet, N,k,exp_out,SEED,radius)
+	GC_List_Ran_name = get_name_SF(init_name_GC_Ran, N,k,exp_out,SEED,radius)
+	GC_List_DB_name = get_name_SF(init_name_GC_DB, N,k,exp_out,SEED,radius)
 
-(GC_List_ADA, SGC_List_ADA, num_comp_List_ADA, degree_list, GC_List_ABA, SGC_List_ABA, num_comp_List_ABA, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN, GC_List_DB,SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = get_result(G,radius)
+	CL_name = get_name_SF(init_name_CL, N,k,exp_out,SEED,radius)
 
-type_Graph = "SF"
+	dBall_name = get_name_SF(init_name_dball, N,k,exp_out,SEED,radius)
+	ball_name = get_name_SF(init_name_ball, N,k,exp_out,SEED,radius)
 
-init_name_GC_Deg = "SGCattackDEG_SF_GC"
-init_name_GC_Bet = "SGCattackBET_SF_GC"
-init_name_GC_Ran = "SGCattackRAN_SF_GC"
-init_name_GC_DB = "SGCattackDB_SF_GC"
+	deg_mainNode_name = get_name_SF(init_name_deg_mainNode, N,k,exp_out,SEED,radius)
+	deg_removedNode_name = get_name_SF(init_name_deg_removedNode, N,k,exp_out,SEED,radius)
 
-init_name_dball = "SGCattackDB_SF_DBALL"
-init_name_ball = "SGCattackDB_SF_BALL"
+	bet_mainNode_name = get_name_SF(init_name_bet_mainNode, N,k,exp_out,SEED,radius)
+	bet_removedNode_name = get_name_SF(init_name_bet_removedNode, N,k,exp_out,SEED,radius)
 
-init_name_CL = "SGCattackDB_SF_CL"
+	core_mainNode_name = get_name_SF(init_name_core_mainNode, N, k, exp_out,SEED,radius)
+	core_removedNode_name = get_name_SF(init_name_core_removedNode, N, k, exp_out,SEED,radius)
 
-init_name_deg_mainNode = "SGCattackDB_SF_degMainNode"
-init_name_deg_removedNode = "SGCattackDB_SF_degRemovedNode"
+	degree_list_name = get_name_SF(init_degree_list_name, N, k, exp_out,SEED, radius)
 
-init_name_bet_mainNode = "SGCattackDB_SF_betMainNode"
-init_name_bet_removedNode = "SGCattackDB_SF_betRemovedNode"
+	SGC_DEG_name = get_name_SF(init_name_SGC_Deg, N, k, exp_out,SEED, radius)
+	SGC_BET_name = get_name_SF(init_name_SGC_Bet, N, k, exp_out,SEED, radius)
+	SGC_RAN_name = get_name_SF(init_name_SGC_Ran, N, k, exp_out,SEED, radius)
+	SGC_DB_name = get_name_SF(init_name_SGC_DB, N, k, exp_out,SEED, radius)
 
-init_name_core_mainNode = "SGCattackDB_SF_coreMainNode"
-init_name_core_removedNode = "SGCattackDB_SF_coreRemovedNode"
-
-init_degree_list_name = "attackDEG_SF_degreeList"
-
-init_name_SGC_Deg = "SGCattackDEG_SF_SGC"
-init_name_SGC_Bet = "SGCattackBET_SF_SGC"
-init_name_SGC_Ran = "SGCattackRAN_SF_SGC"
-init_name_SGC_DB = "SGCattackDB_SF_SGC"
-
-init_name_numComp_Deg = "SGCattackDEG_SF_numberOfComponents"
-init_name_numComp_Bet = "SGCattackBET_SF_numberOfComponents"
-init_name_numComp_Ran = "SGCattackRAN_SF_numberOfComponents"
-init_name_numComp_DB = "SGCattackDB_SF_numberOfComponents"
+	numComp_DEG_name = get_name_SF(init_name_numComp_Deg, N, k, exp_out,SEED, radius)
+	numComp_BET_name = get_name_SF(init_name_numComp_Bet, N, k, exp_out,SEED, radius)
+	numComp_RAN_name = get_name_SF(init_name_numComp_Ran, N, k, exp_out,SEED, radius)
+	numComp_DB_name = get_name_SF(init_name_numComp_DB, N, k, exp_out,SEED, radius)
 
 
-GC_List_Deg_name = get_name_SF(init_name_GC_Deg, N,k,exp_out,SEED,radius)
-GC_List_Bet_name = get_name_SF(init_name_GC_Bet, N,k,exp_out,SEED,radius)
-GC_List_Ran_name = get_name_SF(init_name_GC_Ran, N,k,exp_out,SEED,radius)
-GC_List_DB_name = get_name_SF(init_name_GC_DB, N,k,exp_out,SEED,radius)
+	with open(GC_List_Deg_name,'wb') as handle:
+		pickle.dump(GC_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-CL_name = get_name_SF(init_name_CL, N,k,exp_out,SEED,radius)
+	with open(GC_List_Bet_name,'wb') as handle:
+		pickle.dump(GC_List_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-dBall_name = get_name_SF(init_name_dball, N,k,exp_out,SEED,radius)
-ball_name = get_name_SF(init_name_ball, N,k,exp_out,SEED,radius)
+	with open(GC_List_Ran_name,'wb') as handle:
+		pickle.dump(GC_List_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-deg_mainNode_name = get_name_SF(init_name_deg_mainNode, N,k,exp_out,SEED,radius)
-deg_removedNode_name = get_name_SF(init_name_deg_removedNode, N,k,exp_out,SEED,radius)
+	with open(GC_List_DB_name,'wb') as handle:
+		pickle.dump(GC_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-bet_mainNode_name = get_name_SF(init_name_bet_mainNode, N,k,exp_out,SEED,radius)
-bet_removedNode_name = get_name_SF(init_name_bet_removedNode, N,k,exp_out,SEED,radius)
+	with open(CL_name,'wb') as handle:
+		pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-core_mainNode_name = get_name_SF(init_name_core_mainNode, N, k, exp_out,SEED,radius)
-core_removedNode_name = get_name_SF(init_name_core_removedNode, N, k, exp_out,SEED,radius)
+	with open(dBall_name,'wb') as handle:
+		pickle.dump(size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-degree_list_name = get_name_SF(init_degree_list_name, N, k, exp_out,SEED, radius)
+	with open(ball_name,'wb') as handle:
+		pickle.dump(size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-SGC_DEG_name = get_name_SF(init_name_SGC_Deg, N, k, exp_out,SEED, radius)
-SGC_BET_name = get_name_SF(init_name_SGC_Bet, N, k, exp_out,SEED, radius)
-SGC_RAN_name = get_name_SF(init_name_SGC_Ran, N, k, exp_out,SEED, radius)
-SGC_DB_name = get_name_SF(init_name_SGC_DB, N, k, exp_out,SEED, radius)
+	with open(deg_mainNode_name,'wb') as handle:
+		pickle.dump(degree_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-numComp_DEG_name = get_name_SF(init_name_numComp_Deg, N, k, exp_out,SEED, radius)
-numComp_BET_name = get_name_SF(init_name_numComp_Bet, N, k, exp_out,SEED, radius)
-numComp_RAN_name = get_name_SF(init_name_numComp_Ran, N, k, exp_out,SEED, radius)
-numComp_DB_name = get_name_SF(init_name_numComp_DB, N, k, exp_out,SEED, radius)
+	with open(bet_mainNode_name,'wb') as handle:
+		pickle.dump(betweenness_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+	with open(core_mainNode_name,'wb') as handle:
+		pickle.dump(coreness_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(GC_List_Deg_name,'wb') as handle:
-	pickle.dump(GC_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(deg_removedNode_name,'wb') as handle:
+		pickle.dump(degree_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(GC_List_Bet_name,'wb') as handle:
-	pickle.dump(GC_List_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(bet_removedNode_name,'wb') as handle:
+		pickle.dump(betweenness_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(GC_List_Ran_name,'wb') as handle:
-	pickle.dump(GC_List_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(core_removedNode_name,'wb') as handle:
+		pickle.dump(coreness_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(GC_List_DB_name,'wb') as handle:
-	pickle.dump(GC_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(degree_list_name,'wb') as handle:
+		pickle.dump(degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(CL_name,'wb') as handle:
-	pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(SGC_DEG_name,'wb') as handle:
+		pickle.dump(SGC_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(dBall_name,'wb') as handle:
-	pickle.dump(size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(SGC_BET_name,'wb') as handle:
+		pickle.dump(SGC_List_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(ball_name,'wb') as handle:
-	pickle.dump(size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(SGC_RAN_name,'wb') as handle:
+		pickle.dump(SGC_List_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(deg_mainNode_name,'wb') as handle:
-	pickle.dump(degree_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(SGC_DB_name,'wb') as handle:
+		pickle.dump(SGC_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(bet_mainNode_name,'wb') as handle:
-	pickle.dump(betweenness_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(numComp_DEG_name,'wb') as handle:
+		pickle.dump(num_comp_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(core_mainNode_name,'wb') as handle:
-	pickle.dump(coreness_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(numComp_BET_name,'wb') as handle:
+		pickle.dump(num_comp_List_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(deg_removedNode_name,'wb') as handle:
-	pickle.dump(degree_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(numComp_RAN_name,'wb') as handle:
+		pickle.dump(num_comp_List_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(bet_removedNode_name,'wb') as handle:
-	pickle.dump(betweenness_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(core_removedNode_name,'wb') as handle:
-	pickle.dump(coreness_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(degree_list_name,'wb') as handle:
-	pickle.dump(degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(SGC_DEG_name,'wb') as handle:
-	pickle.dump(SGC_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(SGC_BET_name,'wb') as handle:
-	pickle.dump(SGC_List_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(SGC_RAN_name,'wb') as handle:
-	pickle.dump(SGC_List_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(SGC_DB_name,'wb') as handle:
-	pickle.dump(SGC_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(numComp_DEG_name,'wb') as handle:
-	pickle.dump(num_comp_List_ADA, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(numComp_BET_name,'wb') as handle:
-	pickle.dump(num_comp_List_ABA, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(numComp_RAN_name,'wb') as handle:
-	pickle.dump(num_comp_List_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(numComp_DB_name,'wb') as handle:
-	pickle.dump(num_comp_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(numComp_DB_name,'wb') as handle:
+		pickle.dump(num_comp_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
