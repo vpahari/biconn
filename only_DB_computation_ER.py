@@ -1002,6 +1002,8 @@ radius = int(sys.argv[4])
 
 num_times = int(sys.argv[5])
 
+type_graph = "ER"
+
 for i in range(num_times):
 
 	SEED = SEED * (i+1) + 1
@@ -1011,25 +1013,25 @@ for i in range(num_times):
 	(GC_List_DB, SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack(G,radius)
 
 	
-	init_name_GC_DB = "SGCattackDB_ER_GC"
+	init_name_GC_DB = "SGCattackDB_" + type_graph +"_GC"
 
-	init_name_dball = "SGCattackDB_ER_DBALL"
-	init_name_ball = "SGCattackDB_ER_BALL"
+	init_name_dball = "SGCattackDB_" + type_graph +"_DBALL"
+	init_name_ball = "SGCattackDB_" + type_graph +"_BALL"
 
-	init_name_CL = "SGCattackDB_ER_CL"
+	init_name_CL = "SGCattackDB_" + type_graph +"_CL"
 
-	init_name_deg_mainNode = "SGCattackDB_ER_degMainNode"
-	init_name_deg_removedNode = "SGCattackDB_ER_degRemovedNode"
+	init_name_deg_mainNode = "SGCattackDB_" + type_graph +"_degMainNode"
+	init_name_deg_removedNode = "SGCattackDB_" + type_graph +"_degRemovedNode"
 
-	init_name_bet_mainNode = "SGCattackDB_ER_betMainNode"
-	init_name_bet_removedNode = "SGCattackDB_ER_betRemovedNode"
+	init_name_bet_mainNode = "SGCattackDB_" + type_graph +"_betMainNode"
+	init_name_bet_removedNode = "SGCattackDB_" + type_graph +"_betRemovedNode"
 
-	init_name_core_mainNode = "SGCattackDB_ER_coreMainNode"
-	init_name_core_removedNode = "SGCattackDB_ER_coreRemovedNode"
+	init_name_core_mainNode = "SGCattackDB_" + type_graph +"_coreMainNode"
+	init_name_core_removedNode = "SGCattackDB_" + type_graph +"_coreRemovedNode"
 
-	init_name_SGC_DB = "SGCattackDB_ER_SGC"
+	init_name_SGC_DB = "SGCattackDB_" + type_graph +"_SGC"
 
-	init_name_numComp_DB = "SGCattackDB_ER_numberOfComponents"
+	init_name_numComp_DB = "SGCattackDB_" + type_graph +"_numberOfComponents"
 
 	GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED,radius)
 
