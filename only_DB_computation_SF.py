@@ -1035,25 +1035,25 @@ for i in range(num_times):
 
 	init_name_numComp_DB = "SGCattackDB_" + type_graph + "_numberOfComponents"
 
-	GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED,radius)
+	GC_List_DB_name = get_name_SF(init_name_GC_DB, N, k,exp_out, SEED,radius)
 
-	CL_name = get_name_ER(init_name_CL, N, k, SEED,radius)
+	CL_name = get_name_SF(init_name_CL, N, k,exp_out, SEED,radius)
 
-	dBall_name = get_name_ER(init_name_dball, N, k, SEED,radius)
-	ball_name = get_name_ER(init_name_ball, N, k, SEED,radius)
+	dBall_name = get_name_SF(init_name_dball, N, k,exp_out, SEED,radius)
+	ball_name = get_name_SF(init_name_ball, N, k,exp_out, SEED,radius)
 
-	deg_mainNode_name = get_name_ER(init_name_deg_mainNode, N, k, SEED,radius)
-	deg_removedNode_name = get_name_ER(init_name_deg_removedNode, N, k, SEED,radius)
+	deg_mainNode_name = get_name_SF(init_name_deg_mainNode, N, k,exp_out, SEED,radius)
+	deg_removedNode_name = get_name_SF(init_name_deg_removedNode, N, k,exp_out, SEED,radius)
 
-	bet_mainNode_name = get_name_ER(init_name_bet_mainNode, N, k, SEED,radius)
-	bet_removedNode_name = get_name_ER(init_name_bet_removedNode, N, k, SEED,radius)
+	bet_mainNode_name = get_name_SF(init_name_bet_mainNode, N, k,exp_out, SEED,radius)
+	bet_removedNode_name = get_name_SF(init_name_bet_removedNode, N, k,exp_out, SEED,radius)
 
-	core_mainNode_name = get_name_ER(init_name_core_mainNode, N, k, SEED,radius)
-	core_removedNode_name = get_name_ER(init_name_core_removedNode, N, k, SEED,radius)
+	core_mainNode_name = get_name_SF(init_name_core_mainNode, N, k,exp_out, SEED,radius)
+	core_removedNode_name = get_name_SF(init_name_core_removedNode, N, k,exp_out, SEED,radius)
 
-	SGC_DB_name = get_name_ER(init_name_SGC_DB, N, k, SEED, radius)
+	SGC_DB_name = get_name_SF(init_name_SGC_DB, N, k,exp_out, SEED, radius)
 
-	numComp_DB_name = get_name_ER(init_name_numComp_DB, N, k, SEED, radius)
+	numComp_DB_name = get_name_SF(init_name_numComp_DB, N, k,exp_out, SEED, radius)
 
 
 	with open(GC_List_DB_name,'wb') as handle:
