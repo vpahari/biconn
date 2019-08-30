@@ -49,12 +49,9 @@ k=float(sys.argv[2])
 
 SEED=int(sys.argv[3])
 
-p = k / (N-1)
-
-print(p)
 
 
-G = make_ER_Graph(N,p,SEED)
+G = make_ER_Graph(N,k,SEED)
 
 degree_seq = []
 
