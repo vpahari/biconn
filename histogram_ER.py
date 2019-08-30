@@ -47,7 +47,7 @@ SEED=int(sys.argv[3])
 p = k / (N-1)
 
 
-G = make_SF_Graph(N,p,SEED)
+G = make_ER_Graph(N,p,SEED)
 
 degree_seq = []
 
