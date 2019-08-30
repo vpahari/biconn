@@ -79,7 +79,7 @@ print(degree_seq)
 
 d = make_dict(degree_seq)
 
-keys = list(d.keys()).sort()
+keys = list(d.keys())
 
 print(keys)
 
