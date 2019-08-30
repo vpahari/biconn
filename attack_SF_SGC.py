@@ -1039,7 +1039,7 @@ for i in range(num_times):
 	init_name_core_mainNode = "SGCattackDB_SF_coreMainNode"
 	init_name_core_removedNode = "SGCattackDB_SF_coreRemovedNode"
 
-	init_degree_list_name = "attackDEG_SF_degreeList"
+	init_degree_list_name = "SGCattackDEG_SF_degreeList"
 
 	init_name_SGC_Deg = "SGCattackDEG_SF_SGC"
 	init_name_SGC_Bet = "SGCattackBET_SF_SGC"
