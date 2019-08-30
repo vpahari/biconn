@@ -51,6 +51,8 @@ SEED=int(sys.argv[3])
 
 p = k / (N-1)
 
+print(p)
+
 
 G = make_ER_Graph(N,p,SEED)
 
