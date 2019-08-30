@@ -50,7 +50,7 @@ def make_dict(l):
 		if i not in d:
 			d[i] = 0
 
-		d[l] += 1
+		d[i] += 1
 
 	return d
 
