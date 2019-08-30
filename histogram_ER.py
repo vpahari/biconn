@@ -17,9 +17,14 @@ import itertools
 
 
 
-def get_name_ER(initial_name, N, k, SEED,radius):
 
-	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_" + ".pickle"
+def make_ER_Graph(N,k,SEED):
+
+	G_nx = nx.erdos_renyi_graph(N, k/(N-1), seed = SEED) 
+
+	G_nk = nk.nxadapter.nx2nk(G_nx)
+
+	return G_nk
 
 
 
