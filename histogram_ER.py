@@ -57,7 +57,7 @@ degree_seq = []
 
 for i in range(N):
 
-	print(G.degree(i))
+	#print(G.degree(i))
 
 	degree_seq.append(G.degree(i))
 
