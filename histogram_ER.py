@@ -53,11 +53,11 @@ degree_seq = []
 
 for i in range(N):
 
-	print(G.degree(i))
+	#print(G.degree(i))
 
 	degree_seq.append(G.degree(i))
 
-print(degree_seq)
+#print(degree_seq)
 
 d = make_dict(degree_seq)
 
@@ -65,7 +65,7 @@ keys = list(d.keys())
 
 keys.sort()
 
-print(keys)
+#print(keys)
 
 for k in keys:
 
