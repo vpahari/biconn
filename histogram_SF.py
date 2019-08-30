@@ -48,7 +48,7 @@ def make_dict(l):
 	for i in l:
 
 		if i not in d:
-			d[l] = 0
+			d[i] = 0
 
 		d[l] += 1
 
