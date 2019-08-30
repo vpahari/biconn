@@ -81,6 +81,8 @@ d = make_dict(degree_seq)
 
 keys = list(d.keys())
 
+keys.sort()
+
 print(keys)
 
 for k in keys:
