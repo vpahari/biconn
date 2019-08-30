@@ -71,7 +71,7 @@ degree_seq = []
 
 for i in range(N):
 
-	degree_seq.append(G.degree(i))
+	degree_seq += G.degree(i)
 
 d = make_dict(degree_seq)
 
