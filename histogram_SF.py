@@ -79,10 +79,11 @@ print(degree_seq)
 
 d = make_dict(degree_seq)
 
-print(d)
+keys = list(d.keys()).sort()
 
+for k in keys:
 
-
+	print(k, d[k])
 
 
 
