@@ -1097,7 +1097,7 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list, GC_List_BA, SGC_List_BA, num_comp_List_BA, between_listavg_list_GC_RAN, avg_list_SGC_RAN, avg_list_numComp_RAN,GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = get_results_NA(G, radius)
+	(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list, GC_List_BA, SGC_List_BA, num_comp_List_BA, between_list, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN,GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = get_results_NA(G, radius)
 
 	init_name_GC_Deg = adaptive_type + "SGCattackDEG_ER_GC"
 	init_name_GC_Bet = adaptive_type + "SGCattackBET_ER_GC"
