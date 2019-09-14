@@ -622,6 +622,20 @@ def copy_graph(G):
 
 
 
+def get_degree_dict(G):
+
+	all_nodes = list(G.nodes())
+
+	final_dict = {}
+
+	for i in all_nodes:
+
+		final_dict[i] = G.degree(i)
+
+	return final_dict
+
+
+
 
 #dball, vball, degree, betweenness, coreness
 def dBalls_attack(G_copy,radius):
@@ -743,7 +757,15 @@ def dBalls_attack_NA(G_copy,radius):
 	SGC_List.append(SGC)
 	num_comp_List.append(num_comp)
 
+	degree_dict = G.degree()
+
 	counter_list.append(counter)
+
+	original_degree_dict = get_degree_dict(G)
+
+	original_degree_main_node = []
+
+	original_degree_removed_node = []
 
 	num_nodes_to_remove = G.numberOfNodes()
 
@@ -784,6 +806,11 @@ def dBalls_attack_NA(G_copy,radius):
 
 		combined_list = [node] + dBall
 
+		original_degree_main_node.append(original_degree_dict[node])
+
+		for i in dBall:
+			original_degree_removed_node.append(original_degree_dict[i])
+
 		between_list = get_betweenness_score_list(G,combined_list)
 		degree_list = get_degree_score_list(G,combined_list)
 		coreness_list = get_coreness_score_list(G,combined_list)
@@ -812,7 +839,9 @@ def dBalls_attack_NA(G_copy,radius):
 		counter_for_nodes += 1
 
 
-	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
+
+
+	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode,original_degree_main_node,original_degree_removed_node)
 
 
 
@@ -1055,9 +1084,9 @@ def get_results_NA(G, radius):
  
 	(avg_list_GC_RAN, avg_list_SGC_RAN, avg_list_numComp_RAN)  = big_RA_attack(G,int(N * 0.99),20)
 
-	(GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack_NA(G, radius)
+	(GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode,original_degree_main_node,original_degree_removed_node) = dBalls_attack_NA(G, radius)
 
-	return (GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list, GC_List_BA, SGC_List_BA, num_comp_List_BA, between_list, avg_list_GC_RAN, avg_list_SGC_RAN, avg_list_numComp_RAN,GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
+	return (GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list, GC_List_BA, SGC_List_BA, num_comp_List_BA, between_list, avg_list_GC_RAN, avg_list_SGC_RAN, avg_list_numComp_RAN,GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode,original_degree_main_node,original_degree_removed_node)
 
 
 
@@ -1097,7 +1126,7 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list, GC_List_BA, SGC_List_BA, num_comp_List_BA, between_list, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN,GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = get_results_NA(G, radius)
+	(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list, GC_List_BA, SGC_List_BA, num_comp_List_BA, between_list, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN,GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode,original_degree_main_node,original_degree_removed_node) = get_results_NA(G, radius)
 
 	init_name_GC_Deg = adaptive_type + "SGCattackDEG_ER_GC"
 	init_name_GC_Bet = adaptive_type + "SGCattackBET_ER_GC"
@@ -1131,6 +1160,9 @@ for i in range(num_times):
 	init_name_numComp_Ran = adaptive_type + "SGCattackRAN_ER_numberOfComponents"
 	init_name_numComp_DB = adaptive_type + "SGCattackDB_ER_numberOfComponents"
 
+	init_name_original_degree_main_node = adaptive_type + "SGCattackDEG_ER_originalDegreeMainNode"
+	init_name_original_degree_removed_node = adaptive_type + "SGCattackDEG_ER_originalDegreeRemovedNode"
+
 
 	GC_List_Deg_name = get_name_ER(init_name_GC_Deg, N, k, SEED,radius)
 	GC_List_Bet_name = get_name_ER(init_name_GC_Bet, N, k, SEED,radius)
@@ -1163,6 +1195,9 @@ for i in range(num_times):
 	numComp_BET_name = get_name_ER(init_name_numComp_Bet, N, k, SEED, radius)
 	numComp_RAN_name = get_name_ER(init_name_numComp_Ran, N, k, SEED, radius)
 	numComp_DB_name = get_name_ER(init_name_numComp_DB, N, k, SEED, radius)
+
+	original_degree_main_node_name = get_name_ER(init_name_original_degree_main_node, N, k, SEED, radius)
+	original_degree_removed_node_name = get_name_ER(init_name_original_degree_removed_node, N, k, SEED, radius)
 
 
 	with open(GC_List_Deg_name,'wb') as handle:
@@ -1233,6 +1268,12 @@ for i in range(num_times):
 
 	with open(numComp_DB_name,'wb') as handle:
 		pickle.dump(num_comp_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(original_degree_main_node_name,'wb') as handle:
+		pickle.dump(original_degree_main_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(original_degree_removed_node_name,'wb') as handle:
+		pickle.dump(original_degree_removed_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
