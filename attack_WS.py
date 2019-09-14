@@ -1108,94 +1108,94 @@ def get_result(G, radius):
 	return (GC_List_ADA, SGC_List_ADA, num_comp_List_ADA, degree_list, GC_List_ABA, SGC_List_ABA, num_comp_List_ABA, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN, GC_List_DB,SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
 
 
-G = make_WS_graph(1 ,1000, 3 ,0.01,1223)
-
-print(G.numberOfNodes())
-print(G.numberOfEdges())
-
-"""
 
 N=int(sys.argv[1]) 
 
-dim=float(sys.argv[2])
+dim=int(sys.argv[2])
 
-SEED=int(sys.argv[3])
+nei = int(sys.argv[3])
 
-radius = int(sys.argv[4])
+p = float(sys.argv[4])
 
-num_times = int(sys.argv[5])
+SEED=int(sys.argv[5])
+
+radius = int(sys.argv[6])
+
+num_times = int(sys.argv[7])
 
 adaptive_type = "NA"
+
+graph_type = "WS"
 
 for i in range(num_times):
 
 	SEED = SEED * (i+1) + 1
 
-	G = make_ER_Graph(N,k,SEED)
+	G = make_WS_graph(dim,N,nei,p,SEED)
 
 	(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list, GC_List_BA, SGC_List_BA, num_comp_List_BA, between_list, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN,GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node,original_xi_values) = get_results_NA(G, radius)
 
-	init_name_GC_Deg = adaptive_type + "SGCattackDEG_ER_GC"
-	init_name_GC_Bet = adaptive_type + "SGCattackBET_ER_GC"
-	init_name_GC_Ran = adaptive_type + "SGCattackRAN_ER_GC"
-	init_name_GC_DB = adaptive_type + "SGCattackDB_ER_GC"
+	init_name_GC_Deg = adaptive_type + "SGCattackDEG_" +graph_type+ "_GC"
+	init_name_GC_Bet = adaptive_type + "SGCattackBET_" + graph_type+ "_GC"
+	init_name_GC_Ran = adaptive_type + "SGCattackRAN_" + graph_type + "_GC"
+	init_name_GC_DB = adaptive_type + "SGCattackDB_" + graph_type + "_GC"
 
-	init_name_dball = adaptive_type + "SGCattackDB_ER_DBALL"
-	init_name_ball = adaptive_type + "SGCattackDB_ER_BALL"
+	init_name_dball = adaptive_type + "SGCattackDB_" + graph_type + "_DBALL"
+	init_name_ball = adaptive_type + "SGCattackDB_" + graph_type + "_BALL"
 
-	init_name_CL = adaptive_type + "SGCattackDB_ER_CL"
+	init_name_CL = adaptive_type + "SGCattackDB_" + graph_type + "_CL"
 
-	init_name_deg_mainNode = adaptive_type + "SGCattackDB_ER_degMainNode"
-	init_name_deg_removedNode = adaptive_type + "SGCattackDB_ER_degRemovedNode"
+	init_name_deg_mainNode = adaptive_type + "SGCattackDB_" + graph_type + "_degMainNode"
+	init_name_deg_removedNode = adaptive_type + "SGCattackDB_" + graph_type + "_degRemovedNode"
 
-	init_original_degree_list_name = adaptive_type + "SGCattackDEG_ER_originalDegreeList"
-	init_adaptive_degree_list_name = adaptive_type + "SGCattackDEG_ER_adaptiveDegreeList"
+	init_original_degree_list_name = adaptive_type + "SGCattackDEG_" +graph_type+ "_originalDegreeList"
+	init_adaptive_degree_list_name = adaptive_type + "SGCattackDEG_" + graph_type + "_adaptiveDegreeList"
 
-	init_name_SGC_Deg = adaptive_type + "SGCattackDEG_ER_SGC"
-	init_name_SGC_Bet = adaptive_type + "SGCattackBET_ER_SGC"
-	init_name_SGC_Ran = adaptive_type + "SGCattackRAN_ER_SGC"
-	init_name_SGC_DB = adaptive_type + "SGCattackDB_ER_SGC"
+	init_name_SGC_Deg = adaptive_type + "SGCattackDEG_" + graph_type + "_SGC"
+	init_name_SGC_Bet = adaptive_type + "SGCattackBET_" + graph_type + "_SGC"
+	init_name_SGC_Ran = adaptive_type + "SGCattackRAN_" + graph_type + "_SGC"
+	init_name_SGC_DB = adaptive_type + "SGCattackDB_" + graph_type + "_SGC"
 
-	init_name_numComp_Deg = adaptive_type + "SGCattackDEG_ER_numberOfComponents"
-	init_name_numComp_Bet = adaptive_type + "SGCattackBET_ER_numberOfComponents"
-	init_name_numComp_Ran = adaptive_type + "SGCattackRAN_ER_numberOfComponents"
-	init_name_numComp_DB = adaptive_type + "SGCattackDB_ER_numberOfComponents"
+	init_name_numComp_Deg = adaptive_type + "SGCattackDEG_" + graph_type + "_numberOfComponents"
+	init_name_numComp_Bet = adaptive_type + "SGCattackBET_" + graph_type + "_numberOfComponents"
+	init_name_numComp_Ran = adaptive_type + "SGCattackRAN_" + graph_type + "_numberOfComponents"
+	init_name_numComp_DB = adaptive_type + "SGCattackDB_" + graph_type + "_numberOfComponents"
 
-	init_name_original_degree_main_node = adaptive_type + "SGCattackDB_ER_originalDegreeMainNode"
-	init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_ER_originalDegreeRemovedNode"
+	init_name_original_degree_main_node = adaptive_type + "SGCattackDB_" + graph_type + "_originalDegreeMainNode"
+	init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_" + graph_type + "_originalDegreeRemovedNode"
 
-	init_name_original_xi_values = adaptive_type + "SGCattackDB_ER_originalXIValues"
+	init_name_original_xi_values = adaptive_type + "SGCattackDB_" + graph_type + "_originalXIValues"
 
-	GC_List_Deg_name = get_name_ER(init_name_GC_Deg, N, k, SEED,radius)
-	GC_List_Bet_name = get_name_ER(init_name_GC_Bet, N, k, SEED,radius)
-	GC_List_Ran_name = get_name_ER(init_name_GC_Ran, N, k, SEED,radius)
-	GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED,radius)
+	GC_List_Deg_name = get_name_WS(init_name_GC_Deg, dim, N, nei, p, SEED,radius)
+	GC_List_Bet_name = get_name_WS(init_name_GC_Bet, dim, N, nei, p, SEED,radius)
+	GC_List_Ran_name = get_name_WS(init_name_GC_Ran, dim, N, nei, p, SEED,radius)
+	GC_List_DB_name = get_name_WS(init_name_GC_DB, dim, N, nei, p, SEED,radius)
 
-	CL_name = get_name_ER(init_name_CL, N, k, SEED,radius)
+	CL_name = get_name_WS(init_name_CL, dim, N, nei, p, SEED,radius)
 
-	dBall_name = get_name_ER(init_name_dball, N, k, SEED,radius)
-	ball_name = get_name_ER(init_name_ball, N, k, SEED,radius)
+	dBall_name = get_name_WS(init_name_dball, dim, N, nei, p, SEED,radius)
+	ball_name = get_name_WS(init_name_ball, dim, N, nei, p, SEED,radius)
 
-	deg_mainNode_name = get_name_ER(init_name_deg_mainNode, N, k, SEED,radius)
-	deg_removedNode_name = get_name_ER(init_name_deg_removedNode, N, k, SEED,radius)
+	deg_mainNode_name = get_name_WS(init_name_deg_mainNode, dim, N, nei, p, SEED,radius)
+	deg_removedNode_name = get_name_WS(init_name_deg_removedNode, dim, N, nei, p, SEED,radius)
 
-	original_degree_list_name = get_name_ER(init_original_degree_list_name, N, k, SEED, radius)
-	adaptive_degree_list_name = get_name_ER(init_adaptive_degree_list_name, N, k, SEED, radius)
+	original_degree_list_name = get_name_WS(init_original_degree_list_name, dim, N, nei, p, SEED,radius)
+	adaptive_degree_list_name = get_name_WS(init_adaptive_degree_list_name, dim, N, nei, p, SEED,radius)
 
-	SGC_DEG_name = get_name_ER(init_name_SGC_Deg, N, k, SEED, radius)
-	SGC_BET_name = get_name_ER(init_name_SGC_Bet, N, k, SEED, radius)
-	SGC_RAN_name = get_name_ER(init_name_SGC_Ran, N, k, SEED, radius)
-	SGC_DB_name = get_name_ER(init_name_SGC_DB, N, k, SEED, radius)
+	SGC_DEG_name = get_name_WS(init_name_SGC_Deg, dim, N, nei, p, SEED,radius)
+	SGC_BET_name = get_name_WS(init_name_SGC_Bet, dim, N, nei, p, SEED,radius)
+	SGC_RAN_name = get_name_WS(init_name_SGC_Ran, dim, N, nei, p, SEED,radius)
+	SGC_DB_name = get_name_WS(init_name_SGC_DB, dim, N, nei, p, SEED,radius)
 
-	numComp_DEG_name = get_name_ER(init_name_numComp_Deg, N, k, SEED, radius)
-	numComp_BET_name = get_name_ER(init_name_numComp_Bet, N, k, SEED, radius)
-	numComp_RAN_name = get_name_ER(init_name_numComp_Ran, N, k, SEED, radius)
-	numComp_DB_name = get_name_ER(init_name_numComp_DB, N, k, SEED, radius)
+	numComp_DEG_name = get_name_WS(init_name_numComp_Deg, dim, N, nei, p, SEED,radius)
+	numComp_BET_name = get_name_WS(init_name_numComp_Bet, dim, N, nei, p, SEED,radius)
+	numComp_RAN_name = get_name_WS(init_name_numComp_Ran, dim, N, nei, p, SEED,radius)
+	numComp_DB_name = get_name_WS(init_name_numComp_DB, dim, N, nei, p, SEED,radius)
 
-	original_degree_main_node_name = get_name_ER(init_name_original_degree_main_node, N, k, SEED, radius)
-	original_degree_removed_node_name = get_name_ER(init_name_original_degree_removed_node, N, k, SEED, radius)
+	original_degree_main_node_name = get_name_WS(init_name_original_degree_main_node, dim, N, nei, p, SEED,radius)
+	original_degree_removed_node_name = get_name_WS(init_name_original_degree_removed_node, dim, N, nei, p, SEED,radius)
 
-	original_xi_values_name = get_name_ER(init_name_original_xi_values, N, k, SEED, radius)
+	original_xi_values_name = get_name_WS(init_name_original_xi_values, dim, N, nei, p, SEED,radius)
 
 
 	with open(GC_List_Deg_name,'wb') as handle:
@@ -1266,7 +1266,6 @@ for i in range(num_times):
 
 
 
-"""
 
 
 
