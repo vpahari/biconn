@@ -1158,8 +1158,8 @@ for i in range(num_times):
 	init_name_numComp_Ran = adaptive_type + "SGCattackRAN_ER_numberOfComponents"
 	init_name_numComp_DB = adaptive_type + "SGCattackDB_ER_numberOfComponents"
 
-	init_name_original_degree_main_node = adaptive_type + "SGCattackDEG_ER_originalDegreeMainNode"
-	init_name_original_degree_removed_node = adaptive_type + "SGCattackDEG_ER_originalDegreeRemovedNode"
+	init_name_original_degree_main_node = adaptive_type + "SGCattackDB_ER_originalDegreeMainNode"
+	init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_ER_originalDegreeRemovedNode"
 
 
 	GC_List_Deg_name = get_name_ER(init_name_GC_Deg, N, k, SEED,radius)
