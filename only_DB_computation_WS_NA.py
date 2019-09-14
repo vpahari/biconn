@@ -564,7 +564,7 @@ def get_GC_SGC_number_of_components(G):
 	all_values.sort()
 
 	if len(all_values) == 1:
-		return (all_values[-1], 0)
+		return (all_values[-1], 0,1)
 
 	else:
 		return (all_values[-1],all_values[-2],len(all_values))
