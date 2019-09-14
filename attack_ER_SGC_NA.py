@@ -757,8 +757,6 @@ def dBalls_attack_NA(G_copy,radius):
 	SGC_List.append(SGC)
 	num_comp_List.append(num_comp)
 
-	degree_dict = G.degree()
-
 	counter_list.append(counter)
 
 	original_degree_dict = get_degree_dict(G)
