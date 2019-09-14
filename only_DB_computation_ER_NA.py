@@ -674,6 +674,19 @@ def dBalls_attack(G_copy,radius):
 	return (GC_List,SGC_List,num_comp_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
 
 
+def get_degree_dict(G):
+
+	all_nodes = list(G.nodes())
+
+	final_dict = {}
+
+	for i in all_nodes:
+
+		final_dict[i] = G.degree(i)
+
+	return final_dict
+
+
 
 def dBalls_attack_NA(G_copy,radius):
 
