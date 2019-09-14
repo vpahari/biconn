@@ -680,17 +680,37 @@ def dBalls_attack_NA(G_copy,radius):
 	G = copy_graph(G_copy)
 
 	GC_List = []
+	SGC_List = []
+	num_comp_List = []
+
 	size_dball = [] 
 	size_ball = []
 
-	degree_list = []
+	degree_list_mainNode = []
+	betweenness_list_mainNode = []
+	coreness_list_mainNode = []
+
+	degree_list_removedNode = []
+	betweenness_list_removedNode = []
+	coreness_list_removedNode = []
 
 	counter = 0
 
 	counter_list = []
 
-	GC_List.append(get_GC(G))
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+	SGC_List.append(SGC)
+	num_comp_List.append(num_comp)
+
 	counter_list.append(counter)
+
+	original_degree_dict = get_degree_dict(G)
+
+	original_degree_main_node = []
+
+	original_degree_removed_node = []
 
 	num_nodes_to_remove = G.numberOfNodes()
 
@@ -700,41 +720,77 @@ def dBalls_attack_NA(G_copy,radius):
 
 	counter_for_nodes = 0
 
+	original_xi_values = []
+
 	print(dict_nodes_x_i)
 
 	print(list_to_remove)
 
 	while counter_for_nodes < len(list_to_remove):
 
-		curr_nodes = G.nodes()
-
-		if len(list_to_remove) == 0:
-			break
+		curr_nodes_set = set(list(G.nodes()))
 
 		node = list_to_remove[counter_for_nodes][0]
 
+		original_xi_values.append(list_to_remove[counter_for_nodes][1])
+
 		print(node,dict_nodes_dBall[node])
 
-		degree_list.append((node, G.degree(node)))
+
+		if node not in curr_nodes_set:
+			counter_for_nodes += 1
+			continue
+
 
 		(dBall,ball) = get_dBN(G,node,radius) 
 
+
+		if len(dBall) == 0:
+			counter_for_nodes += 1
+			continue
+
+
 		size_dball.append(len(dBall))
 		size_ball.append(len(ball))
+
+		combined_list = [node] + dBall
+
+		original_degree_main_node.append(original_degree_dict[node])
+
+		for i in dBall:
+			original_degree_removed_node.append(original_degree_dict[i])
+
+		#between_list = get_betweenness_score_list(G,combined_list)
+		degree_list = get_degree_score_list(G,combined_list)
+		#coreness_list = get_coreness_score_list(G,combined_list)
+
+		degree_list_mainNode.append(degree_list[0])
+		#betweenness_list_mainNode.append(between_list[0])
+		#coreness_list_mainNode.append(coreness_list[0])
+
+		degree_list_removedNode += degree_list[1:]
+		#betweenness_list_removedNode += between_list[1:]
+		#coreness_list_removedNode += coreness_list[1:]
 
 		for i in dBall:
 			G.removeNode(i)
 			counter += 1
 
-		GC_List.append(get_GC(G))
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+		GC_List.append(GC)
+		SGC_List.append(SGC)
+		num_comp_List.append(num_comp)
+
 
 		counter_list.append(counter)
 
 		counter_for_nodes += 1
 
 
-	return (GC_List,size_dball,size_ball,degree_list,counter_list)
 
+
+	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values)
 
 
 
@@ -1004,33 +1060,35 @@ num_times = int(sys.argv[5])
 
 type_graph = "ER"
 
+adaptive_type = "NA"
+
 for i in range(num_times):
 
 	SEED = SEED * (i+1) + 1
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List_DB, SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack(G,radius)
-	
-	init_name_GC_DB = "SGCattackDB_" + type_graph +"_GC"
+	(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values) = dBalls_attack_NA(G,radius)
 
-	init_name_dball = "SGCattackDB_" + type_graph +"_DBALL"
-	init_name_ball = "SGCattackDB_" + type_graph +"_BALL"
+	init_name_GC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_GC"
 
-	init_name_CL = "SGCattackDB_" + type_graph +"_CL"
+	init_name_dball = adaptive_type +  "SGCattackDB_" + type_graph +"_DBALL"
+	init_name_ball = adaptive_type +  "SGCattackDB_" + type_graph +"_BALL"
 
-	init_name_deg_mainNode = "SGCattackDB_" + type_graph +"_degMainNode"
-	init_name_deg_removedNode = "SGCattackDB_" + type_graph +"_degRemovedNode"
+	init_name_CL = adaptive_type +  "SGCattackDB_" + type_graph +"_CL"
 
-	init_name_bet_mainNode = "SGCattackDB_" + type_graph +"_betMainNode"
-	init_name_bet_removedNode = "SGCattackDB_" + type_graph +"_betRemovedNode"
+	init_name_deg_mainNode = adaptive_type +  "SGCattackDB_" + type_graph +"_degMainNode"
+	init_name_deg_removedNode = adaptive_type + "SGCattackDB_" + type_graph +"_degRemovedNode"
 
-	init_name_core_mainNode = "SGCattackDB_" + type_graph +"_coreMainNode"
-	init_name_core_removedNode = "SGCattackDB_" + type_graph +"_coreRemovedNode"
+	init_name_SGC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_SGC"
 
-	init_name_SGC_DB = "SGCattackDB_" + type_graph +"_SGC"
+	init_name_numComp_DB = adaptive_type + "SGCattackDB_" + type_graph +"_numberOfComponents"
 
-	init_name_numComp_DB = "SGCattackDB_" + type_graph +"_numberOfComponents"
+	init_name_original_degree_main_node = adaptive_type + "SGCattackDB_ER_originalDegreeMainNode"
+	init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_ER_originalDegreeRemovedNode"
+
+	init_name_original_xi_values = adaptive_type + "SGCattackDB_ER_originalXIValues"
+
 
 	GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED,radius)
 
@@ -1042,19 +1100,18 @@ for i in range(num_times):
 	deg_mainNode_name = get_name_ER(init_name_deg_mainNode, N, k, SEED,radius)
 	deg_removedNode_name = get_name_ER(init_name_deg_removedNode, N, k, SEED,radius)
 
-	bet_mainNode_name = get_name_ER(init_name_bet_mainNode, N, k, SEED,radius)
-	bet_removedNode_name = get_name_ER(init_name_bet_removedNode, N, k, SEED,radius)
-
-	core_mainNode_name = get_name_ER(init_name_core_mainNode, N, k, SEED,radius)
-	core_removedNode_name = get_name_ER(init_name_core_removedNode, N, k, SEED,radius)
-
 	SGC_DB_name = get_name_ER(init_name_SGC_DB, N, k, SEED, radius)
 
 	numComp_DB_name = get_name_ER(init_name_numComp_DB, N, k, SEED, radius)
 
+	original_degree_main_node_name = get_name_ER(init_name_original_degree_main_node, N, k, SEED, radius)
+	original_degree_removed_node_name = get_name_ER(init_name_original_degree_removed_node, N, k, SEED, radius)
+
+	original_xi_values_name = get_name_ER(init_name_original_xi_values, N, k, SEED, radius)
+
 
 	with open(GC_List_DB_name,'wb') as handle:
-		pickle.dump(GC_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
+		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 	with open(CL_name,'wb') as handle:
 		pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -1068,28 +1125,23 @@ for i in range(num_times):
 	with open(deg_mainNode_name,'wb') as handle:
 		pickle.dump(degree_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(bet_mainNode_name,'wb') as handle:
-		pickle.dump(betweenness_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-	with open(core_mainNode_name,'wb') as handle:
-		pickle.dump(coreness_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
 	with open(deg_removedNode_name,'wb') as handle:
 		pickle.dump(degree_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(bet_removedNode_name,'wb') as handle:
-		pickle.dump(betweenness_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-	with open(core_removedNode_name,'wb') as handle:
-		pickle.dump(coreness_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
 	with open(SGC_DB_name,'wb') as handle:
-		pickle.dump(SGC_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
+		pickle.dump(SGC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 	with open(numComp_DB_name,'wb') as handle:
-		pickle.dump(num_comp_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
+		pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+	with open(original_degree_main_node_name,'wb') as handle:
+		pickle.dump(original_degree_main_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+	with open(original_degree_removed_node_name,'wb') as handle:
+		pickle.dump(original_degree_removed_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(original_xi_values_name,'wb') as handle:
+		pickle.dump(original_xi_values, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
