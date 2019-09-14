@@ -785,7 +785,7 @@ def dBalls_attack_NA(G_copy,radius):
 
 		node = list_to_remove[counter_for_nodes][0]
 
-		original_xi_values.append(list_to_remove[counter_for_nodes][1])
+		
 
 		print(node,dict_nodes_dBall[node])
 
@@ -796,6 +796,8 @@ def dBalls_attack_NA(G_copy,radius):
 
 
 		(dBall,ball) = get_dBN(G,node,radius) 
+
+		original_xi_values.append(list_to_remove[counter_for_nodes][1])
 
 
 		if len(dBall) == 0:
