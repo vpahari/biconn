@@ -122,6 +122,9 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 	for i in range(num_nodes_to_remove):
 
+		print("DA")
+		print(i)
+
 		node_to_remove = degree_sequence[i][0]
 
 		original_degree = degree_sequence[i][1]
@@ -222,6 +225,9 @@ def BA_attack(G_copy,num_nodes_to_remove):
 	between_list = []
 
 	for i in range(num_nodes_to_remove):
+
+		print("BA")
+		print(i)
 		
 		node_to_remove = between_sequence[i][0]
 
