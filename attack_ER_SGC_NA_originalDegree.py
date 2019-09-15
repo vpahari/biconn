@@ -1073,7 +1073,7 @@ def big_sim_changing_radius(G,start_radius,end_radius):
 	return (big_GC_List,big_counter_list)
 
 
-"""
+
 def get_results_NA(G, radius):
 
 	N = G.numberOfNodes()
@@ -1087,23 +1087,7 @@ def get_results_NA(G, radius):
 	(GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node,original_xi_values) = dBalls_attack_NA(G, radius)
 
 	return (GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list, GC_List_BA, SGC_List_BA, num_comp_List_BA, between_list, avg_list_GC_RAN, avg_list_SGC_RAN, avg_list_numComp_RAN,GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node,original_xi_values)
-"""
 
-
-
-def get_results_NA(G, radius):
-
-	N = G.numberOfNodes()
-
-	(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 0.99))
-
-	#(GC_List_BA, SGC_List_BA, num_comp_List_BA, between_list) = BA_attack(G, int(N * 0.99))
- 
-	(avg_list_GC_RAN, avg_list_SGC_RAN, avg_list_numComp_RAN)  = big_RA_attack(G,int(N * 0.99),20)
-
-	(GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node,original_xi_values) = dBalls_attack_NA(G, radius)
-
-	return (GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list, avg_list_GC_RAN, avg_list_SGC_RAN, avg_list_numComp_RAN,GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node,original_xi_values)
 
 
 
@@ -1142,13 +1126,10 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	#(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list, GC_List_BA, SGC_List_BA, num_comp_List_BA, between_list, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN,GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node,original_xi_values) = get_results_NA(G, radius)
-
-	(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN,GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node,original_xi_values) = get_results_NA(G, radius)
-
+	(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list, GC_List_BA, SGC_List_BA, num_comp_List_BA, between_list, GC_List_RAN, SGC_List_RAN, num_comp_List_RAN,GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node,original_xi_values) = get_results_NA(G, radius)
 
 	init_name_GC_Deg = adaptive_type + "SGCattackDEG_ER_GC"
-	#init_name_GC_Bet = adaptive_type + "SGCattackBET_ER_GC"
+	init_name_GC_Bet = adaptive_type + "SGCattackBET_ER_GC"
 	init_name_GC_Ran = adaptive_type + "SGCattackRAN_ER_GC"
 	init_name_GC_DB = adaptive_type + "SGCattackDB_ER_GC"
 
@@ -1164,12 +1145,12 @@ for i in range(num_times):
 	init_adaptive_degree_list_name = adaptive_type + "SGCattackDEG_ER_adaptiveDegreeList"
 
 	init_name_SGC_Deg = adaptive_type + "SGCattackDEG_ER_SGC"
-	#init_name_SGC_Bet = adaptive_type + "SGCattackBET_ER_SGC"
+	init_name_SGC_Bet = adaptive_type + "SGCattackBET_ER_SGC"
 	init_name_SGC_Ran = adaptive_type + "SGCattackRAN_ER_SGC"
 	init_name_SGC_DB = adaptive_type + "SGCattackDB_ER_SGC"
 
 	init_name_numComp_Deg = adaptive_type + "SGCattackDEG_ER_numberOfComponents"
-	#init_name_numComp_Bet = adaptive_type + "SGCattackBET_ER_numberOfComponents"
+	init_name_numComp_Bet = adaptive_type + "SGCattackBET_ER_numberOfComponents"
 	init_name_numComp_Ran = adaptive_type + "SGCattackRAN_ER_numberOfComponents"
 	init_name_numComp_DB = adaptive_type + "SGCattackDB_ER_numberOfComponents"
 
@@ -1179,7 +1160,7 @@ for i in range(num_times):
 	init_name_original_xi_values = adaptive_type + "SGCattackDB_ER_originalXIValues"
 
 	GC_List_Deg_name = get_name_ER(init_name_GC_Deg, N, k, SEED,radius)
-	#GC_List_Bet_name = get_name_ER(init_name_GC_Bet, N, k, SEED,radius)
+	GC_List_Bet_name = get_name_ER(init_name_GC_Bet, N, k, SEED,radius)
 	GC_List_Ran_name = get_name_ER(init_name_GC_Ran, N, k, SEED,radius)
 	GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED,radius)
 
@@ -1195,12 +1176,12 @@ for i in range(num_times):
 	adaptive_degree_list_name = get_name_ER(init_adaptive_degree_list_name, N, k, SEED, radius)
 
 	SGC_DEG_name = get_name_ER(init_name_SGC_Deg, N, k, SEED, radius)
-	#SGC_BET_name = get_name_ER(init_name_SGC_Bet, N, k, SEED, radius)
+	SGC_BET_name = get_name_ER(init_name_SGC_Bet, N, k, SEED, radius)
 	SGC_RAN_name = get_name_ER(init_name_SGC_Ran, N, k, SEED, radius)
 	SGC_DB_name = get_name_ER(init_name_SGC_DB, N, k, SEED, radius)
 
 	numComp_DEG_name = get_name_ER(init_name_numComp_Deg, N, k, SEED, radius)
-	#numComp_BET_name = get_name_ER(init_name_numComp_Bet, N, k, SEED, radius)
+	numComp_BET_name = get_name_ER(init_name_numComp_Bet, N, k, SEED, radius)
 	numComp_RAN_name = get_name_ER(init_name_numComp_Ran, N, k, SEED, radius)
 	numComp_DB_name = get_name_ER(init_name_numComp_DB, N, k, SEED, radius)
 
@@ -1213,8 +1194,8 @@ for i in range(num_times):
 	with open(GC_List_Deg_name,'wb') as handle:
 		pickle.dump(GC_List_DA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	#with open(GC_List_Bet_name,'wb') as handle:
-	#	pickle.dump(GC_List_BA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(GC_List_Bet_name,'wb') as handle:
+		pickle.dump(GC_List_BA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 	with open(GC_List_Ran_name,'wb') as handle:
 		pickle.dump(GC_List_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -1246,8 +1227,8 @@ for i in range(num_times):
 	with open(SGC_DEG_name,'wb') as handle:
 		pickle.dump(SGC_List_DA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	#with open(SGC_BET_name,'wb') as handle:
-	#	pickle.dump(SGC_List_BA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(SGC_BET_name,'wb') as handle:
+		pickle.dump(SGC_List_BA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 	with open(SGC_RAN_name,'wb') as handle:
 		pickle.dump(SGC_List_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -1258,8 +1239,8 @@ for i in range(num_times):
 	with open(numComp_DEG_name,'wb') as handle:
 		pickle.dump(num_comp_List_DA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	#with open(numComp_BET_name,'wb') as handle:
-	#	pickle.dump(num_comp_List_BA, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(numComp_BET_name,'wb') as handle:
+		pickle.dump(num_comp_List_BA, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 	with open(numComp_RAN_name,'wb') as handle:
 		pickle.dump(num_comp_List_RAN, handle, protocol=pickle.HIGHEST_PROTOCOL)
