@@ -1103,7 +1103,7 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List, SGC_List, num_comp_List, between_list) = BA_attack(G, int(N * 0.8))
+	(GC_List, SGC_List, num_comp_List, between_list) = BA_attack(G, int(N * 0.7))
 
 	init_name_GC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_GC"
 
