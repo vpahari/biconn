@@ -201,16 +201,12 @@ def BA_attack(G_copy,num_nodes_to_remove):
 	random.shuffle(between_sequence)
 
 	between_sequence.sort(key = itemgetter(1), reverse = True)
-
-	between_list = []
-
+	
 	for i in range(num_nodes_to_remove):
 		
 		node_to_remove = between_sequence[i][0]
 
 		between_score =  between_sequence[i][1]
-
-		between_list.append(between_score)
 
 		G.removeNode(node_to_remove)
 
@@ -222,7 +218,7 @@ def BA_attack(G_copy,num_nodes_to_remove):
 
 		num_comp_List.append(num_comp)
 
-	return (GC_List, SGC_List, num_comp_List, between_list)
+	return (GC_List, SGC_List, num_comp_List)
 
 
 def ABA_attack(G_copy,num_nodes_to_remove):
@@ -1103,7 +1099,7 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List, SGC_List, num_comp_List, between_list) = BA_attack(G, int(N * 0.7))
+	(GC_List, SGC_List, num_comp_List) = BA_attack(G, int(N * 0.7))
 
 	init_name_GC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_GC"
 
