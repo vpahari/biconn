@@ -471,7 +471,13 @@ def get_all_dBN(G,radius):
 	dict_nodes_ball = {}
 	dict_nodes_x_i = {}
 
+	counter = 0
+
 	for n in all_nodes:
+
+		print(counter)
+
+		counter += 1
 
 		(dBall,ball) = get_dBN(G,n,radius)
 
@@ -791,8 +797,6 @@ def dBalls_attack_NA(G_copy,radius):
 
 		node = list_to_remove[counter_for_nodes][0]
 
-		
-
 		print(node,dict_nodes_dBall[node])
 
 
@@ -1108,7 +1112,7 @@ def get_result(G, radius):
 
 	(GC_List_ABA, SGC_List_ABA, num_comp_List_ABA) = ABA_attack(G, int(N * 0.99))
  
-	(GC_List_RAN, SGC_List_RAN, num_comp_List_RAN) = big_RA_attack(G,int(N * 0.99),20)
+	(GC_List_RAN, SGC_List_RAN, num_comp_List_RAN) = big_RA_attack(G,int(N * 0.99),2)
 
 	(GC_List_DB, SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode) = dBalls_attack(G,radius)
 
