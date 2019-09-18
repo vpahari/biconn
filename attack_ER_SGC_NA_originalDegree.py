@@ -89,6 +89,8 @@ def make_ER_Graph(N,k,SEED):
 
 def DA_attack(G_copy,num_nodes_to_remove):
 
+	print("DA_attack")
+
 	G = copy_graph(G_copy)
 
 	GC_List = []
@@ -121,6 +123,9 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 
 	for i in range(num_nodes_to_remove):
+
+		print("DA")
+		print(i)
 
 		node_to_remove = degree_sequence[i][0]
 
@@ -194,6 +199,8 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 def BA_attack(G_copy,num_nodes_to_remove):
 
+	print("BA_attack")
+
 	G = copy_graph(G_copy)
 
 	GC_List = []
@@ -222,6 +229,9 @@ def BA_attack(G_copy,num_nodes_to_remove):
 	between_list = []
 
 	for i in range(num_nodes_to_remove):
+
+		print("BA_attack")
+		print(i)
 		
 		node_to_remove = between_sequence[i][0]
 
@@ -306,6 +316,9 @@ def RA_attack(G_copy,num_nodes_to_remove):
 	all_nodes = random.sample(list(G.nodes()),num_nodes_to_remove)
 
 	for i in all_nodes:
+
+		print("RA")
+		print(i)
 
 		G.removeNode(i)
 
@@ -466,6 +479,8 @@ def get_all_dBN(G,radius):
 	dict_nodes_x_i = {}
 
 	for n in all_nodes:
+
+		print(n)
 
 		(dBall,ball) = get_dBN(G,n,radius)
 
@@ -730,6 +745,8 @@ def dBalls_attack(G_copy,radius):
 
 def dBalls_attack_NA(G_copy,radius):
 
+	print("dball attack")
+
 	G = copy_graph(G_copy)
 
 	GC_List = []
@@ -781,6 +798,10 @@ def dBalls_attack_NA(G_copy,radius):
 
 	while counter_for_nodes < len(list_to_remove):
 
+		print("DB")
+
+		print(counter_for_nodes)
+		
 		curr_nodes_set = set(list(G.nodes()))
 
 		node = list_to_remove[counter_for_nodes][0]
@@ -1078,11 +1099,11 @@ def get_results_NA(G, radius):
 
 	N = G.numberOfNodes()
 
-	(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 0.99))
+	(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 0.8))
 
-	(GC_List_BA, SGC_List_BA, num_comp_List_BA, between_list) = BA_attack(G, int(N * 0.99))
+	(GC_List_BA, SGC_List_BA, num_comp_List_BA, between_list) = BA_attack(G, int(N * 0.8))
  
-	(avg_list_GC_RAN, avg_list_SGC_RAN, avg_list_numComp_RAN)  = big_RA_attack(G,int(N * 0.99),20)
+	(avg_list_GC_RAN, avg_list_SGC_RAN, avg_list_numComp_RAN)  = big_RA_attack(G,int(N * 0.99),1)
 
 	(GC_List_DB, SGC_List_DB, num_comp_List_DB, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node,original_xi_values) = dBalls_attack_NA(G, radius)
 
