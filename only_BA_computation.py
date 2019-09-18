@@ -174,6 +174,77 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 	return (GC_List, SGC_List, num_comp_List, degree_list)
 
+def turn_nk_to_igraph(G):
+
+	G_i = ig.Graph()
+
+	nodes_list = list(G.nodes())
+	edges_list = list(G.edges())
+
+	G_i.add_vertices(nodes_list)
+	G_i.add_edges(edges_list)
+
+	return G_i
+
+
+def betweenness_igraph(G):
+
+	between_list = G.betweenness()
+
+	between_dict = []
+
+	for i in len(between_list):
+
+		between_dict.append((i,between_list[i]))
+
+	return between_dict
+
+
+
+def BA_attack_igraph(G_copy,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+
+	SGC_List = []
+
+	num_comp_List = []
+
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+
+	SGC_List.append(SGC)
+
+	num_comp_List.append(num_comp)
+
+	G_i = turn_nk_to_igraph(G)
+
+	between_sequence = betweenness_igraph(G_i)
+
+	random.shuffle(between_sequence)
+
+	between_sequence.sort(key = itemgetter(1), reverse = True)
+	
+	for i in range(num_nodes_to_remove):
+		
+		node_to_remove = between_sequence[i][0]
+
+		between_score =  between_sequence[i][1]
+
+		G.removeNode(node_to_remove)
+
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+		GC_List.append(GC)
+
+		SGC_List.append(SGC)
+
+		num_comp_List.append(num_comp)
+
+	return (GC_List, SGC_List, num_comp_List)
+
 
 def BA_attack(G_copy,num_nodes_to_remove):
 
@@ -1099,7 +1170,7 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List, SGC_List, num_comp_List) = BA_attack(G, int(N * 0.7))
+	(GC_List, SGC_List, num_comp_List) = BA_attack_igraph(G, int(N * 0.8))
 
 	init_name_GC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_GC"
 
