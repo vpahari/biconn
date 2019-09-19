@@ -189,9 +189,11 @@ def turn_nk_to_igraph(G):
 
 def betweenness_igraph(G):
 
-	between_list = G.betweenness()
+	between_list = G.betweenness(directed = False)
 
 	between_dict = []
+
+	print(between_list)
 
 	for i in len(between_list):
 
