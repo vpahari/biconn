@@ -226,12 +226,16 @@ def BA_attack_igraph(G_copy,num_nodes_to_remove):
 	random.shuffle(between_sequence)
 
 	between_sequence.sort(key = itemgetter(1), reverse = True)
+
+	print(between_sequence)
 	
 	for i in range(num_nodes_to_remove):
 		
 		node_to_remove = between_sequence[i][0]
 
 		between_score =  between_sequence[i][1]
+
+		print(i, node_to_remove, between_score)
 
 		G.removeNode(node_to_remove)
 
