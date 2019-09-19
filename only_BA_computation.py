@@ -195,7 +195,7 @@ def betweenness_igraph(G):
 
 	print(between_list)
 
-	for i in len(between_list):
+	for i in range(len(between_list)):
 
 		between_dict.append((i,between_list[i]))
 
