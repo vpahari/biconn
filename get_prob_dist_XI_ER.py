@@ -1189,6 +1189,7 @@ for i in range(num_times):
 		data[index] += 1
 
 
+print(data)
 
 data_final = map(lambda x : x / (num_times * N), data)
 
