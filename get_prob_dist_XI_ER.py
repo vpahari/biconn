@@ -1220,7 +1220,7 @@ data_final = list(map(lambda x : x / (num_times * N), data))
 
 print(sum(data_final))
 
-assert(sum(data_final) == 1)
+assert(abs(sum(data_final) - 1) == 0.00001)
 
 x_list = [i / 100 for i in range(100)]
 
