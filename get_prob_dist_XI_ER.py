@@ -1170,35 +1170,48 @@ type_graph = "ER"
 
 adaptive_type = "NA"
 
+data = [i for i in range(100)]
+
 for i in range(num_times):
 
 	SEED = SEED * (i+1) + 1
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List, SGC_List, num_comp_List) = BA_attack_igraph(G, int(N * 0.8))
+	(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
 
-	init_name_GC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_GC"
+	list_to_remove = dict_to_sorted_list_NA(dict_nodes_x_i)
 
-	init_name_SGC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_SGC"
+	for (node,x_i) in list_to_remove:
 
-	init_name_numComp_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_numberOfComponents"
+		index = int(x_i * 100)
 
-	GC_List_DEG_name = get_name_SF(init_name_GC_DEG, N,k,exp_out,SEED,radius)
-
-	SGC_DEG_name = get_name_SF(init_name_SGC_DEG, N,k,exp_out,SEED,radius)
-
-	numComp_DEG_name = get_name_SF(init_name_numComp_DEG, N,k,exp_out,SEED,radius)
+		data[index] += 1
 
 
-	with open(GC_List_DEG_name,'wb') as handle:
-		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(SGC_DEG_name,'wb') as handle:
-		pickle.dump(SGC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+data_final = map(lambda x : x / (num_times * N), data)
 
-	with open(numComp_DEG_name,'wb') as handle:
-		pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+x_list = [i / 100 for i in range(100)]
+
+plt.xlabel('X_I_value', fontsize=20)
+plt.ylabel('prob', fontsize=20, rotation=0, labelpad=20)
+plt.title("ER_attacks_NA", fontsize=20)
+
+filename = "avg_XIplots_" + "_N_" + str(N) + "_k_" + str(k)  + ".png"
+
+plt.plot(x_list,data_final,".", label = "x_i",markersize=1)
+
+#plt.xlim(0,0.2)
+plt.legend(loc='best')
+plt.tight_layout() 
+plt.savefig(filename)
+plt.clf()
+
+
+
+
+
 
 
 
