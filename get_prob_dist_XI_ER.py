@@ -1193,6 +1193,8 @@ print(data)
 
 data_final = list(map(lambda x : x / (num_times * N), data))
 
+assert(sum(data_final) == 1)
+
 x_list = [i / 100 for i in range(100)]
 
 plt.xlabel('X_I_value', fontsize=20)
