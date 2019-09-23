@@ -1199,7 +1199,7 @@ plt.xlabel('X_I_value', fontsize=20)
 plt.ylabel('prob', fontsize=20, rotation=0, labelpad=20)
 plt.title("ER_attacks_NA", fontsize=20)
 
-filename = "avg_XIplots_" + "_N_" + str(N) + "_k_" + str(k)  + "_numTimes_" + str(num_times) ".png"
+filename = "avg_XIplots_" + "_N_" + str(N) + "_k_" + str(k)  + "_numTimes_" + str(num_times) +  ".png"
 
 plt.plot(x_list,data_final,".", label = "x_i",markersize=1)
 
