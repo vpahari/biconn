@@ -533,6 +533,31 @@ def get_all_dBN(G,radius):
 	return (dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i)
 
 
+def get_all_dBN_hist(G,radius):
+
+	all_nodes = list(G.nodes())
+
+	dict_nodes_dBall = {}
+	dict_nodes_ball = {}
+	dict_nodes_x_i = {}
+
+	for n in all_nodes:
+
+		(dBall,ball) = get_dBN(G,n,radius)
+
+
+		dict_nodes_dBall[n] = len(dBall)
+		dict_nodes_ball[n] = len(ball)
+
+		if len(dBall) == 0:
+			dict_nodes_x_i[n] = 0
+
+		else:
+			dict_nodes_x_i[n] = len(dBall) / len(ball)
+
+	return (dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i)
+
+
 		 
 def make_partitions(dict_nodes_x_i, step_size):
 
@@ -1178,7 +1203,7 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+	(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN_hist(G,radius)
 
 	list_to_remove = dict_to_sorted_list_NA(dict_nodes_x_i)
 
