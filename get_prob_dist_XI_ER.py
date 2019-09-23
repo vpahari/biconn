@@ -1192,7 +1192,7 @@ for i in range(num_times):
 print(data)
 
 data_final = list(map(lambda x : x / (num_times * N), data))
-
+print(sum(data_final))
 assert(sum(data_final) == 1)
 
 x_list = [i / 100 for i in range(100)]
