@@ -1191,7 +1191,7 @@ for i in range(num_times):
 
 print(data)
 
-data_final = map(lambda x : x / (num_times * N), data)
+data_final = list(map(lambda x : x / (num_times * N), data))
 
 x_list = [i / 100 for i in range(100)]
 
