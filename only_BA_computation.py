@@ -1184,11 +1184,11 @@ for i in range(num_times):
 
 	init_name_numComp_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_numberOfComponents"
 
-	GC_List_DEG_name = get_name_SF(init_name_GC_DEG, N,k,exp_out,SEED,radius)
+	GC_List_DEG_name = get_name_ER(init_name_GC_DEG, N,k,SEED,radius)
 
-	SGC_DEG_name = get_name_SF(init_name_SGC_DEG, N,k,exp_out,SEED,radius)
+	SGC_DEG_name = get_name_ER(init_name_SGC_DEG, N,k,SEED,radius)
 
-	numComp_DEG_name = get_name_SF(init_name_numComp_DEG, N,k,exp_out,SEED,radius)
+	numComp_DEG_name = get_name_ER(init_name_numComp_DEG, N,k,SEED,radius)
 
 
 	with open(GC_List_DEG_name,'wb') as handle:
