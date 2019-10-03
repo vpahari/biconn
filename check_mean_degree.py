@@ -1423,7 +1423,7 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list_DB, mean_degree_list_GC_DB, removed_nodes_DB) = new_optimal_attack(G, radius)
+	(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list_DB, mean_degree_list_GC_DB, removed_nodes_DB) = new_optimal_attack(G, radius,threshold)
 
 
 	init_CL_name = adaptive_type + "SGCattackDB_ER_CL_threshold_" + str(threshold)
@@ -1439,7 +1439,7 @@ for i in range(num_times):
 	with open(GC_name,'wb') as handle:
 		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	
+
 
 
 
