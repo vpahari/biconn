@@ -121,11 +121,27 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 	degree_sequence.sort(key = itemgetter(1), reverse = True)
 
+	mean_degree_list = []
+	mean_degree_list_GC = []
+
 
 	for i in range(num_nodes_to_remove):
 
-		print("DA")
-		print(i)
+		mean_deg = calculate_mean_degree(G)
+
+		mean_deg_GC = calculate_mean_degree_GC(G)
+
+		print("mean degree : " + str(counter))
+
+		print(mean_deg)
+
+		print("mean degree GC : " + str(counter))
+
+		print(mean_deg_GC)
+
+		mean_degree_list.append(mean_deg)
+		mean_degree_list_GC.append(mean_deg_GC)
+
 
 		node_to_remove = degree_sequence[i][0]
 
@@ -1190,7 +1206,7 @@ G = make_ER_Graph(N,k,SEED)
 
 dBalls_attack_NA(G, radius)
 
-
+DA_attack(G,int(N * .9))
 
 
 
