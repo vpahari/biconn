@@ -1234,8 +1234,8 @@ plt.xlabel('nodes_removed', fontsize=20)
 plt.ylabel('mean_degree', fontsize=20, rotation=0, labelpad=20)
 plt.title("chaning mean deg", fontsize=20)
 
-plt.plot(counter_list, mean_degree_list, label = "dball full Graph")
-plt.plot(counter_list, mean_degree_list_GC, label = "dball GC")
+plt.plot(counter_list, mean_degree_list_DB, label = "dball full Graph")
+plt.plot(counter_list, mean_degree_list_GC_DB, label = "dball GC")
 
 plt.plot(x_list, mean_degree_list_DA, label = "DA full Graph")
 plt.plot(x_list, mean_degree_list_GC_DA, label = "DA GC")
