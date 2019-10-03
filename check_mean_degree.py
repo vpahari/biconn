@@ -806,7 +806,6 @@ def dBalls_attack_NA(G_copy,radius):
 		print("mean degree : " + str(counter))
 
 		mean_deg = calculate_mean_degree(G))
-
 		print(mean_deg)
 
 		mean_deg_GC = calculate_mean_degree_GC(G)
