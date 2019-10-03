@@ -1207,14 +1207,21 @@ adaptive_type = "NA"
 
 G = make_ER_Graph(N,k,SEED)
 
-(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC) = dBalls_attack_NA(G, radius)
+(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list_DB, mean_degree_list_GC_DB) = dBalls_attack_NA(G, radius)
 
 (GC_List, SGC_List, num_comp_List, original_degree_list,adaptive_degree_list,mean_degree_list_DA,mean_degree_list_GC_DA) = DA_attack(G,int(N * .9))
 
 
 figname = "changingMeanDeg" + "_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + ".png" 
 
-x_list = [i for i in range(len(mean_degree_list))]
+x_list = [i for i in range(len(mean_degree_list_DA))]
+
+print(len(mean_degree_list_DB))
+print(len(mean_degree_list_GC_DB))
+
+print(len(mean_degree_list_DA))
+print(len(mean_degree_list_GC_DA))
+
 
 
 plt.xlabel('nodes_removed', fontsize=20)
