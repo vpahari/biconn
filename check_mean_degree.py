@@ -1066,6 +1066,12 @@ def new_optimal_attack(G_copy,radius):
 			(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list_DA,adaptive_degree_list_DA,mean_degree_list_DA,mean_degree_list_GC_DA,removed_nodes_DA) = DA_attack(G, (int(G.numberOfNodes() * 0.99)))
 			break
 
+	GC_List_DA_Length = len(GC_List_DA[1:])
+
+	for i in range(GC_List_DA_Length):
+
+		counter_list.append(counter_list[-1] + 1)
+
 
 
 	GC_List += GC_List_DA[1:]
@@ -1420,6 +1426,7 @@ G = make_ER_Graph(N,k,SEED)
 #print(len(removed_nodes_DA))
 
 print(GC_List)
+print(counter_list)
 
 
 
