@@ -131,11 +131,11 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 		mean_deg_GC = calculate_mean_degree_GC(G)
 
-		print("mean degree : " + str(counter))
+		print("mean degree : " + str(i))
 
 		print(mean_deg)
 
-		print("mean degree GC : " + str(counter))
+		print("mean degree GC : " + str(i))
 
 		print(mean_deg_GC)
 
