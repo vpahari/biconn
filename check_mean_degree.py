@@ -802,13 +802,13 @@ def dBalls_attack_NA(G_copy,radius):
 
 		print("DB")
 
-		print(counter_for_nodes)
+		#print(counter_for_nodes)
 		
 		curr_nodes_set = set(list(G.nodes()))
 
 		node = list_to_remove[counter_for_nodes][0]
 
-		print(node,dict_nodes_dBall[node])
+		#print(node,dict_nodes_dBall[node])
 
 		if node not in curr_nodes_set:
 			counter_for_nodes += 1
@@ -860,6 +860,11 @@ def dBalls_attack_NA(G_copy,radius):
 		counter_list.append(counter)
 
 		counter_for_nodes += 1
+
+		print("mean degree : " + str(counter))
+
+		print(calculate_mean_degree(G))
+
 
 
 
@@ -1153,7 +1158,7 @@ adaptive_type = "NA"
 
 G = make_ER_Graph(N,k,SEED)
 
-dBalls_attack(G, radius)
+dBalls_attack_NA(G, radius)
 
 
 
