@@ -161,10 +161,12 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 		num_comp_List.append(num_comp)
 
+		removed_nodes.append(node_to_remove)
+
 
 	
 
-	return (GC_List, SGC_List, num_comp_List, original_degree_list,adaptive_degree_list,mean_degree_list,mean_degree_list_GC)
+	return (GC_List, SGC_List, num_comp_List, original_degree_list,adaptive_degree_list,mean_degree_list,mean_degree_list_GC,removed_nodes)
 
 
 def ADA_attack(G_copy,num_nodes_to_remove):
@@ -826,6 +828,7 @@ def dBalls_attack_NA(G_copy,radius):
 	mean_degree_list.append(mean_deg)
 	mean_degree_list_GC.append(mean_deg_GC)
 
+	removed_nodes = []
 
 	while counter_for_nodes < len(list_to_remove):
 
@@ -854,6 +857,8 @@ def dBalls_attack_NA(G_copy,radius):
 
 		size_dball.append(len(dBall))
 		size_ball.append(len(ball))
+
+		removed_nodes += dBall
 
 		combined_list = [node] + dBall
 
@@ -910,7 +915,7 @@ def dBalls_attack_NA(G_copy,radius):
 
 	
 
-	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC)
+	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC,removed_nodes)
 
 
 
@@ -1213,11 +1218,18 @@ adaptive_type = "NA"
 
 G = make_ER_Graph(N,k,SEED)
 
-(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list_DB, mean_degree_list_GC_DB) = dBalls_attack_NA(G, radius)
+(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list_DB, mean_degree_list_GC_DB, removed_nodes_DB) = dBalls_attack_NA(G, radius)
 
-(GC_List, SGC_List, num_comp_List, original_degree_list,adaptive_degree_list,mean_degree_list_DA,mean_degree_list_GC_DA) = DA_attack(G,int(N * .9))
+(GC_List, SGC_List, num_comp_List, original_degree_list,adaptive_degree_list,mean_degree_list_DA,mean_degree_list_GC_DA, removed_nodes_DA) = DA_attack(G,int(N * .9))
 
 
+print(removed_nodes_DB)
+print(removed_nodes_DA)
+
+
+
+
+"""
 figname = "changingMeanDeg" + "_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + ".png" 
 
 x_list = [i for i in range(len(mean_degree_list_DA))]
@@ -1227,7 +1239,6 @@ print(len(mean_degree_list_GC_DB))
 
 print(len(mean_degree_list_DA))
 print(len(mean_degree_list_GC_DA))
-
 
 
 plt.xlabel('nodes_removed', fontsize=20)
@@ -1245,6 +1256,6 @@ plt.legend(loc='best')
 plt.tight_layout() 
 plt.savefig(figname)
 plt.clf()
-
+"""
 
 
