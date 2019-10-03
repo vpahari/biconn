@@ -911,14 +911,171 @@ def dBalls_attack_NA(G_copy,radius):
 		mean_degree_list.append(mean_deg)
 		mean_degree_list_GC.append(mean_deg_GC)
 
-		
+		if mean_deg
 
-
-
-	
 
 	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC,removed_nodes)
 
+
+
+
+
+def new_optimal_attack(G_copy,radius):
+
+	print("dball attack")
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+	SGC_List = []
+	num_comp_List = []
+
+	size_dball = [] 
+	size_ball = []
+
+	degree_list_mainNode = []
+	betweenness_list_mainNode = []
+	coreness_list_mainNode = []
+
+	degree_list_removedNode = []
+	betweenness_list_removedNode = []
+	coreness_list_removedNode = []
+
+	counter = 0
+
+	counter_list = []
+
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+	SGC_List.append(SGC)
+	num_comp_List.append(num_comp)
+
+	counter_list.append(counter)
+
+	original_degree_dict = get_degree_dict(G)
+
+	original_degree_main_node = []
+
+	original_degree_removed_node = []
+
+	num_nodes_to_remove = G.numberOfNodes()
+
+	(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+
+	list_to_remove = dict_to_sorted_list_NA(dict_nodes_x_i)
+
+	counter_for_nodes = 0
+
+	original_xi_values = []
+
+	print(dict_nodes_x_i)
+
+	print(list_to_remove)
+
+	mean_degree_list = []
+	mean_degree_list_GC = []
+
+	mean_deg = calculate_mean_degree(G)
+	mean_deg_GC = calculate_mean_degree_GC(G)
+
+	mean_degree_list.append(mean_deg)
+	mean_degree_list_GC.append(mean_deg_GC)
+
+	removed_nodes = []
+
+	while counter_for_nodes < len(list_to_remove):
+
+		
+		#print(counter_for_nodes)
+		
+		curr_nodes_set = set(list(G.nodes()))
+
+		node = list_to_remove[counter_for_nodes][0]
+
+		#print(node,dict_nodes_dBall[node])
+
+		if node not in curr_nodes_set:
+			counter_for_nodes += 1
+			continue
+
+
+		(dBall,ball) = get_dBN(G,node,radius) 
+
+		original_xi_values.append(list_to_remove[counter_for_nodes][1])
+
+		if len(dBall) == 0:
+			counter_for_nodes += 1
+			continue
+
+
+		size_dball.append(len(dBall))
+		size_ball.append(len(ball))
+
+		removed_nodes += dBall
+
+		combined_list = [node] + dBall
+
+		original_degree_main_node.append(original_degree_dict[node])
+
+		for i in dBall:
+			original_degree_removed_node.append(original_degree_dict[i])
+
+		#between_list = get_betweenness_score_list(G,combined_list)
+		degree_list = get_degree_score_list(G,combined_list)
+		#coreness_list = get_coreness_score_list(G,combined_list)
+
+		degree_list_mainNode.append(degree_list[0])
+		#betweenness_list_mainNode.append(between_list[0])
+		#coreness_list_mainNode.append(coreness_list[0])
+
+		degree_list_removedNode += degree_list[1:]
+		#betweenness_list_removedNode += between_list[1:]
+		#coreness_list_removedNode += coreness_list[1:]
+
+		for i in dBall:
+			G.removeNode(i)
+			counter += 1
+
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+		GC_List.append(GC)
+		SGC_List.append(SGC)
+		num_comp_List.append(num_comp)
+
+
+		counter_list.append(counter)
+
+		counter_for_nodes += 1
+
+		mean_deg = calculate_mean_degree(G)
+
+		mean_deg_GC = calculate_mean_degree_GC(G)
+
+		print("mean degree : " + str(counter))
+
+		print(mean_deg)
+
+		print("mean degree GC : " + str(counter))
+
+		print(mean_deg_GC)
+
+		mean_degree_list.append(mean_deg)
+		mean_degree_list_GC.append(mean_deg_GC)
+
+		if mean_deg <= 2:
+			 
+			(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list_DA,adaptive_degree_list_DA,mean_degree_list_DA,mean_degree_list_GC_DA,removed_nodes_DA) = DA_attack(G, (int(G.numberOfNodes() * 0.99)))
+			break
+
+
+
+	GC_List += GC_List_DA[1:]
+	SGC_List += SGC_List_DA[1:]
+	num_comp_List += num_comp_List_DA[1:]
+
+
+	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC,removed_nodes)
 
 
 
@@ -1206,6 +1363,42 @@ def calculate_mean_degree_GC(G):
 	return (2 * num_edges) / num_nodes
 
 
+def intersection(l1,l2):
+
+	l3 = [value for value in l1 if value in l2]
+
+	return l3
+
+def get_increasing_intersect(delta):
+
+	counter = 0
+	delta = 100
+
+	intersection_list = []
+
+	intersection_list_nodes = []
+
+	while counter < len(nodes_removed_DB):
+
+		curr_list_DB = nodes_removed_DB[: (counter + delta)]
+		curr_list_DA = nodes_removed_DA[: (counter + delta)]
+
+		counter += delta
+
+		intersect = intersection(curr_list_DB,curr_list_DA)
+
+		intersection_list_nodes.append(intersect)
+
+		intersection_list.append(len(intersect))
+
+
+
+def get_intersect_given_fs(fs):
+
+	index = fs / 100
+
+
+
 N=int(sys.argv[1]) 
 
 k=float(sys.argv[2])
@@ -1220,16 +1413,15 @@ adaptive_type = "NA"
 
 G = make_ER_Graph(N,k,SEED)
 
-(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list_DB, mean_degree_list_GC_DB, removed_nodes_DB) = dBalls_attack_NA(G, radius)
+(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list_DB, mean_degree_list_GC_DB, removed_nodes_DB) = new_optimal_attack(G, radius)
 
-(GC_List, SGC_List, num_comp_List, original_degree_list,adaptive_degree_list,mean_degree_list_DA,mean_degree_list_GC_DA, removed_nodes_DA) = DA_attack(G,int(N * .9))
+#print(removed_nodes_DB)
+#print(removed_nodes_DA)
 
+#print(len(removed_nodes_DB))
+#print(len(removed_nodes_DA))
 
-print(removed_nodes_DB)
-print(removed_nodes_DA)
-
-print(len(removed_nodes_DB))
-print(len(removed_nodes_DA))
+print(GC_List)
 
 
 
