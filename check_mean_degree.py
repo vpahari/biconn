@@ -911,8 +911,6 @@ def dBalls_attack_NA(G_copy,radius):
 		mean_degree_list.append(mean_deg)
 		mean_degree_list_GC.append(mean_deg_GC)
 
-		if mean_deg
-
 
 	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC,removed_nodes)
 
