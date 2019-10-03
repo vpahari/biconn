@@ -799,9 +799,7 @@ def dBalls_attack_NA(G_copy,radius):
 	print(list_to_remove)
 
 	while counter_for_nodes < len(list_to_remove):
-
-		print("DB")
-
+		
 		#print(counter_for_nodes)
 		
 		curr_nodes_set = set(list(G.nodes()))
