@@ -1061,7 +1061,7 @@ def new_optimal_attack(G_copy,radius):
 		mean_degree_list.append(mean_deg)
 		mean_degree_list_GC.append(mean_deg_GC)
 
-		if mean_deg <= 3.5:
+		if mean_deg <= 2:
 			 
 			(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list_DA,adaptive_degree_list_DA,mean_degree_list_DA,mean_degree_list_GC_DA,removed_nodes_DA) = DA_attack(G, (int(G.numberOfNodes() * 0.99)))
 			break
