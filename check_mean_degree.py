@@ -704,19 +704,19 @@ def dBalls_attack(G_copy,radius):
 
 		combined_list = [node] + dBall
 
-		between_list = get_betweenness_score_list(G,combined_list)
-		degree_list = get_degree_score_list(G,combined_list)
-		coreness_list = get_coreness_score_list(G,combined_list)
+		#between_list = get_betweenness_score_list(G,combined_list)
+		#degree_list = get_degree_score_list(G,combined_list)
+		#coreness_list = get_coreness_score_list(G,combined_list)
 
 
 
-		degree_list_mainNode.append(degree_list[0])
-		betweenness_list_mainNode.append(between_list[0])
-		coreness_list_mainNode.append(coreness_list[0])
+		#degree_list_mainNode.append(degree_list[0])
+		#betweenness_list_mainNode.append(between_list[0])
+		#coreness_list_mainNode.append(coreness_list[0])
 
-		degree_list_removedNode += degree_list[1:]
-		betweenness_list_removedNode += between_list[1:]
-		coreness_list_removedNode += coreness_list[1:]
+		#degree_list_removedNode += degree_list[1:]
+		#betweenness_list_removedNode += between_list[1:]
+		#coreness_list_removedNode += coreness_list[1:]
 		
 
 		size_dball.append(len(dBall))
@@ -1149,7 +1149,7 @@ SEED=int(sys.argv[3])
 
 radius = int(sys.argv[4])
 
-num_times = int(sys.argv[5])
+#num_times = int(sys.argv[5])
 
 adaptive_type = "NA"
 
