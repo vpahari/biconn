@@ -918,7 +918,7 @@ def dBalls_attack_NA(G_copy,radius):
 
 
 
-def new_optimal_attack(G_copy,radius):
+def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 	print("dball attack")
 
@@ -1061,7 +1061,7 @@ def new_optimal_attack(G_copy,radius):
 		mean_degree_list.append(mean_deg)
 		mean_degree_list_GC.append(mean_deg_GC)
 
-		if mean_deg <= 3.5:
+		if mean_deg <= mean_deg_threshold:
 			 
 			(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list_DA,adaptive_degree_list_DA,mean_degree_list_DA,mean_degree_list_GC_DA,removed_nodes_DA) = DA_attack(G, (int(G.numberOfNodes() * 0.99)))
 			break
@@ -1411,22 +1411,38 @@ SEED=int(sys.argv[3])
 
 radius = int(sys.argv[4])
 
-#num_times = int(sys.argv[5])
+num_times = int(sys.argv[5])
+
+threshold = float(sys.argv[6])
 
 adaptive_type = "NA"
 
-G = make_ER_Graph(N,k,SEED)
+for i in range(num_times):
 
-(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list_DB, mean_degree_list_GC_DB, removed_nodes_DB) = new_optimal_attack(G, radius)
+	SEED = (SEED * (i+1)) + 1
 
-#print(removed_nodes_DB)
-#print(removed_nodes_DA)
+	G = make_ER_Graph(N,k,SEED)
 
-#print(len(removed_nodes_DB))
-#print(len(removed_nodes_DA))
+	(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list_DB, mean_degree_list_GC_DB, removed_nodes_DB) = new_optimal_attack(G, radius)
 
-print(GC_List)
-print(counter_list)
+
+	init_CL_name = adaptive_type + "SGCattackDB_ER_CL_threshold_" + str(threshold)
+	init_GC_name = adaptive_type + "SGCattackDB_ER_GC_threshold_" + str(threshold)
+
+	CL_name = get_name_ER(init_name_GC_Deg, N, k, SEED,radius)
+
+	GC_name = get_name_ER(init_name_GC_Deg, N, k, SEED,radius)
+
+	with open(CL_name,'wb') as handle:
+		pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(GC_name,'wb') as handle:
+		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	
+
+
+
 
 
 
