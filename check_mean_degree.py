@@ -1429,9 +1429,9 @@ for i in range(num_times):
 	init_CL_name = adaptive_type + "SGCattackDB_ER_CL_threshold_" + str(threshold)
 	init_GC_name = adaptive_type + "SGCattackDB_ER_GC_threshold_" + str(threshold)
 
-	CL_name = get_name_ER(init_name_GC_Deg, N, k, SEED,radius)
+	CL_name = get_name_ER(init_CL_name, N, k, SEED,radius)
 
-	GC_name = get_name_ER(init_name_GC_Deg, N, k, SEED,radius)
+	GC_name = get_name_ER(init_GC_name, N, k, SEED,radius)
 
 	with open(CL_name,'wb') as handle:
 		pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
