@@ -798,7 +798,25 @@ def dBalls_attack_NA(G_copy,radius):
 
 	print(list_to_remove)
 
+	mean_degree_list = []
+	mean_degree_list_GC = []
+
 	while counter_for_nodes < len(list_to_remove):
+
+		print("mean degree : " + str(counter))
+
+		mean_deg = calculate_mean_degree(G))
+
+		print(mean_deg)
+
+		mean_deg_GC = calculate_mean_degree_GC(G)
+
+		print("mean degree GC : " + str(counter))
+
+		print(mean_deg_GC)
+
+		mean_degree_list.append(mean_deg)
+		mean_degree_list_GC.append(mean_deg_GC)
 		
 		#print(counter_for_nodes)
 		
@@ -859,9 +877,7 @@ def dBalls_attack_NA(G_copy,radius):
 
 		counter_for_nodes += 1
 
-		print("mean degree : " + str(counter))
-
-		print(calculate_mean_degree(G))
+		
 
 
 
@@ -1139,7 +1155,21 @@ def calculate_mean_degree(G):
 
 	return (2 * num_edges) / num_nodes
 
+def calculate_mean_degree_GC(G):
 
+	GC_nodes = get_GC_nodes(G)
+
+	num_edges = 0
+
+	for i in GC_nodes:
+
+		num_edges += G.degree(i)
+
+	num_nodes = len(GC_nodes)
+
+	num_edges = int(num_edges / 2)
+
+	return (2 * num_edges) / num_nodes
 
 
 N=int(sys.argv[1]) 
