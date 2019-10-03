@@ -479,9 +479,7 @@ def get_all_dBN(G,radius):
 	dict_nodes_x_i = {}
 
 	for n in all_nodes:
-
-		print(n)
-
+		
 		(dBall,ball) = get_dBN(G,n,radius)
 
 
