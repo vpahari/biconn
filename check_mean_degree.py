@@ -124,6 +124,8 @@ def DA_attack(G_copy,num_nodes_to_remove):
 	mean_degree_list = []
 	mean_degree_list_GC = []
 
+	removed_nodes = []
+
 
 	for i in range(num_nodes_to_remove):
 
