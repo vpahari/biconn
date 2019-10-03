@@ -1226,6 +1226,8 @@ G = make_ER_Graph(N,k,SEED)
 print(removed_nodes_DB)
 print(removed_nodes_DA)
 
+print(len(removed_nodes_DB))
+print(len(removed_nodes_DA))
 
 
 
