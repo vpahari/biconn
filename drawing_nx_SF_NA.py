@@ -10,7 +10,29 @@ import random
 import sys
 from operator import itemgetter
 import os
+import igraph as ig
 
+def make_SF_Graph(N,k,exp_out,SEED):
+
+	random.seed(SEED)
+
+	num_edges = int((N * k) / 2)
+
+	igG = ig.Graph.Static_Power_Law(N,num_edges,exp_out)
+
+	allEdges = igG.get_edgelist()
+
+	fixed_G = nx.Graph()
+
+	listOfNodes = [i for i in range(N)]
+
+	fixed_G.add_nodes_from(listOfNodes)
+
+	fixed_G.add_edges_from(allEdges)
+
+	#G_nk = nk.nxadapter.nx2nk(fixed_G)
+
+	return fixed_G
 
 def turn_list_to_str(l):
 
@@ -809,13 +831,15 @@ def get_four_corners(GC_position):
 
 N=int(sys.argv[1]) 
 
-k=int(sys.argv[2])
+k=float(sys.argv[2])
 
-SEED=int(sys.argv[3])
+exp_out = float(sys.argv[3])
 
-radius = int(sys.argv[4])
+SEED=int(sys.argv[4])
 
-G = nx.erdos_renyi_graph(N, k/(N-1), SEED)
+radius = int(sys.argv[5])
+
+G = make_SF_Graph(N,k,exp_out,SEED)
 
 position=nx.spring_layout(G)
 
@@ -825,7 +849,7 @@ new_position = get_position_GC(GC_nodes,position)
 
 #plt.figure(figsize=(10,10))
 
-path = os.getcwd() + "/" + "SF_" + str(N) + "_" + str(k)  + "_" +  str(SEED)+ "_" + str(radius) + "/"
+path = os.getcwd() + "/" + "SF_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out)  + "_SEED_" +  str(SEED)+ "_radius_" + str(radius) + "/"
 
 GC = get_GC_nodes(G)
 
