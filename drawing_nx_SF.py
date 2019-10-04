@@ -469,7 +469,7 @@ for fn in glob.glob('*_DBALLNODE*.pickle'):
 
 def create_all_graphs(G, radius,path):
 
-	init_fname = "ER_" + str(N) + "_" + str(k) + "_"+ str(SEED)+ "_" + str(radius)+ "_numBalls_"  
+	init_fname = "SF_" + str(N) + "_" + str(k) + "_"+ str(SEED)+ "_" + str(radius)+ "_numBalls_"  
 
 	counter = 0
 
@@ -708,7 +708,7 @@ def create_graphs_degree(G, position,path):
 
 	num_nodes_to_remove = int(G.number_of_nodes() * 0.5)
 
-	init_filename = "ER_" + str(N) + "_" + str(k) + "_" +  str(SEED)+ "_" + str(radius) + "_numBalls_" 
+	init_filename = "SF_" + str(N) + "_" + str(k) + "_" +  str(SEED)+ "_" + str(radius) + "_numBalls_" 
 
 	try:
 		(GC_List, degree_list) = ADA_attack(G,num_nodes_to_remove, init_filename, position, path)
@@ -722,7 +722,7 @@ def create_graphs_between(G, position,path):
 
 	num_nodes_to_remove = int(G.number_of_nodes() * 0.5)
 
-	init_filename = "ER_" + str(N) + "_" + str(k) + "_" +  str(SEED)+ "_" + str(radius) + "_numBalls_" 
+	init_filename = "SF_" + str(N) + "_" + str(k) + "_" +  str(SEED)+ "_" + str(radius) + "_numBalls_" 
 
 	(GC_List, between_list) = ABA_attack(G,num_nodes_to_remove, init_filename, position, path)
 
