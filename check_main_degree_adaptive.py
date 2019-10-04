@@ -708,6 +708,15 @@ def dBalls_attack(G_copy,radius):
 
 	num_nodes_to_remove = G.numberOfNodes()
 
+	mean_degree_list = []
+	mean_degree_list_GC = []
+
+	mean_deg = calculate_mean_degree(G)
+	mean_deg_GC = calculate_mean_degree_GC(G)
+
+	mean_degree_list.append(mean_deg)
+	mean_degree_list_GC.append(mean_deg_GC)
+
 	while counter < num_nodes_to_remove:
 
 		#print(counter)
@@ -759,12 +768,23 @@ def dBalls_attack(G_copy,radius):
 
 		counter_list.append(counter)
 
+		mean_deg = calculate_mean_degree(G)
+
+		mean_deg_GC = calculate_mean_degree_GC(G)
+
 		print("mean degree : " + str(counter))
 
-		print(calculate_mean_degree(G))
+		print(mean_deg)
+
+		print("mean degree GC : " + str(counter))
+
+		print(mean_deg_GC)
+
+		mean_degree_list.append(mean_deg)
+		mean_degree_list_GC.append(mean_deg_GC)
 
 
-	return (GC_List,SGC_List,num_comp_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
+	return (GC_List,SGC_List,num_comp_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode, mean_degree_list, mean_degree_list_GC)
 
 
 
@@ -1411,6 +1431,14 @@ SEED=int(sys.argv[3])
 
 radius = int(sys.argv[4])
 
+
+G = make_ER_Graph(N, k, SEED)
+
+dBalls_attack(G,radius)
+
+
+"""
+
 num_times = int(sys.argv[5])
 
 threshold = float(sys.argv[6])
@@ -1439,7 +1467,7 @@ for i in range(num_times):
 	with open(GC_name,'wb') as handle:
 		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-
+"""
 
 
 
