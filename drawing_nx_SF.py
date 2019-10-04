@@ -10,7 +10,6 @@ import random
 import sys
 from operator import itemgetter
 import os
-import igraph as ig
 
 def make_SF_Graph(N,k,exp_out,SEED):
 
@@ -30,7 +29,22 @@ def make_SF_Graph(N,k,exp_out,SEED):
 
 	fixed_G.add_edges_from(allEdges)
 
+	#G_nk = nk.nxadapter.nx2nk(fixed_G)
+
 	return fixed_G
+
+
+def turn_list_to_str(l):
+
+	s = ""
+
+	for i in l:
+
+		s += str(i) 
+		s += "," 
+
+	return s
+
 
 def get_GC(G):
 
@@ -38,6 +52,14 @@ def get_GC(G):
 	GC = max(conn, key = len)
 
 	return GC.number_of_nodes()
+
+
+def get_GC_component(G):
+	conn = list(nx.connected_component_subgraphs(G))
+	GC = max(conn, key = len)
+
+	return GC
+
 
 def get_GC_nodes(G):
 
@@ -56,7 +78,7 @@ def get_betweenness_score_list(G, node_list):
 
 	for node in node_list:
 
-		final_list.append(between[node])
+		final_list.append(round(between[node], 4))
 
 	return final_list
 
@@ -224,10 +246,15 @@ def dBalls_attack(G_copy,radius, init_filename, position, path):
 	counterNew = 0
 
 	try:
+		print("A")
 		os.mkdir(path)
+		print("A")
 
 	except:
 		pass
+
+
+	init_GC_nodes = get_GC_nodes(G)
 
 	while counter < num_nodes_to_remove:
 
@@ -268,14 +295,21 @@ def dBalls_attack(G_copy,radius, init_filename, position, path):
 		dball_list.append(dBall)
 		ball_list.append(ball)
 
+		removed_degree_str = turn_list_to_str(degree_list[1:])
+		removed_bet_str = turn_list_to_str(between_list[1:])
+		removed_core_str = turn_list_to_str(coreness_list[1:])
+
+
+		curr_GC = get_GC(G)
 
 		#print(dBall)
 		#print(ball)
 
-		create_graphs(G, node, dBall, init_filename, position, counterNew, radius, path)
+		create_graphs(G, node, dBall, init_filename, position, counterNew, radius, path,degree_list[0],between_list[0],coreness_list[0],removed_degree_str,removed_bet_str,removed_core_str,len(dBall),len(ball),curr_GC, init_GC_nodes)
 
 		for i in dBall:
 			G.remove_node(i)
+			init_GC_nodes.remove(i)
 			counter += 1
 
 		GC_List.append(get_GC(G))
@@ -283,6 +317,8 @@ def dBalls_attack(G_copy,radius, init_filename, position, path):
 		counter_list.append(counter)
 
 		counterNew += 1
+
+
 
 	return (GC_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode,main_node_list,dball_list,ball_list)
 
@@ -312,15 +348,39 @@ def remove_all_nodes_from(all_nodes, nodes_list):
 
 	for i in nodes_list:
 
-		all_nodes.remove(i)
+		try:	
+
+			all_nodes.remove(i)
+
+		except:
+			continue
 
 
-def create_graphs(G, main_node, nodes_list, init_filename, position, counter, radius, path):
+def get_edges_with_list(G,nodes_list):
+
+	edge_list = set([])
+
+	for node in nodes_list:
+
+		neighbors = G.neighbors(node)
+
+		for i in neighbors:
+
+			edge_list.add((node, i))
+
+	return edge_list
+
+
+
+
+
+def create_graphs(G, main_node, nodes_list, init_filename, position, counter, radius, path,degree_mainNode,between_mainNode,coreness_mainNode,removed_degree_str,removed_bet_str,removed_core_str,dBall_len,ball_len,curr_GC,init_GC_nodes):
 
 	new_filename = path + init_filename + str(counter) + ".png"
 
-	G_nodes = list(G.nodes())
-	G_edges = list(G.edges())
+	G_nodes = init_GC_nodes.copy()
+
+	G_edges = list(get_edges_with_list(G, G_nodes))
 
 	remove_all_nodes_from(G_nodes, nodes_list)
 
@@ -351,6 +411,28 @@ def create_graphs(G, main_node, nodes_list, init_filename, position, counter, ra
 	nx.drawing.nx_pylab.draw_networkx_nodes(G, pos = position, nodelist = [main_node],  node_size = 10, with_labels = False, node_color = 'r')
 
 	nx.drawing.nx_pylab.draw_networkx_edges(G, pos = position, edgelist = new_edges, arrowsize = 4, with_labels = False, edge_color = 'y')
+
+	(x,y) = change_position_to_array(new_position)
+
+	delta = 0.02
+
+	plt.text(x,y,"GC_size = " + str(curr_GC))
+
+	plt.text(x, y - delta,"dBall_size = " + str(dBall_len))
+
+	plt.text(x, y - delta * 2,"ball_size = " + str(ball_len))
+
+	plt.text(x, y - delta * 3,"degree_main = " + str(degree_mainNode))
+
+	plt.text(x, y - delta * 4,"between_main = " + str(between_mainNode))
+
+	plt.text(x, y - delta * 5,"coreness_main = " + str(coreness_mainNode))
+
+	plt.text(x, y - delta * 6,"degree_removed = " + str(removed_degree_str))
+
+	plt.text(x, y - delta * 7,"between_removed = " + str(removed_bet_str))
+
+	plt.text(x, y - delta * 8,"coreness_removed = " + str(removed_core_str))
 
 	plt.savefig(new_filename)
 
@@ -386,13 +468,13 @@ for fn in glob.glob('*_DBALLNODE*.pickle'):
 
 def create_all_graphs(G, radius,path):
 
-	init_fname = "SF_" + str(N) + "_" + str(k) + "_"+ str(SEED)+ "_" + str(radius)+ "_numBalls_"  
+	init_fname = "ER_" + str(N) + "_" + str(k) + "_"+ str(SEED)+ "_" + str(radius)+ "_numBalls_"  
 
 	counter = 0
 
 	#position=nx.spring_layout(G) 
 
-	#plt.figure(figsize=(10,10))
+	plt.figure(figsize=(10,10))
 
 	nx.drawing.nx_pylab.draw_networkx(G, pos=position, arrowsize = 0.1, node_size = 0.4, with_labels = False, edge_color = 'b')
 
@@ -402,7 +484,12 @@ def create_all_graphs(G, radius,path):
 
 	plt.clf()
 
-	(GC_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode,main_node_list,dball_list,ball_list) = dBalls_attack(G,radius, init_fname, position, path)
+	try:
+
+		(GC_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode,main_node_list,dball_list,ball_list) = dBalls_attack(G,radius, init_fname, position, path)
+
+	except:
+		pass
 
 	"""
 	while counter < len(main_node_list):
@@ -427,7 +514,32 @@ def turn_dict_to_list(d):
 
 	return new_list
 
+
+
+def change_position_to_array(position):
+
+	list_values = list(position.values())
+
+	change_type_list_values = list(map(lambda x : list(x), list_values))
+
+	#print(change_type_list_values)
+
+	x_values = list(map(lambda x : x[0], change_type_list_values))
+	y_values = list(map(lambda x : x[1], change_type_list_values))
+
+	#print(x_values)
+	#print(y_values)
+
+	top_y_value = max(y_values)
+	left_x_value = min(x_values)
+
+	return (left_x_value, top_y_value)
+
+
+
 def ADA_attack(G_copy,num_nodes_to_remove, init_filename, position, path):
+
+	print(position)
 
 	G = G_copy.copy()
 
@@ -440,7 +552,96 @@ def ADA_attack(G_copy,num_nodes_to_remove, init_filename, position, path):
 	#path += init_filename
 
 	try:
+		print("A")
 		os.mkdir(path)
+		print("A")
+
+	except:
+		pass
+
+
+	init_GC_nodes = get_GC_nodes(G)
+
+
+	for i in range(num_nodes_to_remove):
+
+		print(i)
+
+		new_filename =  path + init_filename + str(i) + ".png"
+
+		GC = get_GC_component(G)
+
+		#G_nodes = init_GC_nodes
+
+		degree_sequence_dict = dict(GC.degree())
+
+		degree_sequence = turn_dict_to_list(degree_sequence_dict)
+
+		random.shuffle(degree_sequence)
+
+		degree_sequence.sort(key = itemgetter(1), reverse = True)
+
+		node_to_remove = degree_sequence[0][0]
+
+		degree_of_node = degree_sequence[0][1]
+
+		degree_list.append(G.degree(node_to_remove))
+
+		G_edges = list(get_edges_with_list(G, init_GC_nodes))
+
+		plt.figure(figsize=(10,10))
+
+		init_GC_nodes.remove(node_to_remove)
+
+		edges_remaining = remove_all_edges_with_node(G_edges, node_to_remove)
+
+		nx.drawing.nx_pylab.draw_networkx_nodes(G, nodelist = init_GC_nodes, pos = position, node_size = 0.4, with_labels = False, node_color = 'r')
+
+		nx.drawing.nx_pylab.draw_networkx_edges(G, edgelist = G_edges, pos = position, arrowsize = 0.1, with_labels = False, edge_color = 'b')
+
+		nx.drawing.nx_pylab.draw_networkx_nodes(G, pos = position, nodelist = [node_to_remove], node_size = 10, with_labels = False, node_color = 'magenta')
+
+		nx.drawing.nx_pylab.draw_networkx_edges(G, pos = position, edgelist = edges_remaining, arrowsize = 4, with_labels = False, edge_color = 'y')
+
+		G.remove_node(node_to_remove)
+
+		curr_GC = get_GC(G)
+
+		GC_List.append(curr_GC)
+
+		(x,y) = change_position_to_array(position)
+
+		delta = 0.05
+
+		plt.text(x,y,"degree = " + str(degree_of_node))
+
+		plt.text(x,y-delta,"GC_size = " + str(curr_GC))
+
+		plt.savefig(new_filename)
+
+		plt.clf()
+
+	return (GC_List, degree_list)
+
+"""
+def ABA_attack(G_copy,num_nodes_to_remove, init_filename, position, path):
+
+	print(position)
+
+	G = G_copy.copy()
+
+	GC_List = []
+
+	GC_List.append(get_GC(G))
+
+	between_list = []
+
+	#path += init_filename
+
+	try:
+		print("A")
+		os.mkdir(path)
+		print("A")
 
 	except:
 		pass
@@ -451,20 +652,21 @@ def ADA_attack(G_copy,num_nodes_to_remove, init_filename, position, path):
 
 		new_filename =  path + init_filename + str(i) + ".png"
 
-		degree_sequence_dict = dict(G.degree())
+		between = nk.centrality.DynBetweenness(G)
+		between.run()
 
-		degree_sequence = turn_dict_to_list(degree_sequence_dict)
+		between_sequence = between.ranking()
 
-		random.shuffle(degree_sequence)
+		between_sequence.sort(key = itemgetter(1), reverse = True)
 
-		degree_sequence.sort(key = itemgetter(1), reverse = True)
+		node_to_remove = between_sequence[0][0]
 
-		node_to_remove = degree_sequence[0][0]
+		between_of_node = between_sequence[0][1]
 
-		degree_list.append(G.degree(node_to_remove))
+		between_list.append(between_of_node)
 
-		G_nodes = list(G.nodes())
-		G_edges = list(G.edges())
+		G_nodes = get_GC_nodes(G)
+		G_edges = list(get_edges_with_list(G, G_nodes))
 
 		plt.figure(figsize=(10,10))
 
@@ -480,30 +682,83 @@ def ADA_attack(G_copy,num_nodes_to_remove, init_filename, position, path):
 
 		nx.drawing.nx_pylab.draw_networkx_edges(G, pos = position, edgelist = edges_remaining, arrowsize = 4, with_labels = False, edge_color = 'y')
 
+		G.remove_node(node_to_remove)
+
+		curr_GC = get_GC(G)
+
+		GC_List.append(curr_GC)
+
+		(x,y) = change_position_to_array(position)
+
+		delta = 0.05
+
+		plt.text(x,y,"between = " + str(between_of_node))
+
+		plt.text(x,y-delta,"GC_size = " + str(curr_GC))
+
 		plt.savefig(new_filename)
 
 		plt.clf()
 
-		G.remove_node(node_to_remove)
-
-		GC_List.append(get_GC(G))
-
-	return (GC_List, degree_list)
-
+	return (GC_List, between_list)
+"""
 
 def create_graphs_degree(G, position,path):
 
-	num_nodes_to_remove = int(G.number_of_nodes() * 0.8)
+	num_nodes_to_remove = int(G.number_of_nodes() * 0.5)
 
-	init_filename = "SF_" + str(N) + "_" + str(k) + "_" +  str(SEED)+ "_" + str(radius) + "_numBalls_" 
+	init_filename = "ER_" + str(N) + "_" + str(k) + "_" +  str(SEED)+ "_" + str(radius) + "_numBalls_" 
 
-	(GC_List, degree_list) = ADA_attack(G,num_nodes_to_remove, init_filename, position, path)
+	try:
+		(GC_List, degree_list) = ADA_attack(G,num_nodes_to_remove, init_filename, position, path)
+
+	except:
+		pass
+
+
+
+def create_graphs_between(G, position,path):
+
+	num_nodes_to_remove = int(G.number_of_nodes() * 0.5)
+
+	init_filename = "ER_" + str(N) + "_" + str(k) + "_" +  str(SEED)+ "_" + str(radius) + "_numBalls_" 
+
+	(GC_List, between_list) = ABA_attack(G,num_nodes_to_remove, init_filename, position, path)
+
+
+
+def get_position_GC(GC_nodes,position):
+
+	d = {}
+
+	for i in GC_nodes:
+
+		pos = position[i]
+
+		d[i] = pos
+
+	return d
+
+
+
+def get_four_corners(GC_position):
+
+	x_values = list(map(lambda x : x[0], GC_position))
+	y_values = list(map(lambda x : x[1], GC_position))
+
+	max_x = max(x_values)
+	min_x = min(x_values)
+
+	max_y = max(y_values)
+	min_y = min(y_values)
+
+	return (min_x, max_x, min_y, max_y) 
 
 
 
 N=int(sys.argv[1]) 
 
-k=int(sys.argv[2])
+k=float(sys.argv[2])
 
 exp_out = float(sys.argv[3])
 
@@ -515,22 +770,36 @@ G = make_SF_Graph(N,k,exp_out,SEED)
 
 position=nx.spring_layout(G)
 
-plt.figure(figsize=(10,10))
+GC_nodes = get_GC_nodes(G)
 
-path = os.getcwd() + "/"
+new_position = get_position_GC(GC_nodes,position)
 
-path_dball = path +  "DBALL_SF_" + str(N) + "_" + str(k)  + "_" +  str(SEED)+ "_" + str(radius) + "/"
+#plt.figure(figsize=(10,10))
 
-path_degree = path + "DEG_SF_" + str(N) + "_" + str(k) + "_" +  str(SEED)+ "_" + str(radius) + "/"
+path = os.getcwd() + "/" + "SF_N_" + str(N) + "_k_" + str(k)  + "_SEED_" +  str(SEED)+ "_radius_" + str(radius) + "/"
 
+GC = get_GC_nodes(G)
+
+try:
+	os.mkdir(path)
+
+except:
+	pass
+
+
+path_dball = path + "DBALL" + "/"
+
+path_degree = path + "DEG" + "/"
+
+path_bet = path + "BET" + "/"
 
 create_all_graphs(G, radius, path_dball)
 
+create_graphs_degree(G, new_position,path_degree)
 
-create_graphs_degree(G, position,path_degree)
+#create_graphs_between(G, position,path_bet)
 
-
-
+#change_position_to_array(position)
 
 
 
