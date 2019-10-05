@@ -1228,16 +1228,7 @@ for i in range(num_times):
 	
 
 
-"""
-	with open(GC_List_DEG_name,'wb') as handle:
-		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(SGC_DEG_name,'wb') as handle:
-		pickle.dump(SGC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-	with open(numComp_DEG_name,'wb') as handle:
-		pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
-"""
 	with open(avgComp_DEG_name,'wb') as handle:
 		pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
