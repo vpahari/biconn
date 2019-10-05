@@ -1238,7 +1238,6 @@ for i in range(num_times):
 	with open(numComp_DEG_name,'wb') as handle:
 		pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 """
-
 	with open(avgComp_DEG_name,'wb') as handle:
 		pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
