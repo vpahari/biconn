@@ -1207,7 +1207,7 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List, SGC_List, num_comp_List) = BA_attack_igraph(G, int(N * 0.8))
+	(GC_List, SGC_List, num_comp_List,avg_comp_size_List) = BA_attack_igraph(G, int(N * 0.8))
 
 	init_name_GC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_GC"
 
@@ -1215,13 +1215,20 @@ for i in range(num_times):
 
 	init_name_numComp_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_numberOfComponents"
 
+	init_name_avgSize_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_avgComponents"
+
 	GC_List_DEG_name = get_name_ER(init_name_GC_DEG, N,k,SEED,radius)
 
 	SGC_DEG_name = get_name_ER(init_name_SGC_DEG, N,k,SEED,radius)
 
 	numComp_DEG_name = get_name_ER(init_name_numComp_DEG, N,k,SEED,radius)
 
+	avgComp_DEG_name = get_name_ER(init_name_avgSize_DEG, N, k, SEED, radius)
 
+	
+
+
+"""
 	with open(GC_List_DEG_name,'wb') as handle:
 		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
@@ -1230,6 +1237,10 @@ for i in range(num_times):
 
 	with open(numComp_DEG_name,'wb') as handle:
 		pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+"""
+
+	with open(avgComp_DEG_name,'wb') as handle:
+		pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
