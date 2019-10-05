@@ -1097,7 +1097,7 @@ for i in range(num_times):
 	#init_name_dball = adaptive_type +  "SGCattackDB_" + type_graph +"_DBALL"
 	#init_name_ball = adaptive_type +  "SGCattackDB_" + type_graph +"_BALL"
 
-	#init_name_CL = adaptive_type +  "SGCattackDB_" + type_graph +"_CL"
+	init_name_CL = adaptive_type +  "SGCattackDB_" + type_graph +"_avgCL"
 
 	#init_name_deg_mainNode = adaptive_type +  "SGCattackDB_" + type_graph +"_degMainNode"
 	#init_name_deg_removedNode = adaptive_type + "SGCattackDB_" + type_graph +"_degRemovedNode"
@@ -1116,7 +1116,7 @@ for i in range(num_times):
 
 	#GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED,radius)
 
-	#CL_name = get_name_ER(init_name_CL, N, k, SEED,radius)
+	CL_name = get_name_ER(init_name_CL, N, k, SEED,radius)
 
 	#dBall_name = get_name_ER(init_name_dball, N, k, SEED,radius)
 	#ball_name = get_name_ER(init_name_ball, N, k, SEED,radius)
@@ -1139,8 +1139,7 @@ for i in range(num_times):
 	with open(GC_List_DB_name,'wb') as handle:
 		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(CL_name,'wb') as handle:
-		pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	
 
 	with open(dBall_name,'wb') as handle:
 		pickle.dump(size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -1163,6 +1162,9 @@ for i in range(num_times):
 
 	with open(avgComp_DB_name,'wb') as handle:
 		pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(CL_name,'wb') as handle:
+		pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 	"""
