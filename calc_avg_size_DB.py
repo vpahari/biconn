@@ -786,14 +786,14 @@ def dBalls_attack_NA(G_copy,radius):
 			original_degree_removed_node.append(original_degree_dict[i])
 
 		#between_list = get_betweenness_score_list(G,combined_list)
-		degree_list = get_degree_score_list(G,combined_list)
+		#degree_list = get_degree_score_list(G,combined_list)
 		#coreness_list = get_coreness_score_list(G,combined_list)
 
-		degree_list_mainNode.append(degree_list[0])
+		#degree_list_mainNode.append(degree_list[0])
 		#betweenness_list_mainNode.append(between_list[0])
 		#coreness_list_mainNode.append(coreness_list[0])
 
-		degree_list_removedNode += degree_list[1:]
+		#degree_list_removedNode += degree_list[1:]
 		#betweenness_list_removedNode += between_list[1:]
 		#coreness_list_removedNode += coreness_list[1:]
 
@@ -1092,50 +1092,50 @@ for i in range(num_times):
 
 	(GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values) = dBalls_attack_NA(G,radius)
 
-	init_name_GC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_GC"
+	#init_name_GC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_GC"
 
-	init_name_dball = adaptive_type +  "SGCattackDB_" + type_graph +"_DBALL"
-	init_name_ball = adaptive_type +  "SGCattackDB_" + type_graph +"_BALL"
+	#init_name_dball = adaptive_type +  "SGCattackDB_" + type_graph +"_DBALL"
+	#init_name_ball = adaptive_type +  "SGCattackDB_" + type_graph +"_BALL"
 
-	init_name_CL = adaptive_type +  "SGCattackDB_" + type_graph +"_CL"
+	#init_name_CL = adaptive_type +  "SGCattackDB_" + type_graph +"_CL"
 
-	init_name_deg_mainNode = adaptive_type +  "SGCattackDB_" + type_graph +"_degMainNode"
-	init_name_deg_removedNode = adaptive_type + "SGCattackDB_" + type_graph +"_degRemovedNode"
+	#init_name_deg_mainNode = adaptive_type +  "SGCattackDB_" + type_graph +"_degMainNode"
+	#init_name_deg_removedNode = adaptive_type + "SGCattackDB_" + type_graph +"_degRemovedNode"
 
-	init_name_SGC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_SGC"
+	#init_name_SGC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_SGC"
 
-	init_name_numComp_DB = adaptive_type + "SGCattackDB_" + type_graph +"_numberOfComponents"
+	#init_name_numComp_DB = adaptive_type + "SGCattackDB_" + type_graph +"_numberOfComponents"
 
 	init_name_avgSize_DB = adaptive_type + "SGCattackDB_" + type_graph +"_avgComponents"
 
-	init_name_original_degree_main_node = adaptive_type + "SGCattackDB_ER_originalDegreeMainNode"
-	init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_ER_originalDegreeRemovedNode"
+	#init_name_original_degree_main_node = adaptive_type + "SGCattackDB_ER_originalDegreeMainNode"
+	#init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_ER_originalDegreeRemovedNode"
 
-	init_name_original_xi_values = adaptive_type + "SGCattackDB_ER_originalXIValues"
+	#init_name_original_xi_values = adaptive_type + "SGCattackDB_ER_originalXIValues"
 
 
-	GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED,radius)
+	#GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED,radius)
 
-	CL_name = get_name_ER(init_name_CL, N, k, SEED,radius)
+	#CL_name = get_name_ER(init_name_CL, N, k, SEED,radius)
 
-	dBall_name = get_name_ER(init_name_dball, N, k, SEED,radius)
-	ball_name = get_name_ER(init_name_ball, N, k, SEED,radius)
+	#dBall_name = get_name_ER(init_name_dball, N, k, SEED,radius)
+	#ball_name = get_name_ER(init_name_ball, N, k, SEED,radius)
 
-	deg_mainNode_name = get_name_ER(init_name_deg_mainNode, N, k, SEED,radius)
-	deg_removedNode_name = get_name_ER(init_name_deg_removedNode, N, k, SEED,radius)
+	#deg_mainNode_name = get_name_ER(init_name_deg_mainNode, N, k, SEED,radius)
+	#deg_removedNode_name = get_name_ER(init_name_deg_removedNode, N, k, SEED,radius)
 
-	SGC_DB_name = get_name_ER(init_name_SGC_DB, N, k, SEED, radius)
+	#SGC_DB_name = get_name_ER(init_name_SGC_DB, N, k, SEED, radius)
 
-	numComp_DB_name = get_name_ER(init_name_numComp_DB, N, k, SEED, radius)
+	#numComp_DB_name = get_name_ER(init_name_numComp_DB, N, k, SEED, radius)
 
 	avgComp_DB_name = get_name_ER(init_name_avgSize_DB, N, k, SEED, radius)
 
-	original_degree_main_node_name = get_name_ER(init_name_original_degree_main_node, N, k, SEED, radius)
-	original_degree_removed_node_name = get_name_ER(init_name_original_degree_removed_node, N, k, SEED, radius)
+	#original_degree_main_node_name = get_name_ER(init_name_original_degree_main_node, N, k, SEED, radius)
+	#original_degree_removed_node_name = get_name_ER(init_name_original_degree_removed_node, N, k, SEED, radius)
 
-	original_xi_values_name = get_name_ER(init_name_original_xi_values, N, k, SEED, radius)
+	#original_xi_values_name = get_name_ER(init_name_original_xi_values, N, k, SEED, radius)
 
-
+	"""
 	with open(GC_List_DB_name,'wb') as handle:
 		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
@@ -1159,10 +1159,13 @@ for i in range(num_times):
 
 	with open(numComp_DB_name,'wb') as handle:
 		pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	"""
 
 	with open(avgComp_DB_name,'wb') as handle:
 		pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+
+	"""
 	with open(original_degree_main_node_name,'wb') as handle:
 		pickle.dump(original_degree_main_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
@@ -1171,7 +1174,7 @@ for i in range(num_times):
 
 	with open(original_xi_values_name,'wb') as handle:
 		pickle.dump(original_xi_values, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
+	"""
 
 
 
