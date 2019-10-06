@@ -1307,7 +1307,7 @@ for i in range(num_times):
 
 	G = make_modular_network_ER(N,k_intra,k_inter,SEED1,SEED2)
 
-	(GC_List, SGC_List, num_comp_List,avg_comp_size_List) = DA_attack(G, int(N * 0.9))
+	(GC_List, SGC_List, num_comp_List,avg_comp_size_List) = DA_attack(G, int(2 * N * 0.9))
 
 	init_name_GC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_GC"
 
