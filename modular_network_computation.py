@@ -75,7 +75,7 @@ def make_graphs_into_one(G1,G2,num_edges_to_connect):
 		v = size_of_G1 + j
 		G.addEdge(u,v)
 
-	for i in num_edges_to_connect:
+	for i in range(num_edges_to_connect):
 
 		u = random.choice(G1_nodes)
 		v = random.choice(G2_nodes)
