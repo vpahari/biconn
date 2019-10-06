@@ -88,7 +88,7 @@ def make_graphs_into_one(G1,G2,num_edges_to_connect):
 
 
 
-def make_modular_network_ER(N,k_intra,k_inter,SEED1,SEED2,alpha):
+def make_modular_network_ER(N,k_intra,k_inter,SEED1,SEED2):
 
 	G1 = make_ER_Graph(N,k_intra,SEED1)
 	G2 = make_ER_Graph(N,k_intra,SEED2)
@@ -1158,7 +1158,7 @@ radius = int(sys.argv[7])
 
 num_times = int(sys.argv[8])
 
-G = make_modular_network_ER(N,k_intra,k_inter,SEED1,SEED2,alpha)
+G = make_modular_network_ER(N,k_intra,k_inter,SEED1,SEED2)
 
 
 """
