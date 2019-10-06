@@ -61,19 +61,24 @@ def make_graphs_into_one(G1,G2,num_edges_to_connect):
 	for i in G2_nodes:
 		G.addNode()
 
-	print(G.nodes())
+	#print(G.nodes())
 	print(len(G.nodes()))
 
 	for i,j in G1_edges:
 		G.addEdge(i,j)
 
 	print(G.edges())
-	print(len(G.edges()))
+	#print(len(G.edges()))
 
 	for i,j in G2_edges:
 		u = size_of_G1 + i
 		v = size_of_G1 + j
 		G.addEdge(u,v)
+
+	print(G.edges())
+	print(len(G1.edges()))
+	print(len(G2.edges()))
+	print(len(G.edges()))
 
 	for i in range(num_edges_to_connect):
 
