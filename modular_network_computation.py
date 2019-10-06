@@ -40,9 +40,10 @@ def make_graphs_into_one(G1,G2,num_edges_to_connect):
 
 	counter = 0
 
-	G_nx = nx.Graph() 
+	G = nk.Graph()
 
-	G = nk.nxadapter.nx2nk(G_nx)
+	print(G.nodes())
+	print(G.edges())
 
 	G1_edges = list(G1.edges())
 	G2_edges = list(G2.edges())
@@ -1158,7 +1159,6 @@ radius = int(sys.argv[6])
 
 num_times = int(sys.argv[7])
 
-A = nk.Graph()
 
 G = make_modular_network_ER(N,k_intra,k_inter,SEED1,SEED2)
 
