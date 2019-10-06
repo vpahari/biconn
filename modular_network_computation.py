@@ -1158,6 +1158,8 @@ radius = int(sys.argv[6])
 
 num_times = int(sys.argv[7])
 
+A = nk.Graph()
+
 G = make_modular_network_ER(N,k_intra,k_inter,SEED1,SEED2)
 
 
