@@ -1152,11 +1152,9 @@ SEED1=int(sys.argv[4])
 
 SEED2=int(sys.argv[5])
 
-alpha = float(sys.argv[6])
+radius = int(sys.argv[6])
 
-radius = int(sys.argv[7])
-
-num_times = int(sys.argv[8])
+num_times = int(sys.argv[7])
 
 G = make_modular_network_ER(N,k_intra,k_inter,SEED1,SEED2)
 
