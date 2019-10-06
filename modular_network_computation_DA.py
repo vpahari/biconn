@@ -1307,7 +1307,7 @@ for i in range(num_times):
 
 	G = make_modular_network_ER(N,k_intra,k_inter,SEED1,SEED2)
 
-	(GC_List, SGC_List, num_comp_List,avg_comp_size_List) = DA_attack(G, int(2 * N * 0.9))
+	(GC_List, SGC_List, num_comp_List,avg_comp_size_List,original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 1.8))
 
 	init_name_GC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_GC"
 
@@ -1317,6 +1317,9 @@ for i in range(num_times):
 
 	init_name_avgSize_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_avgComponents"
 
+	init_name_original_degree_list = adaptive_type + "SGCattackDEG_MOD_originalDegreeList"
+	init_name_adaptive_degree_list = adaptive_type + "SGCattackDEG_MOD_adaptiveDegreeList"
+
 	GC_List_DEG_name = get_name_ModularNetwork(init_name_GC_DEG, N,k_intra,k_inter,SEED1,SEED2,radius)
 
 	SGC_DEG_name = get_name_ModularNetwork(init_name_SGC_DEG, N,k_intra,k_inter,SEED1,SEED2,radius)
@@ -1324,6 +1327,9 @@ for i in range(num_times):
 	numComp_DEG_name = get_name_ModularNetwork(init_name_numComp_DEG, N,k_intra,k_inter,SEED1,SEED2,radius)
 
 	avgComp_DEG_name = get_name_ModularNetwork(init_name_avgSize_DEG, N,k_intra,k_inter,SEED1,SEED2,radius)
+
+	original_degree_list_name = get_name_ModularNetwork(init_name_original_degree_list, N,k_intra,k_inter,SEED1,SEED2,radius)
+	adaptive_degree_list_name = get_name_ModularNetwork(init_name_adaptive_degree_list, N,k_intra,k_inter,SEED1,SEED2,radius)
 
 
 	with open(GC_List_DEG_name,'wb') as handle:
@@ -1337,6 +1343,12 @@ for i in range(num_times):
 
 	with open(avgComp_DEG_name,'wb') as handle:
 		pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(original_degree_list_name,'wb') as handle:
+		pickle.dump(original_degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(adaptive_degree_list_name,'wb') as handle:
+		pickle.dump(adaptive_degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
