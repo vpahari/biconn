@@ -93,9 +93,11 @@ def make_modular_network_ER(N,k_intra,k_inter,SEED1,SEED2):
 	G1 = make_ER_Graph(N,k_intra,SEED1)
 	G2 = make_ER_Graph(N,k_intra,SEED2)
 
-	num_edges = int(k_inter * (N / 2))
+	num_edges = int(k_inter * N)
 
-	G = make_graphs_into_one(G1,G2)
+	print(num_edges)
+
+	G = make_graphs_into_one(G1,G2,num_edges)
 
 	return G
 
