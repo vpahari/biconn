@@ -53,7 +53,7 @@ def make_graphs_into_one(G1,G2,num_edges_to_connect):
 
 	size_of_G1 = len(G1_nodes)
 
-	G2_nodes = list(map(lambda x : size_of_G1 + x))
+	G2_nodes = list(map(lambda x : size_of_G1 + x, G2_nodes))
 
 	for i in G1_nodes:
 		G.addNode()
