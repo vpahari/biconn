@@ -1211,26 +1211,26 @@ for i in range(num_times):
 	init_name_original_xi_values = adaptive_type + "SGCattackDB_ER_originalXIValues"
 
 
-	GC_List_DB_name = get_name_ModularNetwork(init_name_GC_DB, N, k, SEED,radius)
+	GC_List_DB_name = get_name_ModularNetwork(init_name_GC_DB, N,k_intra,k_inter,SEED1,SEED2,radius)
 
-	CL_name = get_name_ModularNetwork(init_name_CL, N, k, SEED,radius)
+	CL_name = get_name_ModularNetwork(init_name_CL, N,k_intra,k_inter,SEED1,SEED2,radius)
 
-	dBall_name = get_name_ModularNetwork(init_name_dball, N, k, SEED,radius)
-	ball_name = get_name_ModularNetwork(init_name_ball, N, k, SEED,radius)
+	dBall_name = get_name_ModularNetwork(init_name_dball, N,k_intra,k_inter,SEED1,SEED2,radius)
+	ball_name = get_name_ModularNetwork(init_name_ball, N,k_intra,k_inter,SEED1,SEED2,radius)
 
-	deg_mainNode_name = get_name_ModularNetwork(init_name_deg_mainNode, N, k, SEED,radius)
-	deg_removedNode_name = get_name_ModularNetwork(init_name_deg_removedNode, N, k, SEED,radius)
+	deg_mainNode_name = get_name_ModularNetwork(init_name_deg_mainNode, N,k_intra,k_inter,SEED1,SEED2,radius)
+	deg_removedNode_name = get_name_ModularNetwork(init_name_deg_removedNode, N,k_intra,k_inter,SEED1,SEED2,radius)
 
-	SGC_DB_name = get_name_ModularNetwork(init_name_SGC_DB, N, k, SEED, radius)
+	SGC_DB_name = get_name_ModularNetwork(init_name_SGC_DB, N,k_intra,k_inter,SEED1,SEED2,radius)
 
-	numComp_DB_name = get_name_ModularNetwork(init_name_numComp_DB, N, k, SEED, radius)
+	numComp_DB_name = get_name_ModularNetwork(init_name_numComp_DB, N,k_intra,k_inter,SEED1,SEED2,radius)
 
-	avgComp_DB_name = get_name_ModularNetwork(init_name_avgSize_DB, N, k, SEED, radius)
+	avgComp_DB_name = get_name_ModularNetwork(init_name_avgSize_DB, N,k_intra,k_inter,SEED1,SEED2,radius)
 
-	original_degree_main_node_name = get_name_ModularNetwork(init_name_original_degree_main_node, N, k, SEED, radius)
-	original_degree_removed_node_name = get_name_ModularNetwork(init_name_original_degree_removed_node, N, k, SEED, radius)
+	original_degree_main_node_name = get_name_ModularNetwork(init_name_original_degree_main_node, N,k_intra,k_inter,SEED1,SEED2,radius)
+	original_degree_removed_node_name = get_name_ModularNetwork(init_name_original_degree_removed_node, N,k_intra,k_inter,SEED1,SEED2,radius)
 
-	original_xi_values_name = get_name_ModularNetwork(init_name_original_xi_values, N, k, SEED, radius)
+	original_xi_values_name = get_name_ModularNetwork(init_name_original_xi_values, N,k_intra,k_inter,SEED1,SEED2,radius)
 
 
 	with open(GC_List_DB_name,'wb') as handle:
