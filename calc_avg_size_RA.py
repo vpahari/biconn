@@ -1198,7 +1198,7 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List, SGC_List, num_comp_List,avg_comp_size_List) = RA_attack(G, int(N * 0.99))
+	(GC_List, SGC_List, num_comp_List,avg_comp_size_List) = RA_attack(G, int(N * 0.9))
 
 	init_name_GC_DEG = adaptive_type + "SGCattackRAN_" + type_graph +"_GC"
 
