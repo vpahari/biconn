@@ -90,6 +90,8 @@ def make_graphs_into_one(G1,G2,num_edges_to_connect):
 	print(num_edges_to_connect)
 	print(len(G.edges()))
 
+	print(G.edges())
+
 	return G
 		
 
