@@ -1249,6 +1249,7 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 		#print(ball)
 
 		for i in dBall:
+			print(i)
 			G.removeNode(i)
 			G_i.delete_vertices(i)
 			counter += 1
@@ -1265,14 +1266,6 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 		mean_deg = calculate_mean_degree(G)
 
 		mean_deg_GC = calculate_mean_degree_GC(G)
-
-		print("mean degree : " + str(counter))
-
-		print(mean_deg)
-
-		print("mean degree GC : " + str(counter))
-
-		print(mean_deg_GC)
 
 		mean_degree_list.append(mean_deg)
 		mean_degree_list_GC.append(mean_deg_GC)
