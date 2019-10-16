@@ -1583,7 +1583,7 @@ for i in range(num_times):
 
 	SEED = (SEED * (i+1)) + 1
 
-	G = make_ER_Graph(N,k,SEED)
+	G_copy = make_ER_Graph(N,k,SEED)
 
 	(GC_List_DB, SGC_List, num_comp_List, counter_list_DB,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC,removed_nodes) = new_optimal_attack(G_copy,radius,mean_deg_threshold)
 	
