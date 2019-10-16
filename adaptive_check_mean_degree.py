@@ -412,6 +412,8 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 
 	removed_nodes = []
 
+	G_i = turn_nk_to_igraph(G)
+
 	for i in range(num_nodes_to_remove):
 
 		mean_deg = calculate_mean_degree(G)
@@ -429,8 +431,6 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 		mean_degree_list.append(mean_deg)
 		mean_degree_list_GC.append(mean_deg_GC)
 
-		G_i = turn_nk_to_igraph(G)
-
 		between_sequence = betweenness_igraph(G_i)
 
 		random.shuffle(between_sequence)
@@ -440,6 +440,8 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 		node_to_remove = between_sequence[0][0]
 
 		G.removeNode(node_to_remove)
+
+		G_i.delete_vertices(node_to_remove)
 
 		#(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
