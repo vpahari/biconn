@@ -443,15 +443,15 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 
 		G_i.delete_vertices(node_to_remove)
 
-		#(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
-		#GC_List.append(GC)
+		GC_List.append(GC)
 
-		#SGC_List.append(SGC)
+		SGC_List.append(SGC)
 
-		#num_comp_List.append(num_comp)
+		num_comp_List.append(num_comp)
 
-		#avg_comp_size_List.append(avg_comp_size)
+		avg_comp_size_List.append(avg_comp_size)
 
 	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List, mean_degree_list, mean_degree_list_GC)
 
@@ -1120,7 +1120,7 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 	counter_list = []
 
-	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
 	SGC_List.append(SGC)
@@ -1194,12 +1194,12 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 			G.removeNode(i)
 			counter += 1
 
-		#(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
-		#GC_List.append(GC)
-		#SGC_List.append(SGC)
-		#num_comp_List.append(num_comp)
-		#avg_comp_size_List.append(avg_comp_size)
+		GC_List.append(GC)
+		SGC_List.append(SGC)
+		num_comp_List.append(num_comp)
+		avg_comp_size_List.append(avg_comp_size)
 
 		counter_list.append(counter)
 
