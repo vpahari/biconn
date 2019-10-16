@@ -970,7 +970,7 @@ def dBalls_attack_NA(G_copy,radius):
 
 	counter_list = []
 
-	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
 	SGC_List.append(SGC)
@@ -1062,7 +1062,7 @@ def dBalls_attack_NA(G_copy,radius):
 			G.removeNode(i)
 			counter += 1
 
-		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 		GC_List.append(GC)
 		SGC_List.append(SGC)
