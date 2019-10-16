@@ -1101,6 +1101,8 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 	G = copy_graph(G_copy)
 
+	avg_comp_size_List = []
+
 	GC_List = []
 	SGC_List = []
 	num_comp_List = []
