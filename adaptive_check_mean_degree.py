@@ -1209,6 +1209,8 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 	G_i = turn_nk_to_igraph(G)
 
+	print(G_i.vs)
+
 	while counter < num_nodes_to_remove:
 
 		#print(counter)
