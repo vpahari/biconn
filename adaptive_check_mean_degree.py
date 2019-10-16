@@ -9,7 +9,7 @@ from operator import itemgetter
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
 import pickle
-#import igraph as ig
+import igraph as ig
 import numpy as np
 import os
 import itertools
