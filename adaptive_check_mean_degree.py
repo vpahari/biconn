@@ -858,6 +858,18 @@ def dBalls_attack(G_copy,radius):
 
 	num_nodes_to_remove = G.numberOfNodes()
 
+	mean_degree_list = []
+
+	mean_degree_list_GC = []
+
+	mean_deg = calculate_mean_degree(G)
+
+	mean_deg_GC = calculate_mean_degree_GC(G)
+
+	mean_degree_list.append(mean_deg)
+	mean_degree_list_GC.append(mean_deg_GC)
+
+	
 	while counter < num_nodes_to_remove:
 
 		#print(counter)
@@ -1613,8 +1625,8 @@ for i in range(num_times):
 
 G = make_ER_Graph(N, k ,SEED)
 
-(GC_List, SGC_List, num_comp_List, avg_comp_size_List, mean_degree_list_BA, mean_degree_list_GC_BA) = ABA_attack(G,radius)
-(GC_List, SGC_List, num_comp_List,avg_comp_size_List, degree_list, mean_degree_list_DA, mean_degree_list_GC_DA) = ADA_attack(G,radius)
+(GC_List, SGC_List, num_comp_List, avg_comp_size_List, mean_degree_list_BA, mean_degree_list_GC_BA) = ABA_attack(G,int(N*0.5))
+(GC_List, SGC_List, num_comp_List,avg_comp_size_List, degree_list, mean_degree_list_DA, mean_degree_list_GC_DA) = ADA_attack(G,int(N*0.5))
 (GC_List,SGC_List,num_comp_List,avg_comp_size_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode, mean_degree_list_DB, mean_degree_list_GC_DB) = dBalls_attack(G,radius)
 
 
