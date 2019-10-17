@@ -1209,11 +1209,11 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 	G_i = turn_nk_to_igraph(G)
 
-	vertexSequence = ig.VertexSeq(G_i)
+	#vertexSequence = ig.VertexSeq(G_i)
 
-	print(vertexSequence)
+	#print(vertexSequence)
 
-	G_i.degree(993)
+	print(G_i.degree(993))
 
 
 	while counter < num_nodes_to_remove:
