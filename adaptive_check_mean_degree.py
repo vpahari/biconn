@@ -1260,10 +1260,12 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 			#G_i.delete_vertices(i)
 			counter += 1
 
-		G_i.delete_vertices(dBall)
-
 		print("counter:" + str(counter))
 		print(G_i.vcount())
+
+		G_i.delete_vertices(dBall)
+
+		print(dBall)
 
 		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
