@@ -149,18 +149,28 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 		G_nodes = list(i.nodes())
 		G_edges = list(i.edges())
 
+		print("A")
+
 		G_nodes = list(map(lambda x : x + size_G_nodes, G_nodes))
 		size_G_nodes += len(G_nodes)
 
+		print("A")
+
 		nodes_list.append(G_nodes)
+
+		print("A")
 
 		for n in G_nodes:
 			G.addNode()
+
+		print("A")
 
 		for i,j in G_edges:
 			u = size_G_nodes + i
 			v = size_G_nodes + j
 			G.addEdge(u,v)
+
+		print("A")
 
 	for i in range(num_edges_to_connect):
 		
