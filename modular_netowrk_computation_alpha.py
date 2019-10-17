@@ -40,6 +40,12 @@ def get_name_ModularNetwork(initial_name,N,k_intra,k_inter,SEED1,SEED2,radius):
 	return initial_name + "_N_" + str(N) + "_kintra_" + str(k_intra) + "_kinter_" + str(k_inter) + "_SEED1_" + str(SEED1) + "_SEED2_" + str(SEED2) + "_radius_" + str(radius) + "_" + ".pickle"
 
 
+def get_name_ModularNetworks(initial_name,N,k_intra,k_inter,num_modules,radius):
+
+	return initial_name + "_N_" + str(N) + "_kintra_" + str(k_intra) + "_kinter_" + str(k_inter) + "_numModules_" + str(num_modules) +  "_radius_" + str(radius) + "_" + ".pickle"
+
+
+
 
 def make_graphs_into_one(G1,G2,num_edges_to_connect,alpha):
 
@@ -1298,12 +1304,16 @@ type_graph = "MOD"
 
 adaptive_type = "NA"
 
+alpha = 1
+
+
+G = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
+
+"""
+
 for i in range(num_times):
 
-	SEED1 = SEED1 * (i+1) + 1
-	SEED2 = SEED2 * (i+1) + 1
-
-	G = make_modular_network_ER(N,k_intra,k_inter,num_modules, SEED,alpha)
+	G = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
 	(GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values) = dBalls_attack_NA(G,radius)
 
@@ -1329,26 +1339,26 @@ for i in range(num_times):
 	init_name_original_xi_values = adaptive_type + "SGCattackDB_ER_originalXIValues"
 
 
-	GC_List_DB_name = get_name_ModularNetwork(init_name_GC_DB, N,k_intra,k_inter,SEED1,SEED2,radius)
+	GC_List_DB_name = get_name_ModularNetworks(init_name_GC_DB, N,k_intra,k_inter,num_modules,radius)
 
-	CL_name = get_name_ModularNetwork(init_name_CL, N,k_intra,k_inter,SEED1,SEED2,radius)
+	CL_name = get_name_ModularNetworks(init_name_CL, N,k_intra,k_inter,num_modules,radius)
 
-	dBall_name = get_name_ModularNetwork(init_name_dball, N,k_intra,k_inter,SEED1,SEED2,radius)
-	ball_name = get_name_ModularNetwork(init_name_ball, N,k_intra,k_inter,SEED1,SEED2,radius)
+	dBall_name = get_name_ModularNetworks(init_name_dball, N,k_intra,k_inter,num_modules,radius)
+	ball_name = get_name_ModularNetworks(init_name_ball, N,k_intra,k_inter,num_modules,radius)
 
-	deg_mainNode_name = get_name_ModularNetwork(init_name_deg_mainNode, N,k_intra,k_inter,SEED1,SEED2,radius)
-	deg_removedNode_name = get_name_ModularNetwork(init_name_deg_removedNode, N,k_intra,k_inter,SEED1,SEED2,radius)
+	deg_mainNode_name = get_name_ModularNetworks(init_name_deg_mainNode, N,k_intra,k_inter,num_modules,radius)
+	deg_removedNode_name = get_name_ModularNetworks(init_name_deg_removedNode, N,k_intra,k_inter,num_modules,radius)
 
-	SGC_DB_name = get_name_ModularNetwork(init_name_SGC_DB, N,k_intra,k_inter,SEED1,SEED2,radius)
+	SGC_DB_name = get_name_ModularNetworks(init_name_SGC_DB, N,k_intra,k_inter,num_modules,radius)
 
-	numComp_DB_name = get_name_ModularNetwork(init_name_numComp_DB, N,k_intra,k_inter,SEED1,SEED2,radius)
+	numComp_DB_name = get_name_ModularNetworks(init_name_numComp_DB, N,k_intra,k_inter,num_modules,radius)
 
-	avgComp_DB_name = get_name_ModularNetwork(init_name_avgSize_DB, N,k_intra,k_inter,SEED1,SEED2,radius)
+	avgComp_DB_name = get_name_ModularNetworks(init_name_avgSize_DB, N,k_intra,k_inter,num_modules,radius)
 
-	original_degree_main_node_name = get_name_ModularNetwork(init_name_original_degree_main_node, N,k_intra,k_inter,SEED1,SEED2,radius)
-	original_degree_removed_node_name = get_name_ModularNetwork(init_name_original_degree_removed_node, N,k_intra,k_inter,SEED1,SEED2,radius)
+	original_degree_main_node_name = get_name_ModularNetworks(init_name_original_degree_main_node, N,k_intra,k_inter,num_modules,radius)
+	original_degree_removed_node_name = get_name_ModularNetworks(init_name_original_degree_removed_node, N,k_intra,k_inter,num_modules,radius)
 
-	original_xi_values_name = get_name_ModularNetwork(init_name_original_xi_values, N,k_intra,k_inter,SEED1,SEED2,radius)
+	original_xi_values_name = get_name_ModularNetworks(init_name_original_xi_values, N,k_intra,k_inter,num_modules,radius)
 
 
 	with open(GC_List_DB_name,'wb') as handle:
@@ -1387,7 +1397,7 @@ for i in range(num_times):
 	with open(original_xi_values_name,'wb') as handle:
 		pickle.dump(original_xi_values, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-
+"""
 
 
 
