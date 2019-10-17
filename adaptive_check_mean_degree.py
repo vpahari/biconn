@@ -412,8 +412,6 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 
 	removed_nodes = []
 
-	G_i = turn_nk_to_igraph(G)
-
 	for i in range(num_nodes_to_remove):
 
 		mean_deg = calculate_mean_degree(G)
@@ -423,17 +421,16 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 		mean_degree_list.append(mean_deg)
 		mean_degree_list_GC.append(mean_deg_GC)
 
-		between_sequence = betweenness_igraph(G_i)
+		between = nk.centrality.DynBetweenness(G)
+		between.run()
 
-		random.shuffle(between_sequence)
+		between_sequence = between.ranking()
 
 		between_sequence.sort(key = itemgetter(1), reverse = True)
 
 		node_to_remove = between_sequence[0][0]
 
 		G.removeNode(node_to_remove)
-
-		G_i.delete_vertices(node_to_remove)
 
 		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
@@ -1207,15 +1204,6 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 	removed_nodes = []
 
-	G_i = turn_nk_to_igraph(G)
-
-	#vertexSequence = ig.VertexSeq(G_i)
-
-	#print(vertexSequence)
-
-	print(G_i.degree(993))
-
-
 	while counter < num_nodes_to_remove:
 
 		#print(counter)
@@ -1263,13 +1251,6 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 			#G_i.delete_vertices(i)
 			counter += 1
 
-		print("counter:" + str(counter))
-		print(G_i.vcount())
-
-		print(dBall)
-
-		G_i.delete_vertices(dBall)
-
 		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 		GC_List.append(GC)
@@ -1288,7 +1269,7 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 		if mean_deg <= mean_deg_threshold:
 			 
-			(GC_List_DA, SGC_List_DA, num_comp_List_DA, avg_comp_size_List_DA, mean_degree_list_DA, mean_degree_list_GC_DA) = ABA_attack_igraph(G, G_i, (int(G.numberOfNodes() * 0.9)))
+			(GC_List_DA, SGC_List_DA, num_comp_List_DA, avg_comp_size_List_DA, mean_degree_list_DA, mean_degree_list_GC_DA) = ABA_attack(G, (int(G.numberOfNodes() * 0.9)))
 			break
 
 	GC_List_DA_Length = len(GC_List_DA[1:])
