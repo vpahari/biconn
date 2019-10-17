@@ -137,8 +137,8 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 
 	G = nk.Graph()
 
-	print(G.nodes())
-	print(G.edges())
+	#print(G.nodes())
+	#print(G.edges())
 
 	nodes_list = []
 
