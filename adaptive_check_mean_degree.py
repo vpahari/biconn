@@ -1213,6 +1213,9 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 	print(vertexSequence)
 
+	G_i.degree(993)
+
+
 	while counter < num_nodes_to_remove:
 
 		#print(counter)
@@ -1266,8 +1269,6 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 		print(dBall)
 
 		G_i.delete_vertices(dBall)
-
-
 
 		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
