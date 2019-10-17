@@ -144,10 +144,10 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 
 	size_G_nodes = 0
 
-	for i in G_list:
+	for G_mod in G_list:
 
-		G_nodes = list(i.nodes())
-		G_edges = list(i.edges())
+		G_nodes = list(G_mod.nodes())
+		G_edges = list(G_mod.edges())
 
 		print("A")
 
@@ -165,9 +165,9 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 
 		print("A")
 
-		for i,j in G_edges:
-			u = size_G_nodes + i
-			v = size_G_nodes + j
+		for a,b in G_edges:
+			u = size_G_nodes + a
+			v = size_G_nodes + b
 			G.addEdge(u,v)
 
 		print("A")
