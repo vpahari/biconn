@@ -217,6 +217,8 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 		G.addEdge(u,v)
 		print(u,v)
 
+	print(num_edges_to_connect)
+
 	return G
 
 
