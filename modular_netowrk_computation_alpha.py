@@ -1375,9 +1375,6 @@ adaptive_type = "NA"
 alpha = 1
 
 
-G = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
-
-"""
 
 for i in range(num_times):
 
@@ -1465,7 +1462,7 @@ for i in range(num_times):
 	with open(original_xi_values_name,'wb') as handle:
 		pickle.dump(original_xi_values, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-"""
+
 
 
 
