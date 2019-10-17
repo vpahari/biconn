@@ -157,6 +157,9 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 			
 			v = size_G_nodes + b
 
+			print(u)
+			print(v)
+
 			G.addEdge(u,v)
 
 		print("A")
