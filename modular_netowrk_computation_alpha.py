@@ -124,7 +124,7 @@ def get_random_u_v(nodes_list):
 
 	v_index = random.choice(l)
 
-	v = random.choice(nodes_list[v])
+	v = random.choice(nodes_list[v_index])
 
 	return (u,v)
 
