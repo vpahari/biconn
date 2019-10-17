@@ -149,6 +149,8 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 		G_nodes = list(G_mod.nodes())
 		G_edges = list(G_mod.edges())
 
+		print(G_edges())
+
 		print("A")
 
 		G_nodes = list(map(lambda x : x + size_G_nodes, G_nodes))
