@@ -149,19 +149,6 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 		G_nodes = list(G_mod.nodes())
 		G_edges = list(G_mod.edges())
 
-		print(G_edges)
-
-		for a,b in G_edges:
-			
-			u = size_G_nodes + a
-			
-			v = size_G_nodes + b
-
-			print(u)
-			print(v)
-
-			G.addEdge(u,v)
-
 		print("A")
 
 		G_nodes = list(map(lambda x : x + size_G_nodes, G_nodes))
@@ -252,16 +239,74 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 
 	size_of_one_module = int(N / num_modules)
 
-	list_Graphs = [make_ER_Graph(size_of_one_module, k_intra, SEED * (i+2) + 1) for i in range(num_modules)]
+	#list_Graphs = [make_ER_Graph(size_of_one_module, k_intra, SEED * (i+2) + 1) for i in range(num_modules)]
+
+	G = nk.Graph()
+
+	beta_i = size_of_one_module / N
+
+	num_edges = int(k_inter * N / 2)
+
+	nodes_list = []
+
+	size_G_nodes = 0
+
+	for count in range(num_modules):
+
+		SEED = (SEED * (count+1)) + 1
+
+		G_mod = make_ER_Graph(size_of_one_module, k_intra, SEED)
+
+		G_nodes = list(G_mod.nodes())
+		G_edges = list(G_mod.edges())
+
+		G_nodes = list(map(lambda x : x + size_G_nodes, G_nodes))
+
+		size_G_nodes += len(G_nodes)
+
+		nodes_list.append(G_nodes)
+
+		for n in G_nodes:
+			G.addNode()
+
+		print(G_edges)
+		print(list(G.nodes()))
+
+		for a,b in G_edges:
+			
+			u = size_G_nodes + a
+			
+			v = size_G_nodes + b
+
+			G.addEdge(u,v)
+
+
+	return G
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	for i in list_Graphs:
 
 		print(i.numberOfNodes())
 		print(i.numberOfEdges())
 
-	beta_i = size_of_one_module / N
+	
 
-	num_edges = int(k_inter * N / 2)
+	
 
 	G = make_graphs_into_one_multiple_graphs(list_Graphs,num_edges)
 
