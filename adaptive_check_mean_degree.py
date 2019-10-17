@@ -233,15 +233,15 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 		G.removeNode(node_to_remove)
 
-		#(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
-		#GC_List.append(GC)
+		GC_List.append(GC)
 
-		#SGC_List.append(SGC)
+		SGC_List.append(SGC)
 
-		#num_comp_List.append(num_comp)
+		num_comp_List.append(num_comp)
 
-		#avg_comp_size_List.append(avg_comp_size)
+		avg_comp_size_List.append(avg_comp_size)
 
 	return (GC_List, SGC_List, num_comp_List,avg_comp_size_List, degree_list, mean_degree_list, mean_degree_list_GC)
 
@@ -1146,7 +1146,7 @@ def dBalls_attack_NA(G_copy,radius):
 
 
 
-def new_optimal_attack(G_copy,radius,mean_deg_threshold):
+def new_optimal_attack_ABA(G_copy,radius,mean_deg_threshold):
 
 	print("dball attack")
 
@@ -1287,6 +1287,147 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC,removed_nodes)
 
+
+def new_optimal_attack_ADA(G_copy,radius,mean_deg_threshold):
+
+	print("dball attack")
+
+	G = copy_graph(G_copy)
+
+	avg_comp_size_List = []
+
+	GC_List = []
+	SGC_List = []
+	num_comp_List = []
+
+	size_dball = [] 
+	size_ball = []
+
+	degree_list_mainNode = []
+	betweenness_list_mainNode = []
+	coreness_list_mainNode = []
+
+	degree_list_removedNode = []
+	betweenness_list_removedNode = []
+	coreness_list_removedNode = []
+
+	counter = 0
+
+	counter_list = []
+
+	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+	SGC_List.append(SGC)
+	num_comp_List.append(num_comp)
+
+	counter_list.append(counter)
+
+	original_degree_dict = get_degree_dict(G)
+
+	original_degree_main_node = []
+
+	original_degree_removed_node = []
+
+	num_nodes_to_remove = G.numberOfNodes()
+
+	counter_for_nodes = 0
+
+	original_xi_values = []
+
+	mean_degree_list = []
+	mean_degree_list_GC = []
+
+	mean_deg = calculate_mean_degree(G)
+	mean_deg_GC = calculate_mean_degree_GC(G)
+
+	mean_degree_list.append(mean_deg)
+	mean_degree_list_GC.append(mean_deg_GC)
+
+	removed_nodes = []
+
+	while counter < num_nodes_to_remove:
+
+		print(counter)
+
+		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+
+		list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
+
+		if len(list_to_remove) == 0:
+			break
+		
+
+		node = get_random_dball(list_to_remove)
+		(dBall,ball) = get_dBN(G,node,radius) 
+
+		combined_list = [node] + dBall
+
+		#between_list = get_betweenness_score_list(G,combined_list)
+		#degree_list = get_degree_score_list(G,combined_list)
+		#coreness_list = get_coreness_score_list(G,combined_list)
+
+
+
+		#degree_list_mainNode.append(degree_list[0])
+		#betweenness_list_mainNode.append(between_list[0])
+		#coreness_list_mainNode.append(coreness_list[0])
+
+		#degree_list_removedNode += degree_list[1:]
+		#betweenness_list_removedNode += between_list[1:]
+		#coreness_list_removedNode += coreness_list[1:]
+		
+
+		size_dball.append(len(dBall))
+		size_ball.append(len(ball))
+
+
+		#print(dBall)
+		#print(ball)
+
+		
+
+		for i in dBall:
+			#print(i)
+			G.removeNode(i)
+			#G_i.delete_vertices(i)
+			counter += 1
+
+		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+
+		GC_List.append(GC)
+		SGC_List.append(SGC)
+		num_comp_List.append(num_comp)
+		avg_comp_size_List.append(avg_comp_size)
+
+		counter_list.append(counter)
+
+		mean_deg = calculate_mean_degree(G)
+
+		mean_deg_GC = calculate_mean_degree_GC(G)
+
+		mean_degree_list.append(mean_deg)
+		mean_degree_list_GC.append(mean_deg_GC)
+
+		if mean_deg <= mean_deg_threshold:
+			 
+			(GC_List_DA, SGC_List_DA, num_comp_List_DA,avg_comp_size_List_DA, degree_list_DA, mean_degree_list_DA, mean_degree_list_GC_DA) = ADA_attack(G, (int(G.numberOfNodes() * 0.9)))
+			break
+
+	GC_List_DA_Length = len(GC_List_DA[1:])
+
+	for i in range(GC_List_DA_Length):
+
+		counter_list.append(counter_list[-1] + 1)
+
+
+
+	GC_List += GC_List_DA[1:]
+	SGC_List += SGC_List_DA[1:]
+	num_comp_List += num_comp_List_DA[1:]
+
+
+	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC,removed_nodes)
 
 
 
@@ -1634,10 +1775,10 @@ for i in range(num_times):
 
 	G_copy = make_ER_Graph(N,k,SEED)
 
-	(GC_List_DB, SGC_List, num_comp_List, counter_list_DB,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC,removed_nodes) = new_optimal_attack(G_copy,radius,threshold)
+	(GC_List_DB, SGC_List, num_comp_List, counter_list_DB,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC,removed_nodes) = new_optimal_attackADA(G_copy,radius,threshold)
 	
-	init_CL_DB_name = adaptive_type + "SGCattackDB_ER_CL_threshold_" + str(threshold)
-	init_GC_DB_name = adaptive_type + "SGCattackDB_ER_GC_threshold_" + str(threshold)
+	init_CL_DB_name = adaptive_type + "SGCattackDB_ER_CL_thresholdDA_" + str(threshold)
+	init_GC_DB_name = adaptive_type + "SGCattackDB_ER_GC_thresholdDA_" + str(threshold)
 
 	CL_name = get_name_ER(init_CL_DB_name, N, k, SEED,radius)
 
