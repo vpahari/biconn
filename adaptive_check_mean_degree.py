@@ -1647,7 +1647,7 @@ for i in range(num_times):
 		pickle.dump(counter_list_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 	with open(GC_name,'wb') as handle:
-		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+		pickle.dump(GC_List_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 """
