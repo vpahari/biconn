@@ -223,7 +223,12 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 
 	size_of_one_module = int(N / num_modules)
 
-	list_Graphs = [make_ER_Graph(size_of_one_module, k_intra, SEED * (i+2) + 1) for i in range(len(num_modules))]
+	list_Graphs = [make_ER_Graph(size_of_one_module, k_intra, SEED * (i+2) + 1) for i in range(num_modules)]
+
+	for i in list_Graphs:
+
+		print(G.numberOfNodes())
+		print(G.numberOfEdges())
 
 	beta_i = size_of_one_module / N
 
