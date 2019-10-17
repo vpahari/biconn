@@ -45,6 +45,51 @@ def get_name_ModularNetworks(initial_name,N,k_intra,k_inter,num_modules,radius):
 	return initial_name + "_N_" + str(N) + "_kintra_" + str(k_intra) + "_kinter_" + str(k_inter) + "_numModules_" + str(num_modules) +  "_radius_" + str(radius) + "_" + ".pickle"
 
 
+def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha):
+
+	counter = 0
+
+	G = nk.Graph()
+
+	print(G.nodes())
+	print(G.edges())
+
+	nodes_list = []
+
+	alpha_nodes_list = []
+
+	size_G_nodes = 0
+
+	for i in G_list:
+
+		G_nodes = list(i.nodes())
+		G_edges = list(i.edges())
+
+		G_nodes = list(map(lambda x : x + size_G_nodes, G_nodes))
+		size_G_nodes += len(G_nodes)
+
+		nodes_list.append(G_nodes)
+
+		num_nodes_to_sample = len(G_nodes) * alpha
+
+		curr_alpha = random.sample(G_nodes, num_nodes_to_sample)
+
+		alpha_nodes_list.append(curr_alpha)
+
+		for n in G_nodes:
+			G.addNode()
+
+		for i,j in G_edges:
+			u = size_G_nodes + i
+			v = size_G_nodes + j
+			G.addEdge(u,v)
+
+	for i in range(num_edges_to_connect):
+		
+		(u,v) = get_random_u_v(alpha_nodes_list)
+		G.addEdge(u,v)
+
+	return G
 
 
 def make_graphs_into_one(G1,G2,num_edges_to_connect,alpha):
@@ -160,11 +205,8 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 		print(list(G.nodes()))
 
 		for (a,b) in G_edges:
-			
 			u = size_G_nodes + a
-			
 			v = size_G_nodes + b
-
 			G.addEdge(u,v)
 
 		size_G_nodes += len(G_nodes)
@@ -173,54 +215,7 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 		
 		(u,v) = get_random_u_v(nodes_list)
 		G.addEdge(u,v)
-
-	return G
-		
-
-
-def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha):
-
-	counter = 0
-
-	G = nk.Graph()
-
-	print(G.nodes())
-	print(G.edges())
-
-	nodes_list = []
-
-	alpha_nodes_list = []
-
-	size_G_nodes = 0
-
-	for i in G_list:
-
-		G_nodes = list(i.nodes())
-		G_edges = list(i.edges())
-
-		G_nodes = list(map(lambda x : x + size_G_nodes, G_nodes))
-		size_G_nodes += len(G_nodes)
-
-		nodes_list.append(G_nodes)
-
-		num_nodes_to_sample = len(G_nodes) * alpha
-
-		curr_alpha = random.sample(G_nodes, num_nodes_to_sample)
-
-		alpha_nodes_list.append(curr_alpha)
-
-		for n in G_nodes:
-			G.addNode()
-
-		for i,j in G_edges:
-			u = size_G_nodes + i
-			v = size_G_nodes + j
-			G.addEdge(u,v)
-
-	for i in range(num_edges_to_connect):
-		
-		(u,v) = get_random_u_v(alpha_nodes_list)
-		G.addEdge(u,v)
+		print(u,v)
 
 	return G
 
