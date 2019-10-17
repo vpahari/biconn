@@ -1644,7 +1644,7 @@ for i in range(num_times):
 	GC_name = get_name_ER(init_GC_DB_name, N, k, SEED,radius)
 
 	with open(CL_name,'wb') as handle:
-		pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+		pickle.dump(counter_list_DB, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 	with open(GC_name,'wb') as handle:
 		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
