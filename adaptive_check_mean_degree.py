@@ -1206,7 +1206,7 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 	while counter < num_nodes_to_remove:
 
-		#print(counter)
+		print(counter)
 
 		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
 
