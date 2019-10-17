@@ -1775,7 +1775,7 @@ for i in range(num_times):
 
 	G_copy = make_ER_Graph(N,k,SEED)
 
-	(GC_List_DB, SGC_List, num_comp_List, counter_list_DB,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC,removed_nodes) = new_optimal_attackADA(G_copy,radius,threshold)
+	(GC_List_DB, SGC_List, num_comp_List, counter_list_DB,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC,removed_nodes) = new_optimal_attack_ADA(G_copy,radius,threshold)
 	
 	init_CL_DB_name = adaptive_type + "SGCattackDB_ER_CL_thresholdDA_" + str(threshold)
 	init_GC_DB_name = adaptive_type + "SGCattackDB_ER_GC_thresholdDA_" + str(threshold)
