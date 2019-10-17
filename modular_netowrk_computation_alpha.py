@@ -118,7 +118,7 @@ def get_random_u_v(nodes_list):
 
 	u_index = random.choice(l)
 
-	u = random.choice(nodes_list[l])
+	u = random.choice(nodes_list[u_index])
 
 	l.remove(u_index)
 
@@ -149,33 +149,23 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 		G_nodes = list(G_mod.nodes())
 		G_edges = list(G_mod.edges())
 
-		print("A")
-
 		G_nodes = list(map(lambda x : x + size_G_nodes, G_nodes))
 
-		print("A")
-
 		nodes_list.append(G_nodes)
-
-		print("A")
 
 		for n in G_nodes:
 			G.addNode()
 
-		print("A")
-
 		print(G_edges)
 		print(list(G.nodes()))
 
-		for a,b in G_edges:
+		for (a,b) in G_edges:
 			
 			u = size_G_nodes + a
 			
 			v = size_G_nodes + b
 
 			G.addEdge(u,v)
-
-		print("A")
 
 		size_G_nodes += len(G_nodes)
 
