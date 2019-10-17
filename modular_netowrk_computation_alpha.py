@@ -272,10 +272,8 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 		print(G_edges)
 		print(list(G.nodes()))
 
-		for a,b in G_edges:
-			
+		for (a,b) in G_edges:
 			u = size_G_nodes + a
-			
 			v = size_G_nodes + b
 
 			G.addEdge(u,v)
