@@ -1187,7 +1187,7 @@ num_times = int(sys.argv[7])
 
 adaptive_type = "NA"
 
-graph_type = "WS"
+type_graph = "WS"
 
 for i in range(num_times):
 
