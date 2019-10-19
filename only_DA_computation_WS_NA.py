@@ -93,11 +93,25 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 	GC_List = []
 
+	SGC_List = []
+
+	num_comp_List = []
+
+	avg_comp_size_List = []
+
 	original_degree_list = []
 
 	adaptive_degree_list = []
 
-	GC_List.append(get_GC(G))
+	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+
+	SGC_List.append(SGC)
+
+	num_comp_List.append(num_comp)
+
+	avg_comp_size_List.append(avg_comp_size)
 
 	degree = nk.centrality.DegreeCentrality(G)
 
@@ -109,7 +123,11 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 	degree_sequence.sort(key = itemgetter(1), reverse = True)
 
+
 	for i in range(num_nodes_to_remove):
+
+		print("DA")
+		print(i)
 
 		node_to_remove = degree_sequence[i][0]
 
@@ -121,9 +139,17 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 		G.removeNode(node_to_remove)
 
-		GC_List.append(get_GC(G))
+		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
-	return (GC_List, original_degree_list,adaptive_degree_list)
+		GC_List.append(GC)
+
+		SGC_List.append(SGC)
+
+		num_comp_List.append(num_comp)
+
+		avg_comp_size_List.append(avg_comp_size)
+
+	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List, original_degree_list,adaptive_degree_list)
 
 
 def ADA_attack(G_copy,num_nodes_to_remove):
@@ -552,7 +578,6 @@ def get_GC(G):
 	return all_values[-1]
 
 
-
 def get_avg_comp_size(all_val):
 
 	avg = sum(all_val) / len(all_val)
@@ -704,7 +729,6 @@ def dBalls_attack_NA(G_copy,radius):
 	GC_List = []
 	SGC_List = []
 	num_comp_List = []
-	avg_comp_size_List = []
 
 	size_dball = [] 
 	size_ball = []
@@ -721,12 +745,11 @@ def dBalls_attack_NA(G_copy,radius):
 
 	counter_list = []
 
-	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
 	SGC_List.append(SGC)
 	num_comp_List.append(num_comp)
-	avg_comp_size_List.append(avg_comp_size)
 
 	counter_list.append(counter)
 
@@ -800,12 +823,11 @@ def dBalls_attack_NA(G_copy,radius):
 			G.removeNode(i)
 			counter += 1
 
-		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
 		GC_List.append(GC)
 		SGC_List.append(SGC)
 		num_comp_List.append(num_comp)
-		avg_comp_size_List.append(avg_comp_size)
 
 
 		counter_list.append(counter)
@@ -815,7 +837,7 @@ def dBalls_attack_NA(G_copy,radius):
 
 
 
-	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values)
+	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values)
 
 
 
@@ -1072,7 +1094,6 @@ def get_result(G, radius):
 
 
 
-
 N=int(sys.argv[1]) 
 
 dim=int(sys.argv[2])
@@ -1097,87 +1118,50 @@ for i in range(num_times):
 
 	G = make_WS_graph(dim,N,nei,p,SEED)
 
-	(GC_List, SGC_List, num_comp_List,avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values) = dBalls_attack_NA(G,radius)
+	(GC_List, SGC_List, num_comp_List, avg_comp_size_List, original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 0.9))
 
-	
-	init_name_GC_DB = adaptive_type + "SGCattackDB_" + graph_type + "_GC"
+	init_name_GC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_GC"
 
-	init_name_dball = adaptive_type + "SGCattackDB_" + graph_type + "_DBALL"
-	init_name_ball = adaptive_type + "SGCattackDB_" + graph_type + "_BALL"
+	init_name_SGC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_SGC"
 
-	init_name_CL = adaptive_type + "SGCattackDB_" + graph_type + "_CL"
+	init_name_numComp_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_numberOfComponents"
 
-	init_name_deg_mainNode = adaptive_type + "SGCattackDB_" + graph_type + "_degMainNode"
-	init_name_deg_removedNode = adaptive_type + "SGCattackDB_" + graph_type + "_degRemovedNode"
+	init_name_avgSize_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_avgComponents"
 
-	init_name_SGC_DB = adaptive_type + "SGCattackDB_" + graph_type + "_SGC"
-
-	init_name_numComp_DB = adaptive_type + "SGCattackDB_" + graph_type + "_numberOfComponents"
-
-	init_name_avgSize_DB = adaptive_type + "SGCattackDB_" + graph_type + "_avgComponents"
-
-	init_name_original_degree_main_node = adaptive_type + "SGCattackDB_" + graph_type + "_originalDegreeMainNode"
-	init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_" + graph_type + "_originalDegreeRemovedNode"
-
-	init_name_original_xi_values = adaptive_type + "SGCattackDB_" + graph_type + "_originalXIValues"
-
-	
-	GC_List_DB_name = get_name_WS(init_name_GC_DB, dim, N, nei, p, SEED,radius)
-
-	CL_name = get_name_WS(init_name_CL, dim, N, nei, p, SEED,radius)
-
-	dBall_name = get_name_WS(init_name_dball, dim, N, nei, p, SEED,radius)
-	ball_name = get_name_WS(init_name_ball, dim, N, nei, p, SEED,radius)
-
-	deg_mainNode_name = get_name_WS(init_name_deg_mainNode, dim, N, nei, p, SEED,radius)
-	deg_removedNode_name = get_name_WS(init_name_deg_removedNode, dim, N, nei, p, SEED,radius)
-
-	SGC_DB_name = get_name_WS(init_name_SGC_DB, dim, N, nei, p, SEED,radius)
-	numComp_DB_name = get_name_WS(init_name_numComp_DB, dim, N, nei, p, SEED,radius)
-	avgSize_DB_name = get_name_WS(init_name_avgSize_DB, dim, N, nei, p, SEED,radius)
-
-	original_degree_main_node_name = get_name_WS(init_name_original_degree_main_node, dim, N, nei, p, SEED,radius)
-	original_degree_removed_node_name = get_name_WS(init_name_original_degree_removed_node, dim, N, nei, p, SEED,radius)
-
-	original_xi_values_name = get_name_WS(init_name_original_xi_values, dim, N, nei, p, SEED,radius)
+	init_name_original_degree_list = adaptive_type + "SGCattackDEG_" + type_graph +"_originalDegreeList"
+	init_name_adaptive_degree_list = adaptive_type + "SGCattackDEG_" + type_graph +"_adaptiveDegreeList"
 
 
+	GC_List_DEG_name = get_name_WS(init_name_GC_DEG, dim, N, nei, p, SEED,radius)
 
-	with open(GC_List_DB_name,'wb') as handle:
+	SGC_DEG_name = get_name_WS(init_name_SGC_DEG, dim, N, nei, p, SEED,radius)
+
+	numComp_DEG_name = get_name_WS(init_name_numComp_DEG, dim, N, nei, p, SEED,radius)
+
+	avgComp_DEG_name = get_name_WS(init_name_avgSize_DEG, dim, N, nei, p, SEED,radius)
+
+	original_degree_list_name = get_name_WS(init_name_original_degree_list, dim, N, nei, p, SEED,radius)
+	adaptive_degree_list_name = get_name_WS(init_name_adaptive_degree_list, dim, N, nei, p, SEED,radius)
+
+
+	with open(GC_List_DEG_name,'wb') as handle:
 		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(CL_name,'wb') as handle:
-		pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-	with open(dBall_name,'wb') as handle:
-		pickle.dump(size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-	with open(ball_name,'wb') as handle:
-		pickle.dump(size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-	with open(deg_mainNode_name,'wb') as handle:
-		pickle.dump(degree_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-	with open(deg_removedNode_name,'wb') as handle:
-		pickle.dump(degree_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-	with open(SGC_DB_name,'wb') as handle:
+	with open(SGC_DEG_name,'wb') as handle:
 		pickle.dump(SGC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(numComp_DB_name,'wb') as handle:
+	with open(numComp_DEG_name,'wb') as handle:
 		pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(avgSize_DB_name,'wb') as handle:
+	with open(avgComp_DEG_name,'wb') as handle:
 		pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(original_degree_main_node_name,'wb') as handle:
-		pickle.dump(original_degree_main_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(original_degree_list_name,'wb') as handle:
+		pickle.dump(original_degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(original_degree_removed_node_name,'wb') as handle:
-		pickle.dump(original_degree_removed_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	with open(adaptive_degree_list_name,'wb') as handle:
+		pickle.dump(adaptive_degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(original_xi_values_name,'wb') as handle:
-		pickle.dump(original_xi_values, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
