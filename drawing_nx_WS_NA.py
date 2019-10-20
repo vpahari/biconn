@@ -852,7 +852,7 @@ new_position = get_position_GC(GC_nodes,position)
 
 #plt.figure(figsize=(10,10))
 
-path = os.getcwd() + "/" + "ER_" + str(N) + "_" + str(k)  + "_" +  str(SEED)+ "_" + str(radius) + "/"
+path = os.getcwd() + "/" + "WS_N_" + str(N) + "_dim_" + str(dim)  + "_nei_" +  str(nei)+ "_p_" + str(p) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "/"
 
 GC = get_GC_nodes(G)
 
