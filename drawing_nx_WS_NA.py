@@ -485,7 +485,7 @@ def dict_to_sorted_list_NA(d):
 
 def create_all_graphs(G, radius,pathNA,pathadp):
 
-	init_fname = "NA_ER_" + str(N) + "_" + str(k) + "_"+ str(SEED)+ "_" + str(radius)+ "_numBalls_"  
+	init_fname = "WS_N_" + str(N) + "_dim_" + str(dim)  + "_nei_" +  str(nei)+ "_p_" + str(p) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_numBalls_"  
 
 	counter = 0
 
