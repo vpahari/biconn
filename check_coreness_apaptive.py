@@ -191,7 +191,25 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 	degree_list = []
 
+	mean_degree_list = []
+	mean_degree_list_GC = []
+
 	for i in range(num_nodes_to_remove):
+
+		mean_deg = calculate_mean_core(G)
+
+		mean_deg_GC = calculate_mean_core_GC(G)
+
+		print("mean core : " + str(i))
+
+		print(mean_deg)
+
+		print("mean core GC : " + str(i))
+
+		print(mean_deg_GC)
+
+		mean_degree_list.append(mean_deg)
+		mean_degree_list_GC.append(mean_deg_GC)
 
 		degree = nk.centrality.DegreeCentrality(G)
 
@@ -217,7 +235,7 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 		num_comp_List.append(num_comp)
 
-	return (GC_List, SGC_List, num_comp_List, degree_list)
+	return (GC_List, SGC_List, num_comp_List, degree_list, mean_degree_list, mean_degree_list_GC)
 
 
 def BA_attack(G_copy,num_nodes_to_remove):
@@ -1601,12 +1619,11 @@ for i in range(num_times):
 
 G = make_ER_Graph(N,k,SEED)
 
-(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list_DB, mean_degree_list_GC_DB,removed_nodes) = dBalls_attack_NA(G,radius)
-(GC_List, SGC_List, num_comp_List, original_degree_list,adaptive_degree_list,mean_degree_list_DA,mean_degree_list_GC_DA,removed_nodes) = DA_attack(G,int(N*0.8))
-(GC_List, SGC_List, num_comp_List, avg_comp_size_List,mean_degree_list_BA,mean_degree_list_GC_BA) = BA_attack_igraph(G,int(N*0.8))
+(GC_List,SGC_List,num_comp_List,avg_comp_size_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode, mean_degree_list_DB, mean_degree_list_GC_DB) = dBalls_attack(G,radius)
+(GC_List, SGC_List, num_comp_List, degree_list, mean_degree_list_DA, mean_degree_list_GC_DA) = ADA_attack(G,int(N*0.8))
 
 
-figname = "NAchangingMeanCore" + "_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + ".png" 
+figname = "ADAPTchangingMeanCore" + "_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + ".png" 
 
 x_list = [i for i in range(len(mean_degree_list_DA))]
 
@@ -1615,9 +1632,6 @@ print(len(mean_degree_list_GC_DB))
 
 print(len(mean_degree_list_DA))
 print(len(mean_degree_list_GC_DA))
-
-print(len(mean_degree_list_BA))
-print(len(mean_degree_list_GC_BA))
 
 
 plt.xlabel('nodes_removed', fontsize=20)
@@ -1630,8 +1644,6 @@ plt.plot(counter_list, mean_degree_list_GC_DB, label = "dball GC")
 plt.plot(x_list, mean_degree_list_DA, label = "DA full Graph")
 plt.plot(x_list, mean_degree_list_GC_DA, label = "DA GC")
 
-plt.plot(x_list, mean_degree_list_BA, label = "BA full Graph")
-plt.plot(x_list, mean_degree_list_GC_BA, label = "BA GC")
 
 #plt.xlim(0,0.2)
 plt.legend(loc='best')
