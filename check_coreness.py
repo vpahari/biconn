@@ -103,7 +103,7 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 	adaptive_degree_list = []
 
-	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
 
@@ -155,7 +155,7 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 		G.removeNode(node_to_remove)
 
-		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 		GC_List.append(GC)
 
