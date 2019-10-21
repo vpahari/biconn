@@ -1540,9 +1540,9 @@ SEED=int(sys.argv[3])
 
 radius = int(sys.argv[4])
 
-num_times = int(sys.argv[5])
+#num_times = int(sys.argv[5])
 
-threshold = float(sys.argv[6])
+#threshold = float(sys.argv[6])
 
 adaptive_type = "NA"
 
