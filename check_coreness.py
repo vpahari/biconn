@@ -1575,6 +1575,8 @@ for i in range(num_times):
 
 """
 
+G = make_ER_Graph(N,k,SEED)
+
 (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list_DB, mean_degree_list_GC_DB,removed_nodes) = dBalls_attack_NA(G,radius)
 (GC_List, SGC_List, num_comp_List, original_degree_list,adaptive_degree_list,mean_degree_list_DA,mean_degree_list_GC_DA,removed_nodes) = DA_attack(G,int(N*0.8))
 (GC_List, SGC_List, num_comp_List, avg_comp_size_List,mean_degree_list_BA,mean_degree_list_GC_BA) = BA_attack_igraph(G,int(N*0.8))
