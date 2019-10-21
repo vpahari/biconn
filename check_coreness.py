@@ -1476,7 +1476,7 @@ def calculate_mean_core(G):
 
 	all_nodes = list(G.nodes())
 
-	all_core = get_coreness_score_list(G,node_list)
+	all_core = get_coreness_score_list(G,all_nodes)
 
 	return sum(all_core) / len(all_core)
 
@@ -1485,7 +1485,7 @@ def calculate_mean_core_GC(G):
 
 	all_nodes = get_GC_nodes(G)
 
-	all_core = get_coreness_score_list(G,node_list)
+	all_core = get_coreness_score_list(G,all_nodes)
 
 	return sum(all_core) / len(all_core)
 
