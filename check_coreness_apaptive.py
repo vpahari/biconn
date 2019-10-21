@@ -365,7 +365,7 @@ def BA_attack_igraph(G_copy,num_nodes_to_remove):
 
 	num_comp_List.append(num_comp)
 
-	#avg_comp_size_List.append(avg_comp_size)
+	avg_comp_size_List.append(avg_comp_size)
 
 	G_i = turn_nk_to_igraph(G)
 
@@ -772,7 +772,6 @@ def get_degree_dict(G):
 
 
 
-#dball, vball, degree, betweenness, coreness
 def dBalls_attack(G_copy,radius):
 
 	G = copy_graph(G_copy)
@@ -780,6 +779,7 @@ def dBalls_attack(G_copy,radius):
 	GC_List = []
 	SGC_List = []
 	num_comp_List = []
+	avg_comp_size_List = []
 
 
 	size_dball = [] 
@@ -797,15 +797,28 @@ def dBalls_attack(G_copy,radius):
 
 	counter_list = []
 
-	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
 	SGC_List.append(SGC)
 	num_comp_List.append(num_comp)
+	avg_comp_size_List.append(avg_comp_size)
 
 	counter_list.append(counter)
 
 	num_nodes_to_remove = G.numberOfNodes()
+
+	mean_degree_list = []
+
+	mean_degree_list_GC = []
+
+	mean_deg = calculate_mean_degree(G)
+
+	mean_deg_GC = calculate_mean_degree_GC(G)
+
+	mean_degree_list.append(mean_deg)
+	mean_degree_list_GC.append(mean_deg_GC)
+
 
 	while counter < num_nodes_to_remove:
 
@@ -820,6 +833,7 @@ def dBalls_attack(G_copy,radius):
 		
 
 		node = get_random_dball(list_to_remove)
+
 		(dBall,ball) = get_dBN(G,node,radius) 
 
 		combined_list = [node] + dBall
@@ -850,20 +864,32 @@ def dBalls_attack(G_copy,radius):
 			G.removeNode(i)
 			counter += 1
 
-		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+		#(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
-		GC_List.append(GC)
-		SGC_List.append(SGC)
-		num_comp_List.append(num_comp)
+		#GC_List.append(GC)
+		#SGC_List.append(SGC)
+		#num_comp_List.append(num_comp)
+		#avg_comp_size_List.append(avg_comp_size)
 
 		counter_list.append(counter)
 
+		mean_deg = calculate_mean_core(G)
+
+		mean_deg_GC = calculate_mean_core_GC(G)
+
 		print("mean degree : " + str(counter))
 
-		print(calculate_mean_degree(G))
+		print(mean_deg)
+
+		print("mean degree GC : " + str(counter))
+
+		print(mean_deg_GC)
+
+		mean_degree_list.append(mean_deg)
+		mean_degree_list_GC.append(mean_deg_GC)
 
 
-	return (GC_List,SGC_List,num_comp_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
+	return (GC_List,SGC_List,num_comp_List,avg_comp_size_List,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode, mean_degree_list, mean_degree_list_GC)
 
 
 
