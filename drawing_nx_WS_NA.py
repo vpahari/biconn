@@ -297,9 +297,12 @@ def dBalls_attack(G_copy,radius, init_filename, position, path):
 		dball_list.append(dBall)
 		ball_list.append(ball)
 
-		#removed_degree_str = turn_list_to_str(degree_list[1:])
+		removed_degree_str = turn_list_to_str(degree_list[1:])
 		#removed_bet_str = turn_list_to_str(between_list[1:])
 		#removed_core_str = turn_list_to_str(coreness_list[1:])
+
+		removed_bet_str = ""
+		removed_core_str = ""
 
 		between_list = [0]
 		coreness_list = [0]
@@ -756,11 +759,11 @@ def dBalls_attack_NA(G_copy,radius, init_filename, position, path):
 
 		GC_List.append(GC)
 
-		#removed_degree_str = turn_list_to_str(degree_list[1:])
+		removed_degree_str = turn_list_to_str(degree_list[1:])
 		#removed_bet_str = turn_list_to_str(between_list[1:])
 		#removed_core_str = turn_list_to_str(coreness_list[1:])
 
-		removed_degree_str = ""
+		#removed_degree_str = ""
 		removed_bet_str = ""
 		removed_core_str = ""
 
