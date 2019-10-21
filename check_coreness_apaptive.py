@@ -815,12 +815,12 @@ def dBalls_attack(G_copy,radius):
 
 	counter_list = []
 
-	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
 	SGC_List.append(SGC)
 	num_comp_List.append(num_comp)
-	avg_comp_size_List.append(avg_comp_size)
+	#avg_comp_size_List.append(avg_comp_size)
 
 	counter_list.append(counter)
 
