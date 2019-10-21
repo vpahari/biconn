@@ -103,7 +103,7 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 	adaptive_degree_list = []
 
-	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
 
@@ -155,7 +155,7 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 		G.removeNode(node_to_remove)
 
-		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
 		GC_List.append(GC)
 
@@ -357,7 +357,7 @@ def BA_attack_igraph(G_copy,num_nodes_to_remove):
 
 	avg_comp_size_List = []
 
-	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
 
@@ -405,15 +405,13 @@ def BA_attack_igraph(G_copy,num_nodes_to_remove):
 
 		G.removeNode(node_to_remove)
 
-		#(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+		#(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
 		GC_List.append(GC)
 
 		SGC_List.append(SGC)
 
 		num_comp_List.append(num_comp)
-
-		avg_comp_size_List.append(avg_comp_size)
 
 	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List,mean_degree_list,mean_degree_list_GC)
 
