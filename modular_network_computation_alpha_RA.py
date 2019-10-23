@@ -211,15 +211,17 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 
 		size_G_nodes += len(G_nodes)
 
+	set_of_connected_nodes = set([])
+
 	for i in range(num_edges_to_connect):
 		
 		(u,v) = get_random_u_v(nodes_list)
 		G.addEdge(u,v)
-		print(u,v)
+		
+		set_of_connected_nodes.add(u)
+		set_of_connected_nodes.add(v)
 
-	print(num_edges_to_connect)
-
-	return G
+	return (G, set_of_connected_nodes)
 
 
 
@@ -241,9 +243,9 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 		print(i.numberOfEdges())
 	
 
-	G = make_graphs_into_one_multiple_graphs(list_Graphs,num_edges)
+	(G, set_of_connected_nodes) = make_graphs_into_one_multiple_graphs(list_Graphs,num_edges)
 
-	return G
+	return (G, set_of_connected_nodes)
 
 
 	"""
@@ -554,7 +556,7 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 
 
 
-def RA_attack(G_copy,num_nodes_to_remove):
+def RA_attack(G_copy,num_nodes_to_remove,set_of_connected_nodes):
 
 	G = copy_graph(G_copy)
 
@@ -566,6 +568,8 @@ def RA_attack(G_copy,num_nodes_to_remove):
 
 	avg_comp_size_List = []
 
+	connected_removed_nodes = []
+
 	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
@@ -575,6 +579,8 @@ def RA_attack(G_copy,num_nodes_to_remove):
 	num_comp_List.append(num_comp)
 
 	avg_comp_size_List.append(avg_comp_size)
+
+	connected_removed_nodes.append(0)
 
 	all_nodes = random.sample(list(G.nodes()),num_nodes_to_remove)
 
@@ -592,7 +598,12 @@ def RA_attack(G_copy,num_nodes_to_remove):
 
 		avg_comp_size_List.append(avg_comp_size)
 
-	return (GC_List, SGC_List, num_comp_List,avg_comp_size_List)
+		if i in set_of_connected_nodes:
+			connected_removed_nodes.append(connected_removed_nodes[-1] + 1)
+		else:
+			connected_removed_nodes.append(connected_removed_nodes[-1])
+
+	return (GC_List, SGC_List, num_comp_List,avg_comp_size_List,connected_removed_nodes)
 
 
 
@@ -1412,9 +1423,9 @@ for i in range(num_times):
 
 	SEED = (SEED * (i+1)) +1
 
-	G = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
+	(G, set_of_connected_nodes) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
-	(GC_List, SGC_List, num_comp_List, avg_comp_size_List) = RA_attack(G, int(N * 0.9))
+	(GC_List, SGC_List, num_comp_List, avg_comp_size_List,connected_removed_nodes) = RA_attack(G, int(N * 0.9),set_of_connected_nodes)
 
 	init_name_GC_DEG = adaptive_type + "SGCattackRAN_" + type_graph +"_GC"
 
@@ -1424,8 +1435,7 @@ for i in range(num_times):
 
 	init_name_avgSize_DEG = adaptive_type + "SGCattackRAN_" + type_graph +"_avgComponents"
 
-	init_name_original_degree_list = adaptive_type + "SGCattackDEG_" + type_graph +"_originalDegreeList"
-	init_name_adaptive_degree_list = adaptive_type + "SGCattackDEG_" + type_graph +"_adaptiveDegreeList"
+	init_name_connectedNode_RemovedNode = adaptive_type + "SGCattackRAN_" + type_graph + "_connectedNodesRemovedNode"
 
 
 	GC_List_DEG_name = get_name_ModularNetworks(init_name_GC_DEG, N,k_intra,k_inter,SEED,num_modules,radius)
@@ -1435,6 +1445,9 @@ for i in range(num_times):
 	numComp_DEG_name = get_name_ModularNetworks(init_name_numComp_DEG, N,k_intra,k_inter,SEED,num_modules,radius)
 
 	avgComp_DEG_name = get_name_ModularNetworks(init_name_avgSize_DEG, N,k_intra,k_inter,SEED,num_modules,radius)
+
+	connectedNode_RemovedNode_name = get_name_ModularNetworks(init_name_connectedNode_RemovedNode, N,k_intra,k_inter,SEED,num_modules,radius)
+
 
 
 	with open(GC_List_DEG_name,'wb') as handle:
@@ -1448,4 +1461,9 @@ for i in range(num_times):
 
 	with open(avgComp_DEG_name,'wb') as handle:
 		pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(connectedNode_RemovedNode_name,'wb') as handle:
+		pickle.dump(connected_removed_nodes, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
 

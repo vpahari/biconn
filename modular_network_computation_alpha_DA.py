@@ -211,15 +211,17 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 
 		size_G_nodes += len(G_nodes)
 
+	set_of_connected_nodes = set([])
+
 	for i in range(num_edges_to_connect):
 		
 		(u,v) = get_random_u_v(nodes_list)
 		G.addEdge(u,v)
-		print(u,v)
+		
+		set_of_connected_nodes.add(u)
+		set_of_connected_nodes.add(v)
 
-	print(num_edges_to_connect)
-
-	return G
+	return (G, set_of_connected_nodes)
 
 
 
@@ -241,9 +243,9 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 		print(i.numberOfEdges())
 	
 
-	G = make_graphs_into_one_multiple_graphs(list_Graphs,num_edges)
+	(G, set_of_connected_nodes) = make_graphs_into_one_multiple_graphs(list_Graphs,num_edges)
 
-	return G
+	return (G, set_of_connected_nodes)
 
 
 	"""
@@ -369,7 +371,7 @@ def make_ER_Graph(N,k,SEED):
 
 
 
-def DA_attack(G_copy,num_nodes_to_remove):
+def DA_attack(G_copy,num_nodes_to_remove,set_of_connected_nodes):
 
 	G = copy_graph(G_copy)
 
@@ -385,6 +387,8 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 	adaptive_degree_list = []
 
+	connected_removed_nodes = []
+
 	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
@@ -394,6 +398,8 @@ def DA_attack(G_copy,num_nodes_to_remove):
 	num_comp_List.append(num_comp)
 
 	avg_comp_size_List.append(avg_comp_size)
+
+	connected_removed_nodes.append(0)
 
 	degree = nk.centrality.DegreeCentrality(G)
 
@@ -431,7 +437,12 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 		avg_comp_size_List.append(avg_comp_size)
 
-	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List, original_degree_list,adaptive_degree_list)
+		if node_to_remove in set_of_connected_nodes:
+			connected_removed_nodes.append(connected_removed_nodes[-1] + 1)
+		else:
+			connected_removed_nodes.append(connected_removed_nodes[-1])
+
+	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List, original_degree_list,adaptive_degree_list,connected_removed_nodes)
 
 
 def ADA_attack(G_copy,num_nodes_to_remove):
@@ -1406,9 +1417,9 @@ for i in range(num_times):
 
 	SEED = (SEED * (i+1)) +1
 
-	G = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
+	(G, set_of_connected_nodes) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
-	(GC_List, SGC_List, num_comp_List, avg_comp_size_List, original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 0.9))
+	(GC_List, SGC_List, num_comp_List, avg_comp_size_List, original_degree_list,adaptive_degree_list,connected_removed_nodes) = DA_attack(G, int(N * 0.9), set_of_connected_nodes)
 
 	init_name_GC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_GC"
 
@@ -1421,6 +1432,7 @@ for i in range(num_times):
 	init_name_original_degree_list = adaptive_type + "SGCattackDEG_" + type_graph +"_originalDegreeList"
 	init_name_adaptive_degree_list = adaptive_type + "SGCattackDEG_" + type_graph +"_adaptiveDegreeList"
 
+	init_name_connectedNode_RemovedNode = adaptive_type + "SGCattackDEG_" + type_graph + "_connectedNodesRemovedNode"
 
 	GC_List_DEG_name = get_name_ModularNetworks(init_name_GC_DEG, N,k_intra,k_inter,SEED,num_modules,radius)
 
@@ -1432,6 +1444,9 @@ for i in range(num_times):
 
 	original_degree_list_name = get_name_ModularNetworks(init_name_original_degree_list, N,k_intra,k_inter,SEED,num_modules,radius)
 	adaptive_degree_list_name = get_name_ModularNetworks(init_name_adaptive_degree_list, N,k_intra,k_inter,SEED,num_modules,radius)
+
+	connectedNode_RemovedNode_name = get_name_ModularNetworks(init_name_connectedNode_RemovedNode, N,k_intra,k_inter,SEED,num_modules,radius)
+
 
 
 	with open(GC_List_DEG_name,'wb') as handle:
@@ -1451,4 +1466,7 @@ for i in range(num_times):
 
 	with open(adaptive_degree_list_name,'wb') as handle:
 		pickle.dump(adaptive_degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(connectedNode_RemovedNode_name,'wb') as handle:
+		pickle.dump(connected_removed_nodes, handle, protocol=pickle.HIGHEST_PROTOCOL)
 

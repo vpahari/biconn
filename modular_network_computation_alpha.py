@@ -1101,6 +1101,142 @@ def dBalls_attack_NA(G_copy,radius):
 
 
 
+def change_connected_node_mainNode(node, nodes_list,set_of_connected_nodes):
+
+	if node in set_of_connected_nodes:
+		nodes_list.append(nodes_list[-1] + 1)
+
+	else:
+		nodes_list.append(nodes_list[-1])
+
+
+def dBalls_attack_NA_MOD(G_copy,radius,set_of_connected_nodes):
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+	SGC_List = []
+	num_comp_List = []
+	avg_comp_size_List = []
+
+	size_dball = [] 
+	size_ball = []
+
+	degree_list_mainNode = []
+	betweenness_list_mainNode = []
+	coreness_list_mainNode = []
+
+	degree_list_removedNode = []
+	betweenness_list_removedNode = []
+	coreness_list_removedNode = []
+
+	connected_nodes_mainNode = []
+	connected_nodes_removedNode = []
+
+	counter = 0
+
+	counter_list = []
+
+	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+	SGC_List.append(SGC)
+	num_comp_List.append(num_comp)
+	avg_comp_size_List.append(avg_comp_size)
+	connected_nodes_mainNode.append(0)
+	connected_nodes_removedNode.append(0)
+
+	counter_list.append(counter)
+
+	original_degree_dict = get_degree_dict(G)
+
+	original_degree_main_node = []
+
+	original_degree_removed_node = []
+
+	num_nodes_to_remove = G.numberOfNodes()
+
+	(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+
+	list_to_remove = dict_to_sorted_list_NA(dict_nodes_x_i)
+
+	counter_for_nodes = 0
+
+	original_xi_values = []
+
+	print(dict_nodes_x_i)
+
+	print(list_to_remove)
+
+	while counter_for_nodes < len(list_to_remove):
+
+		curr_nodes_set = set(list(G.nodes()))
+
+		node = list_to_remove[counter_for_nodes][0]
+
+		print(node,dict_nodes_dBall[node])
+
+
+		if node not in curr_nodes_set:
+			counter_for_nodes += 1
+			continue
+
+
+		(dBall,ball) = get_dBN(G,node,radius) 
+
+		original_xi_values.append(list_to_remove[counter_for_nodes][1])
+
+
+		if len(dBall) == 0:
+			counter_for_nodes += 1
+			continue
+
+
+		size_dball.append(len(dBall))
+		size_ball.append(len(ball))
+
+		combined_list = [node] + dBall
+
+		original_degree_main_node.append(original_degree_dict[node])
+
+		for i in dBall:
+			original_degree_removed_node.append(original_degree_dict[i])
+
+		#between_list = get_betweenness_score_list(G,combined_list)
+		degree_list = get_degree_score_list(G,combined_list)
+		#coreness_list = get_coreness_score_list(G,combined_list)
+
+		degree_list_mainNode.append(degree_list[0])
+		#betweenness_list_mainNode.append(between_list[0])
+		#coreness_list_mainNode.append(coreness_list[0])
+
+		degree_list_removedNode += degree_list[1:]
+		#betweenness_list_removedNode += between_list[1:]
+		#coreness_list_removedNode += coreness_list[1:]
+
+		for i in dBall:
+			G.removeNode(i)
+			counter += 1
+			change_connected_node_mainNode(i, connected_nodes_removedNode, set_of_connected_nodes)
+
+		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+
+		GC_List.append(GC)
+		SGC_List.append(SGC)
+		num_comp_List.append(num_comp)
+		avg_comp_size_List.append(avg_comp_size)
+
+		change_connected_node_mainNode(node, connected_nodes_mainNode, set_of_connected_nodes)
+
+		counter_list.append(counter)
+
+		counter_for_nodes += 1
+
+	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, connected_nodes_mainNode, connected_nodes_removedNode)
+
+
+
+
 
 def dict_to_sorted_list_NA(d):
 
@@ -1383,9 +1519,9 @@ for i in range(num_times):
 
 	SEED = (SEED * (i+1)) +1
 
-	G = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
+	(G, set_connected_nodes) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
-	(GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values) = dBalls_attack_NA(G,radius)
+	(GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values,connected_nodes_mainNode, connected_nodes_removedNode) = dBalls_attack_NA_MOD(G,radius,set_connected_nodes)
 
 	init_name_GC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_GC"
 
@@ -1408,6 +1544,10 @@ for i in range(num_times):
 
 	init_name_original_xi_values = adaptive_type + "SGCattackDB_" + type_graph + "_originalXIValues"
 
+	init_name_connectedNode_MainNode = adaptive_type + "SGCattackDB_" + type_graph + "_connectedNodesMainNode"
+
+	init_name_connectedNode_RemovedNode = adaptive_type + "SGCattackDB_" + type_graph + "_connectedNodesRemovedNode"
+
 
 	GC_List_DB_name = get_name_ModularNetworks(init_name_GC_DB, N,k_intra,k_inter,SEED,num_modules,radius)
 
@@ -1429,6 +1569,9 @@ for i in range(num_times):
 	original_degree_removed_node_name = get_name_ModularNetworks(init_name_original_degree_removed_node, N,k_intra,k_inter,SEED,num_modules,radius)
 
 	original_xi_values_name = get_name_ModularNetworks(init_name_original_xi_values, N,k_intra,k_inter,SEED,num_modules,radius)
+
+	connectedNode_MainNode_name = get_name_ModularNetworks(init_name_connectedNode_MainNode, N,k_intra,k_inter,SEED,num_modules,radius)
+	connectedNode_RemovedNode_name = get_name_ModularNetworks(init_name_connectedNode_RemovedNode, N,k_intra,k_inter,SEED,num_modules,radius)
 
 
 	with open(GC_List_DB_name,'wb') as handle:
@@ -1466,6 +1609,12 @@ for i in range(num_times):
 
 	with open(original_xi_values_name,'wb') as handle:
 		pickle.dump(original_xi_values, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(connectedNode_MainNode_name,'wb') as handle:
+		pickle.dump(connected_nodes_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(connectedNode_RemovedNode_name,'wb') as handle:
+		pickle.dump(connected_nodes_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
