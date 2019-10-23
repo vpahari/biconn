@@ -1150,7 +1150,7 @@ alpha = 1
 
 nx.drawing.nx_pylab.draw(G)
 
-plt.savefig(path)
+plt.savefig(filename)
 
 plt.clf()
 
