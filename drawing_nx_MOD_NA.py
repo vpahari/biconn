@@ -276,6 +276,9 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 
 	G_nx = nk.nxadapter.nk2nx(G_nk)
 
+	print(G_nx.number_of_nodes())
+	print(G_nx.number_of_edges())
+
 	return (G_nx, set_of_connected_nodes)
 
 
