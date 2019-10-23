@@ -1133,7 +1133,7 @@ radius = int(sys.argv[6])
 
 #plt.figure(figsize=(10,10))
 
-path = os.getcwd() + "/" + "MOD_N_" + ".png"
+filename = "MOD_N_" + str(N) + ".png"
 
 #GC = get_GC_nodes(G)
 
