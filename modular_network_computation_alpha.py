@@ -211,15 +211,18 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 
 		size_G_nodes += len(G_nodes)
 
+	set_of_connected_nodes = set([])
+
 	for i in range(num_edges_to_connect):
 		
 		(u,v) = get_random_u_v(nodes_list)
 		G.addEdge(u,v)
-		print(u,v)
 
-	print(num_edges_to_connect)
+		set_of_connected_nodes.add(u)
+		set_of_connected_nodes.add(v)
 
-	return G
+
+	return (G, set_of_connected_nodes)
 
 
 
@@ -241,9 +244,9 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 		print(i.numberOfEdges())
 	
 
-	G = make_graphs_into_one_multiple_graphs(list_Graphs,num_edges)
+	(G, set_of_connected_nodes) = make_graphs_into_one_multiple_graphs(list_Graphs,num_edges)
 
-	return G
+	return (G, set_of_connected_nodes)
 
 
 	"""
