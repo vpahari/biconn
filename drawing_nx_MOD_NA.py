@@ -1148,7 +1148,11 @@ alpha = 1
 
 (G, nodes_conn) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
-nx.drawing.nx_pylab.draw(G)
+all_nodes = list(G.nodes())
+all_edges = list(G.edges())
+
+nx.drawing.nx_pylab.draw_networkx_nodes(G, nodelist = all_nodes, pos = position, node_size = 0.4, with_labels = False, node_color = 'r')
+nx.drawing.nx_pylab.draw_networkx_edges(G, edgelist = all_edges, pos = position, arrowsize = 0.1, with_labels = False, edge_color = 'b')
 
 plt.savefig(filename)
 
