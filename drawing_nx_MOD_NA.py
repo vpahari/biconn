@@ -1122,13 +1122,14 @@ radius = int(sys.argv[6])
 
 #num_times = int(sys.argv[7])
 
-G = make_WS_graph(dim,N,nei,p,SEED)
 
-position=nx.spring_layout(G)
+#G = make_WS_graph(dim,N,nei,p,SEED)
 
-GC_nodes = get_GC_nodes(G)
+#position=nx.spring_layout(G)
 
-new_position = get_position_GC(GC_nodes,position)
+#GC_nodes = get_GC_nodes(G)
+
+#new_position = get_position_GC(GC_nodes,position)
 
 #plt.figure(figsize=(10,10))
 
@@ -1141,6 +1142,9 @@ try:
 
 except:
 	pass
+
+
+(G, nodes_conn) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
 nx.drawing.nx_pylab.draw(G)
 
