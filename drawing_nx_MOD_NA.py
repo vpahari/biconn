@@ -1135,7 +1135,7 @@ radius = int(sys.argv[6])
 
 path = os.getcwd() + "/" + "MOD_N_" + ".png"
 
-GC = get_GC_nodes(G)
+#GC = get_GC_nodes(G)
 
 try:
 	os.mkdir(path)
