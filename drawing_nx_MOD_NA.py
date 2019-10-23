@@ -1138,7 +1138,7 @@ radius = int(sys.argv[6])
 
 #plt.figure(figsize=(10,10))
 
-filename = "MOD_N_" + str(N) + "_kinter_" + str(k_inter) + "_numMod_" + str(num_modules) ".png"
+filename = "MOD_N_" + str(N) + "_kinter_" + str(k_inter) + "_numMod_" + str(num_modules) +  ".png"
 
 #GC = get_GC_nodes(G)
 
