@@ -756,7 +756,6 @@ def dBalls_attack_adapt(G_copy,radius):
 			break
 
 		node = get_random_dball(list_to_remove)
-
 		(dBall,ball) = get_dBN(G,node,radius) 
 
 		original_xi_values.append(original_dict_nodes_x_i[node])
