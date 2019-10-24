@@ -786,7 +786,7 @@ def dBalls_attack_adapt(G_copy,radius):
 			G.removeNode(i)
 			counter += 1
 
-		print(len(dBall))
+		print(len(GC))
 
 		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
