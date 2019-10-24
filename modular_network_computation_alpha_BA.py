@@ -268,6 +268,9 @@ def new_make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 
 		new_SEED = SEED * (mod_num+2) + 1
 
+		print(size_of_one_module)
+		print(k_intra)
+
 		G_mod = make_ER_Graph(size_of_one_module, k_intra, new_SEED)
 
 		G_nodes = list(G_mod.nodes())
