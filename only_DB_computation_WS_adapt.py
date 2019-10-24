@@ -744,7 +744,9 @@ def dBalls_attack_adapt(G_copy,radius):
 
 	original_xi_values = []
 
-	while counter_for_nodes < len(list_to_remove):
+	num_nodes_to_remove = G.numberOfNodes()
+
+	while counter_for_nodes < num_nodes_to_remove:
 
 		print(counter)
 
