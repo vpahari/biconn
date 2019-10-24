@@ -1112,7 +1112,7 @@ for i in range(num_times):
 
 	init_name_numComp_RAN = adaptive_type + "SGCattackRAN_" + type_graph +"_numberOfComponents"
 
-	init_name_avgSize_RAN = adaptive_type + "SGCattackRAN_" + graph_type + "_avgComponents"
+	init_name_avgSize_RAN = adaptive_type + "SGCattackRAN_" + type_graph + "_avgComponents"
 
 
 	GC_name = get_name_WS(init_name_GC_RAN, dim, N, nei, p, SEED,radius)
