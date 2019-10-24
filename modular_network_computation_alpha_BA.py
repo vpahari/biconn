@@ -245,6 +245,8 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 
 	(G, set_of_connected_nodes) = make_graphs_into_one_multiple_graphs(list_Graphs,num_edges)
 
+	print(set_of_connected_nodes)
+
 	return (G, set_of_connected_nodes)
 	
 
