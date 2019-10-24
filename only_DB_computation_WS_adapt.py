@@ -740,13 +740,11 @@ def dBalls_attack_adapt(G_copy,radius):
 
 	(dict_nodes_dBall,dict_nodes_ball,original_dict_nodes_x_i) = get_all_dBN(G,radius)
 
-	counter_for_nodes = 0
-
 	original_xi_values = []
 
 	num_nodes_to_remove = G.numberOfNodes()
 
-	while counter_for_nodes < num_nodes_to_remove:
+	while counter < num_nodes_to_remove:
 
 		print(counter)
 
@@ -762,10 +760,6 @@ def dBalls_attack_adapt(G_copy,radius):
 		(dBall,ball) = get_dBN(G,node,radius) 
 
 		original_xi_values.append(original_dict_nodes_x_i[node])
-
-		if len(dBall) == 0:
-			counter_for_nodes += 1
-			continue
 
 		size_dball.append(len(dBall))
 		size_ball.append(len(ball))
@@ -800,13 +794,7 @@ def dBalls_attack_adapt(G_copy,radius):
 		num_comp_List.append(num_comp)
 		avg_comp_size_List.append(avg_comp_size)
 
-
 		counter_list.append(counter)
-
-		counter_for_nodes += 1
-
-
-
 
 	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values)
 
