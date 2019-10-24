@@ -254,7 +254,7 @@ def new_make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 
 	size_of_one_module = int(N / num_modules)
 
-	num_edges = int(k_inter * N / 2)
+	num_edges_to_connect = int(k_inter * N / 2)
 
 	counter = 0
 
@@ -1438,7 +1438,7 @@ for i in range(num_times):
 
 	SEED = (SEED * (i+1)) +1
 
-	(G,set_of_connected_nodes) = new_make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
+	(G,set_of_connected_nodes) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
 	(GC_List, SGC_List, num_comp_List, avg_comp_size_List,connected_removed_nodes) = BA_attack_igraph(G, int(N * 0.9),set_of_connected_nodes)
 
