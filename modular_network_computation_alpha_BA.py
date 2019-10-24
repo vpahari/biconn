@@ -246,18 +246,27 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 	(G, set_of_connected_nodes) = make_graphs_into_one_multiple_graphs(list_Graphs,num_edges)
 
 	return (G, set_of_connected_nodes)
+	
 
 
-	"""
+
+def new_make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
+
+	size_of_one_module = int(N / num_modules)
+
+	num_edges = int(k_inter * N / 2)
+
+	counter = 0
+
+	G = nk.Graph()
+
 	nodes_list = []
 
 	size_G_nodes = 0
 
-	for count in range(num_modules):
+	for mod_num in range(num_modules):
 
-		SEED = (SEED * (count+1)) + 1
-
-		G_mod = make_ER_Graph(size_of_one_module, k_intra, SEED)
+		G_mod = make_ER_Graph(size_of_one_module, k_intra, SEED * (i+2) + 1)
 
 		G_nodes = list(G_mod.nodes())
 		G_edges = list(G_mod.edges())
@@ -273,31 +282,23 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 		print(list(G.nodes()))
 
 		for (a,b) in G_edges:
-
 			u = size_G_nodes + a
 			v = size_G_nodes + b
-
 			G.addEdge(u,v)
-
 
 		size_G_nodes += len(G_nodes)
 
-	return G
-	"""
+	set_of_connected_nodes = set([])
 
+	for i in range(num_edges_to_connect):
+		
+		(u,v) = get_random_u_v(nodes_list)
+		G.addEdge(u,v)
+		
+		set_of_connected_nodes.add(u)
+		set_of_connected_nodes.add(v)
 
-
-
-
-
-
-
-
-
-
-
-
-
+	return (G, set_of_connected_nodes)
 
 
 
