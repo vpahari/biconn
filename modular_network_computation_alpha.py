@@ -1219,7 +1219,13 @@ def dBalls_attack_NA_MOD(G_copy,radius,set_of_connected_nodes):
 		for i in dBall:
 			G.removeNode(i)
 			counter += 1
-			change_connected_node_mainNode(i, connected_nodes_removedNode, set_of_connected_nodes)
+			
+			if i in set_of_connected_nodes:
+				connected_nodes_removedNode.append(connected_nodes_removedNode[-1] + 1)
+
+			else:
+				connected_nodes_removedNode.append(connected_nodes_removedNode[-1])
+
 
 		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
@@ -1228,7 +1234,12 @@ def dBalls_attack_NA_MOD(G_copy,radius,set_of_connected_nodes):
 		num_comp_List.append(num_comp)
 		avg_comp_size_List.append(avg_comp_size)
 
-		change_connected_node_mainNode(node, connected_nodes_mainNode, set_of_connected_nodes)
+		if node in set_of_connected_nodes:
+			connected_nodes_mainNode.append(connected_nodes_mainNode[-1] + 1)
+
+		else:
+
+			connected_nodes_mainNode.append(connected_nodes_mainNode[-1])
 
 		counter_list.append(counter)
 
