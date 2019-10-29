@@ -213,13 +213,17 @@ def BA_attack_igraph(G_copy,num_nodes_to_remove):
 
 	num_comp_List = []
 
-	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+	avg_comp_size_List = []
+
+	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
 
 	SGC_List.append(SGC)
 
 	num_comp_List.append(num_comp)
+
+	avg_comp_size_List.append(avg_comp_size)
 
 	G_i = turn_nk_to_igraph(G)
 
@@ -241,7 +245,7 @@ def BA_attack_igraph(G_copy,num_nodes_to_remove):
 
 		G.removeNode(node_to_remove)
 
-		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 		GC_List.append(GC)
 
@@ -249,7 +253,9 @@ def BA_attack_igraph(G_copy,num_nodes_to_remove):
 
 		num_comp_List.append(num_comp)
 
-	return (GC_List, SGC_List, num_comp_List)
+		avg_comp_size_List.append(avg_comp_size)
+
+	return (GC_List, SGC_List, num_comp_List,avg_comp_size_List)
 
 
 def BA_attack(G_copy,num_nodes_to_remove):
@@ -648,6 +654,14 @@ def get_GC(G):
 
 
 
+def get_avg_comp_size(all_val):
+
+	avg = sum(all_val) / len(all_val)
+
+	return avg
+
+
+
 def get_GC_SGC_number_of_components(G):
 
 	comp = nk.components.DynConnectedComponents(G)
@@ -659,10 +673,11 @@ def get_GC_SGC_number_of_components(G):
 	all_values.sort()
 
 	if len(all_values) == 1:
-		return (all_values[-1], 0,1)
+		return (all_values[-1], 0,1, all_values[-1])
 
 	else:
-		return (all_values[-1],all_values[-2],len(all_values))
+		avg_comp_size = get_avg_comp_size(all_values)
+		return (all_values[-1],all_values[-2],len(all_values),avg_comp_size)
 
 
 
@@ -1176,7 +1191,7 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List, SGC_List, num_comp_List) = BA_attack_igraph(G, int(N * 0.8))
+	(GC_List, SGC_List, num_comp_List, avg_comp_size_List) = BA_attack_igraph(G, int(N * 0.9))
 
 	init_name_GC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_GC"
 
@@ -1184,11 +1199,17 @@ for i in range(num_times):
 
 	init_name_numComp_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_numberOfComponents"
 
+	init_name_avgSize_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_avgComponents"
+
+
 	GC_List_DEG_name = get_name_ER(init_name_GC_DEG, N,k,SEED,radius)
 
 	SGC_DEG_name = get_name_ER(init_name_SGC_DEG, N,k,SEED,radius)
 
 	numComp_DEG_name = get_name_ER(init_name_numComp_DEG, N,k,SEED,radius)
+
+	avgComp_DEG_name = get_name_ER(init_name_avgSize_DEG, N, k, SEED, radius)
+
 
 
 	with open(GC_List_DEG_name,'wb') as handle:
@@ -1199,6 +1220,9 @@ for i in range(num_times):
 
 	with open(numComp_DEG_name,'wb') as handle:
 		pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(avgComp_DEG_name,'wb') as handle:
+		pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
