@@ -1116,7 +1116,7 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List, SGC_List, num_comp_List,avg_comp_size_List, original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 0.8))
+	(GC_List, SGC_List, num_comp_List,avg_comp_size_List, original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 0.9))
 
 	init_name_GC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_GC"
 
