@@ -1128,6 +1128,7 @@ radius = int(sys.argv[6])
 
 #num_times = int(sys.argv[7])
 
+alpha = 1
 
 (G, nodes_conn) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
@@ -1149,7 +1150,6 @@ try:
 except:
 	pass
 
-alpha = 1
 
 
 
