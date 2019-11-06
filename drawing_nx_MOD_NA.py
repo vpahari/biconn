@@ -1026,7 +1026,7 @@ def dBalls_attack_NA(G_copy,radius, init_filename, position, path):
 
 		curr_GC = get_GC(G)
 
-		GC_List.append(GC)
+		GC_List.append(curr_GC)
 
 		removed_degree_str = turn_list_to_str(degree_list[1:])
 		#removed_bet_str = turn_list_to_str(between_list[1:])
