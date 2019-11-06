@@ -1138,9 +1138,10 @@ radius = int(sys.argv[6])
 
 #plt.figure(figsize=(10,10))
 
+path = os.getcwd() + "/" + "MOD_N_" + str(N) + "_kinter_" + str(k_inter) + "_numMod_" + str(num_modules) + "/"
+
 filename = "MOD_N_" + str(N) + "_kinter_" + str(k_inter) + "_numMod_" + str(num_modules) +  ".png"
 
-#GC = get_GC_nodes(G)
 
 try:
 	os.mkdir(path)
@@ -1153,20 +1154,22 @@ alpha = 1
 
 (G, nodes_conn) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
-all_nodes = list(G.nodes())
-all_edges = list(G.edges())
+GC = get_GC_nodes(G)
 
-position=nx.spring_layout(G)
+all_nodes = list(GC.nodes())
+all_edges = list(GC.edges())
 
-nx.drawing.nx_pylab.draw_networkx_nodes(G, nodelist = all_nodes, pos = position, node_size = 0.4, with_labels = False, node_color = 'r')
-nx.drawing.nx_pylab.draw_networkx_edges(G, edgelist = all_edges, pos = position, arrowsize = 0.1, with_labels = False, edge_color = 'b')
+position=nx.spring_layout(GC)
 
-plt.savefig(filename)
+#nx.drawing.nx_pylab.draw_networkx_nodes(G, nodelist = all_nodes, pos = position, node_size = 0.4, with_labels = False, node_color = 'r')
+#nx.drawing.nx_pylab.draw_networkx_edges(G, edgelist = all_edges, pos = position, arrowsize = 0.1, with_labels = False, edge_color = 'b')
 
-plt.clf()
+#plt.savefig(filename)
+
+#plt.clf()
 
 
-"""
+
 path_dball_NA = path + "NADBALL" + "/"
 
 path_dball = path + "DBALL" + "/"
@@ -1183,7 +1186,7 @@ create_graphs_degree(G, new_position,path_degree)
 
 #change_position_to_array(position)
 
-"""
+
 
 
 
