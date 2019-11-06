@@ -1169,6 +1169,8 @@ position=nx.spring_layout(GC)
 #plt.clf()
 
 
+print("AAAA")
+
 
 path_dball_NA = path + "NADBALL" + "/"
 
