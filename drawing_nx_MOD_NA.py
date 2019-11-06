@@ -1129,14 +1129,14 @@ radius = int(sys.argv[6])
 #num_times = int(sys.argv[7])
 
 
-#G = make_WS_graph(dim,N,nei,p,SEED)
+(G, nodes_conn) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
 
-#GC_nodes = get_GC_nodes(G)
+GC_nodes = get_GC_nodes(G)
 
-#new_position = get_position_GC(GC_nodes,position)
+new_position = get_position_GC(GC_nodes,position)
 
-#plt.figure(figsize=(10,10))
+plt.figure(figsize=(10,10))
 
 path = os.getcwd() + "/" + "MOD_N_" + str(N) + "_kinter_" + str(k_inter) + "_numMod_" + str(num_modules) + "/"
 
@@ -1152,14 +1152,13 @@ except:
 alpha = 1
 
 
-(G, nodes_conn) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
-GC = get_GC_nodes(G)
+#GC = get_GC_nodes(G)
 
-all_nodes = list(GC.nodes())
-all_edges = list(GC.edges())
+#all_nodes = list(GC.nodes())
+#all_edges = list(GC.edges())
 
-position=nx.spring_layout(GC)
+#position=nx.spring_layout(G)
 
 #nx.drawing.nx_pylab.draw_networkx_nodes(G, nodelist = all_nodes, pos = position, node_size = 0.4, with_labels = False, node_color = 'r')
 #nx.drawing.nx_pylab.draw_networkx_edges(G, edgelist = all_edges, pos = position, arrowsize = 0.1, with_labels = False, edge_color = 'b')
