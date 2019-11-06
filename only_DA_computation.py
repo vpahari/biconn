@@ -1112,7 +1112,7 @@ adaptive_type = "NA"
 
 for i in range(num_times):
 
-	SEED = SEED * (i+1) + 1
+	SEED = (SEED * (i+1)) + 1
 
 	G = make_ER_Graph(N,k,SEED)
 
