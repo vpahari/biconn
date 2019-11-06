@@ -760,7 +760,7 @@ def dict_to_sorted_list_NA(d):
 
 def create_all_graphs(G, radius,pathNA,pathadp):
 
-	init_fname = "WS_N_" + str(N) + "_dim_" + str(dim)  + "_nei_" +  str(nei)+ "_p_" + str(p) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_numBalls_"  
+	init_fname = "MOD_N_" + str(N) + "_kintra_" + str(k_intra) + "_kinter_" + str(k_inter) + "_numMod_" + str(num_modules) + "_radius_" + str(radius) + "_numBalls_"  
 
 	counter = 0
 
@@ -1140,7 +1140,7 @@ new_position = get_position_GC(GC_nodes,position)
 
 plt.figure(figsize=(10,10))
 
-path = os.getcwd() + "/" + "MOD_N_" + str(N) + "_kinter_" + str(k_inter) + "_numMod_" + str(num_modules) + "/"
+path = os.getcwd() + "/" + "MOD_N_" + str(N) + "_kintra_" + str(k_intra) + "_kinter_" + str(k_inter) + "_numMod_" + str(num_modules) + "/"
 
 filename = "MOD_N_" + str(N) + "_kinter_" + str(k_inter) + "_numMod_" + str(num_modules) +  ".png"
 
