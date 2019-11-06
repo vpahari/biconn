@@ -1132,6 +1132,7 @@ alpha = 1
 
 (G, nodes_conn) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
+position=nx.spring_layout(G)
 
 GC_nodes = get_GC_nodes(G)
 
@@ -1158,7 +1159,6 @@ except:
 #all_nodes = list(GC.nodes())
 #all_edges = list(GC.edges())
 
-#position=nx.spring_layout(G)
 
 #nx.drawing.nx_pylab.draw_networkx_nodes(G, nodelist = all_nodes, pos = position, node_size = 0.4, with_labels = False, node_color = 'r')
 #nx.drawing.nx_pylab.draw_networkx_edges(G, edgelist = all_edges, pos = position, arrowsize = 0.1, with_labels = False, edge_color = 'b')
