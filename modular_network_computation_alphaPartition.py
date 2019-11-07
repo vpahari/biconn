@@ -94,6 +94,8 @@ def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha
 
 		size_G_nodes += len(G_nodes)
 
+		print("AAA")
+
 	for i in range(num_edges_to_connect):
 		
 		(u,v) = get_random_u_v(alpha_nodes_list)
