@@ -64,6 +64,8 @@ def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha
 
 	alpha_nodes_list = []
 
+	set_connected_nodes = set([])
+
 	size_G_nodes = 0
 
 	for G_mod in G_list:
