@@ -89,10 +89,14 @@ def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha
 		for n in G_nodes:
 			G.addNode()
 
+		print("AAA")
+
 		for (a,b) in G_edges:
 			u = size_G_nodes + a
 			v = size_G_nodes + b
 			G.addEdge(u,v)
+
+		print("AAA")
 
 		size_G_nodes += len(G_nodes)
 
