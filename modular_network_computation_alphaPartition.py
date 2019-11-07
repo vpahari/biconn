@@ -76,7 +76,7 @@ def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha
 
 		nodes_list.append(G_nodes)
 
-		num_nodes_to_sample = len(G_nodes) * alpha
+		num_nodes_to_sample = int(len(G_nodes) * alpha)
 
 		print(num_nodes_to_sample)
 
