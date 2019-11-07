@@ -78,6 +78,8 @@ def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha
 
 		num_nodes_to_sample = len(G_nodes) * alpha
 
+		print(num_nodes_to_sample)
+
 		curr_alpha = random.sample(G_nodes, num_nodes_to_sample)
 
 		alpha_nodes_list.append(curr_alpha)
