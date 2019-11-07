@@ -100,6 +100,9 @@ def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha
 		set_of_connected_nodes.add(u)
 		set_of_connected_nodes.add(v)
 
+	print(alpha_nodes_list)
+	print(set_of_connected_nodes)
+
 	return (G, set_of_connected_nodes)
 
 
@@ -1543,10 +1546,10 @@ type_graph = "MOD"
 
 adaptive_type = "NA"
 
+(G, set_connected_nodes) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
 
-
-
+"""
 for i in range(num_times):
 
 	SEED = (SEED * (i+1)) +1
@@ -1649,7 +1652,7 @@ for i in range(num_times):
 		pickle.dump(connected_nodes_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-
+"""
 
 
 
