@@ -86,23 +86,19 @@ def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha
 
 		alpha_nodes_list.append(curr_alpha)
 
-		print("AAA")
 
 		for n in G_nodes:
 			G.addNode()
 
-		print("AAA")
 
 		for (a,b) in G_edges:
 			u = size_G_nodes + a
 			v = size_G_nodes + b
 			G.addEdge(u,v)
 
-		print("AAA")
 
 		size_G_nodes += len(G_nodes)
 
-		print("AAA")
 
 	for i in range(num_edges_to_connect):
 		
@@ -114,6 +110,11 @@ def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha
 
 	print(alpha_nodes_list)
 	print(set_of_connected_nodes)
+
+	for i in alpha_nodes_list:
+		print(len(i))
+
+	print(len(set_of_connected_nodes))
 
 	return (G, set_of_connected_nodes)
 
