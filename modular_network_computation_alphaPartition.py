@@ -1534,7 +1534,7 @@ SEED=int(sys.argv[4])
 
 num_modules = int(sys.argv[5])
 
-alpha = int(sys.argv[6])
+alpha = float(sys.argv[6])
 
 radius = int(sys.argv[7])
 
