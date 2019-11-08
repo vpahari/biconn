@@ -45,6 +45,15 @@ def get_name_ModularNetworks(initial_name,N,k_intra,k_inter,SEED,num_modules,rad
 	return initial_name + "_N_" + str(N) + "_kintra_" + str(k_intra) + "_kinter_" + str(k_inter) + "_SEED_" + str(SEED) + "_numModules_" + str(num_modules) +  "_radius_" + str(radius) + "_" + ".pickle"
 
 
+
+def get_name_ModularNetworks_alpha(initial_name,N,k_intra,k_inter,alpha,SEED,num_modules,radius):
+
+	return initial_name + "_N_" + str(N) + "_kintra_" + str(k_intra) + "_kinter_" + str(k_inter) + "_alpha_" + str(alpha) + "_SEED_" + str(SEED) + "_numModules_" + str(num_modules) +  "_radius_" + str(radius) + "_" + ".pickle"
+
+
+
+
+
 def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha):
 
 	counter = 0
@@ -1726,17 +1735,17 @@ for i in range(num_times):
 	init_name_connectedNode_RemovedNode = adaptive_type + "SGCattackDEG_" + type_graph + "_connectedNodesRemovedNode"
 
 
-	GC_List_DB_name = get_name_ModularNetworks(init_name_GC_DB, N,k_intra,k_inter,SEED,num_modules,radius)
+	GC_List_DB_name = get_name_ModularNetworks_alpha(init_name_GC_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-	SGC_DB_name = get_name_ModularNetworks(init_name_SGC_DB, N,k_intra,k_inter,SEED,num_modules,radius)
+	SGC_DB_name = get_name_ModularNetworks_alpha(init_name_SGC_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-	numComp_DB_name = get_name_ModularNetworks(init_name_numComp_DB, N,k_intra,k_inter,SEED,num_modules,radius)
+	numComp_DB_name = get_name_ModularNetworks_alpha(init_name_numComp_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-	avgComp_DB_name = get_name_ModularNetworks(init_name_avgSize_DB, N,k_intra,k_inter,SEED,num_modules,radius)
+	avgComp_DB_name = get_name_ModularNetworks_alpha(init_name_avgSize_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-	adaptive_degree_list_name = get_name_ModularNetworks(init_name_adaptive_degree_list, N,k_intra,k_inter,SEED,num_modules,radius)
+	adaptive_degree_list_name = get_name_ModularNetworks_alpha(init_name_adaptive_degree_list, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-	connectedNode_RemovedNode_name = get_name_ModularNetworks(init_name_connectedNode_RemovedNode, N,k_intra,k_inter,SEED,num_modules,radius)
+	connectedNode_RemovedNode_name = get_name_ModularNetworks_alpha(init_name_connectedNode_RemovedNode, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
 
 	with open(GC_List_DB_name,'wb') as handle:
