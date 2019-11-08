@@ -1721,7 +1721,7 @@ for i in range(num_times):
 
 	init_name_avgSize_DB = adaptive_type + "SGCattackDEG_" + type_graph +"_avgComponents"
 
-	init_name_adaptive_degree_list = adaptive_type + "SGCattackDB_" + type_graph + "_adaptiveDegreeList"
+	init_name_adaptive_degree_list = adaptive_type + "SGCattackDEG_" + type_graph + "_adaptiveDegreeList"
 
 	init_name_connectedNode_RemovedNode = adaptive_type + "SGCattackDEG_" + type_graph + "_connectedNodesRemovedNode"
 
