@@ -1710,8 +1710,6 @@ type_graph = "MOD"
 
 adaptive_type = "ADAPT"
 
-alpha = 1
-
 
 
 for i in range(num_times):
