@@ -1528,7 +1528,7 @@ for i in range(num_times):
 
 	GC_List_DEG_name = get_name_ModularNetworks_alpha(init_name_GC_DEG, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-	SGC_DEG_name = get_name_ModularNetworks_alpha(init_name_SGC_DEG, N,k_intra,k_inter,SEED,num_modules,radius)
+	SGC_DEG_name = get_name_ModularNetworks_alpha(init_name_SGC_DEG, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
 	numComp_DEG_name = get_name_ModularNetworks_alpha(init_name_numComp_DEG, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
