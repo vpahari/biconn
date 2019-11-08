@@ -513,7 +513,7 @@ def ADA_attack(G_copy,num_nodes_to_remove,set_of_connected_nodes):
 		else:
 			connected_removed_nodes.append(connected_removed_nodes[-1])
 
-	return (GC_List, SGC_List, num_comp_List,avg_comp_size_List, degree_list,connected_removed_nodes)
+	return (GC_List, SGC_List, num_comp_List,avg_comp_List, degree_list,connected_removed_nodes)
 
 
 def BA_attack(G_copy,num_nodes_to_remove):
