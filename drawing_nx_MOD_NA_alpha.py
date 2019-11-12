@@ -295,7 +295,15 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 	print(G_nk.numberOfEdges())
 	print(G_nk.numberOfNodes())
 
-	G_nx = nk.nxadapter.nk2nx(G_nk)
+	#G_nx = nk.nxadapter.nk2nx(G_nk)
+
+	G_nx = nx.Graph()
+
+	for i in list(G_nk.nodes()):
+		G_nx.add_node(i)
+
+	for (a,b) in list(G_nk.edges()):
+		G_nx.add_edge(a,b)
 
 	print(G_nx.number_of_nodes())
 	print(G_nx.number_of_edges())
