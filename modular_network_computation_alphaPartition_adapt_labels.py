@@ -1289,6 +1289,8 @@ def dBalls_attack_adapt(G_copy,radius,set_of_connected_nodes):
 
 	label_list = []
 
+	removed_nodes_list = []
+
 	GC_List = []
 	SGC_List = []
 	num_comp_List = []
@@ -1383,6 +1385,8 @@ def dBalls_attack_adapt(G_copy,radius,set_of_connected_nodes):
 
 			label_list.append(label)
 
+			removed_nodes_list.append(i)
+
 			if i in set_of_connected_nodes:
 				connected_nodes_removedNode.append(connected_nodes_removedNode[-1] + 1)
 			else:
@@ -1405,7 +1409,7 @@ def dBalls_attack_adapt(G_copy,radius,set_of_connected_nodes):
 
 		counter_list.append(counter)
 
-	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, connected_nodes_mainNode, connected_nodes_removedNode, label_list)
+	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, connected_nodes_mainNode, connected_nodes_removedNode, label_list, removed_nodes_list)
 
 
 
@@ -1692,7 +1696,16 @@ for i in range(num_times):
 
 	(G, set_connected_nodes) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
-	(GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, connected_nodes_mainNode, connected_nodes_removedNode) = dBalls_attack_adapt(G,radius,set_connected_nodes)
+	(GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, connected_nodes_mainNode, connected_nodes_removedNode, label_list, removed_nodes_list) = dBalls_attack_adapt(G,radius,set_connected_nodes)
+
+
+	print(label_list)
+
+	print(removed_nodes_list)
+
+
+
+	"""
 
 	init_name_GC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_GC"
 
@@ -1787,4 +1800,4 @@ for i in range(num_times):
 	with open(connectedNode_RemovedNode_name,'wb') as handle:
 		pickle.dump(connected_nodes_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-
+	"""
