@@ -128,7 +128,7 @@ def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha
 	#
 	#	set_of_connected_nodes.add(u)
 	#	set_of_connected_nodes.add(v)
-	
+
 
 	print(alpha_nodes_list)
 	print(set_of_connected_nodes)
@@ -290,11 +290,14 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 
 		print(i.numberOfNodes())
 		print(i.numberOfEdges())
-	
 
+	num_connection_nodes_each_module = int(size_of_one_module * alpha)
+
+	max_num_connections = num_connection_nodes_each_module ** num_modules
+	
 	(G, set_of_connected_nodes) = make_graphs_into_one_multiple_graphs_alpha(list_Graphs,num_edges,alpha)
 
-	print(set_of_connected_nodes)
+	print(len(set_of_connected_nodes))
 
 	return (G, set_of_connected_nodes)
 
