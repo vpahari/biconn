@@ -294,6 +294,8 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 	num_connection_nodes_each_module = int(size_of_one_module * alpha)
 
 	max_num_connections = num_connection_nodes_each_module ** num_modules
+
+	assert (max_num_connections > num_edges)
 	
 	(G, set_of_connected_nodes) = make_graphs_into_one_multiple_graphs_alpha(list_Graphs,num_edges,alpha)
 
