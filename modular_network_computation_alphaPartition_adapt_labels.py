@@ -101,13 +101,34 @@ def make_graphs_into_one_multiple_graphs_alpha(G_list,num_edges_to_connect,alpha
 		size_G_nodes += len(G_nodes)
 
 
-	for i in range(num_edges_to_connect):
-		
-		(u,v) = get_random_u_v(alpha_nodes_list)
-		G.addEdge(u,v)
+	counter  = 0
 
-		set_of_connected_nodes.add(u)
-		set_of_connected_nodes.add(v)
+	connected_edges_set = set([])
+
+	while counter < num_edges_to_connect:
+
+		(u,v) = get_random_u_v(alpha_nodes_list)
+
+		if (u,v) not in connected_edges_set:
+
+			G.addEdge(u,v)
+
+			connected_edges_set.add((u,v))
+
+			set_of_connected_nodes.add(u)
+			set_of_connected_nodes.add(v)
+
+			counter += 1
+
+
+	#for i in range(num_edges_to_connect):
+	#	
+	#	(u,v) = get_random_u_v(alpha_nodes_list)
+	#	G.addEdge(u,v)
+	#
+	#	set_of_connected_nodes.add(u)
+	#	set_of_connected_nodes.add(v)
+	
 
 	print(alpha_nodes_list)
 	print(set_of_connected_nodes)
