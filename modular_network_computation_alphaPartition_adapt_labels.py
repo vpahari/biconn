@@ -274,6 +274,15 @@ def make_graphs_into_one_multiple_graphs(G_list,num_edges_to_connect):
 	return (G, set_of_connected_nodes)
 
 
+
+
+def get_max_connections(num_connection_nodes_each_module, num_modules):
+
+	nchoose2 = int(num_modules * (num_modules - 1) / 2)
+
+	return nchoose2 * (num_connection_nodes_each_module ** 2)
+
+
 def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 
 	size_of_one_module = int(N / num_modules)
@@ -293,7 +302,7 @@ def make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha):
 
 	num_connection_nodes_each_module = int(size_of_one_module * alpha)
 
-	max_num_connections = num_connection_nodes_each_module ** num_modules
+	max_num_connections = get_max_connections(num_connection_nodes_each_module, num_modules)
 
 	assert (max_num_connections > num_edges)
 	
