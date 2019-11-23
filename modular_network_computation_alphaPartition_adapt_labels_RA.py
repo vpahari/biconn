@@ -658,7 +658,7 @@ def big_RA_attack(G_copy,num_nodes_to_remove,num_sims):
 	avg_list_numComp = get_avg_list(big_numComp_List)
 	avg_list_avgSize = get_avg_list(big_avg_comp_List)
 
-	return (avg_list_GC, avg_list_SGC, avg_list_numComp) 
+	return (avg_list_GC, avg_list_SGC, avg_list_numComp, avg_list_avgSize) 
 
 
 
