@@ -769,7 +769,7 @@ def get_dBN(G,node,radius):
 
 def get_all_dBN(G,radius):
 
-	all_nodes = get_GC_nodes(G)
+	all_nodes = list(G.nodes())
 
 	dict_nodes_dBall = {}
 	dict_nodes_ball = {}
