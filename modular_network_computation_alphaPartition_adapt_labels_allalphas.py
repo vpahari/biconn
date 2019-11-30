@@ -1726,17 +1726,17 @@ N=int(sys.argv[1])
 
 k_intra=float(sys.argv[2])
 
-k_inter=float(sys.argv[3])
+#k_inter=float(sys.argv[3])
 
-SEED=int(sys.argv[4])
+SEED=int(sys.argv[3])
 
-num_modules = int(sys.argv[5])
+num_modules = int(sys.argv[4])
 
 #alpha = float(sys.argv[6])
 
-radius = int(sys.argv[6])
+radius = int(sys.argv[5])
 
-num_times = int(sys.argv[7])
+num_times = int(sys.argv[6])
 
 
 type_graph = "MOD"
@@ -1746,116 +1746,120 @@ adaptive_type = "ADAPT"
 
 alpha_list = [0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.7,0.9,0.99]
 
+kinter_list = [0.01, 0.1, 0.5, 1.0, 2.0, 4.0]
+
 root_SEED = SEED
 
 for alpha in alpha_list:
 
-	SEED = root_SEED
-	
-	for i in range(num_times):
+	for k_inter in kinter_list:
 
-		SEED = (SEED * (i+1)) +1
+		SEED = root_SEED
+		
+		for i in range(num_times):
 
-		(G, set_connected_nodes) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
+			SEED = (SEED * (i+1)) +1
 
-		(GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, connected_nodes_mainNode, connected_nodes_removedNode, label_list, removed_nodes_list) = dBalls_attack_adapt(G,radius,set_connected_nodes)
+			(G, set_connected_nodes) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
-		init_name_GC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_GC"
+			(GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, connected_nodes_mainNode, connected_nodes_removedNode, label_list, removed_nodes_list) = dBalls_attack_adapt(G,radius,set_connected_nodes)
 
-		init_name_dball = adaptive_type +  "SGCattackDB_" + type_graph +"_DBALL"
-		init_name_ball = adaptive_type +  "SGCattackDB_" + type_graph +"_BALL"
+			init_name_GC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_GC"
 
-		init_name_CL = adaptive_type +  "SGCattackDB_" + type_graph +"_CL"
+			init_name_dball = adaptive_type +  "SGCattackDB_" + type_graph +"_DBALL"
+			init_name_ball = adaptive_type +  "SGCattackDB_" + type_graph +"_BALL"
 
-		init_name_deg_mainNode = adaptive_type +  "SGCattackDB_" + type_graph +"_degMainNode"
-		init_name_deg_removedNode = adaptive_type + "SGCattackDB_" + type_graph +"_degRemovedNode"
+			init_name_CL = adaptive_type +  "SGCattackDB_" + type_graph +"_CL"
 
-		init_name_SGC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_SGC"
+			init_name_deg_mainNode = adaptive_type +  "SGCattackDB_" + type_graph +"_degMainNode"
+			init_name_deg_removedNode = adaptive_type + "SGCattackDB_" + type_graph +"_degRemovedNode"
 
-		init_name_numComp_DB = adaptive_type + "SGCattackDB_" + type_graph +"_numberOfComponents"
+			init_name_SGC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_SGC"
 
-		init_name_avgSize_DB = adaptive_type + "SGCattackDB_" + type_graph +"_avgComponents"
+			init_name_numComp_DB = adaptive_type + "SGCattackDB_" + type_graph +"_numberOfComponents"
 
-		init_name_original_degree_main_node = adaptive_type + "SGCattackDB_" + type_graph + "_originalDegreeMainNode"
-		init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_" + type_graph + "_originalDegreeRemovedNode"
+			init_name_avgSize_DB = adaptive_type + "SGCattackDB_" + type_graph +"_avgComponents"
 
-		init_name_original_xi_values = adaptive_type + "SGCattackDB_" + type_graph + "_originalXIValues"
+			init_name_original_degree_main_node = adaptive_type + "SGCattackDB_" + type_graph + "_originalDegreeMainNode"
+			init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_" + type_graph + "_originalDegreeRemovedNode"
 
-		init_name_connectedNode_MainNode = adaptive_type + "SGCattackDB_" + type_graph + "_connectedNodesMainNode"
+			init_name_original_xi_values = adaptive_type + "SGCattackDB_" + type_graph + "_originalXIValues"
 
-		init_name_connectedNode_RemovedNode = adaptive_type + "SGCattackDB_" + type_graph + "_connectedNodesRemovedNode"
+			init_name_connectedNode_MainNode = adaptive_type + "SGCattackDB_" + type_graph + "_connectedNodesMainNode"
 
-		init_name_label_list = adaptive_type + "SGCattackDB_" + type_graph + "_labels"
+			init_name_connectedNode_RemovedNode = adaptive_type + "SGCattackDB_" + type_graph + "_connectedNodesRemovedNode"
 
-
-		GC_List_DB_name = get_name_ModularNetworks_alpha(init_name_GC_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-		CL_name = get_name_ModularNetworks_alpha(init_name_CL, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-		dBall_name = get_name_ModularNetworks_alpha(init_name_dball, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-		ball_name = get_name_ModularNetworks_alpha(init_name_ball, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-		deg_mainNode_name = get_name_ModularNetworks_alpha(init_name_deg_mainNode, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-		deg_removedNode_name = get_name_ModularNetworks_alpha(init_name_deg_removedNode, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-		SGC_DB_name = get_name_ModularNetworks_alpha(init_name_SGC_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-		numComp_DB_name = get_name_ModularNetworks_alpha(init_name_numComp_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-		avgComp_DB_name = get_name_ModularNetworks_alpha(init_name_avgSize_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-		original_degree_main_node_name = get_name_ModularNetworks_alpha(init_name_original_degree_main_node, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-		original_degree_removed_node_name = get_name_ModularNetworks_alpha(init_name_original_degree_removed_node, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-		original_xi_values_name = get_name_ModularNetworks_alpha(init_name_original_xi_values, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-		connectedNode_MainNode_name = get_name_ModularNetworks_alpha(init_name_connectedNode_MainNode, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-		connectedNode_RemovedNode_name = get_name_ModularNetworks_alpha(init_name_connectedNode_RemovedNode, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-		label_list_name = get_name_ModularNetworks_alpha(init_name_label_list, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+			init_name_label_list = adaptive_type + "SGCattackDB_" + type_graph + "_labels"
 
 
-		with open(GC_List_DB_name,'wb') as handle:
-			pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+			GC_List_DB_name = get_name_ModularNetworks_alpha(init_name_GC_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-		with open(CL_name,'wb') as handle:
-			pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+			CL_name = get_name_ModularNetworks_alpha(init_name_CL, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-		with open(dBall_name,'wb') as handle:
-			pickle.dump(size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+			dBall_name = get_name_ModularNetworks_alpha(init_name_dball, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+			ball_name = get_name_ModularNetworks_alpha(init_name_ball, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-		with open(ball_name,'wb') as handle:
-			pickle.dump(size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+			deg_mainNode_name = get_name_ModularNetworks_alpha(init_name_deg_mainNode, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+			deg_removedNode_name = get_name_ModularNetworks_alpha(init_name_deg_removedNode, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-		with open(deg_mainNode_name,'wb') as handle:
-			pickle.dump(degree_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+			SGC_DB_name = get_name_ModularNetworks_alpha(init_name_SGC_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-		with open(deg_removedNode_name,'wb') as handle:
-			pickle.dump(degree_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+			numComp_DB_name = get_name_ModularNetworks_alpha(init_name_numComp_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-		with open(SGC_DB_name,'wb') as handle:
-			pickle.dump(SGC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+			avgComp_DB_name = get_name_ModularNetworks_alpha(init_name_avgSize_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-		with open(numComp_DB_name,'wb') as handle:
-			pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+			original_degree_main_node_name = get_name_ModularNetworks_alpha(init_name_original_degree_main_node, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+			original_degree_removed_node_name = get_name_ModularNetworks_alpha(init_name_original_degree_removed_node, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-		with open(avgComp_DB_name,'wb') as handle:
-			pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+			original_xi_values_name = get_name_ModularNetworks_alpha(init_name_original_xi_values, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-		with open(original_degree_main_node_name,'wb') as handle:
-			pickle.dump(original_degree_main_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
+			connectedNode_MainNode_name = get_name_ModularNetworks_alpha(init_name_connectedNode_MainNode, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+			connectedNode_RemovedNode_name = get_name_ModularNetworks_alpha(init_name_connectedNode_RemovedNode, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
-		with open(original_degree_removed_node_name,'wb') as handle:
-			pickle.dump(original_degree_removed_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-		with open(original_xi_values_name,'wb') as handle:
-			pickle.dump(original_xi_values, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-		with open(connectedNode_MainNode_name,'wb') as handle:
-			pickle.dump(connected_nodes_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-		with open(label_list_name,'wb') as handle:
-			pickle.dump(label_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+			label_list_name = get_name_ModularNetworks_alpha(init_name_label_list, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
 
-	
+			with open(GC_List_DB_name,'wb') as handle:
+				pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(CL_name,'wb') as handle:
+				pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(dBall_name,'wb') as handle:
+				pickle.dump(size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(ball_name,'wb') as handle:
+				pickle.dump(size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(deg_mainNode_name,'wb') as handle:
+				pickle.dump(degree_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(deg_removedNode_name,'wb') as handle:
+				pickle.dump(degree_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(SGC_DB_name,'wb') as handle:
+				pickle.dump(SGC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(numComp_DB_name,'wb') as handle:
+				pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(avgComp_DB_name,'wb') as handle:
+				pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(original_degree_main_node_name,'wb') as handle:
+				pickle.dump(original_degree_main_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(original_degree_removed_node_name,'wb') as handle:
+				pickle.dump(original_degree_removed_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(original_xi_values_name,'wb') as handle:
+				pickle.dump(original_xi_values, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(connectedNode_MainNode_name,'wb') as handle:
+				pickle.dump(connected_nodes_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+			with open(label_list_name,'wb') as handle:
+				pickle.dump(label_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+		
