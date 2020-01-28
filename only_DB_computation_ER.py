@@ -1142,12 +1142,6 @@ for i in range(num_times):
 	with open(avgSize_DB_name,'wb') as handle:
 		pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(original_degree_main_node_name,'wb') as handle:
-		pickle.dump(original_degree_main_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-	with open(original_degree_removed_node_name,'wb') as handle:
-		pickle.dump(original_degree_removed_node, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
 	with open(original_xi_values_name,'wb') as handle:
 		pickle.dump(original_xi_values, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
