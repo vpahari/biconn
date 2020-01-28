@@ -696,6 +696,25 @@ def get_degree_dict(G):
 	return final_dict
 
 
+def get_all_dBN_allNodes(G,radius):
+
+	all_nodes = list(G.nodes())
+
+	dict_nodes_dBall = {}
+	dict_nodes_ball = {}
+	dict_nodes_x_i = {}
+
+	for n in all_nodes:
+
+		(dBall,ball) = get_dBN(G,n,radius)
+
+
+		dict_nodes_dBall[n] = len(dBall)
+		dict_nodes_ball[n] = len(ball)
+		dict_nodes_x_i[n] = len(dBall) / len(ball)
+
+	return (dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i)
+
 
 def dBalls_attack_adapt(G_copy,radius):
 
@@ -738,7 +757,7 @@ def dBalls_attack_adapt(G_copy,radius):
 
 	num_nodes_to_remove = G.numberOfNodes()
 
-	(dict_nodes_dBall,dict_nodes_ball,original_dict_nodes_x_i) = get_all_dBN(G,radius)
+	(dict_nodes_dBall,dict_nodes_ball,original_dict_nodes_x_i) = get_all_dBN_allNodes(G,radius)
 
 	original_xi_values = []
 
