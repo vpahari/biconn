@@ -1895,6 +1895,8 @@ for i in range(num_times):
 
 	(G, set_of_connected_nodes) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
+	print(G.numberOfNodes())
+
 	(GC_List, SGC_List, num_comp_List, avg_comp_size_List,adaptive_degree_list,connected_removed_nodes,label_list) = ADA_attack(G,int(N*0.9),set_of_connected_nodes)
 
 	init_name_GC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_GC"
