@@ -479,6 +479,10 @@ def ADA_attack(G_copy,num_nodes_to_remove,set_of_connected_nodes):
 
 	G = copy_graph(G_copy)
 
+	print("ADA")
+
+	print(G.numberOfNodes())
+
 	GC_List = []
 
 	SGC_List = []
