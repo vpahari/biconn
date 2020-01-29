@@ -1864,17 +1864,17 @@ N=int(sys.argv[1])
 
 k_intra=float(sys.argv[2])
 
-#k_inter=float(sys.argv[3])
+k_inter=float(sys.argv[3])
 
-SEED=int(sys.argv[3])
+SEED=int(sys.argv[4])
 
-num_modules = int(sys.argv[4])
+num_modules = int(sys.argv[5])
 
-#alpha = float(sys.argv[6])
+alpha = float(sys.argv[6])
 
-radius = int(sys.argv[5])
+radius = int(sys.argv[7])
 
-num_times = int(sys.argv[6])
+num_times = int(sys.argv[8])
 
 
 type_graph = "MOD"
@@ -1882,75 +1882,68 @@ type_graph = "MOD"
 adaptive_type = "ADAPT"
 
 
-alpha_list = [0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.7,0.9,0.99]
+#alpha_list = [0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.7,0.9,0.99]
 
-kinter_list = [0.01, 0.1, 0.5, 1.0, 2.0, 4.0]
-
-root_SEED = SEED
-
-for alpha in alpha_list:
-
-	for k_inter in kinter_list:
-
-		SEED = root_SEED
-		
-		for i in range(num_times):
-
-			SEED = (SEED * (i+1)) +1
-
-			(G, set_of_connected_nodes) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
-
-			(GC_List, SGC_List, num_comp_List, avg_comp_size_List,adaptive_degree_list,connected_removed_nodes,label_list) = ADA_attack(G,int(N*0.9),set_of_connected_nodes)
-
-			init_name_GC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_GC"
-
-			init_name_SGC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_SGC"
-
-			init_name_numComp_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_numberOfComponents"
-
-			init_name_avgSize_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_avgComponents"
-
-			init_name_connectedNode_RemovedNode = adaptive_type + "SGCattackDEG_" + type_graph + "_connectedNodesRemovedNode"
-
-			init_name_adaptive_degree = adaptive_type + "SGCattackDEG_" + type_graph + "_adaptiveDegree"
-
-			init_name_label_list = adaptive_type + "SGCattackDEG_" + type_graph + "_labels"
-
-			GC_List_DEG_name = get_name_ModularNetworks_alpha(init_name_GC_DEG, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-			SGC_DEG_name = get_name_ModularNetworks_alpha(init_name_SGC_DEG, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-			numComp_DEG_name = get_name_ModularNetworks_alpha(init_name_numComp_DEG, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-			avgComp_DEG_name = get_name_ModularNetworks_alpha(init_name_avgSize_DEG, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-			connectedNode_RemovedNode_name = get_name_ModularNetworks_alpha(init_name_connectedNode_RemovedNode, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-			adaptive_degree_name = get_name_ModularNetworks_alpha(init_name_adaptive_degree, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
-
-			label_list_name = get_name_ModularNetworks_alpha(init_name_label_list, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+#kinter_list = [0.01, 0.1, 0.5, 1.0, 2.0, 4.0]
 
 
-			with open(GC_List_DEG_name,'wb') as handle:
-				pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+for i in range(num_times):
 
-			with open(SGC_DEG_name,'wb') as handle:
-				pickle.dump(SGC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	SEED = (SEED * (i+1)) +1
 
-			with open(numComp_DEG_name,'wb') as handle:
-				pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	(G, set_of_connected_nodes) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
-			with open(avgComp_DEG_name,'wb') as handle:
-				pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	(GC_List, SGC_List, num_comp_List, avg_comp_size_List,adaptive_degree_list,connected_removed_nodes,label_list) = ADA_attack(G,int(N*0.9),set_of_connected_nodes)
 
-			with open(connectedNode_RemovedNode_name,'wb') as handle:
-				pickle.dump(connected_removed_nodes, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	init_name_GC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_GC"
 
-			with open(adaptive_degree_name,'wb') as handle:
-				pickle.dump(adaptive_degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	init_name_SGC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_SGC"
 
-			with open(label_list_name,'wb') as handle:
-				pickle.dump(label_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	init_name_numComp_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_numberOfComponents"
+
+	init_name_avgSize_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_avgComponents"
+
+	init_name_connectedNode_RemovedNode = adaptive_type + "SGCattackDEG_" + type_graph + "_connectedNodesRemovedNode"
+
+	init_name_adaptive_degree = adaptive_type + "SGCattackDEG_" + type_graph + "_adaptiveDegree"
+
+	init_name_label_list = adaptive_type + "SGCattackDEG_" + type_graph + "_labels"
+
+	GC_List_DEG_name = get_name_ModularNetworks_alpha(init_name_GC_DEG, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+
+	SGC_DEG_name = get_name_ModularNetworks_alpha(init_name_SGC_DEG, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+
+	numComp_DEG_name = get_name_ModularNetworks_alpha(init_name_numComp_DEG, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+
+	avgComp_DEG_name = get_name_ModularNetworks_alpha(init_name_avgSize_DEG, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+
+	connectedNode_RemovedNode_name = get_name_ModularNetworks_alpha(init_name_connectedNode_RemovedNode, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+
+	adaptive_degree_name = get_name_ModularNetworks_alpha(init_name_adaptive_degree, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+
+	label_list_name = get_name_ModularNetworks_alpha(init_name_label_list, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
+
+
+	with open(GC_List_DEG_name,'wb') as handle:
+		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(SGC_DEG_name,'wb') as handle:
+		pickle.dump(SGC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(numComp_DEG_name,'wb') as handle:
+		pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(avgComp_DEG_name,'wb') as handle:
+		pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(connectedNode_RemovedNode_name,'wb') as handle:
+		pickle.dump(connected_removed_nodes, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(adaptive_degree_name,'wb') as handle:
+		pickle.dump(adaptive_degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(label_list_name,'wb') as handle:
+		pickle.dump(label_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 		
