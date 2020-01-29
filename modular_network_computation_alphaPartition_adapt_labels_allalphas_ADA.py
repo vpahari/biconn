@@ -535,9 +535,9 @@ def ADA_attack(G_copy,num_nodes_to_remove,set_of_connected_nodes):
 
 		degree_sequence.sort(key = itemgetter(1), reverse = True)
 
-		node_to_remove = degree_sequence[i][0]
+		node_to_remove = degree_sequence[0][0]
 
-		curr_degree = degree_sequence[i][1]
+		curr_degree = degree_sequence[0][1]
 
 		adaptive_degree_list.append(curr_degree)
 
