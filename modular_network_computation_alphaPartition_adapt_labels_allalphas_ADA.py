@@ -519,6 +519,8 @@ def ADA_attack(G_copy,num_nodes_to_remove,set_of_connected_nodes):
 
 	for i in range(num_nodes_to_remove):
 
+		print(i)
+
 		degree = nk.centrality.DegreeCentrality(G)
 
 		degree.run()
