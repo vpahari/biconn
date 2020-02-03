@@ -1114,7 +1114,7 @@ print(G.numberOfEdges())
 
 N = G.numberOfNodes()
 E = G.numberOfEdges()
-k = N / (2 * E) 
+k = (2 * E) / N
 
 print(N)
 print(E)
