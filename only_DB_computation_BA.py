@@ -88,13 +88,9 @@ def make_ER_Graph(N,k,SEED):
 
 def make_BA_Graph(N,k,SEED):
 
-	m = int((N * k) / 2)
+	k = int(k/2)
 
-	print("AAA")
-
-	print(m)
-
-	G_nx = nx.barabasi_albert_graph(N, m, SEED)
+	G_nx = nx.barabasi_albert_graph(N, k, SEED)
 
 	G_nk = nk.nxadapter.nx2nk(G_nx)
 
