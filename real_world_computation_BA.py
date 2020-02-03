@@ -13,7 +13,7 @@ import igraph as ig
 import numpy as np
 import os
 import itertools
-import pandas as pd
+
 
 
 def get_name_WS(initial_name, dim, size, nei, p, SEED,radius):
@@ -84,33 +84,6 @@ def make_ER_Graph(N,k,SEED):
 	G_nk = nk.nxadapter.nx2nk(G_nx)
 
 	return G_nk
-
-
-def make_realworldnetwork(file_name):
-
-	df = pd.read_excel(file_name)
-
-	file_len = len(df.source)
-
-	total_nodes = df.source[file_len - 1]
-
-	listOfNodes = [i for i in range(total_nodes)]
-
-	fixed_G = nx.Graph()
-
-	fixed_G.add_nodes_from(listOfNodes)
-
-	for i in range(file_len):
-
-		source = int(df.source[i])
-		target = int(df.target[i])
-
-		fixed_G.add_edge(source, target)
-
-	G_nk = nk.nxadapter.nx2nk(fixed_G)
-
-	return G_nk
-
 
 
 
@@ -201,6 +174,89 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 	return (GC_List, SGC_List, num_comp_List, degree_list)
 
+def turn_nk_to_igraph(G):
+
+	G_i = ig.Graph()
+
+	nodes_list = list(G.nodes())
+	edges_list = list(G.edges())
+
+	G_i.add_vertices(nodes_list)
+	G_i.add_edges(edges_list)
+
+	return G_i
+
+
+def betweenness_igraph(G):
+
+	between_list = G.betweenness(directed = False)
+
+	between_dict = []
+
+	print(between_list)
+
+	for i in range(len(between_list)):
+
+		between_dict.append((i,between_list[i]))
+
+	return between_dict
+
+
+
+def BA_attack_igraph(G_copy,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+
+	SGC_List = []
+
+	num_comp_List = []
+
+	avg_comp_size_List = []
+
+	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+
+	SGC_List.append(SGC)
+
+	num_comp_List.append(num_comp)
+
+	avg_comp_size_List.append(avg_comp_size)
+
+	G_i = turn_nk_to_igraph(G)
+
+	between_sequence = betweenness_igraph(G_i)
+
+	random.shuffle(between_sequence)
+
+	between_sequence.sort(key = itemgetter(1), reverse = True)
+
+	print(between_sequence)
+	
+	for i in range(num_nodes_to_remove):
+		
+		node_to_remove = between_sequence[i][0]
+
+		between_score =  between_sequence[i][1]
+
+		print(i, node_to_remove, between_score)
+
+		G.removeNode(node_to_remove)
+
+		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+
+		GC_List.append(GC)
+
+		SGC_List.append(SGC)
+
+		num_comp_List.append(num_comp)
+
+		avg_comp_size_List.append(avg_comp_size)
+
+	return (GC_List, SGC_List, num_comp_List,avg_comp_size_List)
+
 
 def BA_attack(G_copy,num_nodes_to_remove):
 
@@ -208,7 +264,17 @@ def BA_attack(G_copy,num_nodes_to_remove):
 
 	GC_List = []
 
-	GC_List.append(get_GC(G))
+	SGC_List = []
+
+	num_comp_List = []
+
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+
+	SGC_List.append(SGC)
+
+	num_comp_List.append(num_comp)
 
 	between = nk.centrality.DynBetweenness(G)
 	between.run()
@@ -218,16 +284,24 @@ def BA_attack(G_copy,num_nodes_to_remove):
 	random.shuffle(between_sequence)
 
 	between_sequence.sort(key = itemgetter(1), reverse = True)
-
+	
 	for i in range(num_nodes_to_remove):
 		
 		node_to_remove = between_sequence[i][0]
 
+		between_score =  between_sequence[i][1]
+
 		G.removeNode(node_to_remove)
 
-		GC_List.append(get_GC(G))
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
-	return GC_List
+		GC_List.append(GC)
+
+		SGC_List.append(SGC)
+
+		num_comp_List.append(num_comp)
+
+	return (GC_List, SGC_List, num_comp_List)
 
 
 def ABA_attack(G_copy,num_nodes_to_remove):
@@ -723,34 +797,14 @@ def get_degree_dict(G):
 	return final_dict
 
 
-def get_all_dBN_allNodes(G,radius):
 
-	all_nodes = list(G.nodes())
-
-	dict_nodes_dBall = {}
-	dict_nodes_ball = {}
-	dict_nodes_x_i = {}
-
-	for n in all_nodes:
-
-		(dBall,ball) = get_dBN(G,n,radius)
-
-
-		dict_nodes_dBall[n] = len(dBall)
-		dict_nodes_ball[n] = len(ball)
-		dict_nodes_x_i[n] = len(dBall) / len(ball)
-
-	return (dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i)
-
-
-def dBalls_attack_adapt(G_copy,radius):
+def dBalls_attack_NA(G_copy,radius):
 
 	G = copy_graph(G_copy)
 
 	GC_List = []
 	SGC_List = []
 	num_comp_List = []
-	avg_comp_size_List = []
 
 	size_dball = [] 
 	size_ball = []
@@ -767,12 +821,11 @@ def dBalls_attack_adapt(G_copy,radius):
 
 	counter_list = []
 
-	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
 	SGC_List.append(SGC)
 	num_comp_List.append(num_comp)
-	avg_comp_size_List.append(avg_comp_size)
 
 	counter_list.append(counter)
 
@@ -784,27 +837,41 @@ def dBalls_attack_adapt(G_copy,radius):
 
 	num_nodes_to_remove = G.numberOfNodes()
 
-	(dict_nodes_dBall,dict_nodes_ball,original_dict_nodes_x_i) = get_all_dBN_allNodes(G,radius)
+	(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+
+	list_to_remove = dict_to_sorted_list_NA(dict_nodes_x_i)
+
+	counter_for_nodes = 0
 
 	original_xi_values = []
 
-	num_nodes_to_remove = G.numberOfNodes()
+	print(dict_nodes_x_i)
 
-	while counter < num_nodes_to_remove:
+	print(list_to_remove)
 
-		print(counter)
+	while counter_for_nodes < len(list_to_remove):
 
-		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
+		curr_nodes_set = set(list(G.nodes()))
 
-		list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
+		node = list_to_remove[counter_for_nodes][0]
 
-		if len(list_to_remove) == 0:
-			break
+		print(node,dict_nodes_dBall[node])
 
-		node = get_random_dball(list_to_remove)
+
+		if node not in curr_nodes_set:
+			counter_for_nodes += 1
+			continue
+
+
 		(dBall,ball) = get_dBN(G,node,radius) 
 
-		original_xi_values.append(original_dict_nodes_x_i[node])
+		original_xi_values.append(list_to_remove[counter_for_nodes][1])
+
+
+		if len(dBall) == 0:
+			counter_for_nodes += 1
+			continue
+
 
 		size_dball.append(len(dBall))
 		size_ball.append(len(ball))
@@ -832,18 +899,21 @@ def dBalls_attack_adapt(G_copy,radius):
 			G.removeNode(i)
 			counter += 1
 
-		print(GC)
-		
-		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
 		GC_List.append(GC)
 		SGC_List.append(SGC)
 		num_comp_List.append(num_comp)
-		avg_comp_size_List.append(avg_comp_size)
+
 
 		counter_list.append(counter)
 
-	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values)
+		counter_for_nodes += 1
+
+
+
+
+	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values)
 
 
 
@@ -1099,11 +1169,39 @@ def get_result(G, radius):
 	return (GC_List_DB, SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
 
 
+def make_realworldnetwork(file_name):
+
+	df = pd.read_excel(file_name)
+
+	file_len = len(df.source)
+
+	total_nodes = df.source[file_len - 1]
+
+	listOfNodes = [i for i in range(total_nodes)]
+
+	fixed_G = nx.Graph()
+
+	fixed_G.add_nodes_from(listOfNodes)
+
+	for i in range(file_len):
+
+		source = int(df.source[i])
+		target = int(df.target[i])
+
+		fixed_G.add_edge(source, target)
+
+	G_nk = nk.nxadapter.nx2nk(fixed_G)
+
+	return G_nk
+
+
+
+
 radius = int(sys.argv[1])
 
-adaptive_type = "ADAPT"
+adaptive_type = "NA"
 
-graph_type = "NETSCICOLLAB"
+type_graph = "NETSCICOLLAB"
 
 fileName = "network_science_collaborators.xlsx"
 
@@ -1122,74 +1220,44 @@ print(N)
 print(E)
 print(k)
 
-(GC_List, SGC_List, num_comp_List,avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values) = dBalls_attack_adapt(G,radius)
 
-init_name_GC_DB = adaptive_type + "SGCattackDB_" + graph_type + "_GC"
+(GC_List, SGC_List, num_comp_List, avg_comp_size_List) = BA_attack_igraph(G, int(N * 0.9))
 
-init_name_dball = adaptive_type + "SGCattackDB_" + graph_type + "_DBALL"
-init_name_ball = adaptive_type + "SGCattackDB_" + graph_type + "_BALL"
+init_name_GC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_GC"
 
-init_name_CL = adaptive_type + "SGCattackDB_" + graph_type + "_CL"
+init_name_SGC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_SGC"
 
-init_name_deg_mainNode = adaptive_type + "SGCattackDB_" + graph_type + "_degMainNode"
-init_name_deg_removedNode = adaptive_type + "SGCattackDB_" + graph_type + "_degRemovedNode"
+init_name_numComp_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_numberOfComponents"
 
-init_name_SGC_DB = adaptive_type + "SGCattackDB_" + graph_type + "_SGC"
+init_name_avgSize_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_avgComponents"
 
-init_name_numComp_DB = adaptive_type + "SGCattackDB_" + graph_type + "_numberOfComponents"
 
-init_name_avgSize_DB = adaptive_type + "SGCattackDB_" + graph_type + "_avgComponents"
+GC_List_DEG_name = get_name_ER(init_name_GC_DEG, N,k,SEED,radius)
 
-init_name_original_degree_main_node = adaptive_type + "SGCattackDB_" + graph_type + "_originalDegreeMainNode"
-init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_" + graph_type + "_originalDegreeRemovedNode"
+SGC_DEG_name = get_name_ER(init_name_SGC_DEG, N,k,SEED,radius)
 
-init_name_original_xi_values = adaptive_type + "SGCattackDB_" + graph_type + "_originalXIValues"
+numComp_DEG_name = get_name_ER(init_name_numComp_DEG, N,k,SEED,radius)
 
-GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED,radius)
+avgComp_DEG_name = get_name_ER(init_name_avgSize_DEG, N, k, SEED, radius)
 
-CL_name = get_name_ER(init_name_CL, N, k, SEED,radius)
 
-dBall_name = get_name_ER(init_name_dball, N, k, SEED,radius)
-ball_name = get_name_ER(init_name_ball, N, k, SEED,radius)
 
-SGC_DB_name = get_name_ER(init_name_SGC_DB, N, k, SEED, radius)
-numComp_DB_name = get_name_ER(init_name_numComp_DB, N, k, SEED, radius)
-avgSize_DB_name = get_name_ER(init_name_avgSize_DB, N, k, SEED, radius)
-
-deg_mainNode_name = get_name_ER(init_name_deg_mainNode, N, k, SEED,radius)
-deg_removedNode_name = get_name_ER(init_name_deg_removedNode, N, k, SEED,radius)
-
-original_xi_values_name = get_name_ER(init_name_original_xi_values, N, k, SEED,radius)
-
-with open(GC_List_DB_name,'wb') as handle:
+with open(GC_List_DEG_name,'wb') as handle:
 	pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(CL_name,'wb') as handle:
-	pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(dBall_name,'wb') as handle:
-	pickle.dump(size_dball, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(ball_name,'wb') as handle:
-	pickle.dump(size_ball, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(deg_mainNode_name,'wb') as handle:
-	pickle.dump(degree_list_mainNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(deg_removedNode_name,'wb') as handle:
-	pickle.dump(degree_list_removedNode, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-with open(SGC_DB_name,'wb') as handle:
+with open(SGC_DEG_name,'wb') as handle:
 	pickle.dump(SGC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(numComp_DB_name,'wb') as handle:
+with open(numComp_DEG_name,'wb') as handle:
 	pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(avgSize_DB_name,'wb') as handle:
+with open(avgComp_DEG_name,'wb') as handle:
 	pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open(original_xi_values_name,'wb') as handle:
-	pickle.dump(original_xi_values, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+
+
 
 
 
