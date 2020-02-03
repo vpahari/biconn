@@ -94,6 +94,10 @@ def make_BA_Graph(N,k,SEED):
 
 	G_nk = nk.nxadapter.nx2nk(G_nx)
 
+	print(G_nk.numberOfNodes())
+	print(G_nk.numberOfEdges())
+
+
 	return G_nk
 
 
