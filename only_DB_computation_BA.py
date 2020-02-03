@@ -88,7 +88,7 @@ def make_ER_Graph(N,k,SEED):
 
 def make_BA_Graph(N,k,SEED):
 
-	m = (N * k) / 2
+	m = int((N * k) / 2)
 
 	G_nx = nx.barabasi_albert_graph(N, m, SEED)
 
