@@ -1116,6 +1116,8 @@ N = G.numberOfNodes()
 E = G.numberOfEdges()
 k = (2 * E) / N
 
+SEED = 0
+
 print(N)
 print(E)
 print(k)
