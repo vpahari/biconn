@@ -1105,6 +1105,8 @@ fileName = "network_science_collaborators.xlsx"
 
 G = make_realworldnetwork(fileName)
 
+print(G.numberOfNodes())
+print(G.numberOfEdges())
 
 
 """
