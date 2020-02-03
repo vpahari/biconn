@@ -1099,6 +1099,8 @@ def get_result(G, radius):
 	return (GC_List_DB, SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
 
 
+radius = int(sys.argv[1])
+
 adaptive_type = "ADAPT"
 
 graph_type = "NETSCICOLLAB"
@@ -1109,6 +1111,14 @@ G = make_realworldnetwork(fileName)
 
 print(G.numberOfNodes())
 print(G.numberOfEdges())
+
+N = G.numberOfNodes()
+E = G.numberOfEdges()
+k = N / (2 * E) 
+
+print(N)
+print(E)
+print(k)
 
 (GC_List, SGC_List, num_comp_List,avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values) = dBalls_attack_adapt(G,radius)
 
@@ -1133,7 +1143,7 @@ init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_" + graph_
 
 init_name_original_xi_values = adaptive_type + "SGCattackDB_" + graph_type + "_originalXIValues"
 
-GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED,radius)
+GC_List_DB_name += get_name_ER(init_name_GC_DB, N, k, SEED,radius)
 
 CL_name = get_name_ER(init_name_CL, N, k, SEED,radius)
 
