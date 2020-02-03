@@ -92,7 +92,7 @@ def make_BA_Graph(N,k,SEED):
 
 	print("AAA")
 
-	print(num_edges)
+	print(m)
 
 	G_nx = nx.barabasi_albert_graph(N, m, SEED)
 
