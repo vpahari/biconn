@@ -59,6 +59,8 @@ def make_SF_Graph(N,k,exp_out,SEED):
 
 	num_edges = int((N * k) / 2)
 
+	print(num_edges)
+
 	igG = ig.Graph.Static_Power_Law(N,num_edges,exp_out)
 
 	allEdges = igG.get_edgelist()
