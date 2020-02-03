@@ -1094,6 +1094,20 @@ def get_result(G, radius):
 	return (GC_List_DB, SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
 
 
+def make_BA_Graph(N,k,SEED):
+
+	k = int(k/2)
+
+	G_nx = nx.barabasi_albert_graph(N, k, SEED)
+
+	G_nk = nk.nxadapter.nx2nk(G_nx)
+
+	print(G_nk.numberOfNodes())
+	print(G_nk.numberOfEdges())
+
+
+	return G_nk
+
 
 
 N=int(sys.argv[1]) 
@@ -1114,7 +1128,7 @@ for i in range(num_times):
 
 	SEED = (SEED * (i+1)) + 1
 
-	G = make_ER_Graph(N,k,SEED)
+	G = make_BA_Graph(N,k,SEED)
 
 	(GC_List, SGC_List, num_comp_List,avg_comp_size_List, original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 0.9))
 

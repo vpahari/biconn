@@ -86,6 +86,20 @@ def make_ER_Graph(N,k,SEED):
 	return G_nk
 
 
+def make_BA_Graph(N,k,SEED):
+
+	k = int(k/2)
+
+	G_nx = nx.barabasi_albert_graph(N, k, SEED)
+
+	G_nk = nk.nxadapter.nx2nk(G_nx)
+
+	print(G_nk.numberOfNodes())
+	print(G_nk.numberOfEdges())
+
+
+	return G_nk
+
 
 def DA_attack(G_copy,num_nodes_to_remove):
 
@@ -1189,7 +1203,7 @@ for i in range(num_times):
 
 	SEED = SEED * (i+1) + 1
 
-	G = make_ER_Graph(N,k,SEED)
+	G = make_BA_Graph(N,k,SEED)
 
 	(GC_List, SGC_List, num_comp_List, avg_comp_size_List) = BA_attack_igraph(G, int(N * 0.9))
 
