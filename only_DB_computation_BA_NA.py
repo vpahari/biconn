@@ -1095,7 +1095,7 @@ radius = int(sys.argv[4])
 
 num_times = int(sys.argv[5])
 
-type_graph = "ER"
+type_graph = "BA"
 
 adaptive_type = "NA"
 
