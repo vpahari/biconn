@@ -1128,7 +1128,7 @@ num_times = int(sys.argv[5])
 
 type_graph = "BA"
 
-adaptive_type = "NA"
+adaptive_type = "ADAPT"
 
 for i in range(num_times):
 
@@ -1136,7 +1136,7 @@ for i in range(num_times):
 
 	G = make_BA_Graph(N,k,SEED)
 
-	(GC_List, SGC_List, num_comp_List,avg_comp_size_List, original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 0.9))
+	(GC_List, SGC_List, num_comp_List,avg_comp_size_List, adaptive_degree_list) = ADA_attack(G, int(N * 0.9))
 
 	init_name_GC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_GC"
 
@@ -1146,8 +1146,7 @@ for i in range(num_times):
 
 	init_name_avgSize_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_avgComponents"
 
-	init_name_original_degree_list = adaptive_type + "SGCattackDEG_ER_originalDegreeList"
-	init_name_adaptive_degree_list = adaptive_type + "SGCattackDEG_ER_adaptiveDegreeList"
+	init_name_adaptive_degree_list = adaptive_type + "SGCattackDEG_" + type_graph + "_adaptiveDegreeList"
 
 
 
@@ -1158,7 +1157,6 @@ for i in range(num_times):
 	numComp_DEG_name = get_name_ER(init_name_numComp_DEG, N, k, SEED, radius)
 	avgComp_DEG_name = get_name_ER(init_name_avgSize_DEG, N, k, SEED, radius)
 
-	original_degree_list_name = get_name_ER(init_name_original_degree_list, N, k, SEED, radius)
 	adaptive_degree_list_name = get_name_ER(init_name_adaptive_degree_list, N, k, SEED, radius)
 
 
@@ -1170,9 +1168,6 @@ for i in range(num_times):
 
 	with open(numComp_DEG_name,'wb') as handle:
 		pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-	with open(original_degree_list_name,'wb') as handle:
-		pickle.dump(original_degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 	with open(adaptive_degree_list_name,'wb') as handle:
 		pickle.dump(adaptive_degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)

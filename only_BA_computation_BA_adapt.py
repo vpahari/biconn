@@ -86,6 +86,20 @@ def make_ER_Graph(N,k,SEED):
 	return G_nk
 
 
+def make_BA_Graph(N,k,SEED):
+
+	k = int(k/2)
+
+	G_nx = nx.barabasi_albert_graph(N, k, SEED)
+
+	G_nk = nk.nxadapter.nx2nk(G_nx)
+
+	print(G_nk.numberOfNodes())
+	print(G_nk.numberOfEdges())
+
+
+	return G_nk
+
 
 def DA_attack(G_copy,num_nodes_to_remove):
 
@@ -93,25 +107,11 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 	GC_List = []
 
-	SGC_List = []
-
-	num_comp_List = []
-
-	avg_comp_size_List = []
-
 	original_degree_list = []
 
 	adaptive_degree_list = []
 
-	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
-
-	GC_List.append(GC)
-
-	SGC_List.append(SGC)
-
-	num_comp_List.append(num_comp)
-
-	avg_comp_size_List.append(avg_comp_size)
+	GC_List.append(get_GC(G))
 
 	degree = nk.centrality.DegreeCentrality(G)
 
@@ -123,11 +123,7 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 	degree_sequence.sort(key = itemgetter(1), reverse = True)
 
-
 	for i in range(num_nodes_to_remove):
-
-		print("DA")
-		print(i)
 
 		node_to_remove = degree_sequence[i][0]
 
@@ -139,17 +135,9 @@ def DA_attack(G_copy,num_nodes_to_remove):
 
 		G.removeNode(node_to_remove)
 
-		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+		GC_List.append(get_GC(G))
 
-		GC_List.append(GC)
-
-		SGC_List.append(SGC)
-
-		num_comp_List.append(num_comp)
-
-		avg_comp_size_List.append(avg_comp_size)
-
-	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List,original_degree_list,adaptive_degree_list)
+	return (GC_List, original_degree_list,adaptive_degree_list)
 
 
 def ADA_attack(G_copy,num_nodes_to_remove):
@@ -162,17 +150,13 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 	num_comp_List = []
 
-	avg_comp_size_List = []
-
-	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+	(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
 	GC_List.append(GC)
 
 	SGC_List.append(SGC)
 
 	num_comp_List.append(num_comp)
-
-	avg_comp_size_List.append(avg_comp_size)
 
 	degree_list = []
 
@@ -194,6 +178,87 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 		G.removeNode(node_to_remove)
 
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+		GC_List.append(GC)
+
+		SGC_List.append(SGC)
+
+		num_comp_List.append(num_comp)
+
+	return (GC_List, SGC_List, num_comp_List, degree_list)
+
+def turn_nk_to_igraph(G):
+
+	G_i = ig.Graph()
+
+	nodes_list = list(G.nodes())
+	edges_list = list(G.edges())
+
+	G_i.add_vertices(nodes_list)
+	G_i.add_edges(edges_list)
+
+	return G_i
+
+
+def betweenness_igraph(G):
+
+	between_list = G.betweenness(directed = False)
+
+	between_dict = []
+
+	print(between_list)
+
+	for i in range(len(between_list)):
+
+		between_dict.append((i,between_list[i]))
+
+	return between_dict
+
+
+
+def BA_attack_igraph(G_copy,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+
+	SGC_List = []
+
+	num_comp_List = []
+
+	avg_comp_size_List = []
+
+	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+
+	SGC_List.append(SGC)
+
+	num_comp_List.append(num_comp)
+
+	avg_comp_size_List.append(avg_comp_size)
+
+	G_i = turn_nk_to_igraph(G)
+
+	between_sequence = betweenness_igraph(G_i)
+
+	random.shuffle(between_sequence)
+
+	between_sequence.sort(key = itemgetter(1), reverse = True)
+
+	print(between_sequence)
+	
+	for i in range(num_nodes_to_remove):
+		
+		node_to_remove = between_sequence[i][0]
+
+		between_score =  between_sequence[i][1]
+
+		print(i, node_to_remove, between_score)
+
+		G.removeNode(node_to_remove)
+
 		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 		GC_List.append(GC)
@@ -204,38 +269,10 @@ def ADA_attack(G_copy,num_nodes_to_remove):
 
 		avg_comp_size_List.append(avg_comp_size)
 
-	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List, degree_list)
+	return (GC_List, SGC_List, num_comp_List,avg_comp_size_List)
 
 
 def BA_attack(G_copy,num_nodes_to_remove):
-
-	G = copy_graph(G_copy)
-
-	GC_List = []
-
-	GC_List.append(get_GC(G))
-
-	between = nk.centrality.DynBetweenness(G)
-	between.run()
-
-	between_sequence = between.ranking()
-
-	random.shuffle(between_sequence)
-
-	between_sequence.sort(key = itemgetter(1), reverse = True)
-
-	for i in range(num_nodes_to_remove):
-		
-		node_to_remove = between_sequence[i][0]
-
-		G.removeNode(node_to_remove)
-
-		GC_List.append(get_GC(G))
-
-	return GC_List
-
-
-def ABA_attack(G_copy,num_nodes_to_remove):
 
 	G = copy_graph(G_copy)
 
@@ -253,6 +290,56 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 
 	num_comp_List.append(num_comp)
 
+	between = nk.centrality.DynBetweenness(G)
+	between.run()
+
+	between_sequence = between.ranking()
+
+	random.shuffle(between_sequence)
+
+	between_sequence.sort(key = itemgetter(1), reverse = True)
+	
+	for i in range(num_nodes_to_remove):
+		
+		node_to_remove = between_sequence[i][0]
+
+		between_score =  between_sequence[i][1]
+
+		G.removeNode(node_to_remove)
+
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+		GC_List.append(GC)
+
+		SGC_List.append(SGC)
+
+		num_comp_List.append(num_comp)
+
+	return (GC_List, SGC_List, num_comp_List)
+
+
+def ABA_attack(G_copy,num_nodes_to_remove):
+
+	G = copy_graph(G_copy)
+
+	GC_List = []
+
+	SGC_List = []
+
+	num_comp_List = []
+
+	avg_comp_size_List = []
+
+	(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
+
+	GC_List.append(GC)
+
+	SGC_List.append(SGC)
+
+	num_comp_List.append(num_comp)
+
+	avg_comp_size_List.append(avg_comp_size)
+
 	for i in range(num_nodes_to_remove):
 
 		between = nk.centrality.DynBetweenness(G)
@@ -266,7 +353,7 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 
 		G.removeNode(node_to_remove)
 
-		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+		(GC,SGC,num_comp,avg_comp_size) = get_GC_SGC_number_of_components(G)
 
 		GC_List.append(GC)
 
@@ -274,7 +361,9 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 
 		num_comp_List.append(num_comp)
 
-	return (GC_List, SGC_List, num_comp_List)
+		avg_comp_size_List.append(avg_comp_size)
+
+	return (GC_List, SGC_List, num_comp_List,avg_comp_size_List)
 
 
 
@@ -1100,20 +1189,6 @@ def get_result(G, radius):
 	return (GC_List_DB, SGC_List_DB,num_comp_List_DB,counter_list,size_dball,size_ball,degree_list_mainNode,betweenness_list_mainNode,coreness_list_mainNode,degree_list_removedNode,betweenness_list_removedNode,coreness_list_removedNode)
 
 
-def make_BA_Graph(N,k,SEED):
-
-	k = int(k/2)
-
-	G_nx = nx.barabasi_albert_graph(N, k, SEED)
-
-	G_nk = nk.nxadapter.nx2nk(G_nx)
-
-	print(G_nk.numberOfNodes())
-	print(G_nk.numberOfEdges())
-
-
-	return G_nk
-
 
 
 N=int(sys.argv[1]) 
@@ -1128,38 +1203,33 @@ num_times = int(sys.argv[5])
 
 type_graph = "BA"
 
-adaptive_type = "NA"
+adaptive_type = "ADAPT"
 
 for i in range(num_times):
 
-	SEED = (SEED * (i+1)) + 1
+	SEED = SEED * (i+1) + 1
 
 	G = make_BA_Graph(N,k,SEED)
 
-	(GC_List, SGC_List, num_comp_List,avg_comp_size_List, original_degree_list,adaptive_degree_list) = DA_attack(G, int(N * 0.9))
+	(GC_List, SGC_List, num_comp_List, avg_comp_size_List) = ABA_attack(G, int(N * 0.9))
 
-	init_name_GC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_GC"
+	init_name_GC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_GC"
 
-	init_name_SGC_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_SGC"
+	init_name_SGC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_SGC"
 
-	init_name_numComp_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_numberOfComponents"
+	init_name_numComp_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_numberOfComponents"
 
-	init_name_avgSize_DEG = adaptive_type + "SGCattackDEG_" + type_graph +"_avgComponents"
-
-	init_name_original_degree_list = adaptive_type + "SGCattackDEG_ER_originalDegreeList"
-	init_name_adaptive_degree_list = adaptive_type + "SGCattackDEG_ER_adaptiveDegreeList"
+	init_name_avgSize_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_avgComponents"
 
 
+	GC_List_DEG_name = get_name_ER(init_name_GC_DEG, N,k,SEED,radius)
 
-	GC_List_DEG_name = get_name_ER(init_name_GC_DEG, N, k, SEED,radius)
+	SGC_DEG_name = get_name_ER(init_name_SGC_DEG, N,k,SEED,radius)
 
-	SGC_DEG_name = get_name_ER(init_name_SGC_DEG, N, k, SEED, radius)
+	numComp_DEG_name = get_name_ER(init_name_numComp_DEG, N,k,SEED,radius)
 
-	numComp_DEG_name = get_name_ER(init_name_numComp_DEG, N, k, SEED, radius)
 	avgComp_DEG_name = get_name_ER(init_name_avgSize_DEG, N, k, SEED, radius)
 
-	original_degree_list_name = get_name_ER(init_name_original_degree_list, N, k, SEED, radius)
-	adaptive_degree_list_name = get_name_ER(init_name_adaptive_degree_list, N, k, SEED, radius)
 
 
 	with open(GC_List_DEG_name,'wb') as handle:
@@ -1171,14 +1241,16 @@ for i in range(num_times):
 	with open(numComp_DEG_name,'wb') as handle:
 		pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-	with open(original_degree_list_name,'wb') as handle:
-		pickle.dump(original_degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-	with open(adaptive_degree_list_name,'wb') as handle:
-		pickle.dump(adaptive_degree_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
 	with open(avgComp_DEG_name,'wb') as handle:
 		pickle.dump(avg_comp_size_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+
+
+	
+
+
+
 
 
 
