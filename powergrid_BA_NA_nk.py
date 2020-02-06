@@ -1210,7 +1210,9 @@ adaptive_type = "NA"
 
 type_graph = "POWERGRID"
 
-G = nx.read_gml("power.gml", label='id')
+G_nx = nx.read_gml("power.gml", label='id')
+
+G = nk.nxadapter.nx2nk(G_nx)
 
 print(G.numberOfNodes())
 print(G.numberOfEdges())
