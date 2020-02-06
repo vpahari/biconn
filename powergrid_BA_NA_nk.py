@@ -308,7 +308,7 @@ def BA_attack(G_copy,num_nodes_to_remove):
 
 		avg_comp_size_List.append(avg_comp_size)
 
-	return (GC_List, SGC_List, num_comp_List,avg_comp_size_List)
+	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List)
 
 
 def ABA_attack(G_copy,num_nodes_to_remove):
@@ -1208,11 +1208,9 @@ radius = int(sys.argv[1])
 
 adaptive_type = "NA"
 
-type_graph = "NETSCICOLLAB"
+type_graph = "POWERGRID"
 
-fileName = "network_science_collaborators.xlsx"
-
-G = make_realworldnetwork(fileName)
+G = nx.read_gml("power.gml", label='id')
 
 print(G.numberOfNodes())
 print(G.numberOfEdges())
