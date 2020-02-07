@@ -1486,6 +1486,12 @@ def dBalls_attack_adapt(G_copy,radius,set_of_connected_nodes):
 
 		individual_GC_list.append(tuple_GC)
 
+		print(GC)
+
+		print(tuple_GC)
+
+
+
 		if node in set_of_connected_nodes:
 			connected_nodes_mainNode.append(connected_nodes_mainNode[-1] + 1)
 
