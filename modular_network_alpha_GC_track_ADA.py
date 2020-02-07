@@ -504,7 +504,7 @@ def get_GC_size_individual(G, num_modoules, N):
 
 	index = 1
 
-	if 0 in final_list:
+	if 0 in final_list_GC:
 
 		all_comp = get_all_components(G)
 
