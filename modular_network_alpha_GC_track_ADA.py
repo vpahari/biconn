@@ -512,7 +512,7 @@ def get_GC_size_individual(G, num_modoules, N):
 
 			new_GC_nodes = all_comp[index]
 
-			first_node = new_GC_nodes[0]:
+			first_node = new_GC_nodes[0]
 
 			first_node_index =  int(first_node / mod_size)
 
