@@ -1787,7 +1787,7 @@ for i in range(num_times):
 
 	(G, set_connected_nodes) = make_modular_network_ER(N,k_intra,k_inter,num_modules,SEED,alpha)
 
-	(GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, connected_nodes_mainNode, connected_nodes_removedNode, label_list, removed_nodes_list) = dBalls_attack_adapt(G,radius,set_connected_nodes)
+	(GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, connected_nodes_mainNode, connected_nodes_removedNode, label_list, removed_nodes_list,individual_GC_list) = dBalls_attack_adapt(G,radius,set_connected_nodes)
 
 	init_name_GC_DB = adaptive_type + "SGCattackDB_" + type_graph +"_GC"
 
@@ -1816,6 +1816,8 @@ for i in range(num_times):
 
 	init_name_label_list = adaptive_type + "SGCattackDB_" + type_graph + "_labels"
 
+	init_name_individualGC_list = adaptive_type + "SGCattackDB_" + type_graph + "_individualGCList"
+
 
 	GC_List_DB_name = get_name_ModularNetworks_alpha(init_name_GC_DB, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
@@ -1843,6 +1845,7 @@ for i in range(num_times):
 
 	label_list_name = get_name_ModularNetworks_alpha(init_name_label_list, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
+	individualGC_name = get_name_ModularNetworks_alpha(init_name_individualGC_list, N,k_intra,k_inter,alpha,SEED,num_modules,radius)
 
 	with open(GC_List_DB_name,'wb') as handle:
 		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -1885,6 +1888,9 @@ for i in range(num_times):
 
 	with open(label_list_name,'wb') as handle:
 		pickle.dump(label_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(individualGC_name,'wb') as handle:
+		pickle.dump(individual_GC_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 	
