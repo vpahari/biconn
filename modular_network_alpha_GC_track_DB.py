@@ -1364,7 +1364,7 @@ def dBalls_attack_adapt(G_copy,radius,set_of_connected_nodes):
 
 	individual_GC_list = []
 
-	tuple_GC = get_GC_size_individual(G, num_modoules, N)
+	tuple_GC = get_GC_size_individual(G, num_modules, N)
 
 	individual_GC_list.append(tuple_GC)
 
@@ -1482,7 +1482,7 @@ def dBalls_attack_adapt(G_copy,radius,set_of_connected_nodes):
 		num_comp_List.append(num_comp)
 		avg_comp_size_List.append(avg_comp_size)
 
-		tuple_GC = get_GC_size_individual(G, num_modoules, N)
+		tuple_GC = get_GC_size_individual(G, num_modules, N)
 
 		individual_GC_list.append(tuple_GC)
 
