@@ -1346,6 +1346,35 @@ def get_GC_size_individual(G, num_modoules, N):
 
 		final_list_GC[GC_index] = final_list_GC[GC_index] + 1
 
+	index = 1
+
+	if 0 in final_list_GC:
+
+		all_comp = get_all_components(G)
+
+		while 0 in final_list_GC and index < len(all_comp):
+
+			new_GC_nodes = all_comp[index]
+
+			first_node = new_GC_nodes[0]
+
+			first_node_index =  int(first_node / mod_size)
+
+			if final_list_GC[first_node_index] != 0:
+
+				index = index + 1
+
+				continue
+
+			for node in new_GC_nodes:
+
+				GC_index = int(node / mod_size)
+
+				final_list_GC[GC_index] = final_list_GC[GC_index] + 1
+
+			index = index + 1
+
+	
 	final_tuple_GC = tuple(final_list_GC)
 
 	return final_tuple_GC
