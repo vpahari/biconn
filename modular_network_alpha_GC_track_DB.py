@@ -1330,7 +1330,15 @@ def dBalls_attack_NA_MOD(G_copy,radius,set_of_connected_nodes):
 	return (GC_List, SGC_List, num_comp_List, avg_comp_size_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, connected_nodes_mainNode, connected_nodes_removedNode)
 
 
+def get_all_components(G):
+	comp = nk.components.DynConnectedComponents(G)
+	comp.run()
 
+	all_comp = comp.getComponents()
+
+	all_comp.sort(key = len, reverse = True)
+
+	return all_comp
 
 def get_GC_size_individual(G, num_modoules, N):
 

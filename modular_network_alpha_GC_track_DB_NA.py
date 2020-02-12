@@ -1195,6 +1195,16 @@ def change_connected_node_mainNode(node, nodes_list,set_of_connected_nodes):
 
 
 
+def get_all_components(G):
+	comp = nk.components.DynConnectedComponents(G)
+	comp.run()
+
+	all_comp = comp.getComponents()
+
+	all_comp.sort(key = len, reverse = True)
+
+	return all_comp
+
 
 def get_GC_size_individual(G, num_modoules, N):
 
