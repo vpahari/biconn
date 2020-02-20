@@ -719,7 +719,7 @@ def get_original_xi_values(G_copy,radius):
 
 	list_to_remove = dict_to_sorted_list_NA(dict_nodes_x_i)
 
-	original_xi_values = list(map(lambda x : x[0], list_to_remove))
+	original_xi_values = list(map(lambda x : x[1], list_to_remove))
 
 	return original_xi_values
 
