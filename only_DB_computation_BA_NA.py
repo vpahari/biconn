@@ -1123,10 +1123,10 @@ for i in range(num_times):
 
 	init_name_avgSize_DB = adaptive_type + "SGCattackDB_" + type_graph +"_avgComponents"
 
-	init_name_original_degree_main_node = adaptive_type + "SGCattackDB_ER_originalDegreeMainNode"
-	init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_ER_originalDegreeRemovedNode"
+	init_name_original_degree_main_node = adaptive_type + "SGCattackDB_"+ type_graph +"_originalDegreeMainNode"
+	init_name_original_degree_removed_node = adaptive_type + "SGCattackDB_"+ type_graph +"_originalDegreeRemovedNode"
 
-	init_name_original_xi_values = adaptive_type + "SGCattackDB_ER_originalXIValues"
+	init_name_original_xi_values = adaptive_type + "SGCattackDB_"+ type_graph +"_originalXIValues"
 
 
 	GC_List_DB_name = get_name_ER(init_name_GC_DB, N, k, SEED,radius)
