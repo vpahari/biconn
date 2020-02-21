@@ -1171,7 +1171,7 @@ radius = int(sys.argv[1])
 
 adaptive_type = "ADAPT"
 
-type_graph = "AIRPORTNETWORK"
+graph_type = "AIRPORTNETWORK"
 
 G = get_airport_graph()
 
