@@ -1311,7 +1311,7 @@ adaptive_type = "ADAPT"
 
 type_graph = "ENRON"
 
-G = get_airport_graph()
+G = get_enron_graph()
 
 print(G.numberOfNodes())
 print(G.numberOfEdges())
