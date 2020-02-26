@@ -1212,7 +1212,7 @@ adaptive_type = "ADAPT"
 
 if text_to_check == "mr":
 
-	graph_type = "MOUSERETINA"
+	type_graph = "MOUSERETINA"
 
 	txt = "mouse_retina_1.graphml"
 
@@ -1221,7 +1221,7 @@ if text_to_check == "mr":
 
 elif text_to_check == "ka":
 
-	graph_type = "KASTHURI"
+	type_graph = "KASTHURI"
 
 	txt = "kasthuri_graph_v4.graphml"
 
@@ -1230,7 +1230,7 @@ elif text_to_check == "ka":
 
 elif text_to_check == "dm":
 
-	graph_type = "DROSOPHILIA_MEDULLA"
+	type_graph = "DROSOPHILIA_MEDULLA"
 
 	txt = "drosophila_medulla_1.graphml"
 
@@ -1239,7 +1239,7 @@ elif text_to_check == "dm":
 
 elif text_to_check == "r1":
 
-	graph_type = "RATTUSBRAIN1"
+	type_graph = "RATTUSBRAIN1"
 
 	txt = "rattus.norvegicus_brain_1.graphml"
 
@@ -1249,7 +1249,7 @@ elif text_to_check == "r1":
 
 elif text_to_check == "r2":
 
-	graph_type = "RATTUSBRAIN2"
+	type_graph = "RATTUSBRAIN2"
 
 	txt = "rattus.norvegicus_brain_2.graphml"
 
@@ -1259,7 +1259,7 @@ elif text_to_check == "r2":
 
 elif text_to_check == "r3":
 
-	graph_type = "RATTUSBRAIN3"
+	type_graph = "RATTUSBRAIN3"
 
 	txt = "rattus.norvegicus_brain_3.graphml"
 
@@ -1268,7 +1268,7 @@ elif text_to_check == "r3":
 
 elif text_to_check == "rh":
 
-	graph_type = "RHESUSBRAIN1"
+	type_graph = "RHESUSBRAIN1"
 
 	txt = "rhesus_brain_1.graphml"
 
