@@ -1271,7 +1271,9 @@ def get_graphml_graph(text):
 
 	G = nx.read_graphml(text)
 
-	G_nk = nk.nxadapter.nx2nk(G)
+	G_nx = G.to_undirected()
+
+	G_nk = nk.nxadapter.nx2nk(G_nx)
 
 	return G_nk
 
