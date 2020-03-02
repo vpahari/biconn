@@ -1317,7 +1317,7 @@ print(E)
 print(k)
 
 
-(GC_List, SGC_List, num_comp_List, avg_comp_size_List) = BA_attack(G, int(N * 0.9))
+(GC_List, SGC_List, num_comp_List, avg_comp_size_List) = BA_attack_igraph(G, int(N * 0.9))
 
 init_name_GC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_GC"
 
