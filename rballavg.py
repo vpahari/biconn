@@ -1093,7 +1093,7 @@ final_ball_list = []
 
 rootSeed = SEED
 
-for radius in range(2,6):
+for radius in range(2,7):
 
 
 	avg_xi_list = []
