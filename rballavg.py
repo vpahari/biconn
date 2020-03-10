@@ -1150,6 +1150,19 @@ for radius in range(2,7):
 	final_dball_list.append(final_avg_dball)
 
 
+final_xi_list_name = graph_type + "_XIAVGVAL_N_" + str(N) + "_k_" + str(k) + ".pickle"
+final_dball_list_name = graph_type + "_DBALLAVGVAL_N_" + str(N) + "_k_" + str(k) + ".pickle"
+final_ball_list_name = graph_type + "_BALLAVGVAL_N_" + str(N) + "_k_" + str(k) + ".pickle"
+
+with open(final_xi_list_name,'wb') as handle:
+	pickle.dump(final_xi_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(final_dball_list_name,'wb') as handle:
+	pickle.dump(final_dball_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open(final_ball_list_name,'wb') as handle:
+	pickle.dump(final_ball_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
 print(final_xi_list)
 print(final_dball_list)
 print(final_ball_list)
