@@ -1091,6 +1091,7 @@ final_xi_list = []
 final_dball_list = []
 final_ball_list = []
 
+rootSeed = SEED
 
 for radius in range(2,6):
 
@@ -1098,6 +1099,8 @@ for radius in range(2,6):
 	avg_xi_list = []
 	avg_ball_list = []
 	avg_dball_list = []
+
+	SEED = rootSeed
 
 
 	for i in range(num_times):
