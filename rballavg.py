@@ -1080,60 +1080,76 @@ k=float(sys.argv[2])
 
 SEED=int(sys.argv[3])
 
-radius = int(sys.argv[4])
+num_times = int(sys.argv[4])
 
-num_times = int(sys.argv[5])
 
 graph_type = "ER"
 
 adaptive_type = "ADAPT"
 
-avg_xi_list = []
-avg_ball_list = []
-avg_dball_list = []
+final_xi_list = []
+final_dball_list = []
+final_ball_list = []
 
 
-for i in range(num_times):
-
-	SEED = SEED * (i+1) + 1
-
-	G = make_ER_Graph(N,k,SEED)
-
-	(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN_allNodes(G,radius)
-
-	x_i_list = list(dict_nodes_x_i.values())
-
-	dball_list = list(dict_nodes_dBall.values())
-
-	ball_list = list(dict_nodes_ball.values())
-
-	avg_xi = sum(x_i_list) / len(x_i_list)
-
-	avg_dball = sum(dball_list) / len(dball_list)
-
-	avg_ball = sum(ball_list) / len(ball_list)
-
-	avg_xi_list.append(avg_xi)
-
-	avg_ball_list.append(avg_ball)
-
-	avg_dball_list.append(avg_dball)
+for radius in range(2,6):
 
 
-final_avg_xi = sum(avg_xi_list) / len(avg_xi_list)
-
-final_avg_dball = sum(avg_dball_list) / len(avg_dball_list)
-
-final_avg_ball = sum(avg_ball_list) / len(avg_ball_list)
+	avg_xi_list = []
+	avg_ball_list = []
+	avg_dball_list = []
 
 
-print(final_avg_xi)
+	for i in range(num_times):
 
-print(final_avg_dball)
+		SEED = SEED * (i+1) + 1
 
-print(final_avg_ball)
+		G = make_ER_Graph(N,k,SEED)
+
+		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN_allNodes(G,radius)
+
+		x_i_list = list(dict_nodes_x_i.values())
+
+		dball_list = list(dict_nodes_dBall.values())
+
+		ball_list = list(dict_nodes_ball.values())
+
+		avg_xi = sum(x_i_list) / len(x_i_list)
+
+		avg_dball = sum(dball_list) / len(dball_list)
+
+		avg_ball = sum(ball_list) / len(ball_list)
+
+		avg_xi_list.append(avg_xi)
+
+		avg_ball_list.append(avg_ball)
+
+		avg_dball_list.append(avg_dball)
 
 
+	final_avg_xi = sum(avg_xi_list) / len(avg_xi_list)
+
+	final_avg_dball = sum(avg_dball_list) / len(avg_dball_list)
+
+	final_avg_ball = sum(avg_ball_list) / len(avg_ball_list)
+
+
+	print(final_avg_xi)
+
+	print(final_avg_dball)
+
+	print(final_avg_ball)
+
+	final_xi_list.append(final_avg_xi)
+
+	final_ball_list.append(final_avg_ball)
+
+	final_dball_list.append(final_avg_dball)
+
+
+print(final_xi_list)
+print(final_dball_list)
+print(final_ball_list)
 
 
 
