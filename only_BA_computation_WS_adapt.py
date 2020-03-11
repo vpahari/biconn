@@ -342,6 +342,8 @@ def ABA_attack(G_copy,num_nodes_to_remove):
 
 	for i in range(num_nodes_to_remove):
 
+		print(i)
+
 		between = nk.centrality.DynBetweenness(G)
 		between.run()
 
