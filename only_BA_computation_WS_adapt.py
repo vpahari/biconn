@@ -1214,7 +1214,7 @@ for i in range(num_times):
 
 	SEED = SEED * (i+1) + 1
 
-	G = make_BA_Graph(N,k,SEED)
+	G = make_WS_graph(dim,N,nei,p,SEED)
 
 	(GC_List, SGC_List, num_comp_List, avg_comp_size_List) = ABA_attack(G, int(N * 0.9))
 
