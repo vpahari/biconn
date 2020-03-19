@@ -1212,9 +1212,19 @@ def opt_attack(G, radius, percent):
 
 	(GC_List_BET, SGC_List, num_comp_List,avg_comp_size_List) = ABA_attack(G, int(newN * 0.9))
 
-	final_GC_list = GC_List_db + GC_List_BET[1:]
+	new_GC_List_BET = GC_List_BET[1:]
 
-	return final_GC_list
+	final_GC_list = GC_List_db + new_GC_List_BET
+
+	curr_counter = counter_list[-1] + 1
+
+	for i in new_GC_List_BET:
+
+		counter_list.append(curr_counter)
+
+		curr_counter += 1
+
+	return (final_GC_list, counter_list)
 
 
 
@@ -1242,15 +1252,22 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	GC_List = opt_attack(G, radius, percent)
+	(GC_List, CL_list) = opt_attack(G, radius, percent)
 
 	init_name_GC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_GC_p_" + str(percent)
 
+	init_name_CL_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_CL_p_" + str(percent)
+
 	GC_List_DEG_name = get_name_ER(init_name_GC_DEG, N,k,SEED,radius)
+	
+	GC_List_CL_name = get_name_ER(init_name_CL_DEG, N,k,SEED,radius)
 
 
 	with open(GC_List_DEG_name,'wb') as handle:
 		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(GC_List_CL_name,'wb') as handle:
+		pickle.dump(CL_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
