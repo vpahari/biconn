@@ -753,7 +753,7 @@ def dBalls_attack_adapt(G,radius, num_nodes_to_remove):
 
 	original_degree_removed_node = []
 
-	(dict_nodes_dBall,dict_nodes_ball,original_dict_nodes_x_i) = get_all_dBN_allNodes(G,radius)
+	(dict_nodes_dBall,dict_nodes_ball,original_dict_nodes_x_i) = get_all_dBN(G,radius)
 
 	original_xi_values = []
 
@@ -771,7 +771,7 @@ def dBalls_attack_adapt(G,radius, num_nodes_to_remove):
 		node = get_random_dball(list_to_remove)
 		(dBall,ball) = get_dBN(G,node,radius) 
 
-		original_xi_values.append(original_dict_nodes_x_i[node])
+		original_xi_values.append(0)
 
 		size_dball.append(len(dBall))
 		size_ball.append(len(ball))
