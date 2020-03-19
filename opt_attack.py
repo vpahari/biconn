@@ -1242,7 +1242,7 @@ for i in range(num_times):
 
 	G = make_ER_Graph(N,k,SEED)
 
-	GC_List = opt_attack(G, int(N * 0.9))
+	GC_List = opt_attack(G, radius, percent)
 
 	init_name_GC_DEG = adaptive_type + "SGCattackBET_" + type_graph +"_GC_p_" + str(percent)
 
