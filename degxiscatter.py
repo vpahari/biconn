@@ -1015,7 +1015,7 @@ all_nodes = list(G.nodes())
 
 all_nodes.sort()
 
-(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G)
+(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G, radius)
 
 keys = dict_nodes_x_i.keys()
 
