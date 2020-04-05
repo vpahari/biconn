@@ -6,7 +6,7 @@ import pickle
 import math
 from functools import reduce
 import networkx as nx
-import igraph as igG
+import igraph as ig
 import sys
 import random
 
