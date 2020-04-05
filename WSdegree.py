@@ -173,7 +173,7 @@ N = 5000
 
 SEED = 4123
 
-p = int(sys.argv[1])
+p = float(sys.argv[1])
 
 SEED_list = []
 
