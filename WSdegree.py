@@ -8,6 +8,7 @@ from functools import reduce
 import networkx as nx
 import igraph as igG
 import sys
+import random
 
 
 def make_WS_graph(dim,size,nei,p,SEED):
