@@ -29,7 +29,7 @@ def make_WS_graph(dim,size,nei,p,SEED):
 
 	fixed_G.add_edges_from(allEdges)
 
-	return G_nx
+	return fixed_G
 
 
 
