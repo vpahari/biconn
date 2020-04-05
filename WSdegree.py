@@ -7,7 +7,7 @@ import math
 from functools import reduce
 import networkx as nx
 import igraph as igG
-
+import sys
 
 
 def make_WS_graph(dim,size,nei,p,SEED):
