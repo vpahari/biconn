@@ -886,7 +886,7 @@ path_degree = path + "DEG" + "/"
 
 path_bet = path + "BET" + "/"
 
-create_all_graphs(G, radius, path_dball_NA, path_dball)
+#create_all_graphs(G, radius, path_dball_NA, path_dball)
 
 create_graphs_degree(G, new_position,path_degree)
 
