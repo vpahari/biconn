@@ -1069,12 +1069,6 @@ def get_result(G, radius):
 
 
 
-def get_dballs_approx(G,radius):
-
-
-
-
-
 
 
 N=int(sys.argv[1]) 
