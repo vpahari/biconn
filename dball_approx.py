@@ -1105,10 +1105,10 @@ for i in range(len(list_to_remove)):
 	CL_list.append(CL_list[-1] + dball_size)
 
 
-with open("GC_for_sim",'wb') as handle:
+with open("GC_for_sim.pickle",'wb') as handle:
 	pickle.dump(GC_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-with open("CL_for_sim",'wb') as handle:
+with open("CL_for_sim.pickle",'wb') as handle:
 	pickle.dump(CL_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
