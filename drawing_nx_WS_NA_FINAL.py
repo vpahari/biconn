@@ -584,6 +584,7 @@ def ADA_attack(G_copy,num_nodes_to_remove, init_filename, position, path):
 	except:
 		pass
 
+	GC = get_GC_component(G)
 
 	init_GC_nodes = get_GC_nodes(G)
 
