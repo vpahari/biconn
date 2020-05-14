@@ -797,7 +797,7 @@ def create_graphs_degree(G, position,path):
 
 	num_nodes_to_remove = int(G.number_of_nodes() * 0.5)
 
-	init_filename = "WS_N_" + str(N) + "_dim_" + str(dim)  + "_nei_" +  str(nei)+ "_p_" + str(p) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "/" + "_numBalls_" 
+	init_filename = "WS_N_" + str(N) + "_dim_" + str(dim)  + "_nei_" +  str(nei)+ "_p_" + str(p) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_numBalls_" 
 
 	
 	(GC_List, degree_list) = ADA_attack(G,num_nodes_to_remove, init_filename, position, path)
