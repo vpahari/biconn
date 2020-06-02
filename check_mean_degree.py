@@ -970,7 +970,7 @@ def node_removal_process_list(G,deg_list, num_nodes_to_remove):
 
 	num_comp_List = []
 
-	while counter < len(num_nodes_to_remove):
+	while counter < (num_nodes_to_remove):
 
 		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
 
