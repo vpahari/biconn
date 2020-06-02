@@ -918,26 +918,106 @@ def dBalls_attack_NA(G_copy,radius):
 
 
 
+
+
+def get_degree_list(G):
+
+	degree = nk.centrality.DegreeCentrality(G)
+
+	degree.run()
+
+	degree_sequence = degree.ranking()
+
+	random.shuffle(degree_sequence)
+
+	degree_sequence.sort(key = itemgetter(1), reverse = True)
+
+	return degree_sequence
+
+
+def turn_list_into_G(deg_list, G_nodes_set):
+
+	new_list_degree = []
+
+	for node in deg_list:
+
+		if node in G_nodes_set:
+
+			new_list_degree.append(node)
+
+	return new_list_degree
+
+
+
+
+
+
+def node_removal_process_list(G,deg_list, num_nodes_to_remove):
+
+	deg_list_node = list(map(lambda x : x[0], deg_list))
+
+	remaining_nodes = list(G.nodes())
+
+	set_remaining_nodes = set(remaining_nodes)
+
+	new_deg_list = turn_list_into_G(deg_list_node, set_remaining_nodes)
+
+	counter = 0
+
+	GC_List = []
+
+	SGC_List = []
+
+	num_comp_List = []
+
+	while counter < len(num_nodes_to_remove):
+
+		(GC,SGC,num_comp) = get_GC_SGC_number_of_components(G)
+
+		node_to_remove = new_deg_list[counter]
+
+		GC_List.append(GC)
+
+		SGC_List.append(SGC)
+
+		num_comp_List.append(num_comp)
+
+		G.removeNode(node_to_remove)
+
+		counter += 1
+
+	return (GC_List, SGC_List, num_comp_List)
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 	print("dball attack")
 
 	G = copy_graph(G_copy)
 
+	original_degree_list = get_degree_list(G)
+
 	GC_List = []
 	SGC_List = []
 	num_comp_List = []
-
-	size_dball = [] 
-	size_ball = []
-
-	degree_list_mainNode = []
-	betweenness_list_mainNode = []
-	coreness_list_mainNode = []
-
-	degree_list_removedNode = []
-	betweenness_list_removedNode = []
-	coreness_list_removedNode = []
 
 	counter = 0
 
@@ -951,12 +1031,6 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 	counter_list.append(counter)
 
-	original_degree_dict = get_degree_dict(G)
-
-	original_degree_main_node = []
-
-	original_degree_removed_node = []
-
 	num_nodes_to_remove = G.numberOfNodes()
 
 	(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
@@ -965,25 +1039,14 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 	counter_for_nodes = 0
 
-	original_xi_values = []
-
 	print(dict_nodes_x_i)
 
 	print(list_to_remove)
 
-	mean_degree_list = []
-	mean_degree_list_GC = []
-
 	mean_deg = calculate_mean_degree(G)
 	mean_deg_GC = calculate_mean_degree_GC(G)
 
-	mean_degree_list.append(mean_deg)
-	mean_degree_list_GC.append(mean_deg_GC)
-
-	removed_nodes = []
-
 	while counter_for_nodes < len(list_to_remove):
-
 		
 		#print(counter_for_nodes)
 		
@@ -1000,36 +1063,9 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 		(dBall,ball) = get_dBN(G,node,radius) 
 
-		original_xi_values.append(list_to_remove[counter_for_nodes][1])
-
 		if len(dBall) == 0:
 			counter_for_nodes += 1
 			continue
-
-
-		size_dball.append(len(dBall))
-		size_ball.append(len(ball))
-
-		removed_nodes += dBall
-
-		combined_list = [node] + dBall
-
-		original_degree_main_node.append(original_degree_dict[node])
-
-		for i in dBall:
-			original_degree_removed_node.append(original_degree_dict[i])
-
-		#between_list = get_betweenness_score_list(G,combined_list)
-		degree_list = get_degree_score_list(G,combined_list)
-		#coreness_list = get_coreness_score_list(G,combined_list)
-
-		degree_list_mainNode.append(degree_list[0])
-		#betweenness_list_mainNode.append(between_list[0])
-		#coreness_list_mainNode.append(coreness_list[0])
-
-		degree_list_removedNode += degree_list[1:]
-		#betweenness_list_removedNode += between_list[1:]
-		#coreness_list_removedNode += coreness_list[1:]
 
 		for i in dBall:
 			G.removeNode(i)
@@ -1040,7 +1076,6 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 		GC_List.append(GC)
 		SGC_List.append(SGC)
 		num_comp_List.append(num_comp)
-
 
 		counter_list.append(counter)
 
@@ -1063,7 +1098,7 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 		if mean_deg <= mean_deg_threshold:
 			 
-			(GC_List_DA, SGC_List_DA, num_comp_List_DA, original_degree_list_DA,adaptive_degree_list_DA,mean_degree_list_DA,mean_degree_list_GC_DA,removed_nodes_DA) = DA_attack(G, (int(G.numberOfNodes() * 0.99)))
+			(GC_List_DA, SGC_List_DA, num_comp_List_DA) = node_removal_process_list(G,original_degree_list, G.numberOfNodes())
 			break
 
 	GC_List_DA_Length = len(GC_List_DA[1:])
@@ -1079,7 +1114,7 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 	num_comp_List += num_comp_List_DA[1:]
 
 
-	return (GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list, mean_degree_list_GC,removed_nodes)
+	return (GC_List, SGC_List, num_comp_List, counter_list)
 
 
 
@@ -1417,21 +1452,30 @@ threshold = float(sys.argv[6])
 
 adaptive_type = "NA"
 
+network_type = "ER"
+
 for i in range(num_times):
 
 	SEED = (SEED * (i+1)) + 1
 
 	G = make_ER_Graph(N,k,SEED)
 
-	(GC_List, SGC_List, num_comp_List, counter_list,size_dball,size_ball,degree_list_mainNode,degree_list_removedNode,original_degree_main_node,original_degree_removed_node, original_xi_values, mean_degree_list_DB, mean_degree_list_GC_DB, removed_nodes_DB) = new_optimal_attack(G, radius,threshold)
+	(GC_List, SGC_List, num_comp_List, counter_list) = new_optimal_attack(G, radius,threshold)
 
 
-	init_CL_name = adaptive_type + "SGCattackDB_ER_CL_threshold_" + str(threshold)
-	init_GC_name = adaptive_type + "SGCattackDB_ER_GC_threshold_" + str(threshold)
+	init_CL_name = adaptive_type + "SGCattackDB_" + network_type + "_CL_threshold_" + str(threshold)
+	init_GC_name = adaptive_type + "SGCattackDB_" + network_type + "_GC_threshold_" + str(threshold)
+	init_SGC_name = adaptive_type + "SGCattackDB_" + network_type + "_SGC_threshold_" + str(threshold)
+	init_numlist_name = adaptive_type + "SGCattackDB_" + network_type + "_numberOfComponents_threshold_" + str(threshold)
+
 
 	CL_name = get_name_ER(init_CL_name, N, k, SEED,radius)
-
 	GC_name = get_name_ER(init_GC_name, N, k, SEED,radius)
+	SGC_name = get_name_ER(init_SGC_name, N, k, SEED,radius)
+	numlist_name = get_name_ER(init_numlist_name, N, k, SEED,radius)
+
+
+
 
 	with open(CL_name,'wb') as handle:
 		pickle.dump(counter_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -1439,40 +1483,15 @@ for i in range(num_times):
 	with open(GC_name,'wb') as handle:
 		pickle.dump(GC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+	with open(SGC_name,'wb') as handle:
+		pickle.dump(SGC_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+	with open(numlist_name,'wb') as handle:
+		pickle.dump(num_comp_List, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
 
 
-
-
-"""
-figname = "changingMeanDeg" + "_N_" + str(N) + "_k_" + str(k) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + ".png" 
-
-x_list = [i for i in range(len(mean_degree_list_DA))]
-
-print(len(mean_degree_list_DB))
-print(len(mean_degree_list_GC_DB))
-
-print(len(mean_degree_list_DA))
-print(len(mean_degree_list_GC_DA))
-
-
-plt.xlabel('nodes_removed', fontsize=20)
-plt.ylabel('mean_degree', fontsize=20, rotation=0, labelpad=20)
-plt.title("chaning mean deg", fontsize=20)
-
-plt.plot(counter_list, mean_degree_list_DB, label = "dball full Graph")
-plt.plot(counter_list, mean_degree_list_GC_DB, label = "dball GC")
-
-plt.plot(x_list, mean_degree_list_DA, label = "DA full Graph")
-plt.plot(x_list, mean_degree_list_GC_DA, label = "DA GC")
-
-#plt.xlim(0,0.2)
-plt.legend(loc='best')
-plt.tight_layout() 
-plt.savefig(figname)
-plt.clf()
-"""
 
 
