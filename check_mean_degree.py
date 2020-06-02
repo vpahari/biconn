@@ -1463,10 +1463,10 @@ for i in range(num_times):
 	(GC_List, SGC_List, num_comp_List, counter_list) = new_optimal_attack(G, radius,threshold)
 
 
-	init_CL_name = adaptive_type + "SGCattackDB_" + network_type + "_CL_threshold_" + str(threshold)
-	init_GC_name = adaptive_type + "SGCattackDB_" + network_type + "_GC_threshold_" + str(threshold)
-	init_SGC_name = adaptive_type + "SGCattackDB_" + network_type + "_SGC_threshold_" + str(threshold)
-	init_numlist_name = adaptive_type + "SGCattackDB_" + network_type + "_numberOfComponents_threshold_" + str(threshold)
+	init_CL_name = adaptive_type + "SGCattackDB_" + network_type + "_CL_NEWthreshold_" + str(threshold)
+	init_GC_name = adaptive_type + "SGCattackDB_" + network_type + "_GC_NEWthreshold_" + str(threshold)
+	init_SGC_name = adaptive_type + "SGCattackDB_" + network_type + "_SGC_NEWthreshold_" + str(threshold)
+	init_numlist_name = adaptive_type + "SGCattackDB_" + network_type + "_numberOfComponents_NEWthreshold_" + str(threshold)
 
 
 	CL_name = get_name_ER(init_CL_name, N, k, SEED,radius)
