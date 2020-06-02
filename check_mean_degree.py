@@ -1093,9 +1093,6 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 		print(mean_deg_GC)
 
-		mean_degree_list.append(mean_deg)
-		mean_degree_list_GC.append(mean_deg_GC)
-
 		if mean_deg <= mean_deg_threshold:
 			 
 			(GC_List_DA, SGC_List_DA, num_comp_List_DA) = node_removal_process_list(G,original_degree_list, G.numberOfNodes())
