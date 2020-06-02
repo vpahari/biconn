@@ -976,6 +976,8 @@ def node_removal_process_list(G,deg_list, num_nodes_to_remove):
 
 		node_to_remove = new_deg_list[counter]
 
+		print(counter)
+
 		GC_List.append(GC)
 
 		SGC_List.append(SGC)
