@@ -1245,6 +1245,13 @@ def get_gemsec_data(name_of_data):
 	print(G.number_of_nodes())
 	print(G.number_of_edges())
 
+	G_nk = nk.nxadapter.nx2nk(G)
+
+	return G_nk
+
+
+
+
 
 
 
