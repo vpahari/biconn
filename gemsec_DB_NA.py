@@ -1255,7 +1255,7 @@ name_of_file = str(sys.argv[2])
 
 adaptive_type = "NA"
 
-graph_type = "GEMSEC_" + name_of_file
+type_graph = "GEMSEC_" + name_of_file
 
 G = get_gemsec_data(name_of_file)
 
