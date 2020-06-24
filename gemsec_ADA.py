@@ -14,7 +14,7 @@ import numpy as np
 import os
 import itertools
 import pandas as pd
-
+import glob
 
 
 def get_name_WS(initial_name, dim, size, nei, p, SEED,radius):
@@ -1299,7 +1299,7 @@ name_of_file = str(sys.argv[2])
 
 adaptive_type = "ADAPT"
 
-graph_type = "GEMSEC_" + name_of_file
+type_graph = "GEMSEC_" + name_of_file
 
 G = get_gemsec_data(name_of_file)
 
