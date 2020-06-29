@@ -1345,7 +1345,7 @@ def dBalls_attack_adapt(G_copy,radius,set_of_connected_nodes):
 		node = get_random_dball(list_to_remove)
 		(dBall,ball) = get_dBN(G,node,radius) 
 
-		original_xi_values.append(original_dict_nodes_x_i[node])
+		#original_xi_values.append(original_dict_nodes_x_i[node])
 
 		size_dball.append(len(dBall))
 		size_ball.append(len(ball))
