@@ -1118,7 +1118,7 @@ def get_best_greedy_node(G):
 
 	print(len(GC_nodes) - GC)
 
-	return i
+	return greedy_node
 
 
 
@@ -1148,6 +1148,8 @@ def greedy_attack(G_copy, num_nodes_to_remove):
 	avg_comp_size_List.append(avg_comp_size)
 
 	for i in range(num_nodes_to_remove):
+
+		print(GC)
 
 		node_to_remove = get_best_greedy_node(G)
 
