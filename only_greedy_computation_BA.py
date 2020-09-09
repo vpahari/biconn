@@ -30,6 +30,21 @@ def get_name_SF(initial_name,N,k,exp_out,SEED,radius):
 	return initial_name + "_N_" + str(N) + "_k_" + str(k) + "_expout_" + str(exp_out) + "_SEED_" + str(SEED) + "_radius_" + str(radius) + "_" + ".pickle"
 
 
+def make_BA_Graph(N,k,SEED):
+
+	k = int(k/2)
+
+	G_nx = nx.barabasi_albert_graph(N, k, SEED)
+
+	G_nk = nk.nxadapter.nx2nk(G_nx)
+
+	print(G_nk.numberOfNodes())
+	print(G_nk.numberOfEdges())
+
+
+	return G_nk
+
+
 def make_WS_graph(dim,size,nei,p,SEED):
 
 	N = size ** dim
