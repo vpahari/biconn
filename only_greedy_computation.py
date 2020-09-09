@@ -1191,7 +1191,7 @@ num_times = int(sys.argv[5])
 
 type_graph = "ER"
 
-adaptive_type = "NA"
+adaptive_type = "ADAPT"
 
 for i in range(num_times):
 
