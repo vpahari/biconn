@@ -1100,7 +1100,7 @@ def get_best_greedy_node(G):
 
 	GC = len(GC_nodes) + 1
 
-	greedy_node = None
+	greedy_node = GC_nodes[0]
 
 	for i in GC_nodes:
 
