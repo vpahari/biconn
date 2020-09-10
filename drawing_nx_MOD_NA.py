@@ -699,6 +699,8 @@ def create_graphs(G, main_node, nodes_list, init_filename, position, counter, ra
 
 	plt.text(x, y - delta * 2,"ball_size = " + str(ball_len))
 
+	"""
+
 	plt.text(x, y - delta * 3,"degree_main = " + str(degree_mainNode))
 
 	plt.text(x, y - delta * 4,"between_main = " + str(between_mainNode))
@@ -710,6 +712,8 @@ def create_graphs(G, main_node, nodes_list, init_filename, position, counter, ra
 	plt.text(x, y - delta * 7,"between_removed = " + str(removed_bet_str))
 
 	plt.text(x, y - delta * 8,"coreness_removed = " + str(removed_core_str))
+
+	"""
 
 	plt.savefig(new_filename)
 
