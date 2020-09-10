@@ -1035,7 +1035,7 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 	mean_deg = calculate_mean_degree(G)
 	mean_deg_GC = calculate_mean_degree_GC(G)
 
-	while counter_for_nodes < len(list_to_remove):
+	while counter < num_nodes_to_remove:
 		
 		#print(counter_for_nodes)
 		
