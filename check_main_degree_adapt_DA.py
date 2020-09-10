@@ -1083,8 +1083,9 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 		print(mean_deg_GC)
 
 		if mean_deg <= mean_deg_threshold:
-			 
-			(GC_List_DA, SGC_List_DA, num_comp_List_DA) = node_removal_process_list(G,original_degree_list, G.numberOfNodes())
+
+			(GC_List_DA, SGC_List_DA, num_comp_List_DA, deglist) = ADA_attack(G, G.numberOfNodes())
+			
 			break
 
 	GC_List_DA_Length = len(GC_List_DA[1:])
