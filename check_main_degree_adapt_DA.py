@@ -1083,7 +1083,7 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 
 		if mean_deg <= mean_deg_threshold:
 
-			(GC_List_DA, SGC_List_DA, num_comp_List_DA, deglist) = ADA_attack(G, G.numberOfNodes())
+			(GC_List_DA, SGC_List_DA, num_comp_List_DA, deglist) = ADA_attack(G, int(G.numberOfNodes() * 0.9))
 			
 			break
 
