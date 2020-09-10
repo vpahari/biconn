@@ -1041,20 +1041,17 @@ def new_optimal_attack(G_copy,radius,mean_deg_threshold):
 		
 		curr_nodes_set = set(list(G.nodes()))
 
-		node = list_to_remove[counter_for_nodes][0]
+		(dict_nodes_dBall,dict_nodes_ball,dict_nodes_x_i) = get_all_dBN(G,radius)
 
-		#print(node,dict_nodes_dBall[node])
+		list_to_remove = dict_to_sorted_list(dict_nodes_x_i)
 
-		if node not in curr_nodes_set:
-			counter_for_nodes += 1
-			continue
+		if len(list_to_remove) == 0:
+			break
+		
 
+		node = get_random_dball(list_to_remove)
 
-		(dBall,ball) = get_dBN(G,node,radius) 
-
-		if len(dBall) == 0:
-			counter_for_nodes += 1
-			continue
+		(dBall,ball) = get_dBN(G,node,radius)
 
 		for i in dBall:
 			G.removeNode(i)
