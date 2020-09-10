@@ -638,7 +638,7 @@ def get_GC_SGC_number_of_components(G):
 	all_values = list(all_comp_sizes.values())
 	all_values.sort()
 
-	print(all_values)
+	#print(all_values)
 
 	if len(all_values) == 1:
 		return (all_values[-1], 0, 1)
