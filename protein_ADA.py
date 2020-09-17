@@ -1175,7 +1175,11 @@ def get_protein_data(name_of_data):
 
 		counter = 0
 
+		count = 0
+
 		for new_line in reader:
+
+			count += 1
 
 			if new_line[0] in csv_to_node_dict:
 
@@ -1191,7 +1195,7 @@ def get_protein_data(name_of_data):
 
 			if new_line[1] in csv_to_node_dict:
 
-				v = csv_to_node_dict[new_line[0]]
+				v = csv_to_node_dict[new_line[1]]
 
 			else:
 
@@ -1215,6 +1219,8 @@ def get_protein_data(name_of_data):
 		fh.close()
 
 		G_nk = nk.nxadapter.nx2nk(G)
+
+		print(count)
 
 	return G_nk
 
