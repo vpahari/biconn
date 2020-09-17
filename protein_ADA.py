@@ -1222,7 +1222,7 @@ def get_protein_data(name_of_data):
 
 		print(count)
 
-	return (G_nk, G)
+	return G_nk
 
 	
 
