@@ -1232,10 +1232,11 @@ G = get_protein_data("protein")
 
 N = G.numberOfNodes()
 E = G.numberOfEdges()
+k = (2 * E) / N
 
 print(N)
 print(E)
-
+print(k)
 
 
 
