@@ -1216,7 +1216,7 @@ def get_protein_data(name_of_data):
 
 
 
-G = get_gemsec_data("protein")
+G = get_protein_data("protein")
 
 N = G.numberOfNodes()
 E = G.numberOfEdges()
