@@ -14,7 +14,7 @@ import numpy as np
 import os
 import itertools
 import pandas as pd
-
+import glob
 
 def get_name_WS(initial_name, dim, size, nei, p, SEED,radius):
 
