@@ -1210,7 +1210,9 @@ def get_protein_data(name_of_data):
 
 		fh.close()
 
-	return G
+		G_nk = nk.nxadapter.nx2nk(G)
+
+	return G_nk
 
 	
 
