@@ -1228,29 +1228,18 @@ def get_protein_data(name_of_data):
 
 
 
-G = get_protein_data("protein")
-
-N = G.numberOfNodes()
-E = G.numberOfEdges()
-k = (2 * E) / N
-
-print(N)
-print(E)
-print(k)
 
 
 
 
-"""
 radius = int(sys.argv[1])
 
 adaptive_type = "ADAPT"
 
-type_graph = "NETSCICOLLAB"
+type_graph = "PROTEIN"
 
-fileName = "protein.csv"
 
-G = make_realworldnetwork(fileName)
+G = get_protein_data("protein")
 
 
 print(G.numberOfNodes())
@@ -1309,5 +1298,5 @@ with open(avgComp_DEG_name,'wb') as handle:
 
 
 
-"""
+
 
