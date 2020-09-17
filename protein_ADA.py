@@ -1206,6 +1206,10 @@ def get_protein_data(name_of_data):
 
 				G.add_edge(u,v)
 
+			else:
+
+				print(u,v)
+
 
 
 		fh.close()
