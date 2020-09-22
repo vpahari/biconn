@@ -745,6 +745,8 @@ def get_all_dBN_allNodes(G,radius):
 
 def dBalls_attack_adapt(G_copy,radius):
 
+	print("START")
+
 	G = copy_graph(G_copy)
 
 	GC_List = []
