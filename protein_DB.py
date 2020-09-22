@@ -1178,7 +1178,7 @@ radius = int(sys.argv[1])
 
 adaptive_type = "ADAPT"
 
-type_graph = "PROTEIN"
+graph_type = "PROTEIN"
 
 
 G = get_protein_data("protein")
